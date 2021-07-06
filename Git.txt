@@ -1,0 +1,70 @@
+https://blog.naver.com/l998-07-18/222420127800
+
+1. git 설치와 github 가입 / Respository 생성
+
+2. git init - git 저장소 생성
+  - 실제 .git 폴더가 생성됨
+
+3. 사용자 설정
+git config --global user.name "thjo"
+git config --global user.email "fortunejth@gmail.com"
+
+-- 프로젝트마다 다른이름, 이메일을 쓰고 싶을 떄는 --global을 삭제하면 --local defaullt이기 떄문에 된다고 함
+--설정확인
+git config user.name 	//사용자 이름 설정
+git config user.email 	//사용자 메일주소 설정
+
+4. git status
+-- 파일 상태들을 확인
+-- "untracked"는 말 그대로 추적하지 않는 파일들 즉 git에서 관리하지 않는 파일을 의미
+
+5. git add
+-- 파일을 추적시작하는 명령어
+git add -A 	//-A는 전체 파일을 의미함
+6. git commit
+-- 변화를 확정
+-- -m: 메시지를 넣는다 
+-- -a , -am
+
+
+6. git log
+ -- commit 히스토리를 보여줌
+
+
+7. git reset
+-- 이전 내역으로 복구하는 명령어
+-- git reset -돌아가고 싶은 시점을 적음
+-- -hard는 현시점에서 복구시점 사이 commit을 모두삭제하니 주의해야 한다
+-- -soft, -mixed
+
+8. git revert
+-- commit을 취소해주는 명령. 이때 git revert는 이전 commit들은 모두 유지하고, revert commit을 추가해주는 것이기 때문에 다른사람들과 같이 작업할떄 충돌위험이 적다 
+-- git revert -취소하고 싶은 commit을 적음
+
+9. git branch
+-- 새로운 branch 생성
+
+
+10. git checkout
+-- 다른 branch로 전환
+
+
+11. git merge
+-- branch를 합침
+
+12. git rebase
+-- merge와 같이 branch를 합치는 또 다른 방법, 좀 더 히스토리를 깔끔하게 관리함
+
+
+13. git branch -D
+-- 불필요한 branch 삭제
+
+
+
+https://blog.naver.com/l998-07-18/222420447088
+
+
+
+
+
+
