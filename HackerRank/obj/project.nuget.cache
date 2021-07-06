@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "uNu81eIpsRYMYap/5MKF44+MZKK1CUjEYHw+uApsdYhhYnCCMKmyNZo0TnQIZ069f5+Mku63N9HHPEETmz0O3Q==",
+  "dgSpecHash": "YtuH0MBTnTRqYx0+H4pVkYyaY+DNofNF2M43x87Vj2Zqg85OjZjmZw+ounlAYbzMWDW6k/7sEGX0HwFDsZ5pFw==",
   "success": true,
-  "projectFilePath": "C:\\Projects\\Pesonal\\Sources\\PracticeAlgorithm\\HackerRank\\HackerRank.csproj",
+  "projectFilePath": "C:\\Projects\\Pesonal\\Sources\\JKWorld\\PracticeAlgorithm\\HackerRank\\HackerRank.csproj",
   "expectedPackageFiles": [
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.app\\2.1.0\\microsoft.netcore.app.2.1.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.dotnetapphost\\2.1.0\\microsoft.netcore.dotnetapphost.2.1.0.nupkg.sha512",

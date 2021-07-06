@@ -695,11 +695,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\Pesonal\\Sources\\PracticeAlgorithm\\LeetCode\\LeetCode.csproj",
+      "projectUniqueName": "C:\\Projects\\Pesonal\\Sources\\JKWorld\\PracticeAlgorithm\\LeetCode\\LeetCode.csproj",
       "projectName": "LeetCode",
-      "projectPath": "C:\\Projects\\Pesonal\\Sources\\PracticeAlgorithm\\LeetCode\\LeetCode.csproj",
+      "projectPath": "C:\\Projects\\Pesonal\\Sources\\JKWorld\\PracticeAlgorithm\\LeetCode\\LeetCode.csproj",
       "packagesPath": "C:\\Users\\Takhoon\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\Pesonal\\Sources\\PracticeAlgorithm\\LeetCode\\obj\\",
+      "outputPath": "C:\\Projects\\Pesonal\\Sources\\JKWorld\\PracticeAlgorithm\\LeetCode\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",

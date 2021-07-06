@@ -269,6 +269,23 @@ namespace HackerRank
 
         }
 
+        //Sequence Equation
+        //https://www.hackerrank.com/challenges/permutation-equation/problem?h_r=next-challenge&h_v=zen&h_r=next-challenge&h_v=zen
+        public static List<int> permutationEquation(List<int> p)
+        {
+            Dictionary<int, int> hashMap = new Dictionary<int, int>();
+
+            int i = 1;
+            foreach(int v in p)
+                hashMap.Add(v, i++);
+
+            List<int> results = new List<int>();
+            for(i = 1; i <=p.Count; i++)
+                results.Add(hashMap[hashMap[i]]);
+
+            return results;
+        }
+
 
     }
 }

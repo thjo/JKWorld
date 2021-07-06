@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projects\\Pesonal\\Sources\\PracticeAlgorithm\\HackerRank\\HackerRank.csproj": {}
+    "C:\\Projects\\Pesonal\\Sources\\JKWorld\\PracticeAlgorithm\\HackerRank\\HackerRank.csproj": {}
   },
   "projects": {
-    "C:\\Projects\\Pesonal\\Sources\\PracticeAlgorithm\\HackerRank\\HackerRank.csproj": {
+    "C:\\Projects\\Pesonal\\Sources\\JKWorld\\PracticeAlgorithm\\HackerRank\\HackerRank.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\Pesonal\\Sources\\PracticeAlgorithm\\HackerRank\\HackerRank.csproj",
+        "projectUniqueName": "C:\\Projects\\Pesonal\\Sources\\JKWorld\\PracticeAlgorithm\\HackerRank\\HackerRank.csproj",
         "projectName": "HackerRank",
-        "projectPath": "C:\\Projects\\Pesonal\\Sources\\PracticeAlgorithm\\HackerRank\\HackerRank.csproj",
+        "projectPath": "C:\\Projects\\Pesonal\\Sources\\JKWorld\\PracticeAlgorithm\\HackerRank\\HackerRank.csproj",
         "packagesPath": "C:\\Users\\Takhoon\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\Pesonal\\Sources\\PracticeAlgorithm\\HackerRank\\obj\\",
+        "outputPath": "C:\\Projects\\Pesonal\\Sources\\JKWorld\\PracticeAlgorithm\\HackerRank\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",

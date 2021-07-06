@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projects\\Pesonal\\Sources\\PracticeAlgorithm\\PracticeAlgorithm\\PracticeAlgorithm.csproj": {}
+    "C:\\Projects\\Pesonal\\Sources\\JKWorld\\PracticeAlgorithm\\PracticeAlgorithm\\PracticeAlgorithm.csproj": {}
   },
   "projects": {
-    "C:\\Projects\\Pesonal\\Sources\\PracticeAlgorithm\\PracticeAlgorithm\\PracticeAlgorithm.csproj": {
+    "C:\\Projects\\Pesonal\\Sources\\JKWorld\\PracticeAlgorithm\\PracticeAlgorithm\\PracticeAlgorithm.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\Pesonal\\Sources\\PracticeAlgorithm\\PracticeAlgorithm\\PracticeAlgorithm.csproj",
+        "projectUniqueName": "C:\\Projects\\Pesonal\\Sources\\JKWorld\\PracticeAlgorithm\\PracticeAlgorithm\\PracticeAlgorithm.csproj",
         "projectName": "PracticeAlgorithm",
-        "projectPath": "C:\\Projects\\Pesonal\\Sources\\PracticeAlgorithm\\PracticeAlgorithm\\PracticeAlgorithm.csproj",
+        "projectPath": "C:\\Projects\\Pesonal\\Sources\\JKWorld\\PracticeAlgorithm\\PracticeAlgorithm\\PracticeAlgorithm.csproj",
         "packagesPath": "C:\\Users\\Takhoon\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\Pesonal\\Sources\\PracticeAlgorithm\\PracticeAlgorithm\\obj\\",
+        "outputPath": "C:\\Projects\\Pesonal\\Sources\\JKWorld\\PracticeAlgorithm\\PracticeAlgorithm\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
