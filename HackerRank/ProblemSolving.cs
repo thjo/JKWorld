@@ -287,6 +287,30 @@ namespace HackerRank
         }
 
 
+        //Jumping on the Clouds: Revisited
+        //https://www.hackerrank.com/challenges/jumping-on-the-clouds-revisited/problem?h_r=next-challenge&h_v=zen&h_r=next-challenge&h_v=zen&h_r=next-challenge&h_v=zen
+        public static int jumpingOnClouds(int[] c, int k)
+        {
+            int energy = 100;
+            if (c == null || c.Length < 1)
+                return energy;
+
+            int n = c.Length;
+            int i = 0;
+            while( energy > 0)
+            {
+                energy--;
+                i = (i + k) % n;
+
+                if (c[i] == 1)
+                    energy = energy - 2;
+
+                if (i == 0)
+                    break;
+            }
+
+            return energy;
+        }
 
 
     }

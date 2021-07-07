@@ -8,7 +8,7 @@ namespace LeetCode
         {
             Console.WriteLine("Hello World!");
 
-            TopInterviewQuestions interviewQ = new TopInterviewQuestions();
+            TopInterviewQuestions_Strings interviewQ = new TopInterviewQuestions_Strings();
 
             interviewQ.CountAndSay(4);
         }

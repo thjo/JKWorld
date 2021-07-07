@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LeetCode
 {
-    public class TopInterviewQuestions
+    public class TopInterviewQuestions_Strings
     {
         #region | Strings | 
 

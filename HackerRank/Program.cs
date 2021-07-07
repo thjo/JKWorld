@@ -160,7 +160,9 @@ namespace HackerRank
             newNd1.random = head;
 
             //Console.WriteLine(v.CopyRandomList(head));
-            Console.WriteLine(v.SearchRange3(new int[] { 2,2 }, 3));
+            //Console.WriteLine(v.SearchRange3(new int[] { 2,2 }, 3));
+
+            Console.WriteLine(ProblemSolving.jumpingOnClouds(new int[] { 0, 0, 1, 0, 0, 1, 1, 0 }, 2));
             Console.ReadLine();
         }
     }
