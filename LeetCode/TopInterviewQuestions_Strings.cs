@@ -43,7 +43,37 @@ namespace LeetCode
         //https://leetcode.com/explore/interview/card/top-interview-questions-easy/127/strings/887/
         public string LongestCommonPrefix(string[] strs)
         {
-            return "";
+            if (strs == null || strs.Length < 1)
+                return "";
+
+            int shortestLen = strs[0].Length;
+            for (int sIdx = 1; sIdx < strs.Length; sIdx++)
+            {
+                if (strs[sIdx].Length < shortestLen)
+                    shortestLen = strs[sIdx].Length;
+            }
+            StringBuilder sb = new StringBuilder();
+            int i = 0;
+            bool isContinue = true;
+            while (isContinue && i < shortestLen)
+            {
+                char c = strs[0][i];
+                for(int sIdx = 1; sIdx < strs.Length; sIdx++)
+                {
+                    if (c == strs[sIdx][i])
+                        continue;
+                    else
+                    {
+                        isContinue = false;
+                        break;
+                    }
+                }
+
+                if (isContinue)
+                    sb.Append(c);
+                i++;
+            }
+            return sb.ToString();
         }
 
         #endregion

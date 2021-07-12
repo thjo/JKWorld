@@ -21,4 +21,3 @@ C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\LeetCode\obj\Debug\netcore
 C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\LeetCode\obj\Debug\netcoreapp2.1\LeetCode.dll
 C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\LeetCode\obj\Debug\netcoreapp2.1\LeetCode.pdb
 C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\LeetCode\obj\Debug\netcoreapp2.1\LeetCode.genruntimeconfig.cache
-C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\LeetCode\obj\Debug\netcoreapp2.1\LeetCode.csprojAssemblyReference.cache
