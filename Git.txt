@@ -60,6 +60,13 @@ git add -A 	//-A는 전체 파일을 의미함
 -- 불필요한 branch 삭제
 
 
+* git remote add (remote name) (remote url)
+  >> origin 이라는 이름의 저장소를 연동하겠다는 뜻
+* git branch -M main
+  >> 기존에 동일한 branch가 있더라도 덮어씌워준다
+* git push -u origin main
+  >> 현재의 main branch를 원겨 저장소 origin 에 push 하겠다는 뜻 이떄 -u 옵션은 현재 branch를 origin의 branch에 자동으로 merge해 주겠다는 뜻
+* git pull
 
 https://blog.naver.com/l998-07-18/222420447088
 

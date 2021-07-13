@@ -1,0 +1,271 @@
+1. Which choice best defines C#'s asynchronous programming model? 1
+  1) task-based
+  2) inherited callback
+  3) callback-based
+  4) reactive
+
+
+2. Why would you use a class field in C#? 1
+  1) to store the class definition value
+  2) to hold information and data contained in the class object
+  3) to communicate between classes and object
+  4) to define behaviors inside a class
+
+
+3. How could you retrieve information about a class, as well as create an instance at runtime? 3
+  1) abstraction
+  2) dependency injection
+  3) reflection
+  4) serialization
+
+
+4. What kind of values can arrays store? 1
+  1) multiple variables, or collections, of the same type
+  2) key-value pairs of any C# supported type
+  3) unordered collections of numberic values
+  4) class and struct instances
+
+
+5. What prints to the console when this code is executed? 1
+public delegate void AuthCallback(bool validUser);
+public static AuthCallback loginCallback = Login;
+
+public satic void Login(){
+    Console.WriteLine("Valid user!");
+}
+
+public static void Main(string[] args){
+    loginCallback(true);
+}
+
+  1) an error, because the method signature of Login doesn't match the delegate
+  2) Login sucessful...
+  3) valid user!
+  4) Login successful... Valid user!
+
+
+6. You're dealing with multiple assemblies in your program,, but are worried about memory allocation. 
+At what point in the program lifecycle are assemblies loaded into memory? 3
+  1) only when required
+  2) a runtime
+  3) only when programmatically loaded
+  4) at compile time
+
+
+7. When an asynchronous method is executed, the code runs but nothing happens other than a complier warning. 
+What is most likely causing the method to not return anything? 1
+  1) The method is missing an await keyword in its body.
+  2) The return yield statement is missing at the end of the method.
+  3) The yield keyword is missing from the meothd.
+  4) The wait keyword is missing from the end of the method.
+
+
+8. What is the difference between throw exceptions and throw clauses? 3
+  1) Thrw clauses overwrite the stack trace, while throw excep
+  2) Throw clauses fire only at runtime, while throw exceptions can fire at any time.
+  3) Throw exceptions overwrite the stack trace, while throw clauses retain the stack information.
+  4) Throw exceptions fire only at runtime, while throw clauses can fire during complie time.
+
+** Throw exceptions overwrite the stack trace, while throw clauses retain the stack information.
+** We can say "throw" maintains the full hierarchy in the stack trace and gives complete information about the exception occurred in the code. Whereas "throw ex" pretends that exceptions occurred on the line where "throw ex" was written and removes all the hierarchy above the method containing the "throw ex" expression.
+
+
+9. What character would you use to start a regular expression pattern at a word boundary? 3
+  1) d
+  2) \w
+  3) \b
+  4) \a
+
+** 
+\b	Start at a word boundary.
+[A-Z]	Match any uppercase character from A to Z.
+\w*	Match zero or more word characters.
+\b	Match a word boundary.
+
+
+
+10. In which of these situations are interfaces better than abstract classes? 3
+  1) You should se both an interface and an abstract class when defining any complex object.
+  2) Inefaces are a legacy of older versions of C#, and are interchangeable with the newer abstract class feature.
+  3) When you need a list of capabilities and data that are classes-agnostic, use an inteface. When you need a certain object type to share characteristics, use an abstract class.
+  4) When you need to define an object type's characteristics, use an interface. When you need to define an object type's capabilities, use an abstract class.
+
+** 
+
+11. How would you determine if a class has a particular attribute? 3
+  1) Attribute.GetCustomAttribute, typeof(SubControllerActionToViewDataAttribute)
+  2) var type = typeof(someType);
+     var attribute = type.GetCustomAttribute<SomeAttribute>();
+  3) Attribute.GetCustomerAttribute(typeof(ExampleController), typeof(SubControllerActionToViewDataAttribute));
+  4) typeof(MyPresentationModel).Should().BeDecoratedWith<SomeAttribute>();
+
+** Accessing Attributes by Using Reflection (C#)
+  - https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/attributes/accessing-attributes-by-using-reflection
+
+
+12. What is the difference between the ref and out keywords? 3
+  1) Variables passed to out can be passed to a function without being initialized, while ref specifies that the value is a reference value tha can be changed inside the calling method.
+  2) Variables passed to out specify tha the parameter is an output parameter, while ref specifics that a variable may be passed to a function without being initialized.
+  3) Variables passed to ref can be passed to a function without being initialized, while out specifies that the value is a reference value tha can be changed inside the calling method.
+  4) Variables passed to ref specify tha the parameter is an output parameter, while out specifics that a variable may be passed to a function without being initialized.
+
+** 
+Ref
+The parameter or argument must be initialized first before it is passed to ref.	
+It is not required to assign or initialize the value of a parameter (which is passed by ref) before returning to the calling method.
+Passing a parameter value by Ref is useful when the called method is also needed to modify the pass parameter.
+It is not compulsory to initialize a parameter value before using it in a calling method.
+When we use REF, data can be passed bi-directionally.
+Both ref and out are treated differently at run time and they are treated the same at compile time.
+Properties are not variables, therefore it cannot be passed as an out or ref parameter.
+Out
+It is not compulsory to initialize a parameter or argument before it is passed to an out.
+A called method is required to assign or initialize a value of a parameter (which is passed to an out) before returning to the calling method.
+Declaring a parameter to an out method is useful when multiple values need to be returned from a function or method.
+A parameter value must be initialized within the calling method before its use.
+When we use OUT data is passed only in a unidirectional way (from the called method to the caller method).
+Both ref and out are treated differently at run time and they are treated the same at compile time.
+Properties are not variables, therefore it cannot be passed as an out or ref parameter.
+
+13. How would you write a delegate method ResultCallback with an int parameter named responseCode? 4
+  1) public void delegate ResultCallback<int responseCode>;
+  2) public delegate ResultCallback(int responseCode);
+  3) public delegate void ResultCallback<(int) responseCode>;
+  4) public delegate void ResultCallback(int responseCode);
+
+
+17. Which statement is true of delegates?  3 ??
+    1) Delegates are not supported in the current version of C#
+    2) Only variables can be passed to delegates as parameers.
+    3) They can be chained together
+    4) They cannot be used as callbacks.
+
+
+11. What is a delegate? 4 ??
+  1) a specific value type that can be sed only in callback methods
+  2) a variable that holds a reference to a value type and its content
+  3) a custom variable type that can be used in abstract classes
+  4) a type that holds a reference to a method with a particular parameer list and return type
+
+## Delegates (C# Programming Guide)
+https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/delegates/
+A delegate is a type that represents references to methods with a particular parameter list and return type. When you instantiate a delegate, you can associate its instance with any method with a compatible signature and return type. You can invoke (or call) the method through the delegate instance.
+Delegates are used to pass methods as arguments to other methods. Event handlers are nothing more than methods that are invoked through delegates. You create a custom method, and a class such as a windows control can call your method when a certain event occurs. The following example shows a delegate declaration:
+
+public delegate int PerformCalculation(int x, int y);
+
+Delegates are similar to C++ function pointers, but delegates are fully object-oriented, and unlike C++ pointers to member functions, delegates encapsulate both an object instance and a method.
+Delegates allow methods to be passed as parameters.
+Delegates can be used to define callback methods.
+Delegates can be chained together; for example, multiple methods can be called on a single event.
+Methods don't have to match the delegate type exactly. For more information, see Using Variance in Delegates.
+Lambda expressions are a more concise way of writing inline code blocks. Lambda expressions (in certain contexts) are compiled to delegate types. For more information about lambda expressions, see Lambda expressions.
+
+
+14. When would you use generics in your code? 1
+  1) all of these answers
+  2) to increase code performance
+  3) when type safety is important
+  4) when code reuse is a priority
+
+## Generic classes and methods
+https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/types/generics
+Use generic types to maximize code reuse, type safety, and performance.
+The most common use of generics is to create collection classes.
+The .NET class library contains several generic collection classes in the System.Collections.Generic namespace. The generic collections should be used whenever possible instead of classes such as ArrayList in the System.Collections namespace.
+You can create your own generic interfaces, classes, methods, events, and delegates.
+Generic classes may be constrained to enable access to methods on particular data types.
+Information on the types that are used in a generic data type may be obtained at run-time by using reflection.
+
+15. What is this code an example of? 3
+private static object objA;
+private static object objB;
+
+private static void performTaskA(){
+    lock (objB){
+        Thread.Sleep(1000);
+        lock(objA) { }
+    }
+}
+private static void performTaskA(){
+    lock (objA){
+        lock(objB) { }
+    }
+}
+
+  1) a private class that uses multiplethreading
+  2) multithread coding
+  3) a potential deadlock
+  4) thread mismanagement
+
+
+16. When would you use a Dictionary rather than an Array type in your application? 3 ??
+  1) when you need to store values of the same type
+  2) when you need a jagged collection structure
+  3) when you need to store key-value pairs rather than single values
+  4) when you need an ordered, serachable list
+
+
+18. What kind of values can arrays store? 4 ??
+  1) class and struct instances
+  2) key-value pairs of array C# supported type
+  3) unordered collections of numeric values
+  4) multiple variables, or collections, of the same type
+
+
+19. What are C# events? 3 ??
+  1) system actions that communicate directly with the complier at runtime
+  2) actions tha execute when the code complies, generating logs and test output
+  3) actions that generate notifications, which are sent to their registered listeners
+  4) user-only methods that send data to the application's back end
+
+  
+20. How would you declare a sealed class named User? 2
+  1) public class User { }
+  2) sealed class User { }
+  3) abstract User { } 
+  4) private sealed class User { }
+
+## 
+Once a class is defined as a sealed class, this class cannot be inherited. 
+In C#, the sealed modifier is used to declare a class as sealed. 
+When applied to a class, the sealed modifier prevents other classes from inheriting from it. In the following example, class B inherits from class A, but no class can inherit from class B.
+You can also use the sealed modifier on a method or property that overrides a virtual method or property in a base class. This enables you to allow classes to derive from your class and prevent them from overriding specific virtual methods or properties.
+
+21. What is the difference between an anonymous type and a regula data type? 4
+  1) Anonymous types can be used only in structs.
+  2) Anonymous types don't work with LINQ.
+  3) Anonymous types can only be static.
+  4) Anonymous types don't have type names.
+
+## Anonymous Types
+https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/types/anonymous-types
+
+
+22. What is the correct way to write an event named apiResult based on a delegate named ResultCallback? 
+  - public event ResultCallback apiResult;
+## Event
+https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/event
+public class SampleEventArgs
+{
+    public SampleEventArgs(string text) { Text = text; }
+    public string Text { get; } // readonly
+}
+
+public class Publisher
+{
+    // Declare the delegate (if using non-generic pattern).
+    public delegate void SampleEventHandler(object sender, SampleEventArgs e);
+
+    // Declare the event.
+    public event SampleEventHandler SampleEvent;
+
+    // Wrap the event in a protected virtual method
+    // to enable derived classes to raise the event.
+    protected virtual void RaiseSampleEvent()
+    {
+        // Raise the event in a thread-safe manner using the ?. operator.
+        SampleEvent?.Invoke(this, new SampleEventArgs("Hello"));
+    }
+}
+
