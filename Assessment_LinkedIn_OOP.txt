@@ -1,0 +1,586 @@
+[OOP (Object-Oriented Programming)]
+
+** https://www.freecodecamp.org/news/object-oriented-programming-concepts-21bb035f7260/
+* Encapsulation
+  - Encapsulation is achieved when each object keeps its state private, inside a class. Other objects don’t have direct access to this state. Instead, they can only call a list of public functions — called methods.
+  - So, the object manages its own state via methods — and no other class can touch it unless explicitly allowed. If you want to communicate with the object, you should use the methods provided. But (by default), you can’t change the state.
+* Abstraction
+  - Abstraction can be thought of as a natural extension of encapsulation.
+  - In object-oriented design, programs are often extremely large. And separate objects communicate with each other a lot. So maintaining a large codebase like this for years — with changes along the way — is difficult.
+  Abstraction is a concept aiming to ease this problem.
+  - Applying abstraction means that each object should only expose a high-level mechanism for using it.
+  This mechanism should hide internal implementation details. It should only reveal operations relevant for the other objects.
+  - Ex1. Think — a coffee machine. It does a lot of stuff and makes quirky noises under the hood. But all you have to do is put in coffee and press a button.
+        Preferably, this mechanism should be easy to use and should rarely change over time. Think of it as a small set of public methods which any other class can call without “knowing” how they work.
+  - Ex2. You interact with your phone by using only a few buttons. What’s going on under the hood? You don’t have to know — implementation details are hidden. You only need to know a short set of actions.
+* Inheritance
+  - Objects are often very similar. They share common logic. But they’re not entirely the same. Ugh… So how do we reuse the common logic and extract the unique logic into a separate class? 
+  One way to achieve this is inheritance. It means that you create a (child) class by deriving from another (parent) class. This way, we form a hierarchy.
+  The child class reuses all fields and methods of the parent class (common part) and can implement its own (unique part).
+* Polymorphism
+  - Say we have a parent class and a few child classes which inherit from it. Sometimes we want to use a collection — for example a list — which contains a mix of all these classes. Or we have a method implemented for the parent class — but we’d like to use it for the children, too.
+  This can be solved by using polymorphism. Simply put, polymorphism gives a way to use a class exactly like its parent so there’s no confusion with mixing types. But each child class keeps its own methods as they are.
+  This typically happens by defining a (parent) interface to be reused. It outlines a bunch of common methods. Then, each child class implements its own version of these methods.
+  Any time a collection (such as a list) or a method expects an instance of the parent (where common methods are outlined), the language takes care of evaluating the right implementation of the common method — regardless of which child is passed.
+
+
+** Association / Aggregation / Composition
+** https://medium.com/swlh/aggregation-vs-composition-in-object-oriented-programming-3fa4fd471a9f
+1) In Object Oriented Programming, there are many different types of relationships which can exist between two or more classes. The most common two types are:
+    Inheritance — an “is a” relationship
+    Association — a “has a” relationship
+2) What is an Association relationship?
+  - An association relationship between two classes is a “has a” relationship. For example:
+    A Car has an Engine and a Wheel
+    A Person has a Leg and an Arm
+    A Book has Pages
+  - This usually represents when there are two classes, ClassA and ClassB, and either: ClassA contains ClassB as an attribute, or Instances of ClassB are constructed inside ClassA
+  - Association is relation between two separate classes which establishes through their Objects. Association can be one-to-one, one-to-many, many-to-one, many-to-many.
+    In Object-Oriented programming, an Object communicates to other Object to use functionality and services provided by that object. Composition and Aggregation are the two forms of association.
+3) What’s the difference between Aggregation and Composition?
+  - There are two sub-types of Association relationships — Aggregation and Composition. What’s the difference between these two?
+  3-1. Composition
+    - Composition implies that the contained class cannot exist independently of the container. If the container is destroyed, the child is also destroyed.
+    - Take for example a Page and a Book. The Page cannot exist without the Book, because the book is composed of Pages. If the Book is destroyed, the Page is also destroyed.
+    - In code, this usually refers to the child instance being created inside the container class:
+        class Book:
+            def __init__(self):
+               page1 = Page('This is content for page 1')
+               page2 = Page('This is content for page 2')
+               self.pages = [page1, page2]
+
+        class Page:
+            def __init__(self, content):
+                self.content = content
+        book = Book() # If I destroy this Book instance,
+                      # the Page instances are also destroyed
+   3-2. Aggregation
+    - With an aggregation, the child can exist independently of the parent. So thinking of a Car and an Engine, the Engine doesn’t need to be destroyed when the Car is destroyed.
+        class Car:
+            def __init__(self, engine):
+                self.engine = engine
+
+        class Engine:
+            def __init__(self):
+                pass
+        engine = Engine()
+        car = Car(engine) # If I destroy this Car instance,
+                            # the Engine instance still exists
+  4) How are these represented a UML diagram?
+    - In a UML diagram, both Aggregation and Composition are represented with a diamond arrow between the classes. The diamond end goes on the side of the container.
+        Aggregation uses an open diamond
+        Composition uses a closed diamond
+  5) Aggregation vs Composition
+    - Dependency: Aggregation implies a relationship where the child can exist independently of the parent. For example, Bank and Employee, delete the Bank and the Employee still exist. whereas Composition implies a relationship where the child cannot exist independent of the parent. Example: Human and heart, heart don’t exist separate to a Human
+    - Type of Relationship: Aggregation relation is “has-a” and composition is “part-of” relation.
+    - Type of association: Composition is a strong Association whereas Aggregation is a weak Association.
+
+
+1. What is an example of dynamic binding? 3
+  1) any method
+  2) method overloading
+  3) method overriding
+  4) compiling
+
+### Binding
+Binding is referred to as a mechanism of creating a link between a method call and method actual implementation.
+1) static
+   - The binding which can be resolved at compile time by the compiler is known as static or early binding. 
+   The binding of static, private, and final methods is compile-time. 
+   Why? The reason is that these methods cannot be overridden and the type of the class is determined at the compile time.
+2) dynamic
+   - If linking between a method call and method implementation is resolved at run time then it dynamic binding. 
+   The dynamic binding uses an object to resolve binding but static binding uses the type of the class and fields.
+   OR when the compiler is not able to resolve the call/binding at compile-time, such binding is known as Dynamic or late Binding. 
+   Method Overriding is a perfect example of dynamic binding as in overriding both parent and child classes have the same method and in this case, the type of the object determines which method is to be executed. The type of object is determined at the run time so this is known as dynamic binding.
+ * Important Points
+   - private, final, and static members (methods and variables) use static binding while for virtual methods (In Java methods are virtual by default) binding is done during run time based upon run time object.
+   Static binding uses Type information for binding while Dynamic binding uses Objects to resolve binding.
+   Overloaded methods are resolved (deciding which method to be called when there are multiple methods with the same name) using static binding while overridden methods using dynamic binding, i.e, at run time.
+
+
+
+2. For which case would the use of a static attribute be appropriate? 4
+  1) the number of people in each house in a small neighborhood
+  2) the lot size for each house in a small neighborhood
+  3) the color of each house in a small neighborhood
+  4) the weather conditions for each house in a small neighborhood
+
+
+
+3-1. Why would you create an abstract class, if it can have no real instances? 1
+  1) to avoid redundant coding in children
+  2) to explore a hypothetical class
+  3) to prevent unwanted method implementation
+  4) to reserve memory for an unspecified class type
+
+3-2. Why would you create an abstract class, if it can have no real instances? 1
+  1) to have common behavior in derived classes
+  2) to explore a hypothetical class
+  3) to prevent unwanted method implementation
+  4) to reserve memory for an unspecified class type
+
+### abstract ???
+
+
+4. When does static binding happen? 3
+  1) only when you export
+  2) both at compile time and runtime
+  3) at compile time
+  4) at runtime
+
+
+
+5. What is the best reason to use a design pattern? 1
+  1) It will result in code that is more extensible and maintainable
+  2) It will result in a more compact product.
+  3) It will speed initial development.
+  4) It will allow you to add that design pattern to your resume.
+
+### design pattern ???
+
+
+
+6. What is encapsulation? 2
+  1) defining classes by focusing on what is important for a purpose
+  2) hiding the data and implementation details within a class
+  3) making all methods private
+  4) using words to define classes
+
+
+
+7. What is an IS-A relationship? 4
+  1) It implies encapsulation.
+  1) A superclass object has an IS-A relationship with its subclass.
+  1) It implies a virtual method.
+  1) A subclass object has an IS-A relationship with its superclass or interface
+
+###  IS-A ???
+
+
+
+8. You want a method with behavior similar to a virtual method--it is meant to be overridden --expect that it does not have a method body. 
+It just has a method signature. What kind of method should you use? 1
+  1) an abstract method
+  2) a public internal method
+  3) an internal method
+  4) a protected internal method
+
+### abstract v.s Virtual ???
+
+
+
+9. Which code creates a new object from the Employee class? 2
+  1) Employee current Employee = Employee.Create();
+  2) Employee current Employee = new Employee();
+  3) Employee currentEmployee;
+  4) Employee currentEmployee = Employee.New();
+
+
+
+10. Which type of constructor cannot have a return type? 4
+  1) default
+  2) copy
+  3) parameterized
+  4) Constructors do not have a return type
+
+### Constructor
+
+
+
+11.1 When is a constructor executed? 1
+  1) when an object is created from a class using the new keyword
+  2) when an class is defined using the class keyword
+  3) every time an object is referenced
+  4) when an object is created from a class using the create keyword
+
+11.2 When is a constructor executed? 1
+  1) when an object is created from a class
+  2) when an class is defined using the class keyword
+  3) every time an object is referenced
+  4) when an object is created from a class using the create keyword
+
+
+
+12. If a local class is defined in a function, what is true for an object of that class? 1
+  1) The object can be accessed, declared, and used locally in that function.
+  2) The object must be declared inside any other function.
+  3) The object is temporarily accessible outside the function.
+  4) The object can call all the other class members anywhere in the program.
+
+### class / object / instance
+
+
+
+13. Which two blocks are used to handle and check errors? 3
+  1) do and check
+  2) catching and trying
+  3) try and catch
+  4) do and while
+
+
+
+14. Why would you implement composition using an id instead of a reference? 2
+  1) It makes it easier to save the entity.
+  2) all of these answers
+  3) It can make the entity retrieval more efficient
+  4) It minimizes coupling.
+
+## composition
+
+
+
+15. Which statement best describes the method of inheritance in OOP? 1
+  1) Inheritance describes the ability to create new classes based on an existing class.
+  2) Inheritance means that a group of related properties, methods, and other members are treated as a single unit or object.
+  3) Inheritance forces a class to have a single responsibility from only one parent.
+  4) Inheritance means that you will never have multiple classes that can be used interchangeably, even though each class implements the same properties or methods in different ways.
+
+### inheritance
+
+
+
+16 Which type of inheritance ,when done continuously, is similar to a tree structure? 3
+  1) multilevel
+  2) hierarchical and multiple
+  3) hierarchical
+  4) multiple
+
+
+
+17. Which statement is true? 1
+  1) A default parameter's constructor is not equivalent to the default constructor
+  2) A default constructor is inherited from a parent class
+  3) A default constructor can be called explicitly
+  4) A default constructor cannot be defined by the coder
+
+
+
+18. Which of the following is NOT an advantage of using getters and setters? 1
+  1)  Getters and setters can speed up compilation.
+  2)  Getters and setters provide encapsulation of behavior.
+  3)  Getters and setters provide a debugging point for when a property changes at runtime.
+  4)  Getters and setters permit different access levels.
+
+
+
+19. In context of OOP, what is association? 1
+  1)  Association is a relationship where all objects have their own life cycle and there is no owner.
+  2)  Association is the process where model elements cooperate to provide higher-level behavior.
+  3)  Association is whole/part relationship where one object is composed of one or more other objects, each of which is considered a part of the whole.
+  4)  Association is where all objects have their own life cycle, but there is ownerhip, and child objects can not belong to another parent object.
+
+
+
+20. How are user stories different from use cases? 1
+  1)  User Stories are shorter and less detailed.
+  2)  User stories are more accurate.
+  3)  User stories are more detailed and structured.
+  4)  User storised are more anecdotal and personal.
+
+
+
+21. Which type of inheritance must be used so that the resultant is hybrid? 1
+  1)  multiple
+  2)  any type of inheritance
+  3)  multilevel
+  4)  hierarchical
+NOTE: Hybrid inheritance is a composition of multiple and hierarchical inheritances
+
+
+
+22. A language that does not support polymorphism but supports classes is considered what? 1
+  1)  an object-based language
+  1)  a class-based language
+  1)  a procedure-oriented language
+  1)  if classes are supported, polymorphism will be supported
+
+
+
+23. If two classes combine some private data members and provides public member functions to access and manipulate those data members. 
+Where is abstraction used? 2
+  1)  Abstraction is using a private access specifier for data members
+  2)  Abstraction is using public member functions to access and manipulate the data members
+  3)  Abstraction is using the class concept with both data members and member functions
+  4)  There is insufficient information to decide where abstraction is being used.
+
+
+
+24. What are the five Creational Design patterns by the Gang of Four ? 4
+  1)  Observer, State, Strategy, Template Method, and Visitor.
+  2)  Composite, Visitor, State, Prototype, and Singleton.
+  3)  Composite, Builder, Factory Method, Prototype, and Singleton.
+  4)  Abstract Factory, Builder, Factory Method, Prototype, and Singleton.
+
+
+
+25. In multilevel inheritance, one class inherits how many classes? 1
+  1)  one class only
+  2)  two classes
+  3)  as many classes as required
+  4)  at least two classes
+
+
+
+26. if an object is passed by reference, the changes made in the function are reflected ____. 1
+  1)  to the main object of the caller function, too
+  2)  on the caller function object and also the called function object
+  3)  on the copy of the object that is made during the pass
+  4)  only in the local scope of the called function
+
+
+
+27. What is a method? 2
+  1)  a set of instructions designed to perform a frequently used operation within a program and return no values
+  2)  the exact same thing as a function and subroutine
+  3)  a set of variables that can change over time
+  4)  a procedure associated with data and behaviour
+
+
+
+28. A mobile phone is made up of components such as a motherboard, camera, and sensors. 
+The motherboard represents all the functions of a phone, the display shows the display only, and the phone is represented as a whole. 
+Which of the following has the highest level of abstraction? 4
+  1)  camera
+  2)  display
+  3)  motherboard
+  4)  mobile phone
+
+
+
+29. Which class has the highest degree of abstraction in a multilevel inheritance relationship of five levels? 2
+  1)  the class at the third level
+  2)  the class at the first level
+  3)  All have the same degree of abstraction.
+  4)  the class at the second level
+
+
+
+30. Which is NOT one of the basic types of inheritance? 2
+  1)  multilevel inheritance
+  2)  double inheritance
+  3)  single inheritance
+  4)  hierarchical inheritance
+
+
+
+31. Why is code duplication so insidious? 2
+  1)  The duplication uses unnecessary space.
+  2)  One has to maintain all the duplicates.
+  3)  Duplication can cause intellectual property concerns.
+  4)  Duplication is easy to hide.
+
+
+
+32. When and how often is a static constructor called? 3
+  1) It is called initially when an object is created and called with every new object instance.
+  2) It is called when an object is destroyed and only one time.
+  3) It is called initially when an object is created and only one time.
+  4) It is created at time when the object is discarded.
+
+
+
+33. What does the code shown below demonstrate, and why? 3
+   static void Multiply(int num1, int num2) {};
+   static void Multiply(double num1, double num2, double num3) {};
+   static void Multiply(float num1, float num2) {};
+  1) polymorphism, because each method can perform different task
+  2) method overriding, because it display the same method name, different or same parameters, and same return type
+  3) method overloading, because it allows the creation of several methods with the same name, wich differ by the type of input via parameter
+  4) method overriding, because it display the same method name, different parameters, and same return type
+
+
+
+34. What is the purpose os static constructor? 1
+  1) to initialize all the members with static value
+  2) to delete the static members when not required
+  3) to initialize the static members of class
+  4) to clear all the static members' initialized values
+
+
+
+35. What are CRC Cards? 2
+  1) Code Responsibility Collection cards are a brainstorming tool used in the design of procedural software
+  2) Class responsible collaboration cards are a brainstorming tool used in the design of oop software
+  3) Code Responsibility Correction cards are tools used for debugging
+  4) Code Responsibility Correction cards are tools for modeling reference link
+
+### CRC Card
+
+
+
+
+36.1 How are contents of a composition different from those of aggregation? 2
+  1) if one element of an aggregation is dereferenced, all its elements are eligible for garbage collection
+  2) if a composition dies, the contents die
+  3) the contents of a composition are all siblings
+  4) an aggregation contains only abstract classes
+
+
+
+36.2 Which statement about compositions and aggregations is true? 2
+  1) if one element of an aggregation is dereferenced, all its elements are eligible for garbage collection
+  2) if a composition dies, the contents die
+  3) the contents of a composition are all siblings
+  4) an aggregation contains only abstract classes
+
+
+
+37. What is the result of using more abstraction? 3
+  1) it can increase code vulnerability
+  2) it can make code unsafe
+  3) it can limit code readability
+  4) it can be safer for coding
+
+
+
+38. Which is false for a member function of a class? 3
+  1) Member functions can be defined only inside or outside the class body.
+  2) Member functions can be made to be friends of another class.
+  3) Member functions do not need to be declared inside the class definition.
+  4) All member functions need to be defined.
+
+
+
+39. Why is inheritance used when creating a new class? 4
+  1) to protect attributes from unwanted changes
+  2) to delegate coding responsibility more efficiently
+  3) to conserve memory
+  4) to avoid writing duplicate code
+
+
+
+40. In addition to attributes and behaviours, what quality must a class possess? 1
+  1) a name
+  2) a state
+  3) a color
+  4) an object
+
+
+
+41. Which type of function among the following shows polymorphism?  3
+  1) inline function
+  2) undefined function
+  3) virtual function
+  4) class member function
+
+
+
+42. Which words in the following list are candidates for objects: trumpet, clean, enrage, leaf, tree, collapse, active, and lively? 4
+  1) leaf and tree
+  2) clean, enrage, and collapse
+  3) clean, active, and lively
+  4) leaf, tree, and trumpet
+
+
+
+43. What best describes what object-oriented programming does? 1
+  1) It focuses on objects that interact cleanly with one another.
+  2) It programs exclusively to interfaces.
+  3) It programs exclusively to classes.
+  4) It creates one class for all business logic.
+
+
+
+44. Can abstract classes be used in multilevel inheritance? 2
+  1) No, abstract classes can be used only in single-level inheritance since they must be immediately implemented.
+  2) yes, always
+  3) yes, but with only one abstract class
+  4) No, abstract classes do not have constructors.
+
+
+
+45. What type of inheritance may lead to the diamond problem? 4
+  1) single level
+  2) multilevel
+  3) hierarchical
+  4) multiple
+
+
+
+46. What is the relationship between abstraction and encapsulation? 1
+  1) Abstraction is about making relevant information visible, while encapsulation enables a programmer to implement the desired level of abstraction.
+  2) Abstraction and encapsulation are essentially the same.
+  3) Abstraction and encapsulation are unrelated.
+  4) Encapsulation is about making relevant information visible, while abstraction enables a programmer to implement the desired level of encapsulation.
+
+
+
+47. Which of these keywords are access specifiers? 2
+  1) abstract and public
+  2) public and private
+  3) this and final
+  4) final and abstract
+
+
+
+48. What is a reference to an object? 4
+  1) It is the address of variable only -- not the method of an object.
+  2) It is a shallow pointer that contains address of an object.
+  3) It is the physical address of an object.
+  4) It is the address where the variables and methods of an object are stored.
+
+
+
+49. Why is unit testing harder in OOP than functional programming? 1
+  1) Objects may maintain internal state, which is not easily accessible by the tests.
+  2) The quality of unit testing frameworks for functional languages is better.
+  3) OOP promotes code reuse, which means that your tests have to consider more use cases.
+  4) Object-oriented languages tend to rely on frameworks such as Spring or Hibernate, which make them difficult to test.
+
+
+
+50. What is the function of a user diagram? 2
+  1) It connects actors to use cases.
+  2) It links actors to roles played in all use cases.
+  3) It lists all actors for each use case.
+  4) It minimizes the number of actors required.
+
+
+
+51. How do object behaviour and attributes differ? 2
+  1) Behaviour describe dynamic properties; attributes are static.
+  2) Attributes describe a state; behaviours describe a change.
+  3) Attributes apply only to a specified object; behaviour apply to other linked objects.
+  4) Behaviours are vector quantities; attributes are scalars.
+
+
+
+52. The open/closed principle states that classes should be open for __ but closed for __. 3
+  1) refactoring; duplication
+  2) modification; duplication
+  3) extension; modification
+  4) reuse; encapsulation
+
+
+
+53. Why would you override a method of a base class? 2
+  1) to define a method that must be implemented in a derived class
+  2) to define a custom implementation of an inherited member
+  3) to define a method that must be implemented in a superclass only
+  4) to define a class that can be inherited from
+
+
+
+54. What is a copy constructor? 1
+  1) It is a unique constructor for creating a new object as a copy of an object that already exists. 
+  There will always be only one copy constructor that can be either defined by the user or the system.
+  2) It is a constructor that duplicates itself when requested on demand.
+  3) It is a common constructor for preventing the creation of a new object as a copy of an object that already exists. There will always be multiple standard constructors that can be either defined by the user or the system.
+  4) It is a constructor that duplicates itself on its own, based on memory available.
+
+
+
+55. What defines the catch block most accurately? 1
+  1) The catch block that will be executed is the one that best matches the type of the exception thrown
+  2) Multiple catch blocks are not allowed with a single try.
+  3) Every catch block will run accordingly in a try.
+
+
+
+56. There are five classes. Class E is derived from class D, D from C, C from B, and B from A. 
+Which class constructor(s) will be called first if the object of E or D is created? 1
+  1) A
+  2) B
+  3) C
+  4) C and B
