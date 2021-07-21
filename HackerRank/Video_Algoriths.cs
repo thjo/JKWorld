@@ -233,6 +233,16 @@ namespace HackerRank
             else
                 return SearchRange3ByBSearch(array, target, mid + 1, endIdx, rangeFlag);
         }
+
+
+        //Search A 2D Sorted Matrix
+        //74. Search a 2D Matrix
+        //https://leetcode.com/problems/search-a-2d-matrix/
+        //https://www.youtube.com/watch?v=FOa55B9Ikfg&t=659s
+
+        //Insertion Soft Analysis
+        //https://www.youtube.com/watch?v=ufIET8dMnus
+
     }
     public enum RangeIndicator
     {

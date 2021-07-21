@@ -10,7 +10,64 @@ namespace LeetCode
         //https://leetcode.com/explore/interview/card/top-interview-questions-easy/94/trees/555/
         public int MaxDepth(TreeNode root)
         {
-            return 0;
+            if(root == null)
+                return 0;
+
+            int leftDepth = MaxDepth(root.left);
+            int rightDepth = MaxDepth(root.right);
+
+            return Math.Max(leftDepth, rightDepth) + 1;
+        }
+
+        //Validate Binary Search Tree
+        //https://leetcode.com/explore/interview/card/top-interview-questions-easy/94/trees/625/
+        public bool IsValidBST(TreeNode root)
+        {
+            return ValidBST(root, null, null);
+        }
+        public bool ValidBST(TreeNode node, int? low, int? high)
+        {
+            if (node == null)
+                return true;
+
+            if ((low != null && low.Value >= node.val)
+                || (high != null && high.Value <= node.val))
+                return false;
+
+            return ValidBST(node.left, low, node.val) && ValidBST(node.right, node.val, high);
+        }
+
+
+
+        //Symmetric Tree
+        //https://leetcode.com/explore/interview/card/top-interview-questions-easy/94/trees/627/
+        public bool IsSymmetric(TreeNode root)
+        {
+            if (root == null)
+                return true;
+
+            return IsMirror(root.left, root.right);
+        }
+        public bool IsMirror(TreeNode nodeLeft, TreeNode nodeRight)
+        {
+            if (nodeLeft == null && nodeRight == null)
+                return true;
+            else if (nodeLeft == null || nodeRight == null)
+                return false;
+
+            if (nodeLeft.val == nodeRight.val)
+                return IsMirror(nodeLeft.left, nodeRight.right) && IsMirror(nodeLeft.right, nodeRight.left);
+            else
+                return false;
+        }
+
+
+
+        // Binary Tree Level Order Traversal
+        //https://leetcode.com/explore/interview/card/top-interview-questions-easy/94/trees/628/
+        public IList<IList<int>> LevelOrder(TreeNode root)
+        {
+            return null;
         }
     }
 

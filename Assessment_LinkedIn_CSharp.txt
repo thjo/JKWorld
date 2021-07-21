@@ -1,3 +1,5 @@
+keyword static, virtual, abstract or sealed
+
 1. Which choice best defines C#'s asynchronous programming model? 1
   1) task-based
   2) inherited callback
@@ -268,4 +270,6 @@ public class Publisher
         SampleEvent?.Invoke(this, new SampleEventArgs("Hello"));
     }
 }
+
+
 
