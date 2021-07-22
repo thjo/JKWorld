@@ -1,11 +1,45 @@
 keyword static, virtual, abstract or sealed
 
+abstract
+const
+event
+extern
+override
+readonly
+sealed
+unsafe
+virtual
+volatile
+new
+partial
+static
+async
+await
+
+1. What is an object in C#?  4
+  1) a class or struct, including its variables and functions
+  2)a primitive data type that can be created only at compile time
+  3) a value type that can be used only with an abstract class
+  4) an instance of a class or struct that includes fields, properties, and/or methods
+
 1. Which choice best defines C#'s asynchronous programming model? 1
   1) task-based
   2) inherited callback
   3) callback-based
   4) reactive
 
+2. When using a thread pool what happens to a given thread after it finishes its task? 3
+  1) The thread is destroyed and memory is freed up.
+  2) The thread runs in loop until the next assignment.
+  3) The thread goes inactive in the background and waits for garbage collection.
+  4) The thread returns to the pool for reuse.
+
+
+2. How does the async keyword work? 3
+  1) It allows access to asynchronous methods in the C# API
+  2) It allows thread pooling and synchronous processes in static classes.
+  3) It allows the await keyword to be used in a method
+  4) It allows access to synchronous methods in the C# API
 
 2. Why would you use a class field in C#? 1
   1) to store the class definition value
@@ -91,6 +125,32 @@ What is most likely causing the method to not return anything? 1
   2) Inefaces are a legacy of older versions of C#, and are interchangeable with the newer abstract class feature.
   3) When you need a list of capabilities and data that are classes-agnostic, use an inteface. When you need a certain object type to share characteristics, use an abstract class.
   4) When you need to define an object type's characteristics, use an interface. When you need to define an object type's capabilities, use an abstract class.
+
+
+11. To conform to the following interface, which of its members need to be implemented? 1
+public interface INameble
+{
+    string FirstName { get; set; }
+    string LastName { get; }
+}
+  1) Both the FirstName and LastName properties need to be implemented.
+  2) Neither, they are both optional.
+  3) Only the LastName property needs to be implemented.
+  4) Only the FirstName property needs to be implemented.
+
+
+11. What is an abstract class? 4
+  1) a class that is denoted by the class keyword (can be seen and used by any other class in the system--thus it is by default public)
+  2) something denoted by the abstract keyword and used system wide; 
+  if you want any program to create an object of a class you use the abstract class
+  3) a class that is denoted by the virtual keyword
+  4) a class that can be used only as base class
+
+11. How do you make a method in an abstract class overridable? 4
+  1) Make it public
+  2) Make it static
+  3) Make it private
+  4) Make it virtual
 
 ** 
 
@@ -200,6 +260,12 @@ private static void performTaskA(){
   3) a potential deadlock
   4) thread mismanagement
 
+16. Which choice best describes a deadlock situation?
+  1) when you try to instantiate two objects at the same time in the same class or struct
+  2) when you are trying to execute an action after a user event is registered
+  3) when simultaneous instructions are waiting on each other to finish before executing
+  4) when you try to execute a series of events simultaneously on multiple threads
+
 
 16. When would you use a Dictionary rather than an Array type in your application? 3 ??
   1) when you need to store values of the same type
@@ -234,11 +300,24 @@ In C#, the sealed modifier is used to declare a class as sealed.
 When applied to a class, the sealed modifier prevents other classes from inheriting from it. In the following example, class B inherits from class A, but no class can inherit from class B.
 You can also use the sealed modifier on a method or property that overrides a virtual method or property in a base class. This enables you to allow classes to derive from your class and prevent them from overriding specific virtual methods or properties.
 
+21. Which choice represents a class that inherits behavior from a base class?
+  1) a second base class
+  2) a revised class
+  3) a derived class
+  4) a parent class
+
+
 21. What is the difference between an anonymous type and a regula data type? 4
   1) Anonymous types can be used only in structs.
   2) Anonymous types don't work with LINQ.
   3) Anonymous types can only be static.
   4) Anonymous types don't have type names.
+
+22. Which code snippet declares an anonymous type named userData? 2
+  1) var<<!---->T> userData = new <<!---->T> { name = "John", age = 32 };
+  2) var userData = new { name = "John", age = 32 };
+  3) AType userData = new AType { name = "John", age = 32 };
+  4) Anonymous<T> userData = new Anonymous<T> { name = "John", age = 32 };
 
 ## Anonymous Types
 https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/types/anonymous-types
@@ -271,5 +350,138 @@ public class Publisher
     }
 }
 
+
+23. What is the difference between a.Equals(b) and a == b? 3
+  1) The .Equals method compares reference identities while the == compares contents.
+  2) The .Equals method compares primitive values while == compares all values.
+  3) The .Equals method compares contents while == compares references reference identity.
+  4) The .Equals method compares reference type while == compares primitive value types.
+
+
+24. In what order would the employee names in this example be printed to the console? 1
+string[] employees = { "Joe", "Bob", "Carol", "Alice", "Will" };
+IEnumerable<string> employeeQuery = from person in employees
+                                    orderby person
+                                    select person;
+foreach(string employee in employeeQuery)
+{
+    Console.WriteLine(employee);
+}
+
+  1) ascending
+  2) unordered
+  3) descending
+  4) first in, first out
+
+25. Lambda expressions are often used in tandem with which of the following? 2
+  1) Namespaces
+  2) LINQ
+  3) Type Aliasing
+  4) Assemblies
+
+26. What it the main purpose of LINQ?
+  1) to delete duplicate data
+  2) to bind namespaces and assemblies
+  3) to query and transform data
+  4) to connect assemblies
+
+
+26. What is the correct formatting for single line and multiline comments? 4
+  1) // - Single Line / - Multiline
+  2) // Multiline /_ Single Line _/
+  3) //* Multiline / Single Line
+  4) // Single Line /_ Multiline _/
+
+
+27. What does operator overloading allow you to do? 4
+  1) hide built-in operatores when necessary
+  2) add methods to be interpreted by the compiler at runtime
+  3) define how enums and other primitive value types work within the rest of the application
+  4) define custom functionality for common operators like addition and equality
+
+
+28. What is the correct syntax for a new generic list of strings named contacts? 3
+  1) public List contacts = new List();
+  2) public List(string names) contacts = new List(string names)();
+  3) var contacts = new List();
+  4) var contacts = new List(string);
+
+
+29. You're dealing with multiple assemblies in your program, but are worried about memory allocation. 
+At what point in the program life cycle are assemblies loaded into memory? 3
+  1) at runtime
+  2) at compile time
+  3) only when required
+  4) only when programmatically loaded
+
+
+30. What is most accurate description of a regular expression? 2
+  1) A regular expression is a C# tool used to parse HTML
+  2) A regular expression is a special text string for describing a search patters.
+  3) A regular expression allows a variable to be passed by reference.
+  4) A regular expression allows a class to conform to the Equatable protocol.
+
+
+31. Why would you use a class field in C# 2
+  1) To define behaviours of the class
+  2) To hold information and data contained in the class object
+  3) To communicate between classes and object
+  4) To store the class definition value
+
+
+32. How would you declare a sealed class named User? 3
+  1) public class User
+  2) abstract User {}
+  3) sealed class User
+  4) private sealed class User
+
+
+33-1. What is the difference between non-static and static classes? 1
+  1) non-static classes need to be initialized before use, while static classes do not reference
+  2) non-static classes are accessible only from an interface while static classes are accessible from anywhere
+  3) non-static classes need to initialize all class members at runtime, while static classes do not
+  4) non-static classes do not need to be initialized while static classes do
+
+33-2. What is the difference between a static and non-static method? 3
+  1) non-static methods always need to have a void return type
+  2) non-static methods do not have access to static member variables
+  3) static methods do not have to instantiate an instance of the class to call the method
+  4) static methods always have to be public
+
+34. Which characteristic prevents this code from compiling? 1
+public int age="28"
+  1) type safety
+  2) single inheritance
+  3) dependency injection
+  4) multiple inheritance
+
+
+35. How would you serialize this class? 3
+public class User {}
+  1) Mark the User class with the DeserializableAttribute.
+  2) Declare the class as public serializable class User {}.
+  3) Mark the User class with the SerializableAttribute attribute.
+  4) Declare the class as private serializable class User {}.
+
+
+36. How are C# classses limited? 1
+  1) They do not support multiple inheritance.
+  2) They support multiple inheritance.
+  3) They can have only a set number of properties.
+  4) They can have only a set number of methods.
+
+
+37. What function do namespaces perform? 4
+  1) Namespaces calculate code coverage at runtime.
+  2) Namespaces compile application code together at compile time.
+  3) Namespaces group code together into a single repository.
+  4) Namespaces separate code into groupings, control access, and void naming collisions.
+
+
+38. When an object in C# is serialized, what is it converted to? 3
+  1) XML
+  2) JSON
+  3) byte stream
+  4) value stream
 
 

@@ -6,11 +6,14 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            //Console.WriteLine("Hello World!");
 
-            TopInterviewQuestions_Strings interviewQ = new TopInterviewQuestions_Strings();
+            //TopInterviewQuestions_Strings interviewQ = new TopInterviewQuestions_Strings();
 
-            interviewQ.CountAndSay(4);
+            //interviewQ.CountAndSay(4);
+
+            Practices prac = new Practices();
+            prac.CoinChange(new int[] { 2 }, 3);
         }
     }
 }

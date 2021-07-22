@@ -37,14 +37,6 @@ namespace LeetCode
         //https://leetcode.com/problems/coin-change/
         public int CoinChange(int[] coins, int amount)
         {
-            if (amount == 0)
-                return 0;
-
-            //0 1 2 3 4 5 6 7 8 9
-            return -1;
-        }
-        public int CoinChange1(int[] coins, int amount)
-        {
             if (amount <= 0)
                 return 0;
             else if (coins == null || coins.Length < 1)
