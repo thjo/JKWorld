@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "2YylYQHcXUwx2qZPK0LGNDVC/HnWJ++ha7gmXLoXykwkhc4KjNYIDGdd5PcWQAdQkb5mQfPhPZUAJrFIgYbaUQ==",
+  "dgSpecHash": "YmSn+iEeAuzWjsV5JoFpsfaXyJdHhTOjRS1oJjNE3wRfldCwjjk+/m7UGTkPQsHHbdLcgGnah6pdEBZtihfPBg==",
   "success": true,
   "projectFilePath": "C:\\Projects\\Pesonal\\Sources\\JKWorld\\PracticeAlgorithm\\PracticeAlgorithm\\PracticeAlgorithm.csproj",
   "expectedPackageFiles": [
@@ -9,7 +9,7 @@
     "C:\\Users\\Takhoon\\.nuget\\packages\\microsoft.net.native.sharedlibrary-arm\\1.7.0\\microsoft.net.native.sharedlibrary-arm.1.7.0.nupkg.sha512",
     "C:\\Users\\Takhoon\\.nuget\\packages\\microsoft.net.native.sharedlibrary-x64\\1.7.0\\microsoft.net.native.sharedlibrary-x64.1.7.0.nupkg.sha512",
     "C:\\Users\\Takhoon\\.nuget\\packages\\microsoft.net.native.sharedlibrary-x86\\1.7.0\\microsoft.net.native.sharedlibrary-x86.1.7.0.nupkg.sha512",
-    "C:\\Users\\Takhoon\\.nuget\\packages\\microsoft.net.test.sdk\\16.0.1\\microsoft.net.test.sdk.16.0.1.nupkg.sha512",
+    "C:\\Users\\Takhoon\\.nuget\\packages\\microsoft.net.test.sdk\\16.6.1\\microsoft.net.test.sdk.16.6.1.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\microsoft.netcore\\5.0.2\\microsoft.netcore.5.0.2.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\microsoft.netcore.jit\\1.0.3\\microsoft.netcore.jit.1.0.3.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\microsoft.netcore.platforms\\1.0.2\\microsoft.netcore.platforms.1.0.2.nupkg.sha512",

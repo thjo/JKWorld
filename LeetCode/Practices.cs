@@ -96,5 +96,73 @@ namespace LeetCode
 
 
 
+        //Rotate List
+        //
+        public ListNode RotateRight(ListNode head, int k)
+        {
+            int numOfRotate = k;
+            int lengthOfList = 0;
+
+            if (head == null || head.next == null || k == 0)
+                return head;
+
+            ListNode tail = head;
+            lengthOfList = 1;
+            //Move to tail
+            while (tail.next != null)
+            {
+                tail = tail.next;
+                lengthOfList++;
+            }
+            if (k % lengthOfList == 0)
+                return head;
+
+            numOfRotate = lengthOfList - (k % lengthOfList);
+
+            for (int i = 1; i <= numOfRotate; i++)
+            {
+                ListNode newHead = head.next;
+                tail.next = head;
+                tail = tail.next;
+                tail.next = null;
+                head = newHead;
+            }
+
+            return head;
+
+            //if (head == null || head.next == null)
+            //{
+            //    return head;
+            //}
+
+            //int len = 1;
+            //ListNode curr = head;
+
+            //while (curr.next != null)
+            //{
+            //    curr = curr.next;
+            //    len++;
+            //}
+
+            //curr.next = head;
+
+            //ListNode newTail = head;
+
+            //// Find the new tail, which is (n - k % n - 1)th node 
+            //// from the head and the new head,
+            //// which is (n - k % n)th node.
+            //int rotate = len - k % len - 1;
+
+            //while (rotate > 0)
+            //{
+            //    newTail = newTail.next;
+            //    rotate--;
+            //}
+
+            //ListNode newHead = newTail.next;
+            //newTail.next = null;
+
+            //return newHead;
+        }
     }
 }
