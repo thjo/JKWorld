@@ -243,6 +243,10 @@ namespace HackerRank
         //Insertion Soft Analysis
         //https://www.youtube.com/watch?v=ufIET8dMnus
 
+
+        //The 0/1 Knapsack Problem (Demystifying Dynamic Programming)
+        //https://www.youtube.com/watch?v=xCbYmUPvc2Q
+
     }
     public enum RangeIndicator
     {
