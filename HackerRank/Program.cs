@@ -140,6 +140,7 @@ namespace HackerRank
             List<int> a = new List<int>(); a.Add(-1); a.Add(-3); a.Add(4); a.Add(2);
             Console.WriteLine(ProblemSolving.angryProfessor(3, a));
 
+
             //Console.WriteLine(ProblemSolving.MyAtoi("-2147483647"));
 
             Video_Algoriths v = new Video_Algoriths();
@@ -159,13 +160,14 @@ namespace HackerRank
             newNd1.next = null;
             newNd1.random = head;
 
+            v.SolveNQueens(4);
             //Console.WriteLine(v.CopyRandomList(head));
             //Console.WriteLine(v.SearchRange3(new int[] { 2,2 }, 3));
 
             //Console.WriteLine(ProblemSolving.jumpingOnClouds(new int[] { 0, 0, 1, 0, 0, 1, 1, 0 }, 2));
 
 
-            Console.WriteLine(InterviewPreparationKit.stepPerms(3));
+            //Console.WriteLine(InterviewPreparationKit.stepPerms(3));
             Console.ReadLine();
 
             

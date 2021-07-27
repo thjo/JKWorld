@@ -247,6 +247,71 @@ namespace HackerRank
         //The 0/1 Knapsack Problem (Demystifying Dynamic Programming)
         //https://www.youtube.com/watch?v=xCbYmUPvc2Q
 
+        //Implement A Sudoku Solver - Sudoku Solving Backtracking Algorithm ("Sudoku Solver" on LeetCode)
+        //https://www.youtube.com/watch?v=JzONv5kaPJM
+        //LeeCode
+        //https://leetcode.com/problems/sudoku-solver/
+        public void SolveSudoku(char[][] board)
+        {
+            //Brute Force
+        }
+
+        //The N Queens Placement Problem Clear Explanation (Backtracking/Recursion)
+        //https://www.youtube.com/watch?v=wGbuCyNpxIg
+        //N-Queens
+        //https://leetcode.com/problems/n-queens/
+        public IList<IList<string>> SolveNQueens(int n)
+        {
+            IList<IList<string>> solutions = new List<IList<string>>();
+
+            SolveNQueensPro(n, 0, new List<int>(), solutions);
+            return solutions;
+        }
+        private void SolveNQueensPro(int n, int row, List<int> colPlacements, IList<IList<string>> solutions)
+        {
+            if (row == n)
+            {
+                List<string> buff = new List<string>();
+                foreach (int col in colPlacements)
+                {
+                    string tmp = "";
+                    for (int i = 0; i < n; i++)
+                    {
+                        if (i == col)
+                            tmp += "Q";
+                        else
+                            tmp += ".";
+                    }
+                    buff.Add(tmp);
+                }
+                solutions.Add(buff);
+            }
+            else
+            {
+                for (int col = 0; col < n; col++)
+                {
+                    colPlacements.Add(col);
+                    if (IsValidNQueens(colPlacements))
+                    {
+                        SolveNQueensPro(n, row + 1, colPlacements, solutions);  //Constraints
+                    }
+                    colPlacements.Remove(colPlacements.Count - 1);      //Undo
+                }
+            }
+        }
+        private bool IsValidNQueens(List<int> colPacements)
+        {
+            int rowId = colPacements.Count - 1;
+            for(int i = 0; i < rowId; i++)
+            {
+                int diff = Math.Abs(colPacements[i] - colPacements[rowId]);
+                if (diff == 0 || diff == rowId - 1)
+                    return false;
+            }
+            return true;
+        }
+
+
     }
     public enum RangeIndicator
     {

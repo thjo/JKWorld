@@ -69,6 +69,13 @@ namespace HackerRank
         }
 
 
+        //Crossword Puzzle
+        //https://www.hackerrank.com/challenges/crossword-puzzle/problem?h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=recursion-backtracking&h_r=next-challenge&h_v=zen
+        public static List<string> crosswordPuzzle(List<string> crossword, string words)
+        {
+            return null;
+        }
+
 
         #endregion
     }
