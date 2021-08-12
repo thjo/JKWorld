@@ -313,5 +313,31 @@ namespace HackerRank
         }
 
 
+
+        public static string hackerrankInString(string s)
+        {
+            if (string.IsNullOrWhiteSpace(s))
+                return "NO";
+
+            string hackerrank = "hackerrank";
+            int lenHackerrank = hackerrank.Length;
+            int lenStr = s.Length;
+            int cursorStr = 0, cursorHacker = 0;
+            while(cursorHacker < lenHackerrank && cursorStr < lenStr)
+            {
+                if(hackerrank[cursorHacker] == s[cursorStr])
+                {
+                    cursorHacker++; cursorStr++;
+                }
+                else
+                {
+                    cursorStr++;
+                }
+            }
+            if (cursorHacker == lenHackerrank)
+                return "YES";
+            else
+                return "NO";
+        }
     }
 }

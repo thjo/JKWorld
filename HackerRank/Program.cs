@@ -160,13 +160,13 @@ namespace HackerRank
             newNd1.next = null;
             newNd1.random = head;
 
-            v.SolveNQueens(4);
+            //v.SolveNQueens(4);
             //Console.WriteLine(v.CopyRandomList(head));
             //Console.WriteLine(v.SearchRange3(new int[] { 2,2 }, 3));
 
             //Console.WriteLine(ProblemSolving.jumpingOnClouds(new int[] { 0, 0, 1, 0, 0, 1, 1, 0 }, 2));
 
-
+            ProblemSolving.hackerrankInString("hereiamstackerrank");
             //Console.WriteLine(InterviewPreparationKit.stepPerms(3));
             Console.ReadLine();
 

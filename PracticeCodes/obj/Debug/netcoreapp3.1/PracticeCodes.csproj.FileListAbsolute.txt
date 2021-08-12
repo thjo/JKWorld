@@ -10,3 +10,4 @@ C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\PracticeCodes\obj\Debug\ne
 C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\PracticeCodes\obj\Debug\netcoreapp3.1\PracticeCodes.dll
 C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\PracticeCodes\obj\Debug\netcoreapp3.1\PracticeCodes.pdb
 C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\PracticeCodes\obj\Debug\netcoreapp3.1\PracticeCodes.genruntimeconfig.cache
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\PracticeCodes\obj\Debug\netcoreapp3.1\PracticeCodes.csproj.AssemblyReference.cache

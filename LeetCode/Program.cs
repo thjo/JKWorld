@@ -6,6 +6,8 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
+            AuguestChallenge2021.CanReorderDoubled(new int[] { 4, -2, 2, -4 });
+
             //Console.WriteLine("Hello World!");
 
             //TopInterviewQuestions_Strings interviewQ = new TopInterviewQuestions_Strings();
