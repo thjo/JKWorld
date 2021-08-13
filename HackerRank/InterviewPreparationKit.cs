@@ -78,5 +78,53 @@ namespace HackerRank
 
 
         #endregion
+
+
+
+        #region | Linked Lists | 
+
+        /// <summary>
+        /// Insert a node at a specific position in a linked list
+        /// https://www.hackerrank.com/challenges/insert-a-node-at-a-specific-position-in-a-linked-list/problem?h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=linked-lists
+        /// </summary>
+        /// <param name="llist"></param>
+        /// <param name="data"></param>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        public static SinglyLinkedListNode insertNodeAtPosition(SinglyLinkedListNode llist, int data, int position)
+        {
+            if (llist == null)
+                return new SinglyLinkedListNode(data);
+
+            if (position == 0)
+            {
+                SinglyLinkedListNode newNode = new SinglyLinkedListNode(data);
+                newNode.next = llist;
+                llist = newNode;
+            }
+            else {
+                SinglyLinkedListNode currNode = llist;
+                int idx = 1;
+                while (currNode != null)
+                {
+                    if(position == idx)
+                    {
+                        SinglyLinkedListNode newNode = new SinglyLinkedListNode(data);
+                        SinglyLinkedListNode nextNode = currNode.next;
+                        currNode.next = newNode;
+                        newNode.next = nextNode;
+                        break;
+                    }
+
+                    currNode = currNode.next;
+                    idx++;
+                }
+            }
+            return llist;
+        }
+
+
+
+        #endregion
     }
 }

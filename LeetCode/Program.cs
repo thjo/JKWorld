@@ -6,7 +6,8 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
-            AuguestChallenge2021.CanReorderDoubled(new int[] { 4, -2, 2, -4 });
+            AuguestChallenge2021 aug = new AuguestChallenge2021();
+            aug.GroupAnagrams(new string[] { "eat", "tea", "tan", "ate", "nat", "bat" });
 
             //Console.WriteLine("Hello World!");
 
