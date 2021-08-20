@@ -7,7 +7,8 @@ namespace LeetCode
         static void Main(string[] args)
         {
             AuguestChallenge2021 aug = new AuguestChallenge2021();
-            aug.GroupAnagrams(new string[] { "", "b" });
+            //aug.GroupAnagrams(new string[] { "", "b" });
+            aug.MinWindow("ADOBECODEBANC", "ABC");
 
             //Console.WriteLine("Hello World!");
 

@@ -177,67 +177,73 @@ namespace LeetCode
             }
 
             // Number of unique characters in t, which need to be present in the desired window.
-            int requiredLen = dict.Count;
+            int requiredMinLen = dict.Count;
 
             // Left and Right pointer
             int l = 0, r = 0;
-            // formed is used to keep track of how many unique characters in t
-            int formed = 0;
+            while (l < s.Length)
+            {
+                if (dict.ContainsKey(s[l]))
+                    break;
+                l++;
+            }
 
-            // Dictionary which keeps a count of all the unique characters in the current window.
-            Dictionary<char, int> windowCounts = new Dictionary<char, int>();
-            // ans list of the form (window length, left, right)
-            int[] ans = { -1, 0, 0 };
-
-
+            int finalL = 0, finalR = int.MaxValue;
+            Dictionary<char, int> windowsCnt = new Dictionary<char, int>();
+            //Seach a satisfy window first then consider about miniumizing.
             while (r < s.Length)
             {
-                // Add one character from the right to the window
-                char c = s[r];
-                int count = 0;
-                if (windowCounts.ContainsKey(c))
-                    count = windowCounts[c];
+                if (dict.ContainsKey(s[r]))
+                    break;
+                r++;
+            }
+            l = r;
+            while (r < s.Length)
+            {
+                if (windowsCnt.ContainsKey(s[r]))
+                    windowsCnt[s[r]]++; 
                 else
-                    windowCounts.Add(c, 0);
-                windowCounts[c] = count + 1;
+                    windowsCnt.Add(s[r], 1);
 
-                // If the frequency of the current character added equals to the
-                // desired count in t then increment the formed count by 1.
-                if (dict.ContainsKey(c) && windowCounts[c] == dict[c])
+                while (l <= r && windowsCnt.Count >= requiredMinLen && MinWindowSatisfy(dict, windowsCnt))
                 {
-                    formed++;
-                }
-
-                // Try and contract the window till the point where it ceases to be 'desirable'.
-                while (l <= r && formed == required)
-                {
-                    c = s.charAt(l);
-                    // Save the smallest window until now.
-                    if (ans[0] == -1 || r - l + 1 < ans[0])
+                    if( (finalR - finalL) > (r - l))
                     {
-                        ans[0] = r - l + 1;
-                        ans[1] = l;
-                        ans[2] = r;
+                        finalL = l;
+                        finalR = r;
                     }
 
-                    // The character at the position pointed by the
-                    // `Left` pointer is no longer a part of the window.
-                    windowCounts.put(c, windowCounts.get(c) - 1);
-                    if (dictT.containsKey(c) && windowCounts.get(c).intValue() < dictT.get(c).intValue())
-                    {
-                        formed--;
-                    }
-
-                    // Move the left pointer ahead, this would help to look for a new window.
+                    //Minimize the window o fine a smallest satisfy window
+                    windowsCnt[s[l]]--;
+                    if (windowsCnt[s[l]] <= 0)
+                        windowsCnt.Remove(s[l]);
                     l++;
                 }
 
-                // Keep expanding the window once we are done contracting.
                 r++;
             }
 
-            return ans[0] == -1 ? "" : s.Substring(ans[1], ans[2] + 1);
+            if (finalR - finalL == int.MaxValue)
+                return "";
+            else
+                return s.Substring(finalL, (finalR - finalL)+1);
         }
+        private bool MinWindowSatisfy(Dictionary<char, int> dict, Dictionary<char, int> windowsCnt)
+        {
+            bool isValid = true;
+            foreach(var d in dict)
+            {
+                if (windowsCnt.ContainsKey(d.Key) && windowsCnt[d.Key] >= d.Value)
+                    continue;
+                else
+                {
+                    isValid = false;
+                    break;
+                }
+            }
+            return isValid;
+        }
+
         /// <summary>
         /// Count Good Nodes in Binary Tree
         /// https://leetcode.com/explore/featured/card/august-leetcoding-challenge-2021/615/week-3-august-15th-august-21st/3899/
