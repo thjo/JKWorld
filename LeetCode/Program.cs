@@ -7,7 +7,7 @@ namespace LeetCode
         static void Main(string[] args)
         {
             AuguestChallenge2021 aug = new AuguestChallenge2021();
-            aug.GroupAnagrams(new string[] { "eat", "tea", "tan", "ate", "nat", "bat" });
+            aug.GroupAnagrams(new string[] { "", "b" });
 
             //Console.WriteLine("Hello World!");
 

@@ -87,14 +87,8 @@ namespace LeetCode
             }
 
             IList<Dictionary<char, int>> words = new List<Dictionary<char, int>>();
-            int cntEmpty = 0;
             foreach (string s in strs)
             {
-                if (string.IsNullOrWhiteSpace(s))
-                {
-                    cntEmpty++;
-                    continue;
-                }
                 Dictionary<char, int> word = new Dictionary<char, int>();
                 foreach (char c in s)
                 {
@@ -106,16 +100,6 @@ namespace LeetCode
                 words.Add(word);
             }
 
-            if (cntEmpty > 0)
-            {
-                IList<string> empty = new List<string>();
-                while (cntEmpty > 0)
-                {
-                    empty.Add("");
-                    cntEmpty--;
-                }
-                result.Add(empty);
-            }
             int[] checkedList = new int[strs.Length];
             for(int idx = 0; idx < words.Count; idx++)
             {
@@ -152,6 +136,8 @@ namespace LeetCode
             bool retVal = true;
             if (word1.Count != word2.Count)
                 return false;
+            else if (word1.Count == 0 && word2.Count == 0)
+                return true;
 
             foreach(var c in word1)
             {
@@ -167,5 +153,123 @@ namespace LeetCode
             return retVal;
         }
 
+
+        /// <summary>
+        /// Minimum Window Substring
+        /// https://leetcode.com/explore/challenge/card/august-leetcoding-challenge-2021/615/week-3-august-15th-august-21st/3891/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public string MinWindow(string s, string t)
+        {
+            if (string.IsNullOrWhiteSpace(s) || string.IsNullOrWhiteSpace(t))
+                return "";
+
+            // Dictionary which keeps a count of all the unique characters in t.
+            Dictionary<char, int> dict = new Dictionary<char, int>();
+            foreach(char c in t)
+            {
+                if (dict.ContainsKey(c))
+                    dict[c]++;
+                else
+                    dict.Add(c, 1);
+            }
+
+            // Number of unique characters in t, which need to be present in the desired window.
+            int requiredLen = dict.Count;
+
+            // Left and Right pointer
+            int l = 0, r = 0;
+            // formed is used to keep track of how many unique characters in t
+            int formed = 0;
+
+            // Dictionary which keeps a count of all the unique characters in the current window.
+            Dictionary<char, int> windowCounts = new Dictionary<char, int>();
+            // ans list of the form (window length, left, right)
+            int[] ans = { -1, 0, 0 };
+
+
+            while (r < s.Length)
+            {
+                // Add one character from the right to the window
+                char c = s[r];
+                int count = 0;
+                if (windowCounts.ContainsKey(c))
+                    count = windowCounts[c];
+                else
+                    windowCounts.Add(c, 0);
+                windowCounts[c] = count + 1;
+
+                // If the frequency of the current character added equals to the
+                // desired count in t then increment the formed count by 1.
+                if (dict.ContainsKey(c) && windowCounts[c] == dict[c])
+                {
+                    formed++;
+                }
+
+                // Try and contract the window till the point where it ceases to be 'desirable'.
+                while (l <= r && formed == required)
+                {
+                    c = s.charAt(l);
+                    // Save the smallest window until now.
+                    if (ans[0] == -1 || r - l + 1 < ans[0])
+                    {
+                        ans[0] = r - l + 1;
+                        ans[1] = l;
+                        ans[2] = r;
+                    }
+
+                    // The character at the position pointed by the
+                    // `Left` pointer is no longer a part of the window.
+                    windowCounts.put(c, windowCounts.get(c) - 1);
+                    if (dictT.containsKey(c) && windowCounts.get(c).intValue() < dictT.get(c).intValue())
+                    {
+                        formed--;
+                    }
+
+                    // Move the left pointer ahead, this would help to look for a new window.
+                    l++;
+                }
+
+                // Keep expanding the window once we are done contracting.
+                r++;
+            }
+
+            return ans[0] == -1 ? "" : s.Substring(ans[1], ans[2] + 1);
+        }
+        /// <summary>
+        /// Count Good Nodes in Binary Tree
+        /// https://leetcode.com/explore/featured/card/august-leetcoding-challenge-2021/615/week-3-august-15th-august-21st/3899/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public int GoodNodes(TreeNode root)
+        {
+            int cntOfGoodNodes = 0;
+            int max = int.MinValue;
+            GoodNodesScan(root, max, ref cntOfGoodNodes);
+
+            return cntOfGoodNodes;
+        }
+        private void GoodNodesScan(TreeNode root, int max, ref int cntOfGoodNodes)
+        {
+            if (root == null)
+                return;
+
+            if (root.val >= max)
+            {
+                cntOfGoodNodes++;
+                max = root.val;
+            }
+
+            //Left
+            if (root.left != null)
+                GoodNodesScan(root.left, max, ref cntOfGoodNodes);
+
+            //Right
+            if (root.right != null)
+                GoodNodesScan(root.right, max, ref cntOfGoodNodes);
+        }
     }
 }

@@ -7,6 +7,7 @@ namespace HackerRank
     {
         static void Main(string[] args)
         {
+            ProblemSolving.encryption("aa bb cc f d   sds sd sdsdsdsdsd");
             Console.WriteLine("Hello World!");
 
             #region | Comments | 

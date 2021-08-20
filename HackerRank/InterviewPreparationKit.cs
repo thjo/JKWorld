@@ -123,7 +123,11 @@ namespace HackerRank
             return llist;
         }
 
+        public static int findMergeNode(SinglyLinkedListNode head1, SinglyLinkedListNode head2)
+        {
 
+            return 0;
+        }
 
         #endregion
     }

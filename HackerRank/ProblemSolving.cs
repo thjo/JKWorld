@@ -339,5 +339,214 @@ namespace HackerRank
             else
                 return "NO";
         }
+
+
+
+        /// <summary>
+        /// https://www.hackerrank.com/challenges/find-digits/problem
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static int findDigits(int n)
+        {
+            int cntNums = 0;
+            foreach (char d in n.ToString())
+            {
+                int div = int.Parse(d.ToString());
+                if (div != 0 && n % div == 0)
+                    cntNums++;
+            }
+
+            return cntNums;
+        }
+
+        /// <summary>
+        /// https://www.hackerrank.com/challenges/extra-long-factorials/problem?h_r=next-challenge&h_v=zen
+        /// </summary>
+        /// <param name="n"></param>
+        public static void extraLongFactorials(int n)
+        {
+            if (n > 0)
+            {
+                int[] data = new int[200];
+                data[0] = 1;
+                int lenOfNum = 1;
+                for (int i = 2; i <= n; i++)
+                {
+                    lenOfNum = multiply(i, data, lenOfNum);
+                }
+
+                for (int i = lenOfNum - 1; i >= 0; i--)
+                    Console.Write(data[i].ToString());
+            }
+            else
+                Console.WriteLine("0");
+        }
+        public static int multiply(int num, int[] data, int lenOfNum)
+        {
+            int carry = 0;
+            for (int i = 0; i < lenOfNum; i++)
+            {
+                int result = num * data[i] + carry;
+                carry = result / 10;
+                data[i] = result % 10;
+            }
+
+            while (carry > 0)
+            {
+                data[lenOfNum] = carry % 10;
+                carry = carry / 10;
+                lenOfNum++;
+            }
+
+            return lenOfNum;
+        }
+
+
+        /// <summary>
+        /// https://www.hackerrank.com/challenges/append-and-delete/problem?h_r=next-challenge&h_v=zen&h_r=next-challenge&h_v=zen
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="t"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public static string appendAndDelete(string s, string t, int k)
+        {
+            int cnt = 0;
+
+            if (string.IsNullOrWhiteSpace(t))
+            {
+                if (string.IsNullOrWhiteSpace(s) == false)
+                    cnt = s.Length;
+                return cnt <= k ? "Yes" : "No";
+            }
+            else if (s == t)
+                return cnt <= k ? "Yes" : "No";
+
+            int sCurr = 0, tCurr = 0;
+            while (sCurr < s.Length && tCurr < t.Length && s[sCurr] == t[tCurr])
+            {
+                sCurr++;
+                tCurr++;
+            }
+
+            //Delete
+            cnt = s.Length - sCurr;
+            //s = s.Substring(0, sCurr);
+
+            //Append
+            cnt += t.Length - tCurr;
+            if (cnt == k || (cnt < k && (k - cnt) % 2 == 0) || (cnt + (2 * sCurr) <= k))
+                return "Yes";
+            else
+                return "No";
+        }
+
+
+        /// <summary>
+        /// Encryption
+        /// https://www.hackerrank.com/challenges/encryption/problem?utm_campaign=challenge-recommendation&utm_medium=email&utm_source=24-hour-campaign
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string encryption(string s)
+        {
+            if (string.IsNullOrWhiteSpace(s))
+                return s;
+
+            //Remove spaces 
+            s = s.Replace(" ", "");
+            double len = Math.Sqrt(s.Length);
+            int row = (int)len;
+            int col = row;
+            if (row < len)
+                col++;
+            string newS = "";
+            for (int c = 0; c < col; c++)
+            {
+                for (int r = 0; r <= row; r++)
+                {
+                    if(c + (r * col) < s.Length)
+                        newS += s[c + (r * col)];
+                }
+                newS += " ";
+            }
+
+            return newS;
+        }
+
+
+        /// <summary>
+        /// Beautiful Binary String
+        /// https://www.hackerrank.com/challenges/beautiful-binary-string/problem?utm_campaign=challenge-recommendation&utm_medium=email&utm_source=24-hour-campaign
+        /// </summary>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static int beautifulBinaryString(string b)
+        {
+            int cnt = 0;
+            if (string.IsNullOrWhiteSpace(b) || b.Length < 3)
+                return cnt;
+
+            string pattern = b.Substring(0,2);
+            int i = 2;
+            do
+            {
+                pattern += b[i];
+                if (pattern.Length < 3)
+                    continue;
+                if (pattern == "010")
+                {
+                    cnt++;
+                    pattern = "";
+                    //if((i+1) < b.Length)
+                    //{
+                    //    //Check next value
+                    //    if(b[i+1] == '0')
+                    //    {
+                    //        //Change a value in second position to a 0
+                    //    }
+                    //}
+                    ////else - change a value in third position to a 1
+                }
+                else
+                    pattern = pattern.Substring(1, 2);
+            }
+            while (++i < b.Length);
+
+            return cnt;
+        }
+
+
+        /// <summary>
+        /// The Love-Letter Mystery
+        /// https://www.hackerrank.com/challenges/the-love-letter-mystery/problem?utm_campaign=challenge-recommendation&utm_medium=email&utm_source=24-hour-campaign
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static int theLoveLetterMystery(string s)
+        {
+            if (string.IsNullOrWhiteSpace(s) || s.Length == 1)
+                return 0;
+
+            int cnt = 0;
+            int l = 0, r = s.Length - 1;
+            int lMid = s.Length / 2;
+            int rMid = lMid;
+            if (s.Length % 2 == 0)
+                rMid--;
+            while (l < lMid && r > rMid)
+            {
+                if (s[l] == s[r])
+                    ;
+                else if (s[l] < s[r])
+                    cnt += s[r] - s[l];
+                else
+                    cnt += s[l] - s[r];
+                l++;r--;
+            }
+
+            return cnt;
+        }
     }
 }
