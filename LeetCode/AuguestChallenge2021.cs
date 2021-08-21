@@ -277,5 +277,46 @@ namespace LeetCode
             if (root.right != null)
                 GoodNodesScan(root.right, max, ref cntOfGoodNodes);
         }
+
+        /// <summary>
+        /// Maximum Product of Splitted Binary Tree
+        /// https://leetcode.com/explore/challenge/card/august-leetcoding-challenge-2021/615/week-3-august-15th-august-21st/3903/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public int MaxProduct(TreeNode root)
+        {
+            int modulo = 1000000007;
+            long max = 0;
+            //First. Get a total sum
+            long total = MaxProductGetSum(root);
+
+            //Second. check all of posibilities
+            MaxProductCutSum(root, total, ref max);
+
+            return (int)(max%modulo);
+        }
+        private long MaxProductGetSum(TreeNode root)
+        {
+            if (root == null)
+                return 0;
+
+            long leftSum = MaxProductGetSum(root.left);
+            long rightSum = MaxProductGetSum(root.right);
+
+            return (root.val + leftSum + rightSum);
+        }
+        private long MaxProductCutSum(TreeNode root, long total, ref long max)
+        {
+            if (root == null)
+                return 0;
+
+            long leftSum = MaxProductCutSum(root.left, total, ref max);
+            long rightSum = MaxProductCutSum(root.right, total, ref max);
+
+            max = Math.Max(max, leftSum*(total-leftSum));
+            max = Math.Max(max, rightSum * (total - rightSum));
+            return (root.val + leftSum + rightSum);
+        }
     }
 }

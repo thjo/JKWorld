@@ -8,7 +8,13 @@ namespace LeetCode
         {
             AuguestChallenge2021 aug = new AuguestChallenge2021();
             //aug.GroupAnagrams(new string[] { "", "b" });
-            aug.MinWindow("ADOBECODEBANC", "ABC");
+            TreeNode tr = new TreeNode(1);
+            tr.left = new TreeNode(2);
+            tr.right = new TreeNode(3);
+            tr.left.left = new TreeNode(4);
+            tr.left.right = new TreeNode(5);
+            tr.right.left = new TreeNode(6);
+            aug.MaxProduct(tr);
 
             //Console.WriteLine("Hello World!");
 
