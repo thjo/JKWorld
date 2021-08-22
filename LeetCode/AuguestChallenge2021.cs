@@ -318,5 +318,17 @@ namespace LeetCode
             max = Math.Max(max, rightSum * (total - rightSum));
             return (root.val + leftSum + rightSum);
         }
+
+
+        /// <summary>
+        /// Valid Sudoku
+        /// https://leetcode.com/explore/challenge/card/august-leetcoding-challenge-2021/615/week-3-august-15th-august-21st/3904/
+        /// </summary>
+        /// <param name="board"></param>
+        /// <returns></returns>
+        public bool IsValidSudoku(char[][] board)
+        {
+            return false;
+        }
     }
 }

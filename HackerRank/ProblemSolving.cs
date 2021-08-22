@@ -548,5 +548,51 @@ namespace HackerRank
 
             return cnt;
         }
+
+        /// <summary>
+        /// Gemstones
+        /// https://www.hackerrank.com/challenges/gem-stones/problem?utm_campaign=challenge-recommendation&utm_medium=email&utm_source=24-hour-campaign
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public static int gemstones(List<string> arr)
+        {
+            if (arr == null || arr.Count == 0)
+                return 0;
+            else if (arr.Count == 1)
+                return arr[0].Length;
+
+            Dictionary<char, int> map = new Dictionary<char, int>();
+            Dictionary<char, int> buff = new Dictionary<char, int>();
+            int numOfGemstones = 0;
+            int maxNum = arr.Count;
+            foreach(string s in arr)
+            {
+                if (string.IsNullOrWhiteSpace(s))
+                    continue;
+                for(int i = 0; i < s.Length; i++)
+                {
+                    if (buff.ContainsKey(s[i]))
+                        continue;
+
+                    buff.Add(s[i], 0);
+                    if (map.ContainsKey(s[i]))
+                    {
+                        map[s[i]]++;
+                    }
+                    else
+                        map.Add(s[i], 1);
+                }
+                buff.Clear();
+            }
+
+            foreach(var c in map)
+            {
+                if (c.Value == maxNum)
+                    numOfGemstones++;
+            }
+
+            return numOfGemstones;
+        }
     }
 }
