@@ -7,14 +7,15 @@ namespace LeetCode
         static void Main(string[] args)
         {
             AuguestChallenge2021 aug = new AuguestChallenge2021();
+            aug.ComplexNumberMultiply("1+-1i", "0+0i");
             //aug.GroupAnagrams(new string[] { "", "b" });
-            TreeNode tr = new TreeNode(1);
-            tr.left = new TreeNode(2);
-            tr.right = new TreeNode(3);
-            tr.left.left = new TreeNode(4);
-            tr.left.right = new TreeNode(5);
-            tr.right.left = new TreeNode(6);
-            aug.MaxProduct(tr);
+            //TreeNode tr = new TreeNode(1);
+            //tr.left = new TreeNode(2);
+            //tr.right = new TreeNode(3);
+            //tr.left.left = new TreeNode(4);
+            //tr.left.right = new TreeNode(5);
+            //tr.right.left = new TreeNode(6);
+            //aug.MaxProduct(tr);
 
             //Console.WriteLine("Hello World!");
 

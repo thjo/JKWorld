@@ -330,5 +330,30 @@ namespace LeetCode
         {
             return false;
         }
+
+
+        /// <summary>
+        /// Complex Number Multiplication
+        /// https://leetcode.com/explore/challenge/card/august-leetcoding-challenge-2021/616/week-4-august-22nd-august-28th/3917/
+        /// </summary>
+        /// <param name="num1"></param>
+        /// <param name="num2"></param>
+        /// <returns></returns>
+        public string ComplexNumberMultiply(string num1, string num2)
+        {
+            string[] n1 = num1.Split("+".ToCharArray());
+            string[] n2 = num1.Split("+".ToCharArray());
+
+            int n1Real = int.Parse(n1[0]);
+            int n1Imaginary = int.Parse(n1[1].Replace("i", ""));
+
+            int n2Real = int.Parse(n2[0]);
+            int n2Imaginary = int.Parse(n2[1].Replace("i", ""));
+
+            int total = n1Real * n2Real + n1Imaginary * n2Imaginary * -1;
+            int totalImg = n1Real * n2Imaginary + n2Real * n1Imaginary;
+
+            return string.Format("{0}+{1}i", total, totalImg);
+        }
     }
 }

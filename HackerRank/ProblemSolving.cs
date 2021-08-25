@@ -594,5 +594,57 @@ namespace HackerRank
 
             return numOfGemstones;
         }
+
+
+        /// <summary>
+        /// Anagram
+        /// https://www.hackerrank.com/challenges/anagram/problem?utm_campaign=challenge-recommendation&utm_medium=email&utm_source=24-hour-campaign
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static int anagram(string s)
+        {
+            if (string.IsNullOrWhiteSpace(s))
+                return 0;
+            else if (s.Length % 2 == 1)
+                return -1;
+
+            Dictionary<char, int> dic = new Dictionary<char, int>();
+            foreach (char c in s.Substring(0, s.Length / 2))
+            {
+                if (dic.ContainsKey(c))
+                    dic[c]++;
+                else
+                    dic.Add(c, 1);
+            }
+
+            foreach (char c in s.Substring(s.Length / 2))
+            {
+                if (dic.ContainsKey(c))
+                {
+                    dic[c]--;
+                    if (dic[c] == 0)
+                        dic.Remove(c);
+                }
+            }
+            int num = 0;
+            foreach (var v in dic)
+                num += v.Value;
+
+            return num;
+        }
+
+        /// <summary>
+        /// Find Merge Point of Two Lists
+        /// https://www.hackerrank.com/challenges/find-the-merge-point-of-two-joined-linked-lists/problem?h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=linked-lists
+        /// </summary>
+        /// <param name="head1"></param>
+        /// <param name="head2"></param>
+        /// <returns></returns>
+        static int findMergeNode(SinglyLinkedListNode head1, SinglyLinkedListNode head2)
+        {
+
+            return 0;
+        }
     }
 }
