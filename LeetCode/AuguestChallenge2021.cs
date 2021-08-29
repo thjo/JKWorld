@@ -331,6 +331,17 @@ namespace LeetCode
             return false;
         }
 
+        /// <summary>
+        /// Rectangle Area II
+        /// https://leetcode.com/explore/challenge/card/august-leetcoding-challenge-2021/616/week-4-august-22nd-august-28th/3907/
+        /// </summary>
+        /// <param name="rectangles"></param>
+        /// <returns></returns>
+        public int RectangleArea(int[][] rectangles)
+        {
+            return -1;
+        }
+
 
         /// <summary>
         /// Complex Number Multiplication
@@ -342,7 +353,7 @@ namespace LeetCode
         public string ComplexNumberMultiply(string num1, string num2)
         {
             string[] n1 = num1.Split("+".ToCharArray());
-            string[] n2 = num1.Split("+".ToCharArray());
+            string[] n2 = num2.Split("+".ToCharArray());
 
             int n1Real = int.Parse(n1[0]);
             int n1Imaginary = int.Parse(n1[1].Replace("i", ""));
@@ -355,5 +366,37 @@ namespace LeetCode
 
             return string.Format("{0}+{1}i", total, totalImg);
         }
+
+
+        /// <summary>
+        /// Sum of Square Numbers
+        /// https://leetcode.com/explore/challenge/card/august-leetcoding-challenge-2021/616/week-4-august-22nd-august-28th/3918/
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public bool JudgeSquareSum(int c)
+        {
+            for (long a = 0; a * a <= c; a++)
+            {
+                double b = Math.Sqrt(c - a * a);
+                if (b == (int)b)
+                    return true;
+            }
+            return false;
+        }
+
+
+        /// <summary>
+        /// Patching Array
+        /// https://leetcode.com/explore/challenge/card/august-leetcoding-challenge-2021/617/week-5-august-29th-august-31st/3956/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int MinPatches(int[] nums, int n)
+        {
+            return -1;
+        }
+
     }
 }

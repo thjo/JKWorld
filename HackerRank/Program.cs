@@ -7,9 +7,6 @@ namespace HackerRank
     {
         static void Main(string[] args)
         {
-            ProblemSolving.encryption("aa bb cc f d   sds sd sdsdsdsdsd");
-            Console.WriteLine("Hello World!");
-
             #region | Comments | 
 
             //Interview.sherlockAndAnagrams("abba");
@@ -145,31 +142,31 @@ namespace HackerRank
             //Console.WriteLine(ProblemSolving.MyAtoi("-2147483647"));
 
             Video_Algoriths v = new Video_Algoriths();
-            Node head = new Node(7);
-            Node newNd13 = new Node(13);
-            Node newNd11 = new Node(11);
-            Node newNd10 = new Node(10);
-            Node newNd1 = new Node(1);
-            head.next = newNd13;
-            head.random = null;
-            newNd13.next = newNd11;
-            newNd13.random = head;
-            newNd11.next = newNd10;
-            newNd11.random = newNd1;
-            newNd10.next = newNd1;
-            newNd10.random = newNd11;
-            newNd1.next = null;
-            newNd1.random = head;
-
+            //Node head = new Node(7);
+            //Node newNd13 = new Node(13);
+            //Node newNd11 = new Node(11);
+            //Node newNd10 = new Node(10);
+            //Node newNd1 = new Node(1);
+            //head.next = newNd13;
+            //head.random = null;
+            //newNd13.next = newNd11;
+            //newNd13.random = head;
+            //newNd11.next = newNd10;
+            //newNd11.random = newNd1;
+            //newNd10.next = newNd1;
+            //newNd10.random = newNd11;
+            //newNd1.next = null;
+            //newNd1.random = head;
             //v.SolveNQueens(4);
             //Console.WriteLine(v.CopyRandomList(head));
             //Console.WriteLine(v.SearchRange3(new int[] { 2,2 }, 3));
 
-            //Console.WriteLine(ProblemSolving.jumpingOnClouds(new int[] { 0, 0, 1, 0, 0, 1, 1, 0 }, 2));
+            v.GenerateParenthesis(2);
 
-            ProblemSolving.hackerrankInString("hereiamstackerrank");
-            //Console.WriteLine(InterviewPreparationKit.stepPerms(3));
-            Console.ReadLine();
+            //Console.WriteLine(ProblemSolving.jumpingOnClouds(new int[] { 0, 0, 1, 0, 0, 1, 1, 0 }, 2));
+            //ProblemSolving.hackerrankInString("hereiamstackerrank");
+            ////Console.WriteLine(InterviewPreparationKit.stepPerms(3));
+            //Console.ReadLine();
 
             
         }

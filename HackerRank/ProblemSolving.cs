@@ -643,8 +643,76 @@ namespace HackerRank
         /// <returns></returns>
         static int findMergeNode(SinglyLinkedListNode head1, SinglyLinkedListNode head2)
         {
+            //int foundVal = -1;
+            SinglyLinkedListNode selNode = null;
+            HashSet<SinglyLinkedListNode> nodes = new HashSet<SinglyLinkedListNode>();
+            while(head1.next != null)
+            {
+                head1 = head1.next;
+                nodes.Add(head1);
+            }
 
-            return 0;
+            while (head2.next != null)
+            {
+                head2 = head2.next;
+                if(nodes.Contains(head2))
+                {
+                    selNode = head2;
+                    break;
+                }
+            }
+
+            return selNode != null ? selNode.data : -1;
         }
+
+
+        /// <summary>
+        /// Inserting a Node Into a Sorted Doubly Linked List
+        /// https://www.hackerrank.com/challenges/insert-a-node-into-a-sorted-doubly-linked-list/problem?utm_campaign=challenge-recommendation&utm_medium=email&utm_source=24-hour-campaign
+        /// </summary>
+        /// <param name="llist"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static DoublyLinkedListNode sortedInsert(DoublyLinkedListNode llist, int data)
+        {
+            DoublyLinkedListNode newNode = new DoublyLinkedListNode(data);
+            if (llist == null)
+                return newNode;
+            else if(llist.data > data)
+            {
+                newNode.next = llist;
+                newNode.prev = null;
+                llist.prev = newNode;
+                return newNode;
+            }
+            DoublyLinkedListNode currNode = llist;
+            while (currNode.next != null)
+            {
+                currNode = currNode.next;
+                if(currNode.data > data)
+                {
+                    DoublyLinkedListNode prevNode = currNode.prev;
+                    prevNode.next = newNode;
+                    newNode.prev = prevNode;
+                    newNode.next = currNode;
+                    currNode.prev = newNode;
+                    return llist;
+                }
+            }
+            currNode.next = newNode;
+            newNode.prev = currNode;
+            return llist;
+        }
+    }
+
+    public class DoublyLinkedListNode
+    {
+        public DoublyLinkedListNode(int d)
+        {
+            data = d;
+        }
+        public int data;
+        public DoublyLinkedListNode next;
+        public DoublyLinkedListNode prev; 
     }
 }

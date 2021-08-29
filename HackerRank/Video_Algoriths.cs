@@ -312,6 +312,47 @@ namespace HackerRank
         }
 
 
+        //Generate All Strings With n Matched Parentheses - Backtracking
+        //https://www.youtube.com/watch?v=sz1qaKt0KGQ
+        //https://www.youtube.com/watch?v=s9fokUqJ76A
+        /// <summary>
+        /// Generate Parentheses
+        /// https://leetcode.com/problems/generate-parentheses/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public IList<string> GenerateParenthesis(int n)
+        {
+            IList<string> result = new List<string>();
+            List<char> stack = new List<char>();
+            GenerateParenthesisR(result, n, 0, 0, stack);
+            return result;
+        }
+        private void GenerateParenthesisR(IList<string> result, int n, int usedOpened, int usedClosed, List<char> stack)
+        {
+            if(usedOpened == n && usedClosed == n)
+            {
+                result.Add(new string(stack.ToArray()));
+                return;
+            }
+
+            if (usedOpened < n)
+            {
+                stack.Add('(');
+                GenerateParenthesisR(result, n, usedOpened + 1, usedClosed, stack);
+                stack.RemoveAt(stack.Count - 1);
+            }
+
+            if (usedClosed < n && usedOpened > usedClosed)
+            {
+                stack.Add(')');
+                GenerateParenthesisR(result, n, usedOpened, usedClosed + 1, stack);
+                stack.RemoveAt(stack.Count - 1);
+            }
+        }
+
+
+
     }
     public enum RangeIndicator
     {
