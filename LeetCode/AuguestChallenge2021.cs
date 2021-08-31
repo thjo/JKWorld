@@ -386,17 +386,26 @@ namespace LeetCode
         }
 
 
-        /// <summary>
-        /// Patching Array
-        /// https://leetcode.com/explore/challenge/card/august-leetcoding-challenge-2021/617/week-5-august-29th-august-31st/3956/
-        /// </summary>
-        /// <param name="nums"></param>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        public int MinPatches(int[] nums, int n)
-        {
-            return -1;
-        }
 
+
+        /// <summary>
+        /// Range Addition II
+        /// https://leetcode.com/explore/challenge/card/august-leetcoding-challenge-2021/617/week-5-august-29th-august-31st/3957/
+        /// </summary>
+        /// <param name="m"></param>
+        /// <param name="n"></param>
+        /// <param name="ops"></param>
+        /// <returns></returns>
+        public int MaxCount(int m, int n, int[][] ops)
+        {
+            int minM = m, minN = n;
+            foreach(int[] map in ops)
+            {
+                minM = Math.Min(minM, map[0]);
+                minN = Math.Min(minN, map[1]);
+            }
+
+            return minM * minN;
+        }
     }
 }
