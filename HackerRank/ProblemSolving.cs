@@ -703,6 +703,45 @@ namespace HackerRank
             newNode.prev = currNode;
             return llist;
         }
+
+
+        /// <summary>
+        /// Palindrome Index
+        /// https://www.hackerrank.com/challenges/palindrome-index/problem?utm_campaign=challenge-recommendation&utm_medium=email&utm_source=24-hour-campaign
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static int palindromeIndex(string s)
+        {
+            int selIdx = -1;
+            bool IsPalindrome = true;
+            int i = 0, j = s.Length - 1;
+            int marked_i = i, marked_j = j;
+
+            if ( string.IsNullOrWhiteSpace(s) == false && s.Length > 2)
+            {
+                while(i <= j)
+                {
+                    if (s[i] != s[j])
+                    {
+                        if (IsPalindrome == false)
+                            return marked_j;
+
+                        IsPalindrome = false;
+                        marked_i = i;
+                        marked_j = j;
+                        i++;
+                    }
+                    else
+                    {
+                        i++; j--;
+                    }
+                }
+            }
+
+            return IsPalindrome == false ? marked_i : selIdx;
+        }
+
     }
 
     public class DoublyLinkedListNode
