@@ -426,7 +426,7 @@ namespace LeetCode
             int mid = (statIdx + endIdx) / 2;
             minNum = Math.Min(minNum, nums[mid]);
             if (mid < nums.Length - 1) {
-                if (nums[mid] > nums[mid + 1])
+                if (nums[mid] > nums[endIdx])
                     minNum = Math.Min(minNum, FindMinBSearch(nums, mid + 1, endIdx, minNum));
                 else
                     minNum = Math.Min(minNum, FindMinBSearch(nums, statIdx, mid-1, minNum)); ;

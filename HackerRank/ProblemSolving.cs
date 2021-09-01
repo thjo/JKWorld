@@ -742,6 +742,42 @@ namespace HackerRank
             return IsPalindrome == false ? marked_i : selIdx;
         }
 
+        /// <summary>
+        /// Game of Thrones - I
+        /// https://www.hackerrank.com/challenges/game-of-thrones/problem?utm_campaign=challenge-recommendation&utm_medium=email&utm_source=24-hour-campaign
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string gameOfThrones(string s)
+        {
+            if (string.IsNullOrEmpty(s) || s.Length == 1)
+                return "YES";
+
+            bool isEven = s.Length % 2 == 0;
+            Dictionary<char, int> map = new Dictionary<char, int>(); 
+            foreach(char c in s)
+            {
+                if (map.ContainsKey(c))
+                    map[c]++;
+                else
+                    map.Add(c, 1);
+            }
+
+            int numOfOdd = 0;
+            foreach(var v in map)
+            {
+                if (v.Value % 2 == 1)
+                    numOfOdd++;
+            }
+
+            if (isEven && numOfOdd == 0)
+                return "YES";
+            else if (isEven == false && numOfOdd == 1)
+                return "YES";
+            else
+                return "NO";
+        }
+
     }
 
     public class DoublyLinkedListNode
