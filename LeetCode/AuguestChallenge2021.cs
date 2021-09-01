@@ -407,5 +407,32 @@ namespace LeetCode
 
             return minM * minN;
         }
+
+        /// <summary>
+        /// Find Minimum in Rotated Sorted Array
+        /// https://leetcode.com/explore/challenge/card/august-leetcoding-challenge-2021/617/week-5-august-29th-august-31st/3958/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int FindMin(int[] nums)
+        {
+            return FindMinBSearch(nums, 0, nums.Length - 1, int.MaxValue);
+        }
+        public int FindMinBSearch(int[] nums, int statIdx, int endIdx, int minNum)
+        {
+            if (statIdx > endIdx)
+                return minNum;
+
+            int mid = (statIdx + endIdx) / 2;
+            minNum = Math.Min(minNum, nums[mid]);
+            if (mid < nums.Length - 1) {
+                if (nums[mid] > nums[mid + 1])
+                    minNum = Math.Min(minNum, FindMinBSearch(nums, mid + 1, endIdx, minNum));
+                else
+                    minNum = Math.Min(minNum, FindMinBSearch(nums, statIdx, mid-1, minNum)); ;
+            }
+
+            return minNum;
+        }
     }
 }

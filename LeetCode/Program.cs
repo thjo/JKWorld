@@ -7,7 +7,8 @@ namespace LeetCode
         static void Main(string[] args)
         {
             AuguestChallenge2021 aug = new AuguestChallenge2021();
-            aug.ComplexNumberMultiply("1+-1i", "0+0i");
+            //aug.ComplexNumberMultiply("1+-1i", "0+0i");
+            aug.FindMin(new int[] { 2, 3, 4, 5, 1 });
             //aug.GroupAnagrams(new string[] { "", "b" });
             //TreeNode tr = new TreeNode(1);
             //tr.left = new TreeNode(2);
