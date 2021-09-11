@@ -778,6 +778,167 @@ namespace HackerRank
                 return "NO";
         }
 
+
+        /// <summary>
+        /// ACM ICPC Team
+        /// https://www.hackerrank.com/challenges/acm-icpc-team/problem?utm_campaign=challenge-recommendation&utm_medium=email&utm_source=24-hour-campaign
+        /// </summary>
+        /// <param name="topic"></param>
+        /// <returns></returns>
+        public static List<int> acmTeam(List<string> topic)
+        {
+            int maxNum = 0;
+            int numOfTeam = 0;
+            for(int i = 0; i < topic.Count-1; i++)
+            {
+                for(int j = i+1; j < topic.Count; j++)
+                {
+                    int idx = 0;
+                    int count = 0;
+                    while(idx < topic[i].Length)
+                    {
+                        if (topic[i][idx] == '1' || topic[j][idx] == '1')
+                            count++;
+                        idx++;
+                    }
+                    if (maxNum < count)
+                    {
+                        maxNum = count;
+                        numOfTeam = 1;
+                    }
+                    else if (maxNum == count)
+                        numOfTeam++;
+                }
+            }
+
+            List<int> result = new List<int>();
+            result.Add(maxNum);
+            result.Add(numOfTeam);
+            return result;
+        }
+
+        /// <summary>
+        /// Modified Kaprekar Numbers
+        /// https://www.hackerrank.com/challenges/kaprekar-numbers/problem?utm_campaign=challenge-recommendation&utm_medium=email&utm_source=24-hour-campaign
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="q"></param>
+        public static void kaprekarNumbers(int p, int q)
+        {
+            bool isExist = false;
+            for (int i = p; i <= q; i++) {
+
+                if (i == sumOfNums(i*1.0* i))
+                {
+                    Console.Write(i.ToString() + " ");
+                    isExist = true;
+                }
+            }
+            if(isExist)
+                Console.WriteLine("");
+            else
+                Console.WriteLine("INVALID RANGE");
+        }
+        private static int sumOfNums(double n)
+        {
+            string num = n.ToString();
+            if(num.IndexOf(".")>0)
+                num = num.Substring(0, num.IndexOf("."));
+
+            if (num.Length == 1)
+                return int.Parse(num);
+            int lenInt = num.Length/2;
+            int sum1 = int.Parse(num.Substring(0, lenInt));
+            int sum2 = 0;
+            if(lenInt > 0)
+                sum2 = int.Parse(num.Substring(lenInt));
+
+            return sum1 + sum2;
+        }
+
+        /// <summary>
+        /// The Time in Words
+        /// https://www.hackerrank.com/challenges/the-time-in-words/problem?utm_campaign=challenge-recommendation&utm_medium=email&utm_source=24-hour-campaign
+        /// </summary>
+        /// <param name="h"></param>
+        /// <param name="m"></param>
+        /// <returns></returns>
+        public static string timeInWords(int h, int m)
+        {
+            Dictionary<int, string> timeMap = new Dictionary<int, string>();
+            timeMap.Add(0, "o' clock");
+            timeMap.Add(1, "one");
+            timeMap.Add(2, "two");
+            timeMap.Add(3, "three");
+            timeMap.Add(4, "four");
+            timeMap.Add(5, "five");
+            timeMap.Add(6, "six");
+            timeMap.Add(7, "seven");
+            timeMap.Add(8, "eight");
+            timeMap.Add(9, "nine");
+            timeMap.Add(10, "ten");
+            timeMap.Add(11, "eleven");
+            timeMap.Add(12, "twelve");
+            timeMap.Add(13, "thirteen");
+            timeMap.Add(14, "fourteen");
+            timeMap.Add(15, "fifthteen");
+            timeMap.Add(16, "sixteen");
+            timeMap.Add(17, "seventeen");
+            timeMap.Add(18, "eighteen");
+            timeMap.Add(19, "nineteen");
+            timeMap.Add(20, "twenty");
+            timeMap.Add(30, "thrity");
+            timeMap.Add(40, "fourty");
+            timeMap.Add(50, "fifty");
+
+            string keyword = "past";
+            string minutes = "minutes";
+            if (m == 0)
+            {
+                // use o' clock
+                return string.Format("{0} {1}", timeMap[h], timeMap[0]);
+            }
+            else if (m > 30)
+            {
+                keyword = "to";
+                m = 60 - m;
+                h++;
+            }
+            if (m == 1)
+                minutes = "minute";
+
+            //use past
+            if (m == 15 || m == 45)
+            {
+                // use quarter
+                return string.Format("{0} {1} {2}", "quarter", keyword, timeMap[h]);
+            }
+            else if (m == 30)
+            {
+                //use half
+                return string.Format("{0} {1} {2}", "half", keyword, timeMap[h]);
+            }
+            else
+            {
+                string mins = "";
+                if (m / 10 <= 1)
+                    mins = timeMap[m];
+                else
+                {
+                    mins = timeMap[(m / 10) * 10];
+                    if (m % 10 != 0)
+                        mins = mins + " " + timeMap[m % 10];
+                }
+
+                return string.Format("{0} {1} {2} {3}", mins, minutes, keyword, timeMap[h]);
+            }
+        }
+
+
+
+
+
+
     }
 
     public class DoublyLinkedListNode

@@ -135,6 +135,7 @@ namespace HackerRank
             //List<int> a = new List<int>(); a.Add(100); a.Add(100); a.Add(50); a.Add(40); a.Add(40); a.Add(20); a.Add(10);
             //List<int> b = new List<int>(); b.Add(5); b.Add(25); b.Add(50); b.Add(120); b.Add(3); b.Add(1);
             //Console.WriteLine(ProblemSolving.climbingLeaderboard(a, b));
+            ProblemSolving.timeInWords(7, 29);
             List<int> a = new List<int>(); a.Add(-1); a.Add(-3); a.Add(4); a.Add(2);
             Console.WriteLine(ProblemSolving.angryProfessor(3, a));
 
@@ -160,8 +161,6 @@ namespace HackerRank
             //v.SolveNQueens(4);
             //Console.WriteLine(v.CopyRandomList(head));
             //Console.WriteLine(v.SearchRange3(new int[] { 2,2 }, 3));
-
-            v.GenerateParenthesis(2);
 
             //Console.WriteLine(ProblemSolving.jumpingOnClouds(new int[] { 0, 0, 1, 0, 0, 1, 1, 0 }, 2));
             //ProblemSolving.hackerrankInString("hereiamstackerrank");
