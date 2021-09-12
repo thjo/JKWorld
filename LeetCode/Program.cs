@@ -6,23 +6,27 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
-            ProblemSolving PP = new ProblemSolving();
-            //int[][] martix = new int[3][];
-            //martix[0] = new int[3];
-            //martix[0][0] = 1;
-            //martix[0][1] = 2;
-            //martix[0][2] = 3;
-            //martix[1] = new int[3];
-            //martix[1][0] = 4;
-            //martix[1][1] = 5;
-            //martix[1][2] = 6;
-            //martix[2] = new int[3];
-            //martix[2][0] = 7;
-            //martix[2][1] = 8;
-            //martix[2][2] = 9;
-            //PP.SpiralOrder(martix);
-            PP.Divide(10, 3);
-            PP.Divide(-2147483648, -1);
+            //ProblemSolving PP = new ProblemSolving();
+            ////int[][] martix = new int[3][];
+            ////martix[0] = new int[3];
+            ////martix[0][0] = 1;
+            ////martix[0][1] = 2;
+            ////martix[0][2] = 3;
+            ////martix[1] = new int[3];
+            ////martix[1][0] = 4;
+            ////martix[1][1] = 5;
+            ////martix[1][2] = 6;
+            ////martix[2] = new int[3];
+            ////martix[2][0] = 7;
+            ////martix[2][1] = 8;
+            ////martix[2][2] = 9;
+            ////PP.SpiralOrder(martix);
+            //PP.Divide(10, 3);
+            //PP.Divide(-2147483648, -1);
+
+            SeptemberChallenge2021 sep = new SeptemberChallenge2021();
+            sep.Calculate("(1+(4+5+2) -3)+ (6+8)");
+
 
             AuguestChallenge2021 aug = new AuguestChallenge2021();
             //aug.ComplexNumberMultiply("1+-1i", "0+0i");
