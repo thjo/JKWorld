@@ -152,5 +152,41 @@ namespace LeetCode
             //    return sign ? (int)result : (int)(result * -1);
         }
 
+        /// <summary>
+        /// Combination Sum
+        /// https://leetcode.com/problems/combination-sum/
+        /// Video: https://www.youtube.com/watch?v=GBKI9VSKdGg
+        /// </summary>
+        /// <param name="candidates"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public IList<IList<int>> CombinationSum(int[] candidates, int target)
+        {
+            IList<IList<int>> results = new List<IList<int>>();
+            CombinationCases(candidates, target, 0, new List<int>(), results);
+
+            return results;
+        }
+        private void CombinationCases(int[] candidates, int target, int idx, IList<int> currCombination, IList<IList<int>> allCombinaions)
+        {
+            if (target == 0)
+            {
+                List<int> tmp = new List<int>();
+                foreach (int i in currCombination)
+                    tmp.Add(i);
+                allCombinaions.Add(tmp);
+                return;
+            }
+            else if (idx >= candidates.Length || target < 0)
+                return;
+            else
+            {
+                currCombination.Add(candidates[idx]);
+                CombinationCases(candidates, target - candidates[idx], idx, currCombination, allCombinaions);
+                currCombination.RemoveAt(currCombination.Count - 1);
+                CombinationCases(candidates, target, idx + 1, currCombination, allCombinaions);
+            }
+            return;
+        }
     }
 }

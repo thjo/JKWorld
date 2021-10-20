@@ -135,7 +135,7 @@ namespace HackerRank
             //List<int> a = new List<int>(); a.Add(100); a.Add(100); a.Add(50); a.Add(40); a.Add(40); a.Add(20); a.Add(10);
             //List<int> b = new List<int>(); b.Add(5); b.Add(25); b.Add(50); b.Add(120); b.Add(3); b.Add(1);
             //Console.WriteLine(ProblemSolving.climbingLeaderboard(a, b));
-            ProblemSolving.timeInWords(7, 29);
+            ProblemSolving.squares(465868129, 988379794);
             List<int> a = new List<int>(); a.Add(-1); a.Add(-3); a.Add(4); a.Add(2);
             Console.WriteLine(ProblemSolving.angryProfessor(3, a));
 

@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "tNLnghEHVYGxJqKO591xxYfrEi+69UT1w4EZG7dBsEonPi2hkUmcwTWUTsRKtDhFal+/00ZO9tAM23UkEYBAZA==",
+  "dgSpecHash": "/bazf325PrscAQIwX5o41T0TrH+RqjY90v6CFvuDz3nMmuNDxRCdd9CtcsxBhCwSsuj5aZzp6fb16OxqO6LL6Q==",
   "success": true,
   "projectFilePath": "C:\\Projects\\Pesonal\\Sources\\JKWorld\\PracticeAlgorithm\\PracticeCodes\\PracticeCodes.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Takhoon\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.18\\microsoft.netcore.app.host.win-x64.3.1.18.nupkg.sha512"
+  ],
   "logs": []
 }

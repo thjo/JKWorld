@@ -6,7 +6,6 @@ namespace HackerRank
 {
     public class ProblemSolving
     {
-
         public static string catAndMouse(int x, int y, int z)
         {
             int distCatAandMouse = Math.Abs(x - z);
@@ -55,6 +54,7 @@ namespace HackerRank
 
             return min.Value;
         }
+
 
         //Picking Numbers
         //https://www.hackerrank.com/challenges/picking-numbers/problem?h_r=next-challenge&h_v=zen
@@ -209,6 +209,7 @@ namespace HackerRank
             return k <= numOfAttendees ? "NO" : "YES";
         }
 
+
         //Beautiful Days at the Movies
         //https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?h_r=next-challenge&h_v=zen&h_r=next-challenge&h_v=zen
         public static int beautifulDays(int i, int j, int k)
@@ -269,6 +270,7 @@ namespace HackerRank
 
         }
 
+
         //Sequence Equation
         //https://www.hackerrank.com/challenges/permutation-equation/problem?h_r=next-challenge&h_v=zen&h_r=next-challenge&h_v=zen
         public static List<int> permutationEquation(List<int> p)
@@ -313,7 +315,6 @@ namespace HackerRank
         }
 
 
-
         public static string hackerrankInString(string s)
         {
             if (string.IsNullOrWhiteSpace(s))
@@ -339,8 +340,6 @@ namespace HackerRank
             else
                 return "NO";
         }
-
-
 
         /// <summary>
         /// https://www.hackerrank.com/challenges/find-digits/problem
@@ -935,9 +934,43 @@ namespace HackerRank
         }
 
 
+        /// <summary>
+        /// Sherlock and Squares
+        /// https://www.hackerrank.com/challenges/sherlock-and-squares/problem
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static int squares(int a, int b)
+        {
+            int sr = (int)Math.Sqrt(a);
+            int count = 0;
+
+            while ((sr * sr) <= b)
+            {
+                if ((sr * sr) >= a)
+                    count++;
+                sr++;
+            }
+            return count;
+        }
 
 
+        /// <summary>
+        /// Library Fine
+        /// https://www.hackerrank.com/challenges/library-fine/problem?h_r=next-challenge&h_v=zen
+        /// </summary>
+        /// <param name="d1"></param>
+        /// <param name="m1"></param>
+        /// <param name="y1"></param>
+        /// <param name="d2"></param>
+        /// <param name="m2"></param>
+        /// <param name="y2"></param>
+        /// <returns></returns>
+        public static int libraryFine(int d1, int m1, int y1, int d2, int m2, int y2)
+        {
 
+        }
 
     }
 

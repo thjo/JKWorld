@@ -6,7 +6,7 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
-            //ProblemSolving PP = new ProblemSolving();
+            ProblemSolving PP = new ProblemSolving();
             ////int[][] martix = new int[3][];
             ////martix[0] = new int[3];
             ////martix[0][0] = 1;
@@ -23,9 +23,11 @@ namespace LeetCode
             ////PP.SpiralOrder(martix);
             //PP.Divide(10, 3);
             //PP.Divide(-2147483648, -1);
+            PP.CombinationSum(new int[] { 2, 3, 5 }, 8);
+
 
             SeptemberChallenge2021 sep = new SeptemberChallenge2021();
-            sep.Calculate("(1+(4+5+2) -3)+ (6+8)");
+            sep.Calculate("1-(2+3-(4+(5-(1-(2+4-(5+6))))))");
 
 
             AuguestChallenge2021 aug = new AuguestChallenge2021();

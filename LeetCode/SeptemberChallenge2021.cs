@@ -37,6 +37,16 @@ namespace LeetCode
                     if (sDigits.Count > 0)
                     {
                         buff = sDigits.Pop();
+                        if (subTotal < 0 )
+                        {
+                            if (buff[buff.Length - 1] == '-')
+                            {
+                                buff = buff.Substring(0, buff.Length - 1) + "+";
+                                subTotal = subTotal * -1;
+                            }
+                            else
+                                buff = buff.Substring(0, buff.Length - 1);
+                        }
                         buff += subTotal.ToString();
                     }
                     else
@@ -53,12 +63,6 @@ namespace LeetCode
                 }
                 //Others - ignore
             }
-
-            result += CalOneOperation(buff);
-            //while (sDigits.Count > 0)
-            //{
-            //    result += CalOneOperation(sDigits.Pop());
-            //}
 
             return result;
         }
@@ -94,5 +98,9 @@ namespace LeetCode
 
             return result;
         }
+
+
+
+
     }
 }
