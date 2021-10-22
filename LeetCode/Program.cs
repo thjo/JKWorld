@@ -6,6 +6,8 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
+            Algorithm_I al = new Algorithm_I();
+            al.Search(new int[] { -1, 0, -3, 5, 9, 12 }, 9);
             ProblemSolving PP = new ProblemSolving();
             ////int[][] martix = new int[3][];
             ////martix[0] = new int[3];

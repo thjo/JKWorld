@@ -969,8 +969,60 @@ namespace HackerRank
         /// <returns></returns>
         public static int libraryFine(int d1, int m1, int y1, int d2, int m2, int y2)
         {
+            int totalFine = 0;
 
+            if (y1 < y2
+                || (y1 == y2 && m1 < m2)
+                || (y1 == y2 && m1 == m2 && d1 < d2))
+                totalFine = 0;
+            else if( y1 > y2)
+            {
+                totalFine = 10000;
+            }
+            else if( m1 > m2)
+            {
+                totalFine = (m1 - m2) * 500;
+            }
+            else if(d1 > d2)
+            {
+                totalFine = (d1 - d2) * 15;
+            }
+
+            return totalFine;
         }
+
+
+        /// <summary>
+        /// Cut the sticks
+        /// https://www.hackerrank.com/challenges/cut-the-sticks/problem?h_r=next-challenge&h_v=zen&h_r=next-challenge&h_v=zen
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public static List<int> cutTheSticks(List<int> arr)
+        {
+            List<int> iteration = new List<int>();
+            int remainingStickNum = arr.Count;
+            int minStick = 0;
+            int[] buff = new int[1001];
+            foreach (int n in arr)
+                buff[n]++;
+
+            for(int i = 1; i <= 1000; i++)
+            {
+                if (buff[i] == 0)
+                    continue;
+                else
+                {
+                    minStick += i;
+                    iteration.Add(remainingStickNum);
+                    remainingStickNum -= buff[i];
+                }
+            }
+
+            return iteration;
+        }
+
+
 
     }
 
