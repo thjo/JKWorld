@@ -6,6 +6,8 @@ namespace LeetCode
 {
     public class Algorithm_I
     {
+        #region | Binary Search | 
+
         /// <summary>
         /// 704. Binary Search
         /// https://leetcode.com/problems/binary-search/
@@ -88,23 +90,76 @@ namespace LeetCode
         /// <returns></returns>
         public int SearchInsert(int[] nums, int target)
         {
+            int left = 0, right = nums.Length - 1;
+            int mid = (left + right) / 2;
 
-            //int idxInserted = 0;
+            while (left <= right)
+            {
+                if (nums[mid] == target)
+                    return mid;
+                else if (nums[mid] > target)
+                {
+                    right = mid - 1;
+                }
+                else
+                {
+                    left = mid + 1;
+                }
 
-            //if (nums == null || nums.Length < 1)
-            //    return idxInserted;
+                mid = (left + right) / 2;
+            }
 
-            //idxInserted = nums.Length;
-            //for (int i = 0; i < idxInserted; i++)
-            //{
-            //    if (nums[i] >= target)
-            //    {
-            //        idxInserted = i;
-            //        break;
-            //    }
-            //}
-
-            //return idxInserted;
+            return left;
         }
+
+        #endregion
+
+        #region | Two Points |
+
+        /// <summary>
+        /// 977. Squares of a Sorted Array
+        /// https://leetcode.com/problems/squares-of-a-sorted-array/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int[] SortedSquares(int[] nums)
+        {
+            int len = nums.Length;
+            int negativPoint = -1;
+
+            int[] newSorted = new int[len];
+            int idxNew = 0;
+            for(int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] >= 0)
+                {
+                    //Positive value
+                    while (negativPoint > -1 && negativPoint < len
+                        && nums[negativPoint] * nums[negativPoint] < nums[i] * nums[i])
+                    {
+                        newSorted[idxNew++] = nums[negativPoint] * nums[negativPoint];
+                        negativPoint--;
+                    }
+                    newSorted[idxNew] = nums[i] * nums[i]; 
+                    idxNew++;
+                }
+                else
+                {
+                    //Negative value
+                    negativPoint = i;
+                }
+            }
+
+            while (negativPoint > -1 && negativPoint < len)
+            {
+                newSorted[idxNew] = nums[negativPoint] * nums[negativPoint];
+                idxNew++;
+                negativPoint--;
+            }
+
+            return newSorted;
+        }
+
+        #endregion
     }
 }
