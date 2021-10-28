@@ -230,13 +230,14 @@ namespace LeetCode
             while(idxLeft < idxRight)
             {
                 if (numbers[idxLeft] + numbers[idxRight] == target)
-                    return new int[] { idxLeft, idxRight };
+                    return new int[] { idxLeft+1, idxRight+1 };
                 else if (numbers[idxLeft] + numbers[idxRight] > target)
                     idxRight--;
                 else
                     idxLeft++;
             }
             return new int[] { -1, -1 };
+
             //Using Dictionary
 
             //Dictionary<int, int> numMap = new Dictionary<int, int>();
@@ -255,6 +256,74 @@ namespace LeetCode
 
             //return new int[] { -1, -1 };
         }
+
+
+
+        /// <summary>
+        /// 344. Reverse String
+        /// https://leetcode.com/problems/reverse-string/
+        /// </summary>
+        /// <param name="s"></param>
+        public void ReverseString(char[] s)
+        {
+            int l = 0, r = s.Length - 1;
+
+            while (l < r)
+            {
+                char tmp = s[l];
+                s[l++] = s[r];
+                s[r--] = tmp;
+            }
+        }
+
+        /// <summary>
+        /// 557. Reverse Words in a String III
+        /// https://leetcode.com/problems/reverse-words-in-a-string-iii/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public string ReverseWords(string s)
+        {
+            string reverseStr = "";
+            string subStr = "";
+            for (int i = 0; i < s.Length; i++)
+            {
+                if(s[i] == ' ')
+                {
+                    reverseStr += string.Format("{0} ", ReverseString(subStr));
+                    subStr = "";
+                }
+                else
+                {
+                    subStr += s[i]; 
+                }
+            }
+            if(string.IsNullOrWhiteSpace(subStr))
+                reverseStr += string.Format("{0}", ReverseString(subStr));
+
+            return reverseStr;
+        }
+        public string ReverseString(string s)
+        {
+            int l = 0, r = s.Length - 1;
+            string reverseL = "", reverseR = "";
+
+            while (l < r)
+            {
+                reverseL = string.Format("{0}{1}", reverseL, s[r]);
+                reverseR = string.Format("{0}{1}", s[l], reverseR);
+                l++; r--;
+            }
+
+            if (s.Length % 2 == 1)
+                return string.Format("{0}{1}{2}", reverseL, s[l], reverseR);
+            else
+                return string.Format("{0}{1}", reverseL, reverseR);
+        }
+
+
+
+
 
         #endregion
     }
