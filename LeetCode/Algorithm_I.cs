@@ -298,7 +298,7 @@ namespace LeetCode
                     subStr += s[i]; 
                 }
             }
-            if(string.IsNullOrWhiteSpace(subStr))
+            if(string.IsNullOrWhiteSpace(subStr) == false)
                 reverseStr += string.Format("{0}", ReverseString(subStr));
 
             return reverseStr;
@@ -322,8 +322,85 @@ namespace LeetCode
         }
 
 
+        /// <summary>
+        /// 876. Middle of the Linked List
+        /// https://leetcode.com/problems/middle-of-the-linked-list/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public ListNode MiddleNode(ListNode head)
+        {
+            ListNode dummy = new ListNode(0, head);
+            ListNode slow = dummy, fast = dummy;
+            while (fast != null)
+            {
+                slow = slow.next;
+                fast = fast.next != null ? fast.next.next : null;
+            }
+
+            return slow;
+        }
 
 
+        /// <summary>
+        /// 19. Remove Nth Node From End of List
+        /// https://leetcode.com/problems/remove-nth-node-from-end-of-list/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public ListNode RemoveNthFromEnd(ListNode head, int n)
+        {
+            //Using Two points
+            ListNode dummy = new ListNode(0, head);
+
+            ListNode rightPointer = head;
+            ListNode leftPointer = dummy;
+
+            for (int i = 0; i < n; i++)
+            {
+                rightPointer = rightPointer.next;
+            }
+
+            while (rightPointer != null)
+            {
+                leftPointer = leftPointer.next;
+                rightPointer = rightPointer.next;
+            }
+
+            leftPointer.next = leftPointer.next.next;
+
+            return dummy.next;
+
+            // Using Extra Space
+            //ListNode slow = head, fast = head;
+            //List<ListNode> buff = new List<ListNode>();
+            //buff.Add(head);
+            //while(fast != null)
+            //{
+            //    slow = fast.next;
+            //    fast = slow != null ? slow.next : null;
+
+            //    if( slow != null)
+            //        buff.Add(slow);
+            //    if( fast != null)
+            //        buff.Add(fast);
+            //}
+
+            //int removeAt = buff.Count - n;
+            //ListNode nodeRmoveAt = buff[removeAt];
+            //if (removeAt < 0)
+            //    return null;
+            //else if( removeAt == 0)
+            //{
+            //    head = head.next;
+            //}
+            //else
+            //{
+            //    buff[removeAt-1].next = nodeRmoveAt.next;
+            //}
+            //return head;
+        }
 
         #endregion
     }

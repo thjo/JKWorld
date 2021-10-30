@@ -16,7 +16,8 @@ namespace LeetCode
     {
       public int val;
       public ListNode next;
-      public ListNode(int x) { val = x; }
+      public ListNode(int x=0, ListNode next = null) { this.val = x; this.next = next; }
+
     }
 
     public class LinkedList
