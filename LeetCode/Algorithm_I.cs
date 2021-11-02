@@ -403,5 +403,99 @@ namespace LeetCode
         }
 
         #endregion
+
+
+        #region | Sliding Window | 
+
+        /// <summary>
+        /// 3. Longest Substring Without Repeating Characters
+        /// https://leetcode.com/problems/longest-substring-without-repeating-characters/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public int LengthOfLongestSubstring(string s)
+        {
+            if (s == null || s.Length == 0)
+                return 0;
+            Dictionary<char, int> subStr = new Dictionary<char, int>();
+            int longestLen = 0;
+            int startIdx = 0;
+            subStr.Add(s[0], 0);
+            longestLen = 1;
+            for (int currIdx = 1; currIdx < s.Length; currIdx++)
+            {
+                if (subStr.ContainsKey(s[currIdx]))
+                {
+                    int duplicatedIdx = subStr[s[currIdx]];
+                    while ( startIdx <= duplicatedIdx)
+                    {
+                        if (subStr.ContainsKey(s[startIdx]))
+                        {
+                            subStr.Remove(s[startIdx]);
+                        }
+                        startIdx++;
+                    }
+                }
+                
+                subStr.Add(s[currIdx], currIdx);
+                longestLen = Math.Max(longestLen, subStr.Count);
+            }
+
+            return longestLen;
+        }
+
+
+        /// <summary>
+        /// 567. Permutation in String
+        /// https://leetcode.com/problems/permutation-in-string/
+        /// </summary>
+        /// <param name="s1"></param>
+        /// <param name="s2"></param>
+        /// <returns></returns>
+        public bool CheckInclusion(string s1, string s2)
+        {
+            //Length of string p and s
+            int s1Len = s1.Length;
+            int s2Len = s2.Length;
+
+            //Return empty result if any of the condition
+            if (s2.Length == 0 || s1Len > s2Len)
+                return false;
+
+            int[] s1Arr = new int[26]; 
+            int[] s2Arr = new int[26];
+
+            for (int i = 0; i < s1Len; i++)
+            {
+                s1Arr[s1[i] - 'a']++;
+                s2Arr[s2[i] - 'a']++;
+            }
+
+            for(int i = 0; i < s2Len- s1Len; i++)
+            {
+                if (isPermutation(s1Arr, s2Arr))
+                    return true;
+
+                s2Arr[s2[i] - 'a']--;
+                s2Arr[s2[i + s1Len] - 'a']++;
+            }
+
+            if (isPermutation(s1Arr, s2Arr))
+                return true;
+
+            return false;
+        }
+        private bool isPermutation(int[] s1Arr, int[] s2Arr)
+        {
+            for(int i = 0; i < s1Arr.Length; i++)
+            {
+                if (s1Arr[i] != s2Arr[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+        #endregion
     }
 }
