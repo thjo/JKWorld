@@ -519,8 +519,7 @@ namespace LeetCode
             for (int i = 0; i < rowLen; i++)
                 visited[i] = new bool[colLen];
 
-
-
+            FloodFillRecursive(image, sr, sc, rowLen, colLen, visited, image[sr][sc], newColor);
             return image;
         }
         private void FloodFillRecursive(int[][] image, int sr, int sc, int rowLen, int colLen, bool[][] visited, int oldColor, int newColor)
@@ -549,8 +548,45 @@ namespace LeetCode
         /// <returns></returns>
         public int MaxAreaOfIsland(int[][] grid)
         {
-            return 0;
+            int maxAreaOfIsland = 0;
+
+            int rowLen = grid.Length;
+            int colLen = grid[0].Length;
+            int[][] visited = new int[rowLen][];
+            for (int i = 0; i < rowLen; i++)
+                visited[i] = new int[colLen];
+
+            for(int r = 0; r < rowLen; r++)
+            {
+                for(int c = 0; c < colLen; c++)
+                {
+                    if(grid[r][c] == 1)
+                    {
+                        maxAreaOfIsland = Math.Max(VisitIsland(grid, r, c, rowLen, colLen), maxAreaOfIsland);
+                    }
+                }
+            }
+
+            return maxAreaOfIsland;
         }
+        private int VisitIsland(int[][] grid, int pointRow, int pointCol, int rowLen, int colLen)
+        {
+            int sizeOfIsland = 0;
+            if (pointRow < 0 || pointRow >= rowLen || pointCol < 0 || pointCol >= colLen)
+                return sizeOfIsland;
+            else if (grid[pointRow][pointCol] != 1)
+                return sizeOfIsland;
+
+            grid[pointRow][pointCol] = 2;       //Visied
+            sizeOfIsland++;
+            sizeOfIsland += VisitIsland(grid, pointRow-1, pointCol, rowLen, colLen);
+            sizeOfIsland += VisitIsland(grid, pointRow, pointCol-1, rowLen, colLen);
+            sizeOfIsland += VisitIsland(grid, pointRow, pointCol+1, rowLen, colLen);
+            sizeOfIsland += VisitIsland(grid, pointRow+1, pointCol, rowLen, colLen);
+
+            return sizeOfIsland;
+        }
+
 
 
         #endregion
