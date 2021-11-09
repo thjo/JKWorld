@@ -496,6 +496,65 @@ namespace LeetCode
             return true;
         }
 
+
         #endregion
+
+
+        #region | Breadth-First Search / Depth-First Searc | 
+
+        /// <summary>
+        /// 733. Flood Fill
+        /// https://leetcode.com/problems/flood-fill/
+        /// </summary>
+        /// <param name="image"></param>
+        /// <param name="sr"></param>
+        /// <param name="sc"></param>
+        /// <param name="newColor"></param>
+        /// <returns></returns>
+        public int[][] FloodFill(int[][] image, int sr, int sc, int newColor)
+        {
+            int rowLen = image.Length;
+            int colLen = image[0].Length;
+            bool[][] visited = new bool[rowLen][];
+            for (int i = 0; i < rowLen; i++)
+                visited[i] = new bool[colLen];
+
+
+
+            return image;
+        }
+        private void FloodFillRecursive(int[][] image, int sr, int sc, int rowLen, int colLen, bool[][] visited, int oldColor, int newColor)
+        {
+            if (sr < 0 || sr >= rowLen || sc < 0 || sc >= colLen)
+                return;
+            else if (visited[sr][sc])
+                return;
+
+            if (image[sr][sc] == oldColor)
+            {
+                image[sr][sc] = newColor;
+                visited[sr][sc] = true;
+                FloodFillRecursive(image, sr-1, sc, rowLen, colLen, visited, oldColor, newColor);
+                FloodFillRecursive(image, sr, sc-1, rowLen, colLen, visited, oldColor, newColor);
+                FloodFillRecursive(image, sr+1, sc, rowLen, colLen, visited, oldColor, newColor);
+                FloodFillRecursive(image, sr, sc+1, rowLen, colLen, visited, oldColor, newColor);
+            }
+        }
+
+        /// <summary>
+        /// 695. Max Area of Island
+        /// https://leetcode.com/problems/max-area-of-island/
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public int MaxAreaOfIsland(int[][] grid)
+        {
+            return 0;
+        }
+
+
+        #endregion
+
+
     }
 }
