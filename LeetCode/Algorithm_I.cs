@@ -588,6 +588,40 @@ namespace LeetCode
         }
 
 
+        /// <summary>
+        /// 617. Merge Two Binary Trees
+        /// https://leetcode.com/problems/merge-two-binary-trees/
+        /// </summary>
+        /// <param name="root1"></param>
+        /// <param name="root2"></param>
+        /// <returns></returns>
+        public TreeNode MergeTrees(TreeNode root1, TreeNode root2)
+        {
+            if (root1 == null && root2 == null)
+                return null;
+
+            int mergeVal = 0;
+            if (root1 != null)
+                mergeVal += root1.val;
+            if (root2 != null)
+                mergeVal += root2.val;
+
+            TreeNode newTree = new TreeNode();
+            newTree.val = mergeVal;
+
+            //Left
+            newTree.left = MergeTrees((root1 != null ? root1.left : null), (root2 != null ? root2.left : null));
+
+            //Right
+            newTree.right = MergeTrees((root1 != null ? root1.right : null), (root2 != null ? root2.right : null));
+
+            return newTree;
+        }
+
+
+
+
+
 
         #endregion
 
