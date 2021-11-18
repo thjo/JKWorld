@@ -795,9 +795,33 @@ namespace LeetCode
         /// <param name="l1"></param>
         /// <param name="l2"></param>
         /// <returns></returns>
-        public ListNode mergeTwoLists(ListNode l1, ListNode l2)
+        public ListNode MergeTwoLists(ListNode l1, ListNode l2)
         {
-            return null;
+            ListNode newHead = new ListNode(-1);
+            ListNode currNode = newHead;
+
+            while (l1 != null && l2 != null)
+            {
+                if (l1.val > l2.val)
+                {
+                    currNode.next = l2;
+                    l2 = l2.next;
+                }
+                else
+                {
+                    currNode.next = l1;
+                    l1 = l1.next;
+                }
+
+                currNode = currNode.next;
+            }
+
+            if (l1 != null)
+                currNode.next = l1;
+            if (l2 != null)
+                currNode.next = l2;
+
+            return newHead.next;
         }
 
         /// <summary>
@@ -806,29 +830,111 @@ namespace LeetCode
         /// </summary>
         /// <param name="head"></param>
         /// <returns></returns>
-        public ListNode reverseList(ListNode head)
+        public ListNode ReverseList(ListNode head)
         {
-            Stack<ListNode> sList = new Stack<ListNode>();
-
+            ListNode preNode = null;
             ListNode currNode = head;
-            while (currNode != null) 
+            while (currNode != null)
             {
-                sList.Push(currNode);
-                currNode = currNode.next;
+                ListNode nextNode = currNode.next;
+                currNode.next = preNode;
+
+                preNode = currNode;
+                currNode = nextNode;
             }
 
-            ListNode newHead = currNode;
-            while (sList.Count > 0)
-            {
-                currNode.next = sList.Pop();
-                currNode = currNode.next;
-            }
+            return preNode;
 
-            return newHead.next;
+            //if (head == null)
+            //    return head;
+            //return ReverseListHelper(null, head);
+        }
+        private ListNode ReverseListHelper(ListNode preNode, ListNode curentNode)
+        {
+            ListNode next = curentNode.next;
+            curentNode.next = preNode;
+            preNode = curentNode;
+            curentNode = next;
+
+            if (curentNode == null)
+                return preNode;
+            else
+                return ReverseListHelper(preNode, curentNode);
         }
 
         #endregion
 
+
+
+        #region | Bit Manipulation | 
+
+        /// <summary>
+        /// 231. Power of Two
+        /// https://leetcode.com/problems/power-of-two/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public bool IsPowerOfTwo(int n)
+        {
+
+        }
+
+        /// <summary>
+        /// 191. Number of 1 Bits
+        /// https://leetcode.com/problems/number-of-1-bits/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int HammingWeight(uint n)
+        {
+            int retVal = 0;
+            while ((n | 0) > 0)
+            {
+                if ((n & 1) > 0)
+                    retVal++;
+                n = n >> 1;
+            }
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// 190. Reverse Bits
+        /// https://leetcode.com/problems/reverse-bits/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public uint reverseBits(uint n)
+        {
+            int len = sizeof(uint) * 8;
+            uint reverse = 0;
+            for(int i = 0; i < len; i++)
+            {
+                if ((n & (uint)1) == 1)
+                    reverse = reverse | (uint)(1 << (len - (i+1)));
+
+                n = n >> 1;
+            }
+
+            return reverse;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int SingleNumber(int[] nums)
+        {
+            int retVal = nums[0];
+
+            for (int i = 1; i < nums.Length; i++)
+                retVal ^= nums[i];
+
+            return retVal;
+        }
+
+        #endregion
     }
 
     public class Node
