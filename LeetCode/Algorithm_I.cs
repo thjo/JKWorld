@@ -865,6 +865,92 @@ namespace LeetCode
         #endregion
 
 
+        #region | Recursion / Backtracking | 
+
+        /// <summary>
+        /// 77. Combinations
+        /// https://leetcode.com/problems/combinations/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public IList<IList<int>> Combine(int n, int k)
+        {
+
+        }
+
+        /// <summary>
+        /// 46. Permutations
+        /// https://leetcode.com/problems/permutations/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public IList<IList<int>> Permute(int[] nums)
+        {
+
+        }
+
+
+        /// <summary>
+        /// 784. Letter Case Permutation
+        /// https://leetcode.com/problems/letter-case-permutation/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public IList<string> LetterCasePermutation(string s)
+        {
+
+        }
+
+        #endregion
+
+
+        #region | Dynamic Programming | 
+
+        /// <summary>
+        /// 70. Climbing Stairs
+        /// https://leetcode.com/problems/climbing-stairs/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int ClimbStairs(int n)
+        {
+            if (n <= 2)
+                return n;
+
+            int[] dp = new int[n + 1];
+            dp[1] = 1;
+            dp[2] = 2;
+            for (int i = 3; i <= n; i++)
+                dp[i] = dp[i - 1] + dp[i - 2];
+
+            return dp[n];
+        }
+
+
+        /// <summary>
+        /// 198. House Robber
+        /// https://leetcode.com/problems/house-robber/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int Rob(int[] nums)
+        {
+
+        }
+
+        /// <summary>
+        /// 120. Triangle
+        /// https://leetcode.com/problems/triangle/
+        /// </summary>
+        /// <param name="triangle"></param>
+        /// <returns></returns>
+        public int MinimumTotal(IList<IList<int>> triangle)
+        {
+
+        }
+
+        #endregion
 
         #region | Bit Manipulation | 
 
@@ -876,7 +962,19 @@ namespace LeetCode
         /// <returns></returns>
         public bool IsPowerOfTwo(int n)
         {
+            if (n <= 0)
+                return false;
+            else if (n == 1)
+                return true;
 
+            while (n > 1)
+            {
+                if (n % 2 == 1)
+                    return false;
+                n = n / 2;
+            }
+
+            return true;
         }
 
         /// <summary>

@@ -47,7 +47,8 @@ namespace LeetCode
             //tmp[19] = new int[] { 0, 0, 0 };
             //al.UpdateMatrix(tmp);
 
-            al.HammingWeight(11);
+            //al.HammingWeight(11);
+            al.IsPowerOfTwo(16);
             //int[][] tmp = new int[3][];
             //tmp[0] = new int[3] { 2, 1, 1 };
             //tmp[1] = new int[3] { 1, 1, 0 };
