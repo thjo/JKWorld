@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LeetCode
 {
@@ -48,7 +49,28 @@ namespace LeetCode
             //al.UpdateMatrix(tmp);
 
             //al.HammingWeight(11);
-            al.IsPowerOfTwo(16);
+            //al.IsPowerOfTwo(16);
+            //IList<IList<int>> triangle = new List<IList<int>>();
+            //IList<int> row = new List<int>();
+            //row.Add(2);
+            //triangle.Add(row);
+            //row = new List<int>();
+            //row.Add(3);
+            //row.Add(4);
+            //triangle.Add(row);
+            //row = new List<int>();
+            //row.Add(6);
+            //row.Add(5);
+            //row.Add(7);
+            //triangle.Add(row);
+            //row = new List<int>();
+            //row.Add(4);
+            //row.Add(1);
+            //row.Add(8);
+            //row.Add(3);
+            //triangle.Add(row);
+            //al.MinimumTotal(triangle);
+            al.Rob(new int[] { 1, 2, 3, 1 });
             //int[][] tmp = new int[3][];
             //tmp[0] = new int[3] { 2, 1, 1 };
             //tmp[1] = new int[3] { 1, 1, 0 };

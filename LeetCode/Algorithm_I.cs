@@ -876,7 +876,7 @@ namespace LeetCode
         /// <returns></returns>
         public IList<IList<int>> Combine(int n, int k)
         {
-
+            return null;
         }
 
         /// <summary>
@@ -887,7 +887,7 @@ namespace LeetCode
         /// <returns></returns>
         public IList<IList<int>> Permute(int[] nums)
         {
-
+            return null;
         }
 
 
@@ -899,7 +899,7 @@ namespace LeetCode
         /// <returns></returns>
         public IList<string> LetterCasePermutation(string s)
         {
-
+            return null;
         }
 
         #endregion
@@ -928,6 +928,7 @@ namespace LeetCode
         }
 
 
+
         /// <summary>
         /// 198. House Robber
         /// https://leetcode.com/problems/house-robber/
@@ -936,9 +937,20 @@ namespace LeetCode
         /// <returns></returns>
         public int Rob(int[] nums)
         {
-
+            return RobRec(nums, 0);
         }
+        private int RobRec(int[] nums, int currIdx)
+        {
+            if (nums == null || nums.Length == currIdx)
+                return 0;
+            else if (nums.Length == currIdx + 1)
+                return nums[currIdx];
 
+            if (currIdx + 1 < nums.Length)
+                return Math.Max(nums[currIdx] + RobRec(nums, currIdx + 2), nums[currIdx + 1] + RobRec(nums, currIdx + 3));
+            else
+                return nums[currIdx] + RobRec(nums, currIdx + 2);
+        }
         /// <summary>
         /// 120. Triangle
         /// https://leetcode.com/problems/triangle/
@@ -947,7 +959,19 @@ namespace LeetCode
         /// <returns></returns>
         public int MinimumTotal(IList<IList<int>> triangle)
         {
+            IList<int> dp = new List<int>();
+            foreach (var n in triangle[triangle.Count - 1])
+                dp.Add(n);
 
+            for (int row = triangle.Count -2; row >= 0; row--)
+            {
+                for (int col = 0; col <= row; col++)
+                {
+                    dp[col] = Math.Min(dp[col] + triangle[row][col], dp[col + 1] + triangle[row][col]);
+                }
+            }
+
+            return dp[0];
         }
 
         #endregion
