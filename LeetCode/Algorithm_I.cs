@@ -655,75 +655,51 @@ namespace LeetCode
         /// <returns></returns>
         public int[][] UpdateMatrix(int[][] mat)
         {
+            if (mat == null || mat.Length < 1)
+                return null;
+
             int lenRows = mat.Length;
             int lenCols = mat[0].Length;
+
             int[][] dist = new int[lenRows][];
             for (int row = 0; row < lenRows; row++)
+            {
                 dist[row] = new int[lenCols];
+                for (int col = 0; col < lenCols; col++)
+                    dist[row][col] = int.MaxValue;
+            }
 
+            //Scan for Left and Top
             for (int row = 0; row < lenRows; row++)
             {
                 for (int col = 0; col < lenCols; col++)
                 {
-                    dist[row][col] = UpdateMatrixHelper(mat, lenRows, lenCols, row, col, dist);
+                    if (mat[row][col] == 0)
+                        dist[row][col] = 0;
+                    else
+                    {
+                        if (row > 0)
+                            dist[row][col] = Math.Min(dist[row][col], dist[row - 1][col] + 1);
+                        if( col > 0 )
+                            dist[row][col] = Math.Min(dist[row][col], dist[row][col-1] + 1);
+
+                    }
+                }
+            }
+
+            //Scan for Right and Bottom
+            for (int row = lenRows-1; row >= 0; row--)
+            {
+                for (int col = lenCols-1; col >= 0; col--)
+                {
+                    if(row + 1 < lenRows)
+                        dist[row][col] = Math.Min(dist[row][col], dist[row+1][col] + 1);
+                    if (col + 1 < lenCols)
+                        dist[row][col] = Math.Min(dist[row][col], dist[row][col+1] + 1);
                 }
             }
 
             return dist;
-        }
-        public int UpdateMatrixHelper(int[][] mat, int lenRows, int lenCols, int iRow, int iCol, int[][] dist)
-        {
-            if (dist[iRow][iCol] != 0)
-                return dist[iRow][iCol];
-            else if (mat[iRow][iCol] == 0)
-            {
-                dist[iRow][iCol] = 0;
-                return dist[iRow][iCol];
-            }
-
-            int? minVal = null;
-
-            //Check Top
-            if (iRow - 1 >= 0 && mat[iRow - 1][iCol] == 1)
-            {
-                int tmp = UpdateMatrixHelper(mat, lenRows, lenCols, iRow - 1, iCol, dist) + 1;
-                if (minVal == null)
-                    minVal = tmp;
-                else
-                    minVal = Math.Min(minVal.Value, tmp);
-            }
-            //Right
-            if (iCol + 1 < lenCols && mat[iRow][iCol + 1] == 1)
-            {
-                int tmp = UpdateMatrixHelper(mat, lenRows, lenCols, iRow, iCol + 1, dist) + 1;
-                if (minVal == null)
-                    minVal = tmp;
-                else
-                    minVal = Math.Min(minVal.Value, tmp);
-            }
-
-            //Check left
-            if (iCol - 1 >= 0 && mat[iRow][iCol - 1] == 1)
-            {
-                int tmp = UpdateMatrixHelper(mat, lenRows, lenCols, iRow, iCol - 1, dist) + 1;
-                if (minVal == null)
-                    minVal = tmp;
-                else
-                    minVal = Math.Min(minVal.Value, tmp);
-            }
-
-            //Check Bottom
-            if (iRow + 1 < lenRows && mat[iRow + 1][iCol] == 1)
-            {
-                int tmp = UpdateMatrixHelper(mat, lenRows, lenCols, iRow + 1, iCol, dist) + 1;
-                if (minVal == null)
-                    minVal = tmp;
-                else
-                    minVal = Math.Min(minVal.Value, tmp);
-            }
-
-            dist[iRow][iCol] = minVal != null ? minVal.Value : mat[iRow][iCol];
-            return dist[iRow][iCol];
         }
 
 
@@ -876,8 +852,37 @@ namespace LeetCode
         /// <returns></returns>
         public IList<IList<int>> Combine(int n, int k)
         {
-            return null;
+            IList<IList<int>> results = new List<IList<int>>();
+
+            if (k == 0)
+            {
+                results.Add(new List<int>());
+                return results;
+            }
+
+            CombineBackTrack(1, new List<int>(), n, k, results);
+            return results;
         }
+        private void CombineBackTrack(int start, IList<int> current, int n, int k, IList<IList<int>> results)
+        {
+            if (current.Count == k)
+            {
+                IList<int> newCom = new List<int>();
+                foreach (int v in current)
+                    newCom.Add(v);
+                results.Add(newCom);
+            }
+
+            for(int i = start; i <= n && current.Count < k; i++)
+            {
+                current.Add(i);
+                CombineBackTrack(i + 1, current, n, k, results);
+                current.RemoveAt(current.Count - 1);
+            }
+        }
+
+
+
 
         /// <summary>
         /// 46. Permutations
@@ -927,9 +932,7 @@ namespace LeetCode
             return dp[n];
         }
 
-
-
-        /// <summary>
+       /// <summary>
         /// 198. House Robber
         /// https://leetcode.com/problems/house-robber/
         /// </summary>
@@ -937,20 +940,44 @@ namespace LeetCode
         /// <returns></returns>
         public int Rob(int[] nums)
         {
-            return RobRec(nums, 0);
+            int?[] dp = new int?[nums.Length];
+            for (int i = 0; i < dp.Length; i++)
+                dp[i] = null;
+            return RobRec(nums, 0, dp);
         }
-        private int RobRec(int[] nums, int currIdx)
+        private int RobRec(int[] nums, int currIdx, int?[] dp)
         {
-            if (nums == null || nums.Length == currIdx)
+            if (nums == null || nums.Length <= currIdx)
                 return 0;
             else if (nums.Length == currIdx + 1)
+            {
+                dp[currIdx] = nums[currIdx];
                 return nums[currIdx];
-
-            if (currIdx + 1 < nums.Length)
-                return Math.Max(nums[currIdx] + RobRec(nums, currIdx + 2), nums[currIdx + 1] + RobRec(nums, currIdx + 3));
+            }
             else
-                return nums[currIdx] + RobRec(nums, currIdx + 2);
+            {
+                if (dp[currIdx] != null)
+                    return dp[currIdx].Value;
+
+                if (currIdx + 1 < nums.Length)
+                {
+                    int maxVal = nums[currIdx] + RobRec(nums, currIdx + 2, dp);
+                    int maxVal2 = nums[currIdx + 1] + RobRec(nums, currIdx + 3, dp);
+                    if (maxVal < maxVal2)
+                        maxVal = maxVal2;
+                    dp[currIdx] = maxVal;
+                    return maxVal;
+                }
+                else
+                {
+                    int maxVal = nums[currIdx] + RobRec(nums, currIdx + 2, dp);
+                    dp[currIdx] = maxVal;
+                    return maxVal;
+                }
+            }
         }
+
+
         /// <summary>
         /// 120. Triangle
         /// https://leetcode.com/problems/triangle/

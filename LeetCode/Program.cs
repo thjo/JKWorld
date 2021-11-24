@@ -46,7 +46,17 @@ namespace LeetCode
             //tmp[17] = new int[] { 1, 1, 1 };
             //tmp[18] = new int[] { 1, 1, 1 };
             //tmp[19] = new int[] { 0, 0, 0 };
-            //al.UpdateMatrix(tmp);
+            //int[][] tmp = new int[3][];
+            //tmp[0] = new int[] { 0, 0, 0 };
+            //tmp[1] = new int[] { 0, 1, 0 };
+            //tmp[2] = new int[] { 0, 0, 0 };
+            int[][] tmp = new int[5][];
+            tmp[0] = new int[] { 0 };
+            tmp[1] = new int[] { 0 };
+            tmp[2] = new int[] { 0 };
+            tmp[3] = new int[] { 0 };
+            tmp[4] = new int[] { 0 };
+            al.UpdateMatrix(tmp);
 
             //al.HammingWeight(11);
             //al.IsPowerOfTwo(16);
@@ -70,7 +80,8 @@ namespace LeetCode
             //row.Add(3);
             //triangle.Add(row);
             //al.MinimumTotal(triangle);
-            al.Rob(new int[] { 1, 2, 3, 1 });
+            //al.Rob(new int[] { 1, 2, 3, 1 });
+            //al.Combine(4, 2);
             //int[][] tmp = new int[3][];
             //tmp[0] = new int[3] { 2, 1, 1 };
             //tmp[1] = new int[3] { 1, 1, 0 };
