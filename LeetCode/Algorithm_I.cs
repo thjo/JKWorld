@@ -666,7 +666,7 @@ namespace LeetCode
             {
                 dist[row] = new int[lenCols];
                 for (int col = 0; col < lenCols; col++)
-                    dist[row][col] = int.MaxValue;
+                    dist[row][col] = int.MaxValue-1;
             }
 
             //Scan for Left and Top
@@ -842,6 +842,53 @@ namespace LeetCode
 
 
         #region | Recursion / Backtracking | 
+
+        /// <summary>
+        /// 17. Letter Combinations of a Phone Number
+        /// https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+        /// </summary>
+        /// <param name="digits"></param>
+        /// <returns></returns>
+        public IList<string> LetterCombinations(string digits)
+        {
+            IList<string> combs = new List<string>();
+            if (string.IsNullOrWhiteSpace(digits))
+                return combs;
+
+            int len = digits.Length;
+            Dictionary<char, char[]> phonePad = new Dictionary<char, char[]>();
+            phonePad.Add('2', new char[] { 'a', 'b', 'c' });
+            phonePad.Add('3', new char[] { 'd', 'e', 'f' });
+            phonePad.Add('4', new char[] { 'g', 'h', 'i' });
+            phonePad.Add('5', new char[] { 'j', 'k', 'l' });
+            phonePad.Add('6', new char[] { 'm', 'n', 'o' });
+            phonePad.Add('7', new char[] { 'p', 'q', 'r', 's' });
+            phonePad.Add('8', new char[] { 't', 'u', 'v' });
+            phonePad.Add('9', new char[] { 'w', 'x', 'y', 'z' });
+            phonePad.Add('0', new char[] { ' '});
+
+            LetterCombinationsBackTrack(0, "", len, digits, combs, phonePad);
+
+            return combs;
+        }
+        private void LetterCombinationsBackTrack(int startIdx, string currComb, int len, string digits, IList<string> combs, Dictionary<char, char[]> phonePad)
+        {
+            if (currComb.Length == len)
+                combs.Add(currComb);
+
+            if(startIdx < len && currComb.Length < len && phonePad.ContainsKey(digits[startIdx]))
+            {
+                char[] chars = phonePad[digits[startIdx]];
+                foreach (char c in chars) {
+                    currComb += c;
+                    LetterCombinationsBackTrack(startIdx + 1, currComb, len, digits, combs, phonePad);
+                    if (string.IsNullOrWhiteSpace(currComb) == false && currComb.Length > 1)
+                        currComb = currComb.Substring(0, currComb.Length - 1);
+                    else
+                        currComb = "";
+                }
+            } 
+        }
 
         /// <summary>
         /// 77. Combinations
