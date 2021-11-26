@@ -50,13 +50,18 @@ namespace LeetCode
             //tmp[0] = new int[] { 0, 0, 0 };
             //tmp[1] = new int[] { 0, 1, 0 };
             //tmp[2] = new int[] { 0, 0, 0 };
-            int[][] tmp = new int[5][];
-            tmp[0] = new int[] { 0 };
-            tmp[1] = new int[] { 0 };
-            tmp[2] = new int[] { 0 };
-            tmp[3] = new int[] { 0 };
-            tmp[4] = new int[] { 0 };
-            al.UpdateMatrix(tmp);
+            //int[][] tmp = new int[5][];
+            //tmp[0] = new int[] { 0 };
+            //tmp[1] = new int[] { 0 };
+            //tmp[2] = new int[] { 0 };
+            //tmp[3] = new int[] { 0 };
+            //tmp[4] = new int[] { 0 };
+            //al.UpdateMatrix(tmp);
+            int[][] grid = new int[3][];
+            grid[0] = new int[3] { 2, 1, 1 };
+            grid[1] = new int[3] { 1, 1, 0 };
+            grid[2] = new int[3] { 0, 1, 1 };
+            al.OrangesRotting(grid);
 
             //al.HammingWeight(11);
             //al.IsPowerOfTwo(16);

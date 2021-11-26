@@ -713,10 +713,12 @@ namespace LeetCode
         public int OrangesRotting(int[][] grid)
         {
             int[][] directions = new int[4][];
-            directions[0] = new int[] { 1, 0 };
-            directions[1] = new int[] { 0, 1 };
-            directions[2] = new int[] { -1, 0 };
-            directions[3] = new int[] { 0, -1 };
+            directions[0] = new int[2] { 1, 0 };
+            directions[1] = new int[2] { 0, 1 };
+            directions[2] = new int[2] { -1, 0 };
+            directions[3] = new int[2] { 0, -1 };
+            int rowLen = grid.Length;
+            int colLen = grid[0].Length;
 
             Queue<int[]> rottenOrangs = new Queue<int[]>();
             int freshOranges = 0;
@@ -744,7 +746,7 @@ namespace LeetCode
                 {
                     int x = map[0] + directions[i][0];
                     int y = map[1] + directions[i][1];
-                    if (grid[x][y] == 1)
+                    if (x >= 0 && x < rowLen && y >=0 && y < colLen && grid[x][y] == 1)
                     {
                         grid[x][y] = 2;
                         freshOranges--;
