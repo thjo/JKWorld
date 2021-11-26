@@ -63,6 +63,12 @@ namespace LeetCode
             grid[2] = new int[3] { 0, 1, 1 };
             al.OrangesRotting(grid);
 
+            Mock.KthLargest kthLar = new Mock.KthLargest(1, new int[] { });
+            kthLar.Add(-3);
+            kthLar.Add(-4);
+            kthLar.Add(2);
+            kthLar.Add(0);
+
             //al.HammingWeight(11);
             //al.IsPowerOfTwo(16);
             //IList<IList<int>> triangle = new List<IList<int>>();
