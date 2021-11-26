@@ -939,7 +939,35 @@ namespace LeetCode
         /// <returns></returns>
         public IList<IList<int>> Permute(int[] nums)
         {
-            return null;
+            IList<IList<int>> results = new List<IList<int>>();
+            int n = nums.Length;
+            bool[] used = new bool[n];
+            IList<int> permutation = new List<int>();
+            PermuteBackTrack(permutation, nums, used, results);
+
+            return results;
+        }
+        private void PermuteBackTrack(IList<int> permutation, int[] nums, bool[] used,  IList<IList<int>> results)
+        {
+            if(permutation.Count == nums.Length)
+            {
+                IList<int> tmpPerm = new List<int>();
+                foreach (int n in permutation)
+                    tmpPerm.Add(n);
+                results.Add(tmpPerm);
+            }
+
+            for(int i = 0; i < nums.Length; i++)
+            {
+                if (used[i])
+                    continue;
+
+                permutation.Add(nums[i]);
+                used[i] = true;
+                PermuteBackTrack(permutation, nums, used, results);
+                permutation.RemoveAt(permutation.Count - 1);
+                used[i] = false;
+            }
         }
 
 
