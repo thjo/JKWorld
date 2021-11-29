@@ -931,8 +931,6 @@ namespace LeetCode
         }
 
 
-
-
         /// <summary>
         /// 46. Permutations
         /// https://leetcode.com/problems/permutations/
@@ -981,7 +979,62 @@ namespace LeetCode
         /// <returns></returns>
         public IList<string> LetterCasePermutation(string s)
         {
-            return null;
+            IList<string> results = new List<string>();
+
+            LetterCasePermutationBTrack(0, 0, "", s, results);
+            return results;
+        }
+        private void LetterCasePermutationBTrack(int currInx, int mode, string currStr, string orignStr, IList<string> results)
+        {
+            //mode:0: check, 1 = lower, 2: upper, other: done
+            if( currStr.Length == orignStr.Length)
+            {
+                results.Add(currStr.Clone().ToString());
+            }
+
+            for(int i = currInx; i < orignStr.Length; i++)
+            {
+                if (mode == 0)
+                {
+                    if (LetterCaseIsAphabet(orignStr[i]))
+                    {
+                        currStr += orignStr[i].ToString().ToLower();
+                        mode = 2;
+                    }
+                    else
+                    {
+                        currStr += orignStr[i].ToString();
+                        mode = 3;
+                    }
+                }
+                else if (mode == 1)
+                {
+                    currStr += orignStr[i].ToString().ToLower();
+                    mode = 2;
+                }
+                else if (mode == 2)
+                {
+                    currStr += orignStr[i].ToString().ToUpper();
+                    mode = 3;
+                }
+                else
+                {
+                    //mode is 3
+                    mode = 0;
+                    continue;
+                }
+
+                LetterCasePermutationBTrack(i, mode, currStr, orignStr, results);
+                currStr = currStr.Substring(0, currStr.Length - 1);
+            }
+        }
+        private bool LetterCaseIsAphabet(char c)
+        {
+            if ( (c - 'a' >= 0 && 'z' - c >= 0)
+                || c - 'A' >= 0 && 'Z' - c >= 0)
+                return true;
+            else
+                return false;
         }
 
         #endregion
