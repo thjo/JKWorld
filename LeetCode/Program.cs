@@ -70,9 +70,10 @@ namespace LeetCode
             //kthLar.Add(0);
 
             MockAssessment ma = new MockAssessment();
-            ma.PrisonAfterNDays(new int[] { 1, 0, 0, 1, 0, 0, 1, 0 }, 1000000000);
-            ma.PrisonAfterNDays(new int[] { 1, 1, 0, 1, 1, 0, 1, 1 }, 6);
-            ma.PrisonAfterNDays(new int[] { 1, 1, 0, 1, 1, 0, 0, 1 }, 300663720);
+            //ma.PrisonAfterNDays(new int[] { 1, 0, 0, 1, 0, 0, 1, 0 }, 1000000000);
+            //ma.PrisonAfterNDays(new int[] { 1, 1, 0, 1, 1, 0, 1, 1 }, 6);
+            //ma.PrisonAfterNDays(new int[] { 1, 1, 0, 1, 1, 0, 0, 1 }, 300663720);
+            ma.FractionToDecimal(-2147483648, 1);
             //al.HammingWeight(11);
             //al.IsPowerOfTwo(16);
             //IList<IList<int>> triangle = new List<IList<int>>();

@@ -114,7 +114,55 @@ namespace LeetCode
 
         public string FractionToDecimal(int numerator, int denominator)
         {
+            string fraTotal = "";
+            bool isNegative = false;
 
+            if ( (numerator < 0 && denominator > 0) 
+                || (numerator > 0 && denominator < 0))
+            {
+                isNegative = true;
+            }
+
+            long numer = numerator;
+            long denom = denominator;
+            if(numer < 0)
+                numer = Math.Abs(numer);
+            if(denom < 0)
+                denom = Math.Abs(denom);
+            long rest = (numer % denom);
+            long num = (numer / denom);
+            if (isNegative)
+                fraTotal += "-";
+            fraTotal += num.ToString();
+            
+            if (rest != 0)
+            {
+                Dictionary<long, int> dpRest = new Dictionary<long, int>();
+                int idxPosition = 0;
+                dpRest.Add(rest, idxPosition++);
+                fraTotal += ".";
+                string restStr = "";
+                while (rest != 0)
+                {
+                    numer = rest * 10;
+                    rest =  (numer % denom);
+                    num =  (numer / denom);
+                    restStr += num.ToString();
+
+                    if (dpRest.ContainsKey(rest))
+                    {
+                        int posion = dpRest[rest];
+                        restStr = restStr.Substring(0, posion) + "(" + restStr.Substring(0 + posion);
+                        restStr += ")";
+                        break;
+                    }
+                    else
+                        dpRest.Add(rest, idxPosition++);
+                }
+                fraTotal += restStr;
+            }
+
+            return fraTotal;
         }
 
         #endregion
