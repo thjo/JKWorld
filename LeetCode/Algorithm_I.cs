@@ -986,46 +986,39 @@ namespace LeetCode
         }
         private void LetterCasePermutationBTrack(int currInx, int mode, string currStr, string orignStr, IList<string> results)
         {
-            //mode:0: check, 1 = lower, 2: upper, other: done
+            //mode:0: lower, 1 = upper
             if( currStr.Length == orignStr.Length)
             {
                 results.Add(currStr.Clone().ToString());
             }
 
-            for(int i = currInx; i < orignStr.Length; i++)
+            int i = currInx;
+            while (i < orignStr.Length)
             {
                 if (mode == 0)
+                    currStr += orignStr[i].ToString().ToLower();
+                else 
                 {
+                    //Mode is 1
                     if (LetterCaseIsAphabet(orignStr[i]))
-                    {
-                        currStr += orignStr[i].ToString().ToLower();
-                        mode = 2;
-                    }
+                        currStr += orignStr[i].ToString().ToUpper();
                     else
                     {
-                        currStr += orignStr[i].ToString();
-                        mode = 3;
+                        mode = 0;
+                        i++;
+                        continue;
                     }
                 }
-                else if (mode == 1)
-                {
-                    currStr += orignStr[i].ToString().ToLower();
-                    mode = 2;
-                }
-                else if (mode == 2)
-                {
-                    currStr += orignStr[i].ToString().ToUpper();
-                    mode = 3;
-                }
+
+                LetterCasePermutationBTrack(i + 1, 0, currStr, orignStr, results);
+                currStr = currStr.Substring(0, currStr.Length - 1);
+                if (mode == 0)
+                    mode = 1;
                 else
                 {
-                    //mode is 3
                     mode = 0;
-                    continue;
+                    i++;
                 }
-
-                LetterCasePermutationBTrack(i, mode, currStr, orignStr, results);
-                currStr = currStr.Substring(0, currStr.Length - 1);
             }
         }
         private bool LetterCaseIsAphabet(char c)

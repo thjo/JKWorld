@@ -57,18 +57,22 @@ namespace LeetCode
             //tmp[3] = new int[] { 0 };
             //tmp[4] = new int[] { 0 };
             //al.UpdateMatrix(tmp);
-            int[][] grid = new int[3][];
-            grid[0] = new int[3] { 2, 1, 1 };
-            grid[1] = new int[3] { 1, 1, 0 };
-            grid[2] = new int[3] { 0, 1, 1 };
-            al.OrangesRotting(grid);
+            //int[][] grid = new int[3][];
+            //grid[0] = new int[3] { 2, 1, 1 };
+            //grid[1] = new int[3] { 1, 1, 0 };
+            //grid[2] = new int[3] { 0, 1, 1 };
+            //al.OrangesRotting(grid);
 
-            Mock.KthLargest kthLar = new Mock.KthLargest(1, new int[] { });
-            kthLar.Add(-3);
-            kthLar.Add(-4);
-            kthLar.Add(2);
-            kthLar.Add(0);
+            //Mock.KthLargest kthLar = new Mock.KthLargest(1, new int[] { });
+            //kthLar.Add(-3);
+            //kthLar.Add(-4);
+            //kthLar.Add(2);
+            //kthLar.Add(0);
 
+            MockAssessment ma = new MockAssessment();
+            ma.PrisonAfterNDays(new int[] { 1, 0, 0, 1, 0, 0, 1, 0 }, 1000000000);
+            ma.PrisonAfterNDays(new int[] { 1, 1, 0, 1, 1, 0, 1, 1 }, 6);
+            ma.PrisonAfterNDays(new int[] { 1, 1, 0, 1, 1, 0, 0, 1 }, 300663720);
             //al.HammingWeight(11);
             //al.IsPowerOfTwo(16);
             //IList<IList<int>> triangle = new List<IList<int>>();
