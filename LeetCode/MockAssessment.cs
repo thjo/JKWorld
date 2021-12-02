@@ -165,6 +165,86 @@ namespace LeetCode
             return fraTotal;
         }
 
+
+        public int[][] IntervalIntersection(int[][] firstList, int[][] secondList)
+        {
+            List<int[]> intersections = new List<int[]>();
+            if (firstList == null || secondList == null
+                && firstList.Length < 1 || secondList.Length < 1)
+                return intersections.ToArray();
+
+            int firstIdx = 0, secIdx = 0;
+            int start = -1, close = -1;
+            while ( firstIdx < firstList.Length && secIdx < secondList.Length)
+            {
+                if (firstList[firstIdx][0] > secondList[secIdx][0])
+                {
+                    start = firstList[firstIdx][0];
+                    if (start > secondList[secIdx][1])
+                        secIdx++;
+                    else
+                    {
+                        if (firstList[firstIdx][1] < secondList[secIdx][1])
+                        {
+                            close = firstList[firstIdx][1];
+                            if (close >= start)
+                            {
+                                intersections.Add(new int[] { start, close });
+                                start = -1; close = -1;
+                            }
+                            start = secondList[secIdx][1];
+                            firstIdx++;
+                        }
+                        else
+                        {
+                            close = secondList[secIdx][1];
+                            if (close >= start)
+                            {
+                                intersections.Add(new int[] { start, close });
+                                start = -1; close = -1;
+                            }
+                            start = firstList[firstIdx][1];
+                            secIdx++;
+                        }
+                    }
+                }
+                else
+                {
+                    start = secondList[secIdx][0];
+                    if (start > firstList[firstIdx][1])
+                        firstIdx++;
+                    else
+                    {
+                        if (firstList[firstIdx][1] < secondList[secIdx][1])
+                        {
+                            close = firstList[firstIdx][1];
+                            if (close >= start)
+                            {
+                                intersections.Add(new int[] { start, close });
+                                start = -1; close = -1;
+                            }
+                            start = secondList[secIdx][1];
+                            firstIdx++;
+                        }
+                        else
+                        {
+                            close = secondList[secIdx][1];
+                            if (close >= start)
+                            {
+                                intersections.Add(new int[] { start, close });
+                                start = -1; close = -1;
+                            }
+                            start = firstList[firstIdx][1];
+                            secIdx++;
+                        }
+                    }
+                }
+            }
+
+
+            return intersections.ToArray();
+        }
+
         #endregion
     }
 }
