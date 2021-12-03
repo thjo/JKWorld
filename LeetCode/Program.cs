@@ -73,9 +73,10 @@ namespace LeetCode
             //ma.PrisonAfterNDays(new int[] { 1, 0, 0, 1, 0, 0, 1, 0 }, 1000000000);
             //ma.PrisonAfterNDays(new int[] { 1, 1, 0, 1, 1, 0, 1, 1 }, 6);
             //ma.PrisonAfterNDays(new int[] { 1, 1, 0, 1, 1, 0, 0, 1 }, 300663720);
-            ma.FractionToDecimal(-2147483648, 1);
-            //al.HammingWeight(11);
-            //al.IsPowerOfTwo(16);
+            //ma.FractionToDecimal(-2147483648, 1);
+
+            Algorithm_II al2 = new Algorithm_II();
+            al2.Search(new int[] { 4, 5, 6, 7, 0, 1, 2 }, 0);
             //IList<IList<int>> triangle = new List<IList<int>>();
             //IList<int> row = new List<int>();
             //row.Add(2);
