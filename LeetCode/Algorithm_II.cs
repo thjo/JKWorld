@@ -194,10 +194,101 @@ namespace LeetCode
             return -1;
         }
 
+        /// <summary>
+        /// 162. Find Peak Element
+        /// https://leetcode.com/problems/find-peak-element/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int FindPeakElement(int[] nums)
+        {
+            return -1;
+        }
 
         #endregion
 
 
+        #region | Two Pointers | 
+
+        /// <summary>
+        /// 82. Remove Duplicates from Sorted List II
+        /// https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public ListNode DeleteDuplicates(ListNode head)
+        {
+            if (head == null || head.next == null)
+                return head;
+
+            ListNode newHead = new ListNode(-1, head);
+            ListNode currNew = newHead;
+            
+            while (head != null)
+            {
+                if (head.next != null && head.val == head.next.val)
+                {
+                    while (head.next != null && head.val == head.next.val)
+                        head = head.next;
+                    currNew.next = head.next;
+                }
+                else
+                    currNew = currNew.next;
+
+                head = head.next;
+            }
+
+            return newHead.next;
+        }
+
+        /// <summary>
+        /// 15. 3Sum
+        /// https://leetcode.com/problems/3sum/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public IList<IList<int>> ThreeSum(int[] nums)
+        {
+            IList<IList<int>> groups = new List<IList<int>>();
+
+            if (nums == null || nums.Length < 3)
+                return groups;
+
+            Array.Sort(nums);
+
+            int len = nums.Length;
+            for(int i = 0; i < len; i++)
+            {
+                if(i != 0 && nums[i] == nums[i-1]) { continue;  }
+                int j = i + 1;
+                int k = len - 1;
+                while(j < k)
+                {
+                    if(nums[i]+nums[j]+nums[k] == 0)
+                    {
+                        IList<int> tmp = new List<int>();
+                        tmp.Add(nums[i]); tmp.Add(nums[j]); tmp.Add(nums[k]);
+                        groups.Add(tmp);
+                        j++;
+                        while (j < k && nums[j] == nums[j - 1]) { j++; }
+                    }
+                    else if(nums[i] + nums[j] + nums[k] > 0)
+                    {
+                        k--;
+                    }
+                    else
+                    {
+                        j++;
+                    }
+                }
+            }
+
+            return groups;
+        }
+        #endregion
 
     }
+
+
+
 }
