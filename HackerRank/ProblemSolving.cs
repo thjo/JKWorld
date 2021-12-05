@@ -1058,6 +1058,76 @@ namespace HackerRank
         }
 
 
+        public static int maximumDraws(int n)
+        {
+            return n + 1;
+        }
+
+
+        public static List<string> bigSorting(List<string> unsorted)
+        {
+            string[] tmpUnsorted = unsorted.ToArray();
+            MergeSort(tmpUnsorted, new string[tmpUnsorted.Length],  0, tmpUnsorted.Length - 1);
+
+            return new List<string>(tmpUnsorted);
+        }
+        private static void MergeSort(string[] unsorted, string[] buff, int leftStart, int rightEnd)
+        {
+            if (leftStart >= rightEnd)
+                return;
+
+            int mid = (leftStart + rightEnd) / 2;
+            MergeSort(unsorted, buff, leftStart, mid);
+            MergeSort(unsorted, buff, mid + 1, rightEnd);
+            MergeHalves(unsorted, buff, leftStart, rightEnd);
+        }
+        private static void MergeHalves(string[] unsorted, string[] buff, int leftStart, int rightEnd)
+        {
+            int leftEnd = (rightEnd + leftStart) / 2;
+            int rightStart = leftEnd + 1;
+            int size = rightEnd - leftStart + 1;
+
+            int left = leftStart;
+            int right = rightStart;
+            int index = leftStart;
+
+            while(left <= leftEnd && right <= rightEnd)
+            {
+                if (CompareTwoStr(unsorted[left], unsorted[right]) <= 0)
+                {
+                    buff[index] = unsorted[left++];
+                }
+                else
+                {
+                    buff[index] = unsorted[right++];
+                }
+                index++; ;
+            }
+
+            Array.Copy(unsorted, left, buff, index, leftEnd - left + 1);
+            Array.Copy(unsorted, right, buff, index, rightEnd - right + 1);
+            Array.Copy(buff, leftStart, unsorted, leftStart, size);
+        }
+        private static int CompareTwoStr(string a, string b)
+        {
+            if (a.Length > b.Length)
+                return 1;
+            else if (a.Length < b.Length)
+                return -1;
+            else
+            {
+                int i = 0;
+                while(i < a.Length)
+                {
+                    if (a[i] > b[i])
+                        return 1;
+                    else if (a[i] < b[i])
+                        return -1;
+                    i++;
+                }
+                return 0;
+            }
+        }
     }
 
     public class DoublyLinkedListNode
