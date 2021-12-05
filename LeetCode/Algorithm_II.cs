@@ -285,6 +285,49 @@ namespace LeetCode
 
             return groups;
         }
+
+
+        /// <summary>
+        /// 844. Backspace String Compare
+        /// https://leetcode.com/problems/backspace-string-compare/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public bool BackspaceCompare(string s, string t)
+        {
+            int sIdx = s.Length-1, tIdx = t.Length-1;
+            int sBS = 0, tBS = 0;
+            while(sIdx >= 0 || tIdx >= 0)
+            {
+                sBS = 0;
+                tBS = 0;
+                while (sIdx >= 0) {
+                    if (s[sIdx] == '#') { sIdx--; sBS++; }
+                    else if (sBS > 0) { sIdx--; sBS--; }
+                    else { break; }
+                }
+
+                while (tIdx >= 0)
+                {
+                    if (t[tIdx] == '#') { tIdx--; tBS++; }
+                    else if (tBS > 0) { tIdx--; tBS--; }
+                    else { break; }
+                }
+
+                if ((sIdx >= 0) != (tIdx >= 0))
+                    return false;
+                if (sIdx >= 0 && tIdx >= 0 && s[sIdx] != t[tIdx])
+                    return false;
+
+                sIdx--;tIdx--;
+            }
+
+            return true;
+        }
+
+
+
         #endregion
 
     }
