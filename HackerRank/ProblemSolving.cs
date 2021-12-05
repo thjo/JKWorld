@@ -1023,6 +1023,40 @@ namespace HackerRank
         }
 
 
+        public static List<int> missingNumbers(List<int> arr, List<int> brr)
+        {
+            List<int> retMissing = new List<int>();
+            int[] arrSorted = arr.ToArray();
+            Array.Sort(arrSorted);
+            int[] brrSorted = brr.ToArray();
+            Array.Sort(brrSorted);
+
+            int aIdx = 0, bIdx = 0;
+            while(aIdx < arrSorted.Length && bIdx < brrSorted.Length)
+            {
+                if (arrSorted[aIdx] == brrSorted[bIdx])
+                {
+                    aIdx++; bIdx++;
+                }
+                else if (brrSorted[bIdx] < arrSorted[aIdx])
+                {
+                    if (retMissing.Contains(brrSorted[bIdx]) == false)
+                        retMissing.Add(brrSorted[bIdx]);
+                    bIdx++;
+                }
+                else
+                    aIdx++;
+            }
+            while (bIdx < brrSorted.Length)
+            {
+                if(retMissing.Contains(brrSorted[bIdx]) == false)
+                    retMissing.Add(brrSorted[bIdx]);
+                bIdx++;
+            }
+
+            return retMissing;
+        }
+
 
     }
 
