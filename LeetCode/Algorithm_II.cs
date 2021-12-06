@@ -202,7 +202,17 @@ namespace LeetCode
         /// <returns></returns>
         public int FindPeakElement(int[] nums)
         {
-            return -1;
+            return FindPeakElementB(nums, 0, nums.Length - 1);
+        }
+        private int FindPeakElementB(int[] nums, int l, int r)
+        {
+            if (l >= r)
+                return l;
+
+            int mid = (l + r) / 2;
+            if (nums[mid] > nums[mid + 1])
+                return FindPeakElementB(nums, l, mid);
+            return FindPeakElementB(nums, mid+1, r);
         }
 
         #endregion

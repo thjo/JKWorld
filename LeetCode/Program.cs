@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LeetCode.Mock;
+using System;
 using System.Collections.Generic;
 
 namespace LeetCode
@@ -75,6 +76,18 @@ namespace LeetCode
             //ma.PrisonAfterNDays(new int[] { 1, 1, 0, 1, 1, 0, 0, 1 }, 300663720);
             //ma.FractionToDecimal(-2147483648, 1);
 
+            TopVotedCandidate tvc = new TopVotedCandidate(new int[] { 0,0,0,0,1}, new int[] { 0,6,39,52,75 });
+            int retV = -1;
+            retV = tvc.Q(45);
+            retV = tvc.Q(49);
+            retV = tvc.Q(59);
+            retV = tvc.Q(68);
+            retV = tvc.Q(42);
+            retV = tvc.Q(37);
+            retV = tvc.Q(99);
+            retV = tvc.Q(26);
+            retV = tvc.Q(78);
+            retV = tvc.Q(43);
             Algorithm_II al2 = new Algorithm_II();
             //al2.Search(new int[] { 4, 5, 6, 7, 0, 1, 2 }, 0);
             al2.BackspaceCompare("ab##", "c#d#");

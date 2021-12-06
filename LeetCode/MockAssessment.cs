@@ -245,6 +245,33 @@ namespace LeetCode
             return intersections.ToArray();
         }
 
+
+
         #endregion
+
+        /// <summary>
+        /// 1094. Car Pooling
+        /// https://leetcode.com/problems/car-pooling/
+        /// </summary>
+        /// <param name="trips"></param>
+        /// <param name="capacity"></param>
+        /// <returns></returns>
+        public bool CarPooling(int[][] trips, int capacity)
+        {
+            int[] timestamp = new int[1001];
+            foreach(var t in trips)
+            {
+                timestamp[t[1]] += t[0];
+                timestamp[t[2]] -= t[0];
+            }
+
+            foreach(int p in timestamp)
+            {
+                capacity -= p;
+                if (capacity < 0)
+                    return false;
+            }
+            return true;
+        }
     }
 }
