@@ -271,7 +271,34 @@ namespace LeetCode
                 if (capacity < 0)
                     return false;
             }
+            
             return true;
         }
+
+
+
+        public string ReverseOnlyLetters(string s)
+        {
+            char[] reverseStr = new char[s.Length];
+
+            int l = 0, r = s.Length - 1;
+            while(l < s.Length)
+            {
+                if (char.IsLetter(s[l]))
+                {
+                    while(char.IsLetter(s[r]) == false || reverseStr[r] != '\0')
+                        r--;
+                    reverseStr[r--] = s[l];
+                }
+                else
+                {
+                    reverseStr[l] = s[l];
+                }
+                l++;
+            }
+
+            return new String(reverseStr);
+        }
+
     }
 }
