@@ -28,7 +28,6 @@ namespace LeetCode.Mock
             if(rear != null)
                 rear.Next = newNode;
             newNode.Prev = rear;
-            newNode.Next = head;
             rear = newNode;
             _realLen++;
             return true;
@@ -40,8 +39,8 @@ namespace LeetCode.Mock
                 return false;
 
             int delVal = head.Value;
-            rear.Next = head.Next;
-            head = rear.Next;
+            DoubleNode preLast = head.Next;
+            head = preLast;
             if (head == null)
                 rear = null;
 

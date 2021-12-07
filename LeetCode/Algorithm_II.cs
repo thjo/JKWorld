@@ -340,7 +340,165 @@ namespace LeetCode
 
         #endregion
 
+
+
+        #region | Sliding Window | 
+
+        /// <summary>
+        /// 438. Find All Anagrams in a String
+        /// https://leetcode.com/problems/find-all-anagrams-in-a-string/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public IList<int> FindAnagrams(string s, string p)
+        {
+            IList<int> listOfAna = new List<int>();
+            if (p.Length > s.Length)
+                return listOfAna;
+
+            Dictionary<char, int> pDic = new Dictionary<char, int>();
+            Dictionary<char, int> slot = new Dictionary<char, int>();
+            foreach (char c in p)
+            {
+                if (pDic.ContainsKey(c))
+                    pDic[c]++;
+                else
+                    pDic.Add(c, 1);
+            }
+            int pLen = p.Length;
+            for (int i = 0; i < pLen - 1; i++)
+            {
+                if (pDic.ContainsKey(s[i]))
+                {
+                    if (slot.ContainsKey(s[i]))
+                        slot[s[i]]++;
+                    else
+                        slot.Add(s[i], 1);
+                }
+            }
+
+            for (int i = pLen-1; i < s.Length; i++)
+            {
+                int firstPos = i - pLen + 1;
+                if (pDic.ContainsKey(s[i]))
+                {
+                    if (slot.ContainsKey(s[i]))
+                        slot[s[i]]++;
+                    else
+                        slot.Add(s[i], 1);
+                }
+
+                if (CheckAnas(slot, pDic) )
+                    listOfAna.Add(firstPos);
+
+                if (slot.ContainsKey(s[firstPos]))
+                {
+                    slot[s[firstPos]]--;
+                    if (slot[s[firstPos]] == 0)
+                        slot.Remove(s[firstPos]);
+                }
+            }
+
+            return listOfAna;
+        }
+        private bool CheckAnas(Dictionary<char, int> slot, Dictionary<char, int> pDic)
+        {
+            foreach(var item in pDic)
+            {
+                if (slot.ContainsKey(item.Key) == false)
+                    return false;
+
+                else
+                {
+                    if (slot[item.Key] != item.Value)
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        #endregion
+
+
+        #region | Breadth-First Search / Depth-First Search | 
+
+        /// <summary>
+        /// 200. Number of Islands
+        /// https://leetcode.com/problems/number-of-islands/
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public int NumIslands(char[][] grid)
+        {
+            int cntIslands = 0;
+
+            int rows = grid.Length;
+            if (rows < 1)
+                return 0;
+            int cols = grid[0].Length;
+
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    if (grid[i][j] == '1')
+                    {
+                        visitIsland(grid, i, j, rows, cols);
+                        cntIslands++;
+                    }
+                }
+            }
+
+            return cntIslands;
+        }
+        private void visitIsland(char[][] grid, int currRow, int currCol, int rows, int cols)
+        {
+            if (currRow < 0 || currRow >= rows
+                || currCol < 0 || currCol >= cols
+                || grid[currRow][currCol] != '1')
+                return;
+
+            grid[currRow][currCol] = '2';   //visited
+            visitIsland(grid, currRow - 1, currCol, rows, cols);    //LEFT
+            visitIsland(grid, currRow + 1, currCol, rows, cols);    //RIGHT
+            visitIsland(grid, currRow, currCol - 1, rows, cols);    //TOP
+            visitIsland(grid, currRow, currCol + 1, rows, cols);    //BOTTON
+        }
+
+
+        public int FindCircleNum(int[][] isConnected)
+        {
+            int n = isConnected.Length;
+            List<int> visited = new List<int>();
+            int cntProvinces = 0;
+            Queue<int> q = new Queue<int>();
+            for(int city = 0; city < n; city++)
+            {
+                if(visited.Contains(city) == false)
+                {
+                    cntProvinces++;
+                    FindCircleNumSearch(city, isConnected, n, visited);
+                }
+            }
+
+            return cntProvinces;
+        }
+        private void FindCircleNumSearch(int start, int[][] isConnected, int n, List<int> visited)
+        {
+            visited.Add(start);
+
+            for (int i = 0; i < n; i++)
+            {
+                if (isConnected[start][i] == 1 && visited.Contains(i) == false)
+                    FindCircleNumSearch(i, isConnected, n, visited);
+            }
+        }
+
+        #endregion
     }
+
 
 
 
