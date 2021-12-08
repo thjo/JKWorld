@@ -300,7 +300,11 @@ namespace LeetCode
             return new String(reverseStr);
         }
 
-
+        /// <summary>
+        /// https://massivealgorithms.blogspot.com/2019/11/leetcode-1223-dice-roll-simulation.html
+        /// </summary>
+        /// <param name="mat"></param>
+        /// <returns></returns>
         public int DiagonalSum(int[][] mat)
         {
             int n = mat.Length;
@@ -354,6 +358,33 @@ namespace LeetCode
                 dp[i][6] = sum;
             }
             return (int)(dp[n - 1][6]);
+        }
+
+
+
+        /// <summary>
+        /// 11. Container With Most Water
+        /// https://leetcode.com/problems/container-with-most-water/
+        /// </summary>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public int MaxArea(int[] height)
+        {
+            int len = height.Length;
+            int l = 0, r = len - 1;
+            int area = 0;
+
+            while(l < r)
+            {
+                area = Math.Max(area, Math.Min(height[l], height[r]) * (r - l));
+
+                if (height[l] > height[r])
+                    r--;
+                else
+                    l++;
+            }
+
+            return area;
         }
     }
 }
