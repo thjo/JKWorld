@@ -446,6 +446,92 @@ namespace LeetCode
                 return area - ((Math.Min(ay2, by2) - Math.Max(ay1, by1)) * (Math.Min(ax2, bx2) - Math.Max(ax1, bx1)));
             }
         }
+
+
+        public int CoinChange(int[] coins, int amount)
+        {
+            //if (amount == 0)
+            //    return 0;
+
+            //Dictionary<int, int> dp = new Dictionary<int, int>();
+            //int retVal = CoinChangeTopDown(coins, amount, dp, amount);
+            //if (retVal > amount)
+            //    return -1;
+            //else
+            //    return retVal;
+
+            //Bottom-Up
+            int[] map = new int[amount + 1];
+            map[0] = 0;
+            //for (int i = 1; i <= amount; i++)
+            //    map[i] = amount + 1;
+
+            for (int i = 1; i <= amount; i++)
+            {
+                int min = amount + 1;
+                for (int c = 0; c < coins.Length; c++)
+                {
+                    if(coins[c] <= i)
+                    {
+                        min = Math.Min((1 + map[i - coins[c]]), min);
+                    }
+                }
+                map[i] = min;
+            }
+            return map[amount] == (amount + 1) ? -1 : map[amount];
+        }
+        private int CoinChangeTopDown(int[] coins, int amount, Dictionary<int, int> dp, int originalAmt)
+        {
+            if (amount < 0)
+                return originalAmt + 1;
+            else if (amount == 0)
+                return 0;
+
+            if (dp.ContainsKey(amount))
+                return dp[amount];
+            else
+            {
+                int min = originalAmt + 1;
+                foreach (int coin in coins)
+                {
+                    if (coin <= amount)
+                        min = Math.Min(1 + CoinChangeTopDown(coins, amount - coin, dp, originalAmt), min);
+                }
+                dp.Add(amount, min);
+                return min;
+            }
+        }
+
+
+        /// <summary>
+        /// 518. Coin Change 2
+        /// https://leetcode.com/problems/coin-change-2/
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <param name="coins"></param>
+        /// <returns></returns>
+        public int Change(int amount, int[] coins)
+        {
+            if (coins == null || coins.Length <= 0)
+                return 0;
+            else if (amount == 0)
+                return 1;
+            int[][] map = new int[coins.Length + 1][];
+            for (int c = 0; c <= coins.Length; c++)
+                map[c] = new int[amount + 1];
+            map[0][0] = 1;
+            for (int c = 1; c <= coins.Length; c++)
+            {
+                map[c][0] = 1;
+                for (int a = 1; a <= amount; a++)
+                {
+                    map[c][a] = map[c - 1][a] + ((a - coins[c - 1]) < 0 ? 0 : map[c][a - coins[c - 1]]);
+                }
+            }
+
+            return map[coins.Length][amount];
+        }
+
         #endregion
     }
 }
