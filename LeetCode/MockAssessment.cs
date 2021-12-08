@@ -249,6 +249,8 @@ namespace LeetCode
 
         #endregion
 
+        #region | | 
+
         /// <summary>
         /// 1094. Car Pooling
         /// https://leetcode.com/problems/car-pooling/
@@ -386,5 +388,64 @@ namespace LeetCode
 
             return area;
         }
+
+
+
+        public ListNode GetIntersectionNode(ListNode headA, ListNode headB)
+        {
+            ListNode ptr1 = headA;
+            ListNode ptr2 = headB;
+            if (ptr1 == null || ptr2 == null)
+                return null;
+            else if (ptr1 == ptr2)
+                    return ptr1;
+
+            while ( ptr1 != ptr2)
+            {
+                ptr1 = ptr1.next;
+                ptr2 = ptr2.next;
+
+                if (ptr1 == ptr2)
+                    return ptr1;
+
+                if (ptr1 == null)
+                    ptr1 = headA;
+                if (ptr2 == null)
+                    ptr2 = headB;
+            }
+            return ptr1;
+        }
+
+
+        /// <summary>
+        /// 223. Rectangle Area
+        /// https://leetcode.com/problems/rectangle-area/
+        /// </summary>
+        /// <param name="ax1"></param>
+        /// <param name="ay1"></param>
+        /// <param name="ax2"></param>
+        /// <param name="ay2"></param>
+        /// <param name="bx1"></param>
+        /// <param name="by1"></param>
+        /// <param name="bx2"></param>
+        /// <param name="by2"></param>
+        /// <returns></returns>
+        public int ComputeArea(int ax1, int ay1, int ax2, int ay2, int bx1, int by1, int bx2, int by2)
+        {
+            int area = 0;
+
+            //Two rectangles
+            area = (ax2 - ax1) * (ay2 - ay1) + (bx2 - bx1) * (by2 - by1);
+
+            //overrap area
+            if (ax1 > bx2 || ax2 < bx1 || ay1 > by2 || ay2 < by1)
+                return area;
+            else
+            {
+                
+                return area - ((Math.Min(ay2, by2) - Math.Max(ay1, by1)) * (Math.Min(ax2, bx2) - Math.Max(ax1, bx1)));
+            }
+        }
+        #endregion
     }
 }

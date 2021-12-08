@@ -81,6 +81,7 @@ namespace LeetCode
             //myQQ.DeQueue(); myQQ.DeQueue(); myQQ.DeQueue();
 
             MockAssessment ma = new MockAssessment();
+            ma.ComputeArea(-2,-2,2,2,2,-2,4,2);
             //ma.PrisonAfterNDays(new int[] { 1, 0, 0, 1, 0, 0, 1, 0 }, 1000000000);
             //ma.PrisonAfterNDays(new int[] { 1, 1, 0, 1, 1, 0, 1, 1 }, 6);
             //ma.PrisonAfterNDays(new int[] { 1, 1, 0, 1, 1, 0, 0, 1 }, 300663720);
