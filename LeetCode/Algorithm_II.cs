@@ -520,6 +520,46 @@ namespace LeetCode
             return n1.val == n2.val && IsSameTree(n1.left, n2.left) && IsSameTree(n1.right, n2.right);
         }
 
+        /// <summary>
+        /// 797. All Paths From Source to Target
+        /// https://leetcode.com/problems/all-paths-from-source-to-target/
+        /// </summary>
+        /// <param name="graph"></param>
+        /// <returns></returns>
+        public IList<IList<int>> AllPathsSourceTarget(int[][] graph)
+        {
+            IList<IList<int>> allPaths = new List<IList<int>>();
+            List<int> path = new List<int>();
+            path.Add(0);
+            int targetNode = graph.Length - 1;
+            AllPathsSourceTargetDFS(graph, 0, targetNode, path, allPaths);
+            return allPaths;
+        }
+        private void  AllPathsSourceTargetDFS(int[][] graph, int currNode, int targetNode, List<int> path, IList<IList<int>> allPaths)
+        {
+            if (currNode == targetNode)
+            {
+                IList<int> buff = new List<int>();
+                foreach (int p in path)
+                    buff.Add(p);
+
+                allPaths.Add(buff);
+                path.Clear();
+                path.Add(0);
+            }
+            else if (currNode > targetNode)
+                return;
+
+            if (graph[currNode] != null && graph[currNode].Length > 0)
+            {
+                for (int i = 0; i < graph[currNode].Length; i++)
+                {
+                    path.Add(graph[currNode][i]);
+                    AllPathsSourceTargetDFS(graph, graph[currNode][i], targetNode, path, allPaths);
+                    path.RemoveAt(path.Count - 1);
+                }
+            }
+        }
         #endregion
     }
 
