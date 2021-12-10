@@ -533,5 +533,113 @@ namespace LeetCode
         }
 
         #endregion
+
+        /// <summary>
+        /// 1169. Invalid Transactions
+        /// https://leetcode.com/problems/invalid-transactions/
+        /// </summary>
+        /// <param name="transactions"></param>
+        /// <returns></returns>
+        public IList<string> InvalidTransactions(string[] transactions)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// 1160. Find Words That Can Be Formed by Characters
+        /// https://leetcode.com/problems/find-words-that-can-be-formed-by-characters/
+        /// </summary>
+        /// <param name="words"></param>
+        /// <param name="chars"></param>
+        /// <returns></returns>
+        public int CountCharacters(string[] words, string chars)
+        {
+            int totalLen = 0;
+            Dictionary<char, int> charSets = new Dictionary<char, int>();
+            foreach (char c in chars)
+            {
+                if (charSets.ContainsKey(c))
+                    charSets[c]++;
+                else
+                    charSets.Add(c, 1);
+            }
+
+            foreach(string word in words)
+            {
+                if (CanbeFormed(word, charSets))
+                    totalLen += word.Length;
+            }
+
+            return totalLen;
+        }
+        private bool CanbeFormed(string word, Dictionary<char, int> charSets)
+        {
+            Dictionary<char, int> buffWords = new Dictionary<char, int>();
+            foreach(char c in word)
+            {
+                if (buffWords.ContainsKey(c))
+                    buffWords[c]++;
+                else
+                    buffWords.Add(c, 1);
+            }
+
+            foreach(var w in buffWords)
+            {
+                if (charSets.ContainsKey(w.Key))
+                {
+                    if (charSets[w.Key] < w.Value)
+                        return false;
+                }
+                else
+                    return false;
+            }
+
+            return true;
+        }
+
+
+        private readonly int MOD = 1000000007;
+        private Dictionary<String, int> mem = new Dictionary<string, int>();
+        public int NumRollsToTarget(int d, int f, int target)
+        {
+            if (d == 0 && target == 0)
+                return 1;
+
+            if (d <= 0 || target <= 0)
+                return 0;
+
+            String key = d + "_" + target;
+            if (mem.ContainsKey(key))
+                return mem[key];
+
+            int ans = 0;
+            for (int i = 1; i <= f && i <= target; i++)
+            {
+                ans = (ans + NumRollsToTarget(d - 1, f, target - i)) % MOD;
+            }
+            mem.Add(key, ans);
+            return ans;
+        }
+
+    }
+    public class CTransaction
+    {
+        public string Name { get; set; }
+
+        public int Time { get; set; }
+
+        public int Amount { get; set; }
+
+        public string City { get; set; }
+
+        public string OriginTran { get; set; }
+        public CTransaction(string name, string time, string amount, string city, string originTran)
+        {
+            Name = name;
+            Time = int.Parse(time);
+            Amount = int.Parse(amount);
+            City = city;
+            OriginTran = originTran;
+        }
     }
 }

@@ -419,6 +419,36 @@ namespace LeetCode
             return true;
         }
 
+
+        /// <summary>
+        /// 713. Subarray Product Less Than K
+        /// https://leetcode.com/problems/subarray-product-less-than-k/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public int NumSubarrayProductLessThanK(int[] nums, int k)
+        {
+            return -1;
+            //if (k == 0)
+            //    return 0;
+
+            //int cnt = 0;
+            ////Sort the array
+            //Array.Sort(nums);
+
+            //int numOfEles = 0;
+            //for(int i = 0; i < nums.Length; i++)
+            //{
+            //    int j = i+ numOfEles;
+            //    int sum = nums[i];
+            //    if (i != j && j < nums.Length)
+            //        sum += nums[j];
+
+
+            //}
+        }
+
         #endregion
 
 
@@ -544,8 +574,6 @@ namespace LeetCode
                     buff.Add(p);
 
                 allPaths.Add(buff);
-                path.Clear();
-                path.Add(0);
             }
             else if (currNode > targetNode)
                 return;
@@ -560,6 +588,9 @@ namespace LeetCode
                 }
             }
         }
+
+
+
         #endregion
     }
 
