@@ -1128,6 +1128,65 @@ namespace HackerRank
                 return 0;
             }
         }
+
+        /// <summary>
+        /// Handshake
+        /// https://www.hackerrank.com/challenges/handshake/problem?utm_campaign=challenge-recommendation&utm_medium=email&utm_source=24-hour-campaign
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static int handshake(int n)
+        {
+            return (n * (n - 1)) / 2;
+        }
+
+
+        /// <summary>
+        /// Non-Divisible Subset
+        /// https://www.hackerrank.com/challenges/non-divisible-subset/problem?h_r=next-challenge&h_v=zen&h_r=next-challenge&h_v=zen&h_r=next-challenge&h_v=zen
+        /// </summary>
+        /// <param name="k"></param>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static int nonDivisibleSubset(int k, List<int> s)
+        {
+            int numOfSubset = 0;
+            int[] counter = new int[k];
+
+            foreach (int n in s)
+                counter[n % k]++;
+
+            for(int i = 0; i < k/2+1; i++)
+            {
+                if (i == 0 || (k % 2 == 0 && i == (k / 2)))
+                {
+                    numOfSubset += Math.Min(counter[i], 1);
+                }
+                else
+                    numOfSubset += Math.Max(counter[i], counter[k - i]);
+            }
+
+            return numOfSubset;
+        }
+
+        public static int lowestTriangle(int trianglebase, int area)
+        {
+            int height = 0;
+            if (trianglebase <= 0 || area <= 0)
+                return height;
+
+            //(trianglebase * height) / 2 = area
+            if ((area * 2) % trianglebase != 0)
+                height = (area * 2) / trianglebase + 1;
+            else
+                height = (area * 2) / trianglebase;
+
+            return height;
+        }
+
+
+
+
     }
 
     public class DoublyLinkedListNode

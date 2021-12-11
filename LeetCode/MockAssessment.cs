@@ -600,6 +600,15 @@ namespace LeetCode
 
         private readonly int MOD = 1000000007;
         private Dictionary<String, int> mem = new Dictionary<string, int>();
+
+        /// <summary>
+        /// 1155. Number of Dice Rolls With Target Sum
+        /// https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/
+        /// </summary>
+        /// <param name="d"></param>
+        /// <param name="f"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
         public int NumRollsToTarget(int d, int f, int target)
         {
             if (d == 0 && target == 0)
