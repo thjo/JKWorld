@@ -630,6 +630,106 @@ namespace LeetCode
             return ans;
         }
 
+        /// <summary>
+        /// 13. Roman to Integer
+        /// https://leetcode.com/problems/roman-to-integer/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public int RomanToInt(string s)
+        {
+            int total = 0;
+            if (string.IsNullOrWhiteSpace(s))
+                return total;
+
+            Dictionary<char, int> map = new Dictionary<char, int>();
+            map.Add('I', 1);
+            map.Add('V', 5);
+            map.Add('X', 10);
+            map.Add('L', 50);
+            map.Add('C', 100);
+            map.Add('D', 500);
+            map.Add('M', 1000);
+            int i = 0;
+            while(i < s.Length)
+            {
+                if( i < s.Length - 1)
+                {
+                    if( map[s[i]] >= map[s[i + 1]])
+                    {
+                        //normal number
+                        total += map[s[i]];
+                        i += 1;
+                    }
+                    else
+                    {
+                        //for four
+                        total += (map[s[i+1]] - map[s[i]]);
+                        i += 2;
+                    }
+                }
+                else
+                {
+                    total += map[s[i]];
+                    i += 1;
+                }
+            }
+
+            return total;
+        }
+
+        /// <summary>
+        /// Add Two Numbers
+        /// https://leetcode.com/problems/add-two-numbers/
+        /// </summary>
+        /// <param name="l1"></param>
+        /// <param name="l2"></param>
+        /// <returns></returns>
+        public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
+        {
+            ListNode head = new ListNode(-1);
+            ListNode currNode = head;
+            int exraNum = 0;
+            int total = 0;
+            while (l1 != null || l2 != null)
+            {
+                if (l1 != null && l2 != null)
+                {
+                    total = l1.val + l2.val + exraNum;
+                    if (total >= 10)
+                        exraNum = 1;
+                }
+                else
+                {
+                    total = l1 != null ? l1.val : l2.val;
+                    if (exraNum == 1)
+                    {
+                        total += 1;
+                        exraNum = 0;
+                    }
+                }
+
+                //Add a node
+                ListNode node = new ListNode(total % 10);
+                currNode.next = node;
+                currNode = node;
+
+                if (l1 != null)
+                    l1 = l1.next;
+                if (l2 != null)
+                    l2 = l2.next;
+            }
+
+            if(exraNum == 1)
+            {
+                ListNode node = new ListNode(1);
+                currNode.next = node;
+            }
+
+            return head.next;
+        }
+
+
     }
     public class CTransaction
     {

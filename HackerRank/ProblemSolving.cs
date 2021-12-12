@@ -1185,7 +1185,28 @@ namespace HackerRank
         }
 
 
+        public static int equalizeArray(List<int> arr)
+        {
+            if (arr == null || arr.Count < 1)
+                return 0;
 
+            Dictionary<int, int> counter = new Dictionary<int, int>();
+            foreach (int n in arr)
+            {
+                if (counter.ContainsKey(n))
+                    counter[n]++;
+                else
+                    counter.Add(n, 1);
+            }
+
+            int max = -1;
+            foreach(var c in counter)
+            {
+                max = Math.Max(max, c.Value);
+            }
+
+            return arr.Count - max;
+        }
 
     }
 
