@@ -696,18 +696,17 @@ namespace LeetCode
                 if (l1 != null && l2 != null)
                 {
                     total = l1.val + l2.val + exraNum;
-                    if (total >= 10)
-                        exraNum = 1;
                 }
                 else
                 {
                     total = l1 != null ? l1.val : l2.val;
                     if (exraNum == 1)
-                    {
                         total += 1;
-                        exraNum = 0;
-                    }
                 }
+                if (total >= 10)
+                    exraNum = 1;
+                else
+                    exraNum = 0;
 
                 //Add a node
                 ListNode node = new ListNode(total % 10);

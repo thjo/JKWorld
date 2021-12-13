@@ -22,7 +22,7 @@ namespace LeetCode
             if (nums == null || nums.Length < 1)
                 return result;
 
-            int len = nums.Length-1;
+            int len = nums.Length - 1;
             result[0] = SearchRangeB(nums, target, 0, len, 0);
             result[1] = SearchRangeB(nums, target, 0, len, 1);
 
@@ -35,12 +35,12 @@ namespace LeetCode
                 return -1;
 
             int midIdx = (startIdx + endIdx) / 2;
-            if( nums[midIdx] == target)
+            if (nums[midIdx] == target)
             {
-                if( flag == 0)
+                if (flag == 0)
                 {
                     //Seeking starting position
-                    while((midIdx-1) >= 0 && nums[midIdx-1] == target)
+                    while ((midIdx - 1) >= 0 && nums[midIdx - 1] == target)
                         midIdx--;
 
                     return midIdx;
@@ -60,7 +60,7 @@ namespace LeetCode
             }
             else
             {
-                return SearchRangeB(nums, target, midIdx+1, nums.Length-1, flag);
+                return SearchRangeB(nums, target, midIdx + 1, nums.Length - 1, flag);
             }
         }
 
@@ -75,7 +75,7 @@ namespace LeetCode
         public int Search(int[] nums, int target)
         {
             int retIdx = -1;
-            int n = nums.Length-1;
+            int n = nums.Length - 1;
             retIdx = SearchB(nums, target, 0, n);
 
             return retIdx;
@@ -90,9 +90,9 @@ namespace LeetCode
                 return midIdx;
 
             /* If arr[l...mid] is sorted */
-            if( nums[startIdx] <= nums[midIdx])
+            if (nums[startIdx] <= nums[midIdx])
             {
-                if( target >= nums[startIdx] && target <= nums[midIdx])
+                if (target >= nums[startIdx] && target <= nums[midIdx])
                     return SearchB(nums, target, startIdx, midIdx - 1);
 
                 return SearchB(nums, target, midIdx + 1, nums.Length - 1);
@@ -100,7 +100,7 @@ namespace LeetCode
             else
             {
                 /* If arr[l..mid] is not sorted, then arr[mid... r] must be sorted*/
-                if( target >= nums[midIdx] && target <= nums[nums.Length-1])
+                if (target >= nums[midIdx] && target <= nums[nums.Length - 1])
                     return SearchB(nums, target, midIdx + 1, nums.Length - 1);
 
                 return SearchB(nums, target, startIdx, midIdx - 1);
@@ -133,11 +133,11 @@ namespace LeetCode
                 return -1;
 
             int midIdx = (startIdx + endIdx) / 2;
-            if (matrix[midIdx][0] <= target && matrix[midIdx][colLen-1] >= target)
+            if (matrix[midIdx][0] <= target && matrix[midIdx][colLen - 1] >= target)
                 return midIdx;
 
-            if(matrix[midIdx][0] < target)
-                return SearchMatrixRowB(matrix, target, midIdx+1, rowLen - 1, rowLen, colLen);
+            if (matrix[midIdx][0] < target)
+                return SearchMatrixRowB(matrix, target, midIdx + 1, rowLen - 1, rowLen, colLen);
             else
                 return SearchMatrixRowB(matrix, target, startIdx, midIdx - 1, rowLen, colLen);
         }
@@ -176,13 +176,13 @@ namespace LeetCode
                 return nums[left];
 
 
-            while(right >= left)
+            while (right >= left)
             {
                 int mid = left + (right - left) / 2;
 
                 if (mid + 1 < nums.Length && nums[mid] > nums[mid + 1])
                     return nums[mid + 1];
-                else if(mid - 1 >= 0 && nums[mid] < nums[mid-1])
+                else if (mid - 1 >= 0 && nums[mid] < nums[mid - 1])
                     return nums[mid];
 
                 if (nums[mid] > nums[0])
@@ -212,7 +212,7 @@ namespace LeetCode
             int mid = (l + r) / 2;
             if (nums[mid] > nums[mid + 1])
                 return FindPeakElementB(nums, l, mid);
-            return FindPeakElementB(nums, mid+1, r);
+            return FindPeakElementB(nums, mid + 1, r);
         }
 
         #endregion
@@ -233,7 +233,7 @@ namespace LeetCode
 
             ListNode newHead = new ListNode(-1, head);
             ListNode currNew = newHead;
-            
+
             while (head != null)
             {
                 if (head.next != null && head.val == head.next.val)
@@ -267,14 +267,14 @@ namespace LeetCode
             Array.Sort(nums);
 
             int len = nums.Length;
-            for(int i = 0; i < len; i++)
+            for (int i = 0; i < len; i++)
             {
-                if(i != 0 && nums[i] == nums[i-1]) { continue;  }
+                if (i != 0 && nums[i] == nums[i - 1]) { continue; }
                 int j = i + 1;
                 int k = len - 1;
-                while(j < k)
+                while (j < k)
                 {
-                    if(nums[i]+nums[j]+nums[k] == 0)
+                    if (nums[i] + nums[j] + nums[k] == 0)
                     {
                         IList<int> tmp = new List<int>();
                         tmp.Add(nums[i]); tmp.Add(nums[j]); tmp.Add(nums[k]);
@@ -282,7 +282,7 @@ namespace LeetCode
                         j++;
                         while (j < k && nums[j] == nums[j - 1]) { j++; }
                     }
-                    else if(nums[i] + nums[j] + nums[k] > 0)
+                    else if (nums[i] + nums[j] + nums[k] > 0)
                     {
                         k--;
                     }
@@ -306,13 +306,14 @@ namespace LeetCode
         /// <returns></returns>
         public bool BackspaceCompare(string s, string t)
         {
-            int sIdx = s.Length-1, tIdx = t.Length-1;
+            int sIdx = s.Length - 1, tIdx = t.Length - 1;
             int sBS = 0, tBS = 0;
-            while(sIdx >= 0 || tIdx >= 0)
+            while (sIdx >= 0 || tIdx >= 0)
             {
                 sBS = 0;
                 tBS = 0;
-                while (sIdx >= 0) {
+                while (sIdx >= 0)
+                {
                     if (s[sIdx] == '#') { sIdx--; sBS++; }
                     else if (sBS > 0) { sIdx--; sBS--; }
                     else { break; }
@@ -330,7 +331,7 @@ namespace LeetCode
                 if (sIdx >= 0 && tIdx >= 0 && s[sIdx] != t[tIdx])
                     return false;
 
-                sIdx--;tIdx--;
+                sIdx--; tIdx--;
             }
 
             return true;
@@ -378,7 +379,7 @@ namespace LeetCode
                 }
             }
 
-            for (int i = pLen-1; i < s.Length; i++)
+            for (int i = pLen - 1; i < s.Length; i++)
             {
                 int firstPos = i - pLen + 1;
                 if (pDic.ContainsKey(s[i]))
@@ -389,7 +390,7 @@ namespace LeetCode
                         slot.Add(s[i], 1);
                 }
 
-                if (CheckAnas(slot, pDic) )
+                if (CheckAnas(slot, pDic))
                     listOfAna.Add(firstPos);
 
                 if (slot.ContainsKey(s[firstPos]))
@@ -404,7 +405,7 @@ namespace LeetCode
         }
         private bool CheckAnas(Dictionary<char, int> slot, Dictionary<char, int> pDic)
         {
-            foreach(var item in pDic)
+            foreach (var item in pDic)
             {
                 if (slot.ContainsKey(item.Key) == false)
                     return false;
@@ -429,24 +430,18 @@ namespace LeetCode
         /// <returns></returns>
         public int NumSubarrayProductLessThanK(int[] nums, int k)
         {
-            return -1;
-            //if (k == 0)
-            //    return 0;
+            int start = 0, end = 0, mulVal = 1;
+            int totalCnt = 0;
+            while (end < nums.Length)
+            {
+                mulVal *= nums[end];
 
-            //int cnt = 0;
-            ////Sort the array
-            //Array.Sort(nums);
+                while (mulVal >= k) mulVal /= nums[start++];
+                totalCnt += end - start + 1;
+                end++;
+            }
 
-            //int numOfEles = 0;
-            //for(int i = 0; i < nums.Length; i++)
-            //{
-            //    int j = i+ numOfEles;
-            //    int sum = nums[i];
-            //    if (i != j && j < nums.Length)
-            //        sum += nums[j];
-
-
-            //}
+            return totalCnt;
         }
 
         #endregion
@@ -504,9 +499,9 @@ namespace LeetCode
             List<int> visited = new List<int>();
             int cntProvinces = 0;
             Queue<int> q = new Queue<int>();
-            for(int city = 0; city < n; city++)
+            for (int city = 0; city < n; city++)
             {
-                if(visited.Contains(city) == false)
+                if (visited.Contains(city) == false)
                 {
                     cntProvinces++;
                     FindCircleNumSearch(city, isConnected, n, visited);
@@ -565,7 +560,7 @@ namespace LeetCode
             AllPathsSourceTargetDFS(graph, 0, targetNode, path, allPaths);
             return allPaths;
         }
-        private void  AllPathsSourceTargetDFS(int[][] graph, int currNode, int targetNode, List<int> path, IList<IList<int>> allPaths)
+        private void AllPathsSourceTargetDFS(int[][] graph, int currNode, int targetNode, List<int> path, IList<IList<int>> allPaths)
         {
             if (currNode == targetNode)
             {
@@ -592,6 +587,49 @@ namespace LeetCode
 
 
         #endregion
+
+
+
+        #region | Recursion / Backtracking | 
+
+        /// <summary>
+        /// 78. Subsets
+        /// https://leetcode.com/problems/subsets/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public IList<IList<int>> Subsets(int[] nums)
+        {
+            IList<IList<int>> res = new List<IList<int>>();
+            res.Add(new List<int>());
+
+
+            for(int i = 1; i<=nums.Length; i++)
+                SubsetsR(nums, i, 0, new List<int>(), res);
+            return res;
+        }
+        private void SubsetsR(int[] nums, int len, int start, IList<int> currSet, IList<IList<int>> res)
+        {
+            if (currSet.Count == len)
+            {
+                IList<int> tmp = new List<int>();
+                foreach (int n in currSet)
+                    tmp.Add(n);
+                res.Add(tmp);
+            }
+            else if (start > nums.Length)
+                return;
+
+            for (int i = start; i < nums.Length; i++)
+            {
+                currSet.Add(nums[i]);
+                SubsetsR(nums, len, start, currSet, res);
+                currSet.RemoveAt(currSet.Count - 1);
+            }
+        }
+
+        #endregion
+
     }
 
 
