@@ -585,6 +585,62 @@ namespace LeetCode
         }
 
 
+        /// <summary>
+        /// 1091. Shortest Path in Binary Matrix
+        /// https://leetcode.com/problems/shortest-path-in-binary-matrix/
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public int ShortestPathBinaryMatrix(int[][] grid)
+        {
+            if (grid == null)
+                return -1;
+            else if (grid.Length <= 1)
+                return grid.Length;
+
+            int n = grid.Length;
+            int[][] directions = new int[8][];
+            directions[0] = new int[] { -1, 0 };    //Top
+            directions[1] = new int[] { -1, -1 };    //Top & Left
+            directions[2] = new int[] { -1, 1 };    //Top & Right
+            directions[3] = new int[] { 0, -1 };    //Left
+            directions[4] = new int[] { 0, 1 };    //Right
+            directions[5] = new int[] { 1, 0 };    //Bottom
+            directions[6] = new int[] { 1, -1 };    //Bottom & Left
+            directions[7] = new int[] { 1, 1 };    //Bottom & Right
+
+            return ShortestPathBinaryMatrixBFS(grid, 0, 0, n-1, n-1, n, directions);
+        }
+        private int ShortestPathBinaryMatrixBFS(int[][] grid, int sRow, int sCol, int eRow, int eCol, int n, int[][] directions)
+        {
+            if (grid[sRow][sCol] != 0 || grid[eRow][eCol] != 0)
+                return -1;
+
+            grid[sRow][sCol] = 2;   //Visited
+            Queue<int[]> q = new Queue<int[]>();
+            q.Enqueue(new int[] { sRow, sCol, 1 });
+
+            while(q.Count > 0)
+            {
+                int[] currNode = q.Dequeue();
+                if (currNode[0] == eRow && currNode[1] == eCol)
+                    return currNode[2];
+
+                for (int d = 0; d < directions.Length; d++)
+                {
+                    int row = currNode[0] + directions[d][0];
+                    int col = currNode[1] + directions[d][1];
+                    if (row >= 0 && col >= 0 && row < n && col < n
+                        && grid[row][col] == 0)
+                    {
+                        grid[row][col] = 2;
+                        q.Enqueue(new int[] { row, col, currNode[2] + 1 });
+                    }
+                }
+            }
+
+            return -1;
+        }
 
         #endregion
 
@@ -628,7 +684,41 @@ namespace LeetCode
             }
         }
 
+        /// <summary>
+        /// 39. Combination Sum
+        /// https://leetcode.com/problems/combination-sum/
+        /// </summary>
+        /// <param name="candidates"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public IList<IList<int>> CombinationSum(int[] candidates, int target)
+        {
+            IList<IList<int>> results = new List<IList<int>>();
+            CombinationCases(candidates, target, 0, new List<int>(), results);
 
+            return results;
+        }
+        private void CombinationCases(int[] candidates, int target, int idx, IList<int> currCombination, IList<IList<int>> allCombinaions)
+        {
+            if (target == 0)
+            {
+                List<int> tmp = new List<int>();
+                foreach (int i in currCombination)
+                    tmp.Add(i);
+                allCombinaions.Add(tmp);
+                return;
+            }
+            else if (idx >= candidates.Length || target < 0)
+                return;
+            else
+            {
+                currCombination.Add(candidates[idx]);
+                CombinationCases(candidates, target - candidates[idx], idx, currCombination, allCombinaions);
+                currCombination.RemoveAt(currCombination.Count - 1);
+                CombinationCases(candidates, target, idx + 1, currCombination, allCombinaions);
+            }
+            return;
+        }
 
 
 
@@ -637,6 +727,7 @@ namespace LeetCode
 
 
         #region | Dynamic Programming | 
+
 
         /// <summary>
         /// 213. House Robber II
@@ -673,6 +764,8 @@ namespace LeetCode
 
             return dp[end];
         }
+
+
 
         #endregion
     }

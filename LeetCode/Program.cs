@@ -104,7 +104,12 @@ namespace LeetCode
             Algorithm_II al2 = new Algorithm_II();
             //al2.Search(new int[] { 4, 5, 6, 7, 0, 1, 2 }, 0);
             //al2.BackspaceCompare("ab##", "c#d#");
-            al2.FindAnagrams("cbaebabacd", "abc");
+            //al2.FindAnagrams("cbaebabacd", "abc");
+            int[][] param = new int[3][];
+            param[0] = new int[3] { 0, 0, 0 };
+            param[1] = new int[3] { 1, 1, 0 };
+            param[2] = new int[3] { 1, 1, 0 };
+            al2.ShortestPathBinaryMatrix(param);
             //IList<IList<int>> triangle = new List<IList<int>>();
             //IList<int> row = new List<int>();
             //row.Add(2);
