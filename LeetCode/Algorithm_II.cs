@@ -803,6 +803,33 @@ namespace LeetCode
 
 
 
+        /// <summary>
+        /// 413. Arithmetic Slices
+        /// https://leetcode.com/problems/arithmetic-slices/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int numberOfArithmeticSlices(int[] nums)
+        {
+            if (nums == null || nums.Length < 3)
+                return 0;
+
+            int sum = 0;
+            int[] dp = new int[nums.Length];
+            dp[0] = 0; dp[1] = 0;
+            for (int i = 2; i < nums.Length; i++)
+            {
+                if (nums[i] - nums[i - 1] == nums[i - 1] - nums[i - 2])
+                    dp[i] = dp[i - 1] + 1;
+                else
+                    dp[i] = 0;
+
+                sum += dp[i];
+            }
+
+            return sum;
+        }
+
         #endregion
     }
 

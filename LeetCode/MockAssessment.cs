@@ -766,6 +766,9 @@ namespace LeetCode
             }
             return right - left - 1;
         }
+
+
+
     }
     public class CTransaction
     {
