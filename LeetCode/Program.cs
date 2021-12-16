@@ -83,7 +83,8 @@ namespace LeetCode
             MockAssessment ma = new MockAssessment();
             //ma.ComputeArea(-2,-2,2,2,2,-2,4,2);
             //ma.InvalidTransactions(new string[] { "alice,20,800,mtv", "alice,50,100,mtv", "alice,51,100,frankfurt" });
-            ma.NumRollsToTarget(1, 6, 3);
+            //ma.NumRollsToTarget(1, 6, 3);
+            ma.LongestPalindrome("babad");
             //ma.PrisonAfterNDays(new int[] { 1, 0, 0, 1, 0, 0, 1, 0 }, 1000000000);
             //ma.PrisonAfterNDays(new int[] { 1, 1, 0, 1, 1, 0, 1, 1 }, 6);
             //ma.PrisonAfterNDays(new int[] { 1, 1, 0, 1, 1, 0, 0, 1 }, 300663720);

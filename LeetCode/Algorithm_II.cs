@@ -721,6 +721,42 @@ namespace LeetCode
         }
 
 
+        /// <summary>
+        /// 22. Generate Parentheses
+        /// https://leetcode.com/problems/generate-parentheses/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public IList<string> GenerateParenthesis(int n)
+        {
+            IList<string> result = new List<string>();
+            List<char> pair = new List<char>();
+            pair.Add('(');
+            GenerateParenthesisR(result, n, 1, 0, pair);
+            return result;
+        }
+        private void GenerateParenthesisR(IList<string> result, int n, int usedOpened, int usedClosed, List<char> pair)
+        {
+            if( usedOpened == n && usedClosed == n)
+            {
+                result.Add(new string(pair.ToArray()));
+                return;
+            }
+
+            if( usedOpened < n)
+            {
+                pair.Add('(');
+                GenerateParenthesisR(result, n, usedOpened+1, usedClosed, pair);
+                pair.RemoveAt(pair.Count - 1);
+            }
+            if( usedClosed < n && usedClosed < usedOpened)
+            {
+                pair.Add(')');
+                GenerateParenthesisR(result, n, usedOpened, usedClosed+1, pair);
+                pair.RemoveAt(pair.Count - 1);
+            }
+        }
+
 
         #endregion
 
