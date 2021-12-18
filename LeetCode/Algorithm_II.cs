@@ -832,6 +832,65 @@ namespace LeetCode
 
 
 
+        /// <summary>
+        /// 1143. Longest Common Subsequence
+        /// https://leetcode.com/problems/longest-common-subsequence/
+        /// </summary>
+        /// <param name="text1"></param>
+        /// <param name="text2"></param>
+        /// <returns></returns>
+        public int LongestCommonSubsequence(string text1, string text2)
+        {
+            //abcde      ace
+            //     Equal: +1      abcd     ac     remove the last character
+            // Not Equal: +0      MAX( (abcd, a) , (abc, ac) )
+            //                   +0 
+            //Focus on the last character.
+            if (string.IsNullOrWhiteSpace(text1) || string.IsNullOrWhiteSpace(text2))
+                return 0;
+            Dictionary<string, int> dp = new Dictionary<string, int>();
+            return LongestCommonSubsequenceR(text1, text2, text1.Length-1, text2.Length-1, dp);
+        }
+        private int LongestCommonSubsequenceR(string text1, string text2, int end1, int end2, Dictionary<string,int> dp)
+        {
+            if (end1 < 0 || end2 < 0)
+                return 0;
+            else if (dp.ContainsKey(string.Format("{0}_{1}", end1, end2)))
+                return dp[string.Format("{0}_{1}", end1, end2)];
+
+            int longestLen = 0;
+            if (text1[end1] == text2[end2])
+                longestLen = 1 + LongestCommonSubsequenceR(text1, text2, end1-1, end2-1, dp);
+            else
+            {
+                longestLen = Math.Max(LongestCommonSubsequenceR(text1, text2, end1-1, end2, dp)
+                                    , LongestCommonSubsequenceR(text1, text2, end1, end2-1, dp));
+            }
+
+            dp.Add(string.Format("{0}_{1}", end1, end2), longestLen);
+            return longestLen;
+        }
+
+
+        /// <summary>
+        /// 583. Delete Operation for Two Strings
+        /// https://leetcode.com/problems/delete-operation-for-two-strings/
+        /// </summary>
+        /// <param name="word1"></param>
+        /// <param name="word2"></param>
+        /// <returns></returns>
+        public int MinDistance(string word1, string word2)
+        {
+            if (string.IsNullOrWhiteSpace(word1) && !string.IsNullOrWhiteSpace(word2))
+                return word2.Length;
+            else if (!string.IsNullOrWhiteSpace(word1) && string.IsNullOrWhiteSpace(word2))
+                return word1.Length;
+
+            Dictionary<string, int> dp = new Dictionary<string, int>();
+            int lcs = LongestCommonSubsequenceR(word1, word2, word1.Length - 1, word2.Length - 1, dp);
+
+            return word1.Length + word2.Length - (2 * lcs);
+        }
 
 
         #endregion

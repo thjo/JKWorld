@@ -768,7 +768,105 @@ namespace LeetCode
         }
 
 
+        #region | PHONE INTERVIEW - 12/17/2021 | 
 
+        /// <summary>
+        /// 387. First Unique Character in a String
+        /// https://leetcode.com/problems/first-unique-character-in-a-string/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public int FirstUniqChar(string s)
+        {
+            Dictionary<char, int> dp = new Dictionary<char, int>(); 
+            foreach(char c in s)
+            {
+                if (dp.ContainsKey(c))
+                    dp[c]++;
+                else
+                    dp.Add(c, 1);
+            }
+
+            int idx = -1;
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (dp[s[i]] == 1)
+                {
+                    idx = i;
+                    break;
+                }
+            }
+
+            return idx;
+        }
+
+        /// <summary>
+        /// 206. Reverse Linked List
+        /// https://leetcode.com/problems/reverse-linked-list/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public ListNode ReverseList(ListNode head)
+        {
+            //ListNode newHead = new ListNode(-1);
+            //newHead.next = head;
+
+            ListNode prevNode = null;
+            ListNode currNode = head;
+
+            while(currNode != null)
+            {
+                ListNode nextNode = currNode.next;
+                currNode.next = prevNode;
+
+                prevNode = currNode;
+                currNode = nextNode;
+            }
+
+            return prevNode;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public int Search(int[] nums, int target)
+        {
+            if (nums == null || nums.Length < 1)
+                return -1;
+
+            return SearchPivot(nums, target, 0, nums.Length - 1);
+        }
+        private int SearchPivot(int[] nums, int target, int startIdx, int endIdx)
+        {
+            if (startIdx > endIdx)
+                return -1;
+
+            int mid = (startIdx + endIdx) / 2;
+            if (nums[mid] == target)
+                return mid;
+
+            /* If arr[l...mid] is sorted */
+            if( nums[startIdx] <= nums[mid])
+            {
+                if (target >= nums[startIdx] && target < nums[mid])
+                    return SearchPivot(nums, target, startIdx, mid - 1);
+                else
+                    return SearchPivot(nums, target, mid + 1, endIdx);
+            }
+            else
+            {
+                /* If arr[l..mid] is not sorted, then arr[mid... r] must be sorted*/
+                if (target > nums[mid] && target <= nums[endIdx])
+                    return SearchPivot(nums, target, mid + 1, endIdx);
+                else
+                    return SearchPivot(nums, target, startIdx, mid - 1);
+            }
+        }
+
+        #endregion
     }
     public class CTransaction
     {
