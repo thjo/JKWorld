@@ -141,6 +141,12 @@ namespace HackerRank
             brr.Add(1); brr.Add(2); brr.Add(3); brr.Add(4); brr.Add(5); brr.Add(6); brr.Add(9); brr.Add(11);
             List<int>  results = ProblemSolving.missingNumbers(arr, brr);
 
+            int tmpp = ProblemSolving.summingSeries(5773408242017850L);
+            tmpp = ProblemSolving.summingSeries(5025554062339313L);
+            tmpp = ProblemSolving.summingSeries(9803332417649065L);
+            tmpp = ProblemSolving.summingSeries(4529826640896246L);
+            tmpp = ProblemSolving.summingSeries(7633499047094366L);
+            tmpp = ProblemSolving.summingSeries(4614556128541569L);
             //ProblemSolving.squares(465868129, 988379794);
             List<int> a = new List<int>(); a.Add(-1); a.Add(-3); a.Add(4); a.Add(2);
             Console.WriteLine(ProblemSolving.angryProfessor(3, a));

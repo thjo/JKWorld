@@ -1208,6 +1208,21 @@ namespace HackerRank
             return arr.Count - max;
         }
 
+
+        public static int summingSeries(long n)
+        {
+            //long sum = 0;
+            //long[] dp = new long[n];
+            //dp[0] = 0; dp[1] = 1;
+            //for (long i = 1; i <= n; i++)
+            //{
+            //    sum += ((2 * i - 1) % (1000000007));
+            //}
+            if (n > 1000000007)
+                n = n % 1000000007;
+            return (int)((n*n) % 1000000007);
+        }
+
     }
 
     public class DoublyLinkedListNode
