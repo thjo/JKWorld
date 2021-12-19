@@ -869,8 +869,148 @@ namespace LeetCode
         #endregion
 
 
+        #region | ONSITE INTERVIEW - 12/19/2021 |
+
+        /// <summary>
+        /// 141. Linked List Cycle
+        /// https://leetcode.com/problems/linked-list-cycle/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public bool HasCycle(ListNode head)
+        {
+            HashSet<ListNode> s = new HashSet<ListNode>();
+            while (head != null)
+            {
+                if (s.Contains(head))
+                    return true;
+
+                s.Add(head);
+
+                head = head.next;
+            }
+
+            return false;
+        }
 
 
+        /// <summary>
+        /// 450. Delete Node in a BST
+        /// https://leetcode.com/problems/delete-node-in-a-bst/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public TreeNode DeleteNode(TreeNode root, int key)
+        {
+            // Base case
+            if (root == null)
+                return root;
+
+            // Recursive calls for ancestors of
+            // node to be deleted
+            if (root.val > key)
+            {
+                root.left = DeleteNode(root.left, key);
+                return root;
+            }
+            else if (root.val < key)
+            {
+                root.right = DeleteNode(root.right, key);
+                return root;
+            }
+
+            // We reach here when root is the node
+            // to be deleted.
+
+            // If one of the children is empty
+            if (root.left == null)
+            {
+                TreeNode temp = root.right;
+                return temp;
+            }
+            else if (root.right == null)
+            {
+                TreeNode temp = root.left;
+                return temp;
+            }
+            // If both children exist
+            else
+            {
+                TreeNode succParent = root;
+
+                // Find successor
+                TreeNode succ = root.right;
+
+                while (succ.left != null)
+                {
+                    succParent = succ;
+                    succ = succ.left;
+                }
+
+                // Delete successor. Since successor
+                // is always left child of its parent
+                // we can safely make successor's right
+                // right child as left of its parent.
+                // If there is no succ, then assign
+                // succ->right to succParent->right
+                if (succParent != root)
+                    succParent.left = succ.right;
+                else
+                    succParent.right = succ.right;
+
+                // Copy Successor Data to root
+                root.val = succ.val;
+
+                return root;
+            }
+        }
+
+
+        public int Calculate(string s)
+        {
+            if (s == null || s.Length == 0) return 0;
+
+            int len = s.Length;
+            int currNum = 0, lastNum = 0, total = 0;
+            Stack<int> nums = new Stack<int>();
+            char operation = '+';
+            for (int i = 0; i < len; i++)
+            {
+                char currChar = s[i];
+                if (currChar == ' ')
+                    continue;
+
+                if (Char.IsDigit(currChar))
+                    currNum = (currNum * 10) + (currChar - '0');
+
+                if( !Char.IsDigit(currChar) && currChar != ' ' || i == len - 1)
+                {
+                    if( operation == '+' || operation == '-')
+                    {
+                        total += lastNum;
+                        lastNum = operation == '+' ? currNum : -currNum; 
+                    }
+                    else if (operation == '*')
+                    {
+                        lastNum = lastNum * currNum;
+                    }
+                    else if (operation == '/')
+                    {
+                        lastNum = lastNum / currNum;
+                    }
+                    operation = currChar;
+                    currNum = 0;
+                }
+            }
+
+            total += lastNum;
+            return total;
+        }
+
+
+
+        #endregion
     }
     public class CTransaction
     {

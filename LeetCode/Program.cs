@@ -91,6 +91,7 @@ namespace LeetCode
             //ma.PrisonAfterNDays(new int[] { 1, 1, 0, 1, 1, 0, 0, 1 }, 300663720);
             //ma.FractionToDecimal(-2147483648, 1);
             //ma.ReverseOnlyLetters("a-bC-dEf-ghIj");
+            ma.Calculate("  3/2  ");
             //TopVotedCandidate tvc = new TopVotedCandidate(new int[] { 0,0,0,0,1}, new int[] { 0,6,39,52,75 });
             //int retV = -1;
             //retV = tvc.Q(45);
@@ -112,7 +113,11 @@ namespace LeetCode
             //param[1] = new int[3] { 1, 1, 0 };
             //param[2] = new int[3] { 1, 1, 0 };
             //al2.ShortestPathBinaryMatrix(param);
-            al2.UniquePaths(3, 7);
+            //al2.UniquePaths(3, 7);
+            char[][] mmm = new char[1][];
+            mmm[0] = new char[1];
+            mmm[0][0] = 'a';
+            al2.Exist(mmm, "a");
             //IList<IList<int>> triangle = new List<IList<int>>();
             //IList<int> row = new List<int>();
             //row.Add(2);

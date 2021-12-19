@@ -757,6 +757,84 @@ namespace LeetCode
             }
         }
 
+        /// <summary>
+        /// 79. Word Search
+        /// https://leetcode.com/problems/word-search/
+        /// </summary>
+        /// <param name="board"></param>
+        /// <param name="word"></param>
+        /// <returns></returns>
+        public bool Exist(char[][] board, string word)
+        {
+            for(int row = 0; row < board.Length; row++)
+            {
+                for(int col = 0; col < board[row].Length; col++)
+                {
+                    bool[][] visited = new bool[board.Length][];
+                    for (int i = 0; i < board.Length; i++)
+                        visited[i] = new bool[board[0].Length];
+
+                    visited[row][col] = true;
+                    if (Exist(board, word, board[row][col].ToString(), row, col, visited))
+                        return true;
+                }
+            }
+
+            return false;
+        }
+        private bool Exist(char[][] board, string word, string currWord, int row, int col, bool[][] visited)
+        {
+            if (currWord == word)
+                return true;
+            else if (currWord.Length >= word.Length)
+                return false;
+            else if (row > board.Length - 1 || row < 0)
+                return false;
+            else if (col > board[0].Length - 1 || col < 0)
+                return false;
+
+            bool retCheckd = false;
+            if (currWord.Length < word.Length)
+            {
+                //left
+                if (row > 0 && !visited[row - 1][col]) {
+                    visited[row - 1][col] = true;
+                    retCheckd = Exist(board, word, currWord + board[row - 1][col], row - 1, col, visited);
+                    if (retCheckd) return retCheckd;
+                    visited[row - 1][col] = false;
+                    //currWord = currWord.Substring(0, currWord.Length - 1);
+                }
+
+                //right
+                if (row < board.Length -1 && !visited[row + 1][col])
+                {
+                    visited[row + 1][col] = true;
+                    retCheckd = Exist(board, word, currWord + board[row + 1][col], row + 1, col, visited);
+                    if (retCheckd) return retCheckd;
+                    visited[row + 1][col] = false;
+                }
+
+                //top
+                if (col > 0 && !visited[row][col - 1])
+                {
+                    visited[row][col-1] = true;
+                    retCheckd = Exist(board, word, currWord + board[row][col-1], row, col-1, visited);
+                    if (retCheckd) return retCheckd;
+                    visited[row][col-1] = false;
+                }
+
+                //bottom
+                if (col < board[0].Length-1 && !visited[row][col + 1])
+                {
+                    visited[row][col + 1] = true;
+                    retCheckd = Exist(board, word, currWord + board[row][col + 1], row, col + 1, visited);
+                    if (retCheckd) return retCheckd;
+                    visited[row][col + 1] = false;
+                }
+            }
+
+            return retCheckd;
+        }
 
         #endregion
 
@@ -810,8 +888,21 @@ namespace LeetCode
         /// <returns></returns>
         public bool CanJump(int[] nums)
         {
-            Dictionary<int, bool> dp = new Dictionary<int, bool>();
-            return CanJump(nums, nums.Length, 0, dp);
+            //Dictionary<int, bool> dp = new Dictionary<int, bool>();
+            //return CanJump(nums, nums.Length, 0, dp);
+
+            //Greedy Algorithm
+            if (nums.Length == 1)
+                return true;
+
+            int goal = nums.Length - 1;
+            
+            for(int currIdx = nums.Length - 2; currIdx >= 0; currIdx--)
+            {
+                if (nums[currIdx] + currIdx >= goal)
+                    goal = Math.Min(currIdx, goal);
+            }
+            return goal == 0;
         }
         private bool CanJump(int[] nums, int n, int currIdx, Dictionary<int, bool> dp)
         {
