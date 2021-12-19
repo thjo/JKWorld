@@ -802,6 +802,87 @@ namespace LeetCode
         }
 
 
+        /// <summary>
+        /// 55. Jump Game
+        /// https://leetcode.com/problems/jump-game/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public bool CanJump(int[] nums)
+        {
+            Dictionary<int, bool> dp = new Dictionary<int, bool>();
+            return CanJump(nums, nums.Length, 0, dp);
+        }
+        private bool CanJump(int[] nums, int n, int currIdx, Dictionary<int, bool> dp)
+        {
+            if (dp.ContainsKey(currIdx))
+                return dp[currIdx];
+
+            if (currIdx > n - 1)
+            {
+                dp.Add(currIdx, false);
+                return false;
+            }
+            else if (currIdx == n - 1)
+            {
+                dp.Add(currIdx, true);
+                return true;
+            }
+
+            int maxJumps = nums[currIdx];
+            int jump = maxJumps;
+            while ( jump > 0)
+            {
+                if (CanJump(nums, n, currIdx + jump, dp))
+                    return true;
+                
+                jump--;
+            }
+            dp.Add(currIdx + jump, false);
+            return false;
+        }
+
+        /// <summary>
+        /// 62. Unique Paths
+        /// https://leetcode.com/problems/unique-paths/
+        /// </summary>
+        /// <param name="m"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int UniquePaths(int m, int n)
+        {
+            Dictionary<string, int> dp = new Dictionary<string, int>();
+            return UniquePathsDFS(0, 0, m, n, dp);
+        }
+        private int UniquePathsDFS(int i, int j, int m, int n, Dictionary<string, int> dp)
+        {
+            if (dp.ContainsKey(string.Format("{0}_{1}", i, j)))
+                return dp[string.Format("{0}_{1}", i, j)];
+
+            if (i == m - 1 && j == n - 1)
+            {
+                dp.Add(string.Format("{0}_{1}", i, j), 1);
+                return 1;
+            }
+
+            int val = 0;
+            if (i < m - 1 && j < n - 1)
+            {
+                val = UniquePathsDFS(i + 1, j, m, n, dp) + UniquePathsDFS(i, j + 1, m, n, dp);
+            }
+            else if (i < m - 1)
+            {
+                val = UniquePathsDFS(i + 1, j, m, n, dp);
+            }
+            else if (j < n - 1)
+            {
+                val = UniquePathsDFS(i, j + 1, m, n, dp);
+            }
+
+            dp.Add(string.Format("{0}_{1}", i, j), val);
+            return val;
+        }
+
 
         /// <summary>
         /// 413. Arithmetic Slices

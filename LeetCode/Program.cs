@@ -85,7 +85,7 @@ namespace LeetCode
             //ma.InvalidTransactions(new string[] { "alice,20,800,mtv", "alice,50,100,mtv", "alice,51,100,frankfurt" });
             //ma.NumRollsToTarget(1, 6, 3);
             //ma.LongestPalindrome("babad");
-            ma.FirstUniqChar("dddccdbba");
+            //ma.FirstUniqChar("dddccdbba");
             //ma.PrisonAfterNDays(new int[] { 1, 0, 0, 1, 0, 0, 1, 0 }, 1000000000);
             //ma.PrisonAfterNDays(new int[] { 1, 1, 0, 1, 1, 0, 1, 1 }, 6);
             //ma.PrisonAfterNDays(new int[] { 1, 1, 0, 1, 1, 0, 0, 1 }, 300663720);
@@ -107,11 +107,12 @@ namespace LeetCode
             //al2.Search(new int[] { 4, 5, 6, 7, 0, 1, 2 }, 0);
             //al2.BackspaceCompare("ab##", "c#d#");
             //al2.FindAnagrams("cbaebabacd", "abc");
-            int[][] param = new int[3][];
-            param[0] = new int[3] { 0, 0, 0 };
-            param[1] = new int[3] { 1, 1, 0 };
-            param[2] = new int[3] { 1, 1, 0 };
-            al2.ShortestPathBinaryMatrix(param);
+            //int[][] param = new int[3][];
+            //param[0] = new int[3] { 0, 0, 0 };
+            //param[1] = new int[3] { 1, 1, 0 };
+            //param[2] = new int[3] { 1, 1, 0 };
+            //al2.ShortestPathBinaryMatrix(param);
+            al2.UniquePaths(3, 7);
             //IList<IList<int>> triangle = new List<IList<int>>();
             //IList<int> row = new List<int>();
             //row.Add(2);
