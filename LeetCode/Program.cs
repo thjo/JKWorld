@@ -92,6 +92,7 @@ namespace LeetCode
             //ma.FractionToDecimal(-2147483648, 1);
             //ma.ReverseOnlyLetters("a-bC-dEf-ghIj");
             //ma.Calculate("  3/2  ");
+            ma.PartitionLabels("caedbdedda");
             //TopVotedCandidate tvc = new TopVotedCandidate(new int[] { 0,0,0,0,1}, new int[] { 0,6,39,52,75 });
             //int retV = -1;
             //retV = tvc.Q(45);
@@ -118,7 +119,7 @@ namespace LeetCode
             //mmm[0] = new char[1];
             //mmm[0][0] = 'a';
             //al2.Exist(mmm, "a");
-            al2.IsHappy(19);
+            //al2.IsHappy(19);
             //IList<IList<int>> triangle = new List<IList<int>>();
             //IList<int> row = new List<int>();
             //row.Add(2);

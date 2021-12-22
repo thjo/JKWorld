@@ -1010,8 +1010,73 @@ namespace LeetCode
 
         #endregion
 
+        #region |  12/22/2021 | 
+        /// <summary>
+        /// 836. Rectangle Overlap
+        /// https://leetcode.com/problems/rectangle-overlap/
+        /// </summary>
+        enum DirectionR { LEFT = 0, BOTTOM = 1, RIGHT = 2, TOP = 3 }
+        public bool IsRectangleOverlap(int[] rec1, int[] rec2)
+        {
+            //check bottom and left
+            if (rec1[(int)DirectionR.RIGHT] <= rec2[(int)DirectionR.LEFT]
+                || rec1[(int)DirectionR.TOP] <= rec2[(int)DirectionR.BOTTOM]
+                || rec1[(int)DirectionR.LEFT] >= rec2[(int)DirectionR.RIGHT]
+                || rec1[(int)DirectionR.BOTTOM] >= rec2[(int)DirectionR.TOP])
+            {
+                return false;
+            }
+            else
+                return true;
+        }
 
 
+        public IList<int> PartitionLabels(string s)
+        {
+            IList<int> partitions = new List<int>();
+            if (s.Length == 1)
+            {
+                partitions.Add(s.Length);
+                return partitions;
+            }
+
+            HashSet<char> scaned = new HashSet<char>();
+
+            int startIdx = 0, endIdx = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (scaned.Contains(s[i]) == false)
+                {
+                    scaned.Add(s[i]);
+                    for (int j = s.Length - 1; j > endIdx; j--)
+                    {
+                        if( s[i] == s[j])
+                            endIdx = Math.Max(endIdx, j);
+                    }
+                }
+                else if (endIdx > i)
+                    continue;
+
+                if( endIdx <= i)
+                {
+                    //It's an one sub-string
+                    partitions.Add(endIdx - startIdx + 1);
+                    startIdx = i + 1;
+                    endIdx = i + 1;
+                }
+            }
+
+            //last one
+            //It's an one sub-string
+            if (startIdx != endIdx)
+            {
+                partitions.Add(endIdx - startIdx + 1);
+            }
+
+            return partitions;
+        }
+
+        #endregion
     }
     public class CTransaction
     {

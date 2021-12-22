@@ -1005,6 +1005,38 @@ namespace LeetCode
 
 
         /// <summary>
+        /// 300. Longest Increasing Subsequence
+        /// https://leetcode.com/problems/longest-increasing-subsequence/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int LengthOfLIS(int[] nums)
+        {
+            int[] longestDP = new int[nums.Length];
+            int[] prevNums = new int[nums.Length];
+            int longest = 1;
+            for (int i = 0; i < longestDP.Length; i++)
+                longestDP[i] = 1;
+
+            for(int i = 1; i < nums.Length; i++)
+            {
+                for(int j = 0; j < i; j++)
+                {
+                    if (nums[j] < nums[i] && longestDP[i] < longestDP[j] + 1)
+                    {
+                        longestDP[i] = longestDP[j] + 1;
+                        prevNums[i] = nums[j];
+
+                        longest = Math.Max(longest, longestDP[i]);
+                    }
+                }
+            }
+
+            return longest;
+        }
+
+
+        /// <summary>
         /// 1143. Longest Common Subsequence
         /// https://leetcode.com/problems/longest-common-subsequence/
         /// </summary>
@@ -1071,6 +1103,7 @@ namespace LeetCode
 
         #region | Other | 
 
+
         /// <summary>
         /// 202. Happy Number
         /// https://leetcode.com/problems/happy-number/
@@ -1084,48 +1117,16 @@ namespace LeetCode
 
             int slowRunner = n;
             int fastRunner = getNext(n);
-            HashSet<int> history = new HashSet<int>();
-            history.Add(slowRunner);
-            if (history.Contains(fastRunner))
-                return false;
-            else
-                history.Add(fastRunner);
-            while (fastRunner != 1)
+            while (fastRunner != 1 && fastRunner != slowRunner)
             {
                 slowRunner = getNext(slowRunner);
-                if (history.Contains(slowRunner))
-                    return false;
-                else
-                    history.Add(slowRunner);
-
                 fastRunner = getNext(getNext(fastRunner));
-                if (history.Contains(fastRunner))
-                    return false;
-                else
-                    history.Add(fastRunner);
             }
 
             if (fastRunner == 1)
                 return true;
             else
                 return false;
-
-            //
-            //if (n == 1)
-            //    return true;
-
-            //int slowRunner = n;
-            //int fastRunner = getNext(n);
-            //while (fastRunner != 1 && fastRunner != slowRunner)
-            //{
-            //    slowRunner = getNext(slowRunner);
-            //    fastRunner = getNext(getNext(fastRunner));
-            //}
-
-            //if (fastRunner == 1)
-            //    return true;
-            //else
-            //    return false;
         }
 
         private int getNext(int n)
