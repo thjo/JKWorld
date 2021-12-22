@@ -978,8 +978,6 @@ namespace LeetCode
             for (int i = 0; i < len; i++)
             {
                 char currChar = s[i];
-                if (currChar == ' ')
-                    continue;
 
                 if (Char.IsDigit(currChar))
                     currNum = (currNum * 10) + (currChar - '0');
@@ -1011,6 +1009,9 @@ namespace LeetCode
 
 
         #endregion
+
+
+
     }
     public class CTransaction
     {

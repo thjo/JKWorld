@@ -1066,6 +1066,83 @@ namespace LeetCode
 
 
         #endregion
+
+
+
+        #region | Other | 
+
+        /// <summary>
+        /// 202. Happy Number
+        /// https://leetcode.com/problems/happy-number/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public bool IsHappy(int n)
+        {
+            if (n == 1)
+                return true;
+
+            int slowRunner = n;
+            int fastRunner = getNext(n);
+            HashSet<int> history = new HashSet<int>();
+            history.Add(slowRunner);
+            if (history.Contains(fastRunner))
+                return false;
+            else
+                history.Add(fastRunner);
+            while (fastRunner != 1)
+            {
+                slowRunner = getNext(slowRunner);
+                if (history.Contains(slowRunner))
+                    return false;
+                else
+                    history.Add(slowRunner);
+
+                fastRunner = getNext(getNext(fastRunner));
+                if (history.Contains(fastRunner))
+                    return false;
+                else
+                    history.Add(fastRunner);
+            }
+
+            if (fastRunner == 1)
+                return true;
+            else
+                return false;
+
+            //
+            //if (n == 1)
+            //    return true;
+
+            //int slowRunner = n;
+            //int fastRunner = getNext(n);
+            //while (fastRunner != 1 && fastRunner != slowRunner)
+            //{
+            //    slowRunner = getNext(slowRunner);
+            //    fastRunner = getNext(getNext(fastRunner));
+            //}
+
+            //if (fastRunner == 1)
+            //    return true;
+            //else
+            //    return false;
+        }
+
+        private int getNext(int n)
+        {
+            int totalSum = 0;
+            while (n > 0)
+            {
+                int d = n % 10;
+                n = n / 10;
+                totalSum += d * d;
+            }
+
+            return totalSum;
+        }
+
+
+        #endregion
     }
 
 
