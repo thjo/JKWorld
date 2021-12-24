@@ -12,9 +12,9 @@ namespace LeetCode
         {
             int i = 0;
             int lastChar = -1;
-            while( i < bits.Length)
+            while (i < bits.Length)
             {
-                if(bits[i] == 0)
+                if (bits[i] == 0)
                     lastChar = 1;
                 else
                     lastChar = 2;
@@ -33,13 +33,13 @@ namespace LeetCode
         {
             Dictionary<int, int> dp = new Dictionary<int, int>();
 
-            for(int i = 0; i < nums.Length; i++)
+            for (int i = 0; i < nums.Length; i++)
             {
                 if (dp.ContainsKey(target - nums[i]))
                     return new int[] { dp[target - nums[i]], i };
                 else
                 {
-                    if(dp.ContainsKey(nums[i]) == false)
+                    if (dp.ContainsKey(nums[i]) == false)
                         dp.Add(nums[i], i);
                 }
             }
@@ -117,7 +117,7 @@ namespace LeetCode
             string fraTotal = "";
             bool isNegative = false;
 
-            if ( (numerator < 0 && denominator > 0) 
+            if ((numerator < 0 && denominator > 0)
                 || (numerator > 0 && denominator < 0))
             {
                 isNegative = true;
@@ -125,16 +125,16 @@ namespace LeetCode
 
             long numer = numerator;
             long denom = denominator;
-            if(numer < 0)
+            if (numer < 0)
                 numer = Math.Abs(numer);
-            if(denom < 0)
+            if (denom < 0)
                 denom = Math.Abs(denom);
             long rest = (numer % denom);
             long num = (numer / denom);
             if (isNegative)
                 fraTotal += "-";
             fraTotal += num.ToString();
-            
+
             if (rest != 0)
             {
                 Dictionary<long, int> dpRest = new Dictionary<long, int>();
@@ -145,8 +145,8 @@ namespace LeetCode
                 while (rest != 0)
                 {
                     numer = rest * 10;
-                    rest =  (numer % denom);
-                    num =  (numer / denom);
+                    rest = (numer % denom);
+                    num = (numer / denom);
                     restStr += num.ToString();
 
                     if (dpRest.ContainsKey(rest))
@@ -175,7 +175,7 @@ namespace LeetCode
 
             int firstIdx = 0, secIdx = 0;
             int start = -1, close = -1;
-            while ( firstIdx < firstList.Length && secIdx < secondList.Length)
+            while (firstIdx < firstList.Length && secIdx < secondList.Length)
             {
                 if (firstList[firstIdx][0] > secondList[secIdx][0])
                 {
@@ -261,19 +261,19 @@ namespace LeetCode
         public bool CarPooling(int[][] trips, int capacity)
         {
             int[] timestamp = new int[1001];
-            foreach(var t in trips)
+            foreach (var t in trips)
             {
                 timestamp[t[1]] += t[0];
                 timestamp[t[2]] -= t[0];
             }
 
-            foreach(int p in timestamp)
+            foreach (int p in timestamp)
             {
                 capacity -= p;
                 if (capacity < 0)
                     return false;
             }
-            
+
             return true;
         }
 
@@ -284,11 +284,11 @@ namespace LeetCode
             char[] reverseStr = new char[s.Length];
 
             int l = 0, r = s.Length - 1;
-            while(l < s.Length)
+            while (l < s.Length)
             {
                 if (char.IsLetter(s[l]))
                 {
-                    while(char.IsLetter(s[r]) == false || reverseStr[r] != '\0')
+                    while (char.IsLetter(s[r]) == false || reverseStr[r] != '\0')
                         r--;
                     reverseStr[r--] = s[l];
                 }
@@ -313,18 +313,18 @@ namespace LeetCode
             if (n == 1)
                 return mat[0][0];
 
-            int sumPri = 0, sumSec = 0; 
+            int sumPri = 0, sumSec = 0;
 
-            for(int r = 0; r < n; r++)
+            for (int r = 0; r < n; r++)
             {
                 sumPri += mat[r][r];
                 sumSec += mat[r][n - 1 - r];
             }
 
-            if( n % 2 == 0)
+            if (n % 2 == 0)
                 return sumPri + sumSec;
             else
-                return sumPri + sumSec - mat[n/2][n/2];
+                return sumPri + sumSec - mat[n / 2][n / 2];
         }
 
 
@@ -376,7 +376,7 @@ namespace LeetCode
             int l = 0, r = len - 1;
             int area = 0;
 
-            while(l < r)
+            while (l < r)
             {
                 area = Math.Max(area, Math.Min(height[l], height[r]) * (r - l));
 
@@ -398,9 +398,9 @@ namespace LeetCode
             if (ptr1 == null || ptr2 == null)
                 return null;
             else if (ptr1 == ptr2)
-                    return ptr1;
+                return ptr1;
 
-            while ( ptr1 != ptr2)
+            while (ptr1 != ptr2)
             {
                 ptr1 = ptr1.next;
                 ptr2 = ptr2.next;
@@ -442,7 +442,7 @@ namespace LeetCode
                 return area;
             else
             {
-                
+
                 return area - ((Math.Min(ay2, by2) - Math.Max(ay1, by1)) * (Math.Min(ax2, bx2) - Math.Max(ax1, bx1)));
             }
         }
@@ -471,7 +471,7 @@ namespace LeetCode
                 int min = amount + 1;
                 for (int c = 0; c < coins.Length; c++)
                 {
-                    if(coins[c] <= i)
+                    if (coins[c] <= i)
                     {
                         min = Math.Min((1 + map[i - coins[c]]), min);
                     }
@@ -564,7 +564,7 @@ namespace LeetCode
                     charSets.Add(c, 1);
             }
 
-            foreach(string word in words)
+            foreach (string word in words)
             {
                 if (CanbeFormed(word, charSets))
                     totalLen += word.Length;
@@ -575,7 +575,7 @@ namespace LeetCode
         private bool CanbeFormed(string word, Dictionary<char, int> charSets)
         {
             Dictionary<char, int> buffWords = new Dictionary<char, int>();
-            foreach(char c in word)
+            foreach (char c in word)
             {
                 if (buffWords.ContainsKey(c))
                     buffWords[c]++;
@@ -583,7 +583,7 @@ namespace LeetCode
                     buffWords.Add(c, 1);
             }
 
-            foreach(var w in buffWords)
+            foreach (var w in buffWords)
             {
                 if (charSets.ContainsKey(w.Key))
                 {
@@ -651,11 +651,11 @@ namespace LeetCode
             map.Add('D', 500);
             map.Add('M', 1000);
             int i = 0;
-            while(i < s.Length)
+            while (i < s.Length)
             {
-                if( i < s.Length - 1)
+                if (i < s.Length - 1)
                 {
-                    if( map[s[i]] >= map[s[i + 1]])
+                    if (map[s[i]] >= map[s[i + 1]])
                     {
                         //normal number
                         total += map[s[i]];
@@ -664,7 +664,7 @@ namespace LeetCode
                     else
                     {
                         //for four
-                        total += (map[s[i+1]] - map[s[i]]);
+                        total += (map[s[i + 1]] - map[s[i]]);
                         i += 2;
                     }
                 }
@@ -719,7 +719,7 @@ namespace LeetCode
                     l2 = l2.next;
             }
 
-            if(exraNum == 1)
+            if (exraNum == 1)
             {
                 ListNode node = new ListNode(1);
                 currNode.next = node;
@@ -741,10 +741,10 @@ namespace LeetCode
                 return s;
 
             int start = 0, end = 0;
-            for(int i = 0; i < s.Length; i++)
+            for (int i = 0; i < s.Length; i++)
             {
                 int len1 = ExpandAroundCenter(s, i, i);
-                int len2 = ExpandAroundCenter(s, i, i+1);
+                int len2 = ExpandAroundCenter(s, i, i + 1);
                 int len = Math.Max(len1, len2);
                 if (len > end - start)
                 {
@@ -756,13 +756,13 @@ namespace LeetCode
                 }
             }
 
-            return s.Substring(start, end- start + 1);
+            return s.Substring(start, end - start + 1);
         }
         private int ExpandAroundCenter(string s, int left, int right)
         {
-            while( left >= 0 && right < s.Length && s[left]==s[right])
+            while (left >= 0 && right < s.Length && s[left] == s[right])
             {
-                left--;right++;
+                left--; right++;
             }
             return right - left - 1;
         }
@@ -778,8 +778,8 @@ namespace LeetCode
         /// <returns></returns>
         public int FirstUniqChar(string s)
         {
-            Dictionary<char, int> dp = new Dictionary<char, int>(); 
-            foreach(char c in s)
+            Dictionary<char, int> dp = new Dictionary<char, int>();
+            foreach (char c in s)
             {
                 if (dp.ContainsKey(c))
                     dp[c]++;
@@ -814,7 +814,7 @@ namespace LeetCode
             ListNode prevNode = null;
             ListNode currNode = head;
 
-            while(currNode != null)
+            while (currNode != null)
             {
                 ListNode nextNode = currNode.next;
                 currNode.next = prevNode;
@@ -849,7 +849,7 @@ namespace LeetCode
                 return mid;
 
             /* If arr[l...mid] is sorted */
-            if( nums[startIdx] <= nums[mid])
+            if (nums[startIdx] <= nums[mid])
             {
                 if (target >= nums[startIdx] && target < nums[mid])
                     return SearchPivot(nums, target, startIdx, mid - 1);
@@ -982,12 +982,12 @@ namespace LeetCode
                 if (Char.IsDigit(currChar))
                     currNum = (currNum * 10) + (currChar - '0');
 
-                if( !Char.IsDigit(currChar) && currChar != ' ' || i == len - 1)
+                if (!Char.IsDigit(currChar) && currChar != ' ' || i == len - 1)
                 {
-                    if( operation == '+' || operation == '-')
+                    if (operation == '+' || operation == '-')
                     {
                         total += lastNum;
-                        lastNum = operation == '+' ? currNum : -currNum; 
+                        lastNum = operation == '+' ? currNum : -currNum;
                     }
                     else if (operation == '*')
                     {
@@ -1010,7 +1010,7 @@ namespace LeetCode
 
         #endregion
 
-        #region |  12/22/2021 | 
+        #region | ONLINE ASSESSMENT -  12/22/2021 | 
         /// <summary>
         /// 836. Rectangle Overlap
         /// https://leetcode.com/problems/rectangle-overlap/
@@ -1031,6 +1031,12 @@ namespace LeetCode
         }
 
 
+        /// <summary>
+        /// 763. Partition Labels
+        /// https://leetcode.com/problems/partition-labels/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public IList<int> PartitionLabels(string s)
         {
             IList<int> partitions = new List<int>();
@@ -1050,14 +1056,14 @@ namespace LeetCode
                     scaned.Add(s[i]);
                     for (int j = s.Length - 1; j > endIdx; j--)
                     {
-                        if( s[i] == s[j])
+                        if (s[i] == s[j])
                             endIdx = Math.Max(endIdx, j);
                     }
                 }
                 else if (endIdx > i)
                     continue;
 
-                if( endIdx <= i)
+                if (endIdx <= i)
                 {
                     //It's an one sub-string
                     partitions.Add(endIdx - startIdx + 1);
@@ -1075,6 +1081,64 @@ namespace LeetCode
 
             return partitions;
         }
+
+        #endregion
+
+        #region | ONLINE ASSESSMENT - 12/23/2021 | 
+
+
+        public bool FindTarget(TreeNode root, int k)
+        {
+            HashSet<int> targetNums = new HashSet<int>();
+
+            return FindTargetInOrder(root, k, targetNums);
+        }
+        private bool FindTargetInOrder(TreeNode root, int k, HashSet<int> targetNums)
+        {
+            if (root == null)
+                return false;
+            else if (targetNums.Contains(root.val))
+                return true;
+
+            targetNums.Add(k - root.val);
+            bool existed = false;
+            if (root.left != null)
+                existed = FindTargetInOrder(root.left, k, targetNums);
+
+            if (existed != true && root.right != null)
+                existed = FindTargetInOrder(root.right, k, targetNums);
+            return existed;
+        }
+
+        /// <summary>
+        /// 1071. Greatest Common Divisor of Strings
+        /// https://leetcode.com/problems/greatest-common-divisor-of-strings/
+        /// </summary>
+        /// <param name="str1"></param>
+        /// <param name="str2"></param>
+        /// <returns></returns>
+        public string GcdOfStrings(string str1, string str2)
+        {
+            int len1 = str1.Length;
+            int len2 = str2.Length;
+            int maxLen = Math.Max(len1, len2);
+
+            for (int i = maxLen; i >= 1; i--)
+            {
+                if (len1 % i == 0 && len2 % i == 0 && str1.Substring(0, i).Equals(str2.Substring(0, i)))
+                {
+                    String tmp1 = str1.Substring(i) + str1.Substring(0, i);
+                    String tmp2 = str2.Substring(i) + str2.Substring(0, i);
+                    if (tmp1.Equals(str1) && tmp2.Equals(str2))
+                    {
+                        return str1.Substring(0, i);
+                    }
+                }
+            }
+
+            return "";
+        }
+
 
         #endregion
     }

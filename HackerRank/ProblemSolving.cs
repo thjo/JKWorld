@@ -1222,6 +1222,19 @@ namespace HackerRank
             return (int)((n*n) % 1000000007);
         }
 
+        /// <summary>
+        /// Restaurant
+        /// https://www.hackerrank.com/challenges/restaurant/problem?utm_campaign=challenge-recommendation&utm_medium=email&utm_source=24-hour-campaign
+        /// </summary>
+        /// <param name="l"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+
+        public static int restaurant(int l, int b)
+        {
+
+        }
+
     }
 
     public class DoublyLinkedListNode
