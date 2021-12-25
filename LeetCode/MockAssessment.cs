@@ -1141,6 +1141,114 @@ namespace LeetCode
 
 
         #endregion
+
+
+        #region | ONLINE ASSESSMENT - 12/25/21 | 
+
+        /// <summary>
+        /// 796. Rotate String
+        /// https://leetcode.com/problems/rotate-string/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="goal"></param>
+        /// <returns></returns>
+        public bool RotateString(string s, string goal)
+        {
+            if (s.Length != goal.Length)
+                return false;
+
+            int j = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == goal[0])
+                {
+                    if (RotateStringB(s.Substring(i) + s.Substring(0, i), goal))
+                        return true;
+                }
+            }
+
+            return false;
+        }
+        private bool RotateStringB(string s, string goal)
+        {
+            return s.Equals(goal);
+        }
+
+
+        /// <summary>
+        /// 229. Majority Element II
+        /// https://leetcode.com/problems/majority-element-ii/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public IList<int> MajorityElement(int[] nums)
+        {
+            int? candidate1 = null, candidate2 = null;
+            int count1 = 0, count2 = 0;
+
+            foreach (var n in nums)
+            {
+                if (candidate1 != null && candidate1.Value == n)
+                    count1++;
+                else if (candidate2 != null && candidate2.Value == n)
+                    count2++;
+                else if (candidate1 == null || count1 == 0)
+                {
+                    candidate1 = n;
+                    count1++;
+                }
+                else if (candidate2 == null || count2 == 0)
+                {
+                    candidate2 = n;
+                    count2++;
+                }
+                else
+                {
+                    count1--;
+                    count2--;
+                }
+            }
+
+            count1 = 0;
+            count2 = 0;
+            foreach (var n in nums)
+            {
+                if (candidate1 == n)
+                    count1++;
+                else if (candidate2 == n)
+                    count2++;
+            }
+            var result = new List<int>();
+            if (count1 > nums.Length / 3)
+                result.Add(candidate1.Value);
+            if (count2 > nums.Length / 3)
+                result.Add(candidate2.Value);
+
+            return result;
+
+            //IList<int> retVals = new List<int>();
+            //int nTimes = nums.Length / 3;
+
+            //Dictionary<int, int> map = new Dictionary<int, int>();
+
+            //for(int i = 0; i < nums.Length; i++)
+            //{
+            //    if (map.ContainsKey(nums[i]))
+            //        map[nums[i]]++;
+            //    else
+            //        map.Add(nums[i], 1);
+            //}
+
+            //foreach(var v in map)
+            //{
+            //    if (nTimes < v.Value)
+            //        retVals.Add(v.Key);
+            //}
+
+            //return retVals;
+        }
+
+        #endregion
     }
     public class CTransaction
     {
