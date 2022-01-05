@@ -1249,6 +1249,226 @@ namespace LeetCode
         }
 
         #endregion
+
+
+
+        #region | 01/02/2022 - OnSite | 
+
+
+        /// <summary>
+        /// 151. Reverse Words in a String
+        /// https://leetcode.com/problems/reverse-words-in-a-string/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public string ReverseWords(string s)
+        {
+            string reversedSt = "";
+            string currWord = "";
+            for (int i = s.Length - 1; i >= 0; i--)
+            {
+                char c = s[i];
+                if (c == ' ')
+                {
+                    if (currWord != "")
+                    {
+                        if (reversedSt != "")
+                            reversedSt += " ";
+
+                        reversedSt += currWord;
+
+                        currWord = "";
+                    }
+                }
+                else
+                {
+                    currWord = c + currWord;
+                }
+            }
+            if (currWord != "")
+            {
+                if (reversedSt != "")
+                    reversedSt += " ";
+
+                reversedSt += currWord;
+            }
+
+            return reversedSt;
+        }
+
+        /// <summary>
+        /// 236. Lowest Common Ancestor of a Binary Tree
+        /// https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="p"></param>
+        /// <param name="q"></param>
+        /// <returns></returns>
+        public TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
+        {
+            if (root == null)
+                return null;
+
+            if (root.val == p.val || root.val == q.val)
+                return root;
+
+            TreeNode left = LowestCommonAncestor(root.left, p, q);
+            TreeNode right = LowestCommonAncestor(root.right, p, q);
+
+            if (left != null && right != null)
+                return root;
+            else if (left == null && right == null)
+                return null;
+
+            return left != null ? left : right;
+        }
+
+        /// <summary>
+        /// 240. Search a 2D Matrix II
+        /// https://leetcode.com/problems/search-a-2d-matrix-ii/
+        /// </summary>
+        /// <param name="matrix"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public bool SearchMatrix(int[][] matrix, int target)
+        {
+            if (matrix == null || matrix.Length < 1 || matrix[0].Length < 1)
+                return false;
+
+            int m = matrix.Length;
+            int n = matrix[0].Length;
+
+            int i = matrix.Length - 1;
+            int j = 0;
+            while (i >= 0 && j < matrix[0].Length)
+            {
+                if (matrix[i][j] > target)
+                {
+                    i--;
+                }
+                else if (matrix[i][j] < target)
+                {
+                    j++;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return false;
+
+        }
+
+
+        #endregion
+
+
+        #region | 01/04/2022 - OnSite | 
+
+        public int RemoveDuplicates(int[] nums)
+        {
+            if (nums == null || nums.Length < 1)
+                return 0;
+
+            int len = 1;
+            for (int i = 1; i < nums.Length; i++)
+            {
+                if (nums[i - 1] != nums[i])
+                {
+                    nums[len] = nums[i];
+                    len++;
+                }
+            }
+
+            return len;
+        }
+
+        /// <summary>
+        /// 93. Restore IP Addresses
+        /// https://leetcode.com/problems/restore-ip-addresses/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public IList<string> RestoreIpAddresses(string s)
+        {
+            IList<string> validAddrs = new List<string>();
+
+            RestoreIpAddressesRR(s, validAddrs, "", 0, 12, 4);
+
+            return validAddrs;
+        }
+        private void RestoreIpAddressesRR(string s, IList<string> validAddrs, string currIPAddr, int startIdx, int max, int min)
+        {
+            if (s.Length - startIdx > max || s.Length - startIdx < min)
+                return;
+            else if (max == 0 && startIdx == s.Length)
+            {
+                validAddrs.Add(currIPAddr.Substring(1));
+                return;
+            }
+
+            //0.0.0.0
+            if (s.Substring(startIdx, 1) == "0")
+            {
+                RestoreIpAddressesRR(s, validAddrs, currIPAddr + ".0", startIdx + i, max - 3, min - 1);
+                return;
+            }
+            for (int i = 1; i <= 3; i++)
+            {
+                if( startIdx + i <= s.Length)
+                {
+                    int tmp = int.Parse(s.Substring(startIdx, i));
+
+                    if( tmp >= 0 && tmp <= 255 )
+                    {
+                        RestoreIpAddressesRR(s, validAddrs, currIPAddr+"."+tmp.ToString(), startIdx+i, max-3, min-1);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 135. Candy
+        /// https://leetcode.com/problems/candy/
+        /// </summary>
+        /// <param name="ratings"></param>
+        /// <returns></returns>
+        public int Candy(int[] ratings)
+        {
+            if (ratings == null || ratings.Length < 1)
+                return 0;
+
+            int[] candies = new int[ratings.Length];
+            candies[0] = 1;
+
+            //from left to right
+            for (int i = 1; i < ratings.Length; i++) {
+                if (ratings[i] > ratings[i - 1])
+                    candies[i] = candies[i - 1] + 1;
+                else
+                    candies[i] = 1;
+            }
+
+            int result = candies[ratings.Length - 1];
+            //from right to left
+            for (int i = ratings.Length - 2; i >= 0; i--)
+            {
+                int cur = 1;
+                if (ratings[i] > ratings[i + 1])
+                {
+                    cur = candies[i + 1] + 1;
+                }
+
+                result += Math.Max(cur, candies[i]);
+                candies[i] = cur;
+            }
+
+
+            return result;
+        }
+
+
+        #endregion
     }
     public class CTransaction
     {

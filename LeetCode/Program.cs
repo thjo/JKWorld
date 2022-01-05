@@ -92,7 +92,13 @@ namespace LeetCode
             //ma.FractionToDecimal(-2147483648, 1);
             //ma.ReverseOnlyLetters("a-bC-dEf-ghIj");
             //ma.Calculate("  3/2  ");
-            ma.PartitionLabels("caedbdedda");
+            //ma.PartitionLabels("caedbdedda");
+            int[][] mat = new int[2][];
+            mat[0] = new int[1];
+            mat[0][0] = 3; 
+            mat[1] = new int[1];
+            mat[1][0] = 6;
+            ma.SearchMatrix(mat, 6);
             //TopVotedCandidate tvc = new TopVotedCandidate(new int[] { 0,0,0,0,1}, new int[] { 0,6,39,52,75 });
             //int retV = -1;
             //retV = tvc.Q(45);
