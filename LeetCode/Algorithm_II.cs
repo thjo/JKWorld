@@ -657,30 +657,102 @@ namespace LeetCode
         public IList<IList<int>> Subsets(int[] nums)
         {
             IList<IList<int>> res = new List<IList<int>>();
-            res.Add(new List<int>());
 
-
-            for(int i = 1; i<=nums.Length; i++)
-                SubsetsR(nums, i, 0, new List<int>(), res);
+            SubsetsR(nums, 0, new List<int>(), res);
             return res;
         }
-        private void SubsetsR(int[] nums, int len, int start, IList<int> currSet, IList<IList<int>> res)
+        private void SubsetsR(int[] nums, int start, IList<int> currSet, IList<IList<int>> res)
         {
-            if (currSet.Count == len)
-            {
-                IList<int> tmp = new List<int>();
-                foreach (int n in currSet)
-                    tmp.Add(n);
-                res.Add(tmp);
-            }
-            else if (start > nums.Length)
-                return;
-
-            for (int i = start; i < nums.Length; i++)
+            IList<int> tmp = new List<int>();
+            foreach (int n in currSet)
+                tmp.Add(n);
+            res.Add(tmp);
+            for(int i = start; i < nums.Length; i++)
             {
                 currSet.Add(nums[i]);
-                SubsetsR(nums, len, i+1, currSet, res);
+                SubsetsR(nums, i + 1, currSet, res);
                 currSet.RemoveAt(currSet.Count - 1);
+            }
+        }
+
+        /// <summary>
+        /// 90. Subsets II
+        /// https://leetcode.com/problems/subsets-ii/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public IList<IList<int>> SubsetsWithDup(int[] nums)
+        {
+            IList<IList<int>> result = new List<IList<int>>();
+
+            Array.Sort(nums);
+            SubsetsWithDupR(nums, 0, new List<int>(), result);
+            return result;
+        }
+        private void SubsetsWithDupR(int[] nums, int start, IList<int> subset, IList<IList<int>> result)
+        {
+            IList<int> tmp = new List<int>();
+            foreach (int n in subset)
+                tmp.Add(n);
+            result.Add(tmp);
+
+            for(int i = start; i < nums.Length; i++)
+            {
+                if (i != start && nums[i] == nums[i - 1])
+                    continue;
+
+                subset.Add(nums[i]);
+                SubsetsWithDupR(nums, i+1, subset, result);
+                subset.RemoveAt(subset.Count - 1);
+            }
+        }
+
+        /// <summary>
+        /// 47. Permutations II
+        /// https://leetcode.com/problems/permutations-ii/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public IList<IList<int>> PermuteUnique(int[] nums)
+        {
+            // count the occurrence of each number
+            IList<IList<int>> result = new List<IList<int>>();
+            Dictionary<int, int> map = new Dictionary<int, int>();
+            foreach(int n in nums)
+            {
+                if (map.ContainsKey(n))
+                    map[n]++;
+                else
+                    map.Add(n, 1);
+            }
+
+            PermuteUniqueR(nums, map, nums.Length, new List<int>(), result);
+
+            return result;
+        }
+        private void PermuteUniqueR(int[] nums, Dictionary<int, int> map, int len, IList<int> subset, IList<IList<int>> result)
+        {
+            if( subset.Count == len)
+            {
+                IList<int> tmp = new List<int>();
+                foreach (int n in subset)
+                    tmp.Add(n);
+                result.Add(tmp);
+                return;
+            }
+
+            foreach(var v in map)
+            {
+                if (v.Value == 0)
+                    continue;
+
+                subset.Add(v.Key);
+                map[v.Key]--;
+
+                PermuteUniqueR(nums, map, nums.Length, subset, result);
+
+                subset.RemoveAt(subset.Count-1);
+                map[v.Key]++;
             }
         }
 
