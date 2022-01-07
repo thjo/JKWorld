@@ -793,6 +793,37 @@ namespace LeetCode
         }
 
 
+        public IList<IList<int>> CombinationSum2(int[] candidates, int target)
+        {
+            IList<IList<int>> result = new List<IList<int>>();
+
+            CombinationSum2(candidates, target, 0, new List<int>(), result);
+
+            return result;
+        }
+        private void CombinationSum2(int[] candidates, int target, int startIdx, IList<int> subset, IList<IList<int>> result)
+        {
+            if (target == 0)
+            {
+                List<int> tmp = new List<int>();
+                foreach (int i in subset)
+                    tmp.Add(i);
+                result.Add(tmp);
+                return;
+            }
+            else if (target < 0)
+                return;
+            else
+            {
+                for(int i = startIdx; i < candidates.Length; i++)
+                {
+                    subset.Add(candidates[i]);
+                    CombinationSum2(candidates, target- candidates[i], i+1, new List<int>(), result);
+                    subset.RemoveAt(subset.Count - 1);
+                }
+            }
+        }
+
         /// <summary>
         /// 22. Generate Parentheses
         /// https://leetcode.com/problems/generate-parentheses/

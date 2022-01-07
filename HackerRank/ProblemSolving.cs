@@ -1232,7 +1232,7 @@ namespace HackerRank
 
         public static int restaurant(int l, int b)
         {
-
+            return -1;
         }
 
     }
