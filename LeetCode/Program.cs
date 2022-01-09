@@ -93,12 +93,12 @@ namespace LeetCode
             //ma.ReverseOnlyLetters("a-bC-dEf-ghIj");
             //ma.Calculate("  3/2  ");
             //ma.PartitionLabels("caedbdedda");
-            int[][] mat = new int[2][];
-            mat[0] = new int[1];
-            mat[0][0] = 3; 
-            mat[1] = new int[1];
-            mat[1][0] = 6;
-            ma.SearchMatrix(mat, 6);
+            //int[][] mat = new int[2][];
+            //mat[0] = new int[1];
+            //mat[0][0] = 3; 
+            //mat[1] = new int[1];
+            //mat[1][0] = 6;
+            //ma.SearchMatrix(mat, 6);
             //TopVotedCandidate tvc = new TopVotedCandidate(new int[] { 0,0,0,0,1}, new int[] { 0,6,39,52,75 });
             //int retV = -1;
             //retV = tvc.Q(45);
@@ -112,6 +112,7 @@ namespace LeetCode
             //retV = tvc.Q(78);
             //retV = tvc.Q(43);
             Algorithm_II al2 = new Algorithm_II();
+            al2.FindNumberOfLIS(new int[] { 1, 3, 5, 4, 7 });
             //al2.Search(new int[] { 4, 5, 6, 7, 0, 1, 2 }, 0);
             //al2.BackspaceCompare("ab##", "c#d#");
             //al2.FindAnagrams("cbaebabacd", "abc");

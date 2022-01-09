@@ -567,7 +567,6 @@ namespace LeetCode
                 IList<int> buff = new List<int>();
                 foreach (int p in path)
                     buff.Add(p);
-
                 allPaths.Add(buff);
             }
             else if (currNode > targetNode)
@@ -797,6 +796,7 @@ namespace LeetCode
         {
             IList<IList<int>> result = new List<IList<int>>();
 
+            Array.Sort(candidates);
             CombinationSum2(candidates, target, 0, new List<int>(), result);
 
             return result;
@@ -817,8 +817,11 @@ namespace LeetCode
             {
                 for(int i = startIdx; i < candidates.Length; i++)
                 {
+                    if (i > startIdx && candidates[i] == candidates[i - 1])
+                        continue;
+
                     subset.Add(candidates[i]);
-                    CombinationSum2(candidates, target- candidates[i], i+1, new List<int>(), result);
+                    CombinationSum2(candidates, target- candidates[i], i+1, subset, result);
                     subset.RemoveAt(subset.Count - 1);
                 }
             }
@@ -1138,6 +1141,40 @@ namespace LeetCode
             return longest;
         }
 
+        /// <summary>
+        /// 673. Number of Longest Increasing Subsequence
+        /// https://leetcode.com/problems/number-of-longest-increasing-subsequence/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int FindNumberOfLIS(int[] nums)
+        {
+            Dictionary<int,int> numOfSubSeqs = new Dictionary<int, int>();
+            int[] dp = new int[nums.Length];
+            for (int i = 0; i < nums.Length; i++)
+                dp[i] = 1;
+
+            int longest = 1;
+            numOfSubSeqs.Add(1, 1);
+            for(int i = nums.Length -2; i >= 0; i--)
+            {
+                for(int j = nums.Length-1; j > i; j--)
+                {
+                    if (nums[j] > nums[i])
+                    {
+                        dp[i] = Math.Max(dp[i], 1 + dp[j]);
+                        longest = Math.Max(longest, dp[i]);
+
+                        if (numOfSubSeqs.ContainsKey(dp[i]))
+                            numOfSubSeqs[dp[i]]++;
+                        else
+                            numOfSubSeqs.Add(dp[i], 1);
+                    }
+                }
+            }
+
+            return numOfSubSeqs[longest];
+        }
 
         /// <summary>
         /// 1143. Longest Common Subsequence

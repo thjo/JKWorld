@@ -1410,7 +1410,7 @@ namespace LeetCode
             //0.0.0.0
             if (s.Substring(startIdx, 1) == "0")
             {
-                RestoreIpAddressesRR(s, validAddrs, currIPAddr + ".0", startIdx + i, max - 3, min - 1);
+                RestoreIpAddressesRR(s, validAddrs, currIPAddr + ".0", startIdx + 1, max - 3, min - 1);
                 return;
             }
             for (int i = 1; i <= 3; i++)
