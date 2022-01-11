@@ -942,6 +942,51 @@ namespace LeetCode
             return retCheckd;
         }
 
+        /// <summary>
+        /// 17. Letter Combinations of a Phone Number
+        /// https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+        /// </summary>
+        /// <param name="digits"></param>
+        /// <returns></returns>
+        public IList<string> LetterCombinations(string digits)
+        {
+            IList<string> combs = new List<string>();
+            if (string.IsNullOrWhiteSpace(digits))
+                return combs;
+
+            int len = digits.Length;
+            Dictionary<char, char[]> phonePad = new Dictionary<char, char[]>();
+            phonePad.Add('2', new char[] { 'a', 'b', 'c' });
+            phonePad.Add('3', new char[] { 'd', 'e', 'f' });
+            phonePad.Add('4', new char[] { 'g', 'h', 'i' });
+            phonePad.Add('5', new char[] { 'j', 'k', 'l' });
+            phonePad.Add('6', new char[] { 'm', 'n', 'o' });
+            phonePad.Add('7', new char[] { 'p', 'q', 'r', 's' });
+            phonePad.Add('8', new char[] { 't', 'u', 'v' });
+            phonePad.Add('9', new char[] { 'w', 'x', 'y', 'z' });
+            phonePad.Add('0', new char[] { ' ' });
+
+            LetterCombinationsBackTrack(0, "", len, digits, combs, phonePad);
+
+            return combs;
+        }
+        private void LetterCombinationsBackTrack(int startIdx, string currComb, int len, string digits, IList<string> combs, Dictionary<char, char[]> phonePad)
+        {
+            if (currComb.Length == len)
+                combs.Add(currComb);
+
+            if (startIdx < len && currComb.Length < len && phonePad.ContainsKey(digits[startIdx]))
+            {
+                char[] chars = phonePad[digits[startIdx]];
+                foreach (char c in chars)
+                {
+                    currComb += c;
+                    LetterCombinationsBackTrack(startIdx + 1, currComb, len, digits, combs, phonePad);
+                    currComb = currComb.Substring(0, currComb.Length - 1);
+                }
+            }
+        }
+
         #endregion
 
 
@@ -1305,7 +1350,7 @@ namespace LeetCode
         /// <returns></returns>
         public int MinSubArrayLen(int target, int[] nums)
         {
-            int minLen = nums.Length;
+            int minLen = nums.Length+1;
             int start = 0;
             int sum = 0;
             for(int i = 0; i < nums.Length; i++)
@@ -1318,7 +1363,163 @@ namespace LeetCode
                 }
             }
 
-            return minLen == nums.Length ? 0 : minLen;
+            return minLen == nums.Length+1 ? 0 : minLen;
+        }
+
+        /// <summary>
+        /// 986. Interval List Intersections
+        /// https://leetcode.com/problems/interval-list-intersections/
+        /// </summary>
+        /// <param name="firstList"></param>
+        /// <param name="secondList"></param>
+        /// <returns></returns>
+        public int[][] IntervalIntersection(int[][] firstList, int[][] secondList)
+        {
+            List<int[]> intersections = new List<int[]>();
+            if (firstList == null || secondList == null
+                && firstList.Length < 1 || secondList.Length < 1)
+                return intersections.ToArray();
+
+            int firstIdx = 0, secIdx = 0;
+            int start = -1, close = -1;
+            while (firstIdx < firstList.Length && secIdx < secondList.Length)
+            {
+                if (firstList[firstIdx][0] > secondList[secIdx][0])
+                {
+                    start = firstList[firstIdx][0];
+                    if (start > secondList[secIdx][1])
+                        secIdx++;
+                    else
+                    {
+                        if (firstList[firstIdx][1] < secondList[secIdx][1])
+                        {
+                            close = firstList[firstIdx][1];
+                            if (close >= start)
+                            {
+                                intersections.Add(new int[] { start, close });
+                                start = -1; close = -1;
+                            }
+                            start = secondList[secIdx][1];
+                            firstIdx++;
+                        }
+                        else
+                        {
+                            close = secondList[secIdx][1];
+                            if (close >= start)
+                            {
+                                intersections.Add(new int[] { start, close });
+                                start = -1; close = -1;
+                            }
+                            start = firstList[firstIdx][1];
+                            secIdx++;
+                        }
+                    }
+                }
+                else
+                {
+                    start = secondList[secIdx][0];
+                    if (start > firstList[firstIdx][1])
+                        firstIdx++;
+                    else
+                    {
+                        if (firstList[firstIdx][1] < secondList[secIdx][1])
+                        {
+                            close = firstList[firstIdx][1];
+                            if (close >= start)
+                            {
+                                intersections.Add(new int[] { start, close });
+                                start = -1; close = -1;
+                            }
+                            start = secondList[secIdx][1];
+                            firstIdx++;
+                        }
+                        else
+                        {
+                            close = secondList[secIdx][1];
+                            if (close >= start)
+                            {
+                                intersections.Add(new int[] { start, close });
+                                start = -1; close = -1;
+                            }
+                            start = firstList[firstIdx][1];
+                            secIdx++;
+                        }
+                    }
+                }
+            }
+
+
+            return intersections.ToArray();
+        }
+
+        /// <summary>
+        /// 322. Coin Change
+        /// https://leetcode.com/problems/coin-change/
+        /// </summary>
+        /// <param name="coins"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        public int CoinChange(int[] coins, int amount)
+        {
+            //if (amount == 0)
+            //    return 0;
+
+            //Dictionary<int, int> dp = new Dictionary<int, int>();
+            //int retVal = CoinChangeTopDown(coins, amount, dp, amount);
+            //if (retVal > amount)
+            //    return -1;
+            //else
+            //    return retVal;
+            int[] map = new int[amount + 1];
+            map[0] = 0;
+            //for (int i = 1; i <= amount; i++)
+            //    map[i] = amount + 1;
+
+            for (int i = 1; i <= amount; i++)
+            {
+                int min = amount + 1;
+                for (int c = 0; c < coins.Length; c++)
+                {
+                    if (coins[c] <= i)
+                    {
+                        min = Math.Min((1 + map[i - coins[c]]), min);
+                    }
+                }
+                map[i] = min;
+            }
+            return map[amount] == (amount + 1) ? -1 : map[amount];
+        }
+        public int CoinChangeTopDown(int[] coins, int amount, Dictionary<int, int> dp, int originalAmt)
+        {
+            if (amount < 0)
+                return originalAmt + 1;
+            else if (amount == 0)
+                return 0;
+
+            if (dp.ContainsKey(amount))
+                return dp[amount];
+            else
+            {
+                int min = originalAmt + 1;
+                foreach (int coin in coins)
+                {
+                    if (coin <= amount)
+                        min = Math.Min(1 + CoinChangeTopDown(coins, amount - coin, dp, originalAmt), min);
+                }
+                dp.Add(amount, min);
+                return min;
+            }
+        }
+
+        /// <summary>
+        /// 343. Integer Break
+        /// https://leetcode.com/problems/integer-break/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int IntegerBreak(int n)
+        {
+            return -1;
         }
 
         #endregion
