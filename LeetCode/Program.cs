@@ -112,7 +112,8 @@ namespace LeetCode
             //retV = tvc.Q(78);
             //retV = tvc.Q(43);
             Algorithm_II al2 = new Algorithm_II();
-            al2.FindNumberOfLIS(new int[] { 1, 3, 5, 4, 7 });
+            //al2.FindNumberOfLIS(new int[] { 1,2,4,3,5,4,7,2 });
+            al2.MinSubArrayLen(15, new int[] { 1, 2, 3, 4, 5 });
             //al2.Search(new int[] { 4, 5, 6, 7, 0, 1, 2 }, 0);
             //al2.BackspaceCompare("ab##", "c#d#");
             //al2.FindAnagrams("cbaebabacd", "abc");

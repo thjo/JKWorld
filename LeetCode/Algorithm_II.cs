@@ -1149,31 +1149,45 @@ namespace LeetCode
         /// <returns></returns>
         public int FindNumberOfLIS(int[] nums)
         {
-            Dictionary<int,int> numOfSubSeqs = new Dictionary<int, int>();
             int[] dp = new int[nums.Length];
+            int[] count = new int[nums.Length];
             for (int i = 0; i < nums.Length; i++)
-                dp[i] = 1;
-
-            int longest = 1;
-            numOfSubSeqs.Add(1, 1);
-            for(int i = nums.Length -2; i >= 0; i--)
             {
-                for(int j = nums.Length-1; j > i; j--)
-                {
-                    if (nums[j] > nums[i])
-                    {
-                        dp[i] = Math.Max(dp[i], 1 + dp[j]);
-                        longest = Math.Max(longest, dp[i]);
-
-                        if (numOfSubSeqs.ContainsKey(dp[i]))
-                            numOfSubSeqs[dp[i]]++;
-                        else
-                            numOfSubSeqs.Add(dp[i], 1);
-                    }
-                }
+                dp[i] = 1; count[i] = 1;
             }
 
-            return numOfSubSeqs[longest];
+            int longest = 1;
+            int longestCnt = 1;
+            count[nums.Length - 1] = 1;
+            for (int i = nums.Length-2; i >= 0; i--)
+            {
+                for (int j = i + 1; j < nums.Length; j++)
+                {
+                    if (nums[i] < nums[j])
+                    {
+                        if( dp[i] < dp[j] + 1)
+                        {
+                            dp[i] = dp[j] + 1;
+                            count[i] = count[j];
+                        }
+                        else if( dp[i] == dp[j] + 1)
+                        {
+                            count[i] += count[j];
+                        }
+                    }
+                }
+
+                if (longest < dp[i])
+                {
+                    longest = dp[i];
+                    longestCnt = count[i];
+                }
+                else if (longest == dp[i])
+                    longestCnt += count[i];
+            }
+
+            
+            return longest == 1 ? nums.Length : longestCnt;
         }
 
         /// <summary>
@@ -1282,6 +1296,30 @@ namespace LeetCode
             return totalSum;
         }
 
+        /// <summary>
+        /// 209. Minimum Size Subarray Sum
+        /// https://leetcode.com/problems/minimum-size-subarray-sum/
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int MinSubArrayLen(int target, int[] nums)
+        {
+            int minLen = nums.Length;
+            int start = 0;
+            int sum = 0;
+            for(int i = 0; i < nums.Length; i++)
+            {
+                sum += nums[i];
+                while(sum >= target)
+                {
+                    minLen = Math.Min(minLen, i - start + 1);
+                    sum -= nums[start++];
+                }
+            }
+
+            return minLen == nums.Length ? 0 : minLen;
+        }
 
         #endregion
     }
