@@ -870,7 +870,7 @@ namespace LeetCode
         /// <param name="board"></param>
         /// <param name="word"></param>
         /// <returns></returns>
-        public bool Exist(char[][] board, string word)
+        public bool Exist1(char[][] board, string word)
         {
             for(int row = 0; row < board.Length; row++)
             {
@@ -881,14 +881,14 @@ namespace LeetCode
                         visited[i] = new bool[board[0].Length];
 
                     visited[row][col] = true;
-                    if (Exist(board, word, board[row][col].ToString(), row, col, visited))
+                    if (Exist1(board, word, board[row][col].ToString(), row, col, visited))
                         return true;
                 }
             }
 
             return false;
         }
-        private bool Exist(char[][] board, string word, string currWord, int row, int col, bool[][] visited)
+        private bool Exist1(char[][] board, string word, string currWord, int row, int col, bool[][] visited)
         {
             if (currWord == word)
                 return true;
@@ -905,7 +905,7 @@ namespace LeetCode
                 //left
                 if (row > 0 && !visited[row - 1][col]) {
                     visited[row - 1][col] = true;
-                    retCheckd = Exist(board, word, currWord + board[row - 1][col], row - 1, col, visited);
+                    retCheckd = Exist1(board, word, currWord + board[row - 1][col], row - 1, col, visited);
                     if (retCheckd) return retCheckd;
                     visited[row - 1][col] = false;
                     //currWord = currWord.Substring(0, currWord.Length - 1);
@@ -915,7 +915,7 @@ namespace LeetCode
                 if (row < board.Length -1 && !visited[row + 1][col])
                 {
                     visited[row + 1][col] = true;
-                    retCheckd = Exist(board, word, currWord + board[row + 1][col], row + 1, col, visited);
+                    retCheckd = Exist1(board, word, currWord + board[row + 1][col], row + 1, col, visited);
                     if (retCheckd) return retCheckd;
                     visited[row + 1][col] = false;
                 }
@@ -924,7 +924,7 @@ namespace LeetCode
                 if (col > 0 && !visited[row][col - 1])
                 {
                     visited[row][col-1] = true;
-                    retCheckd = Exist(board, word, currWord + board[row][col-1], row, col-1, visited);
+                    retCheckd = Exist1(board, word, currWord + board[row][col-1], row, col-1, visited);
                     if (retCheckd) return retCheckd;
                     visited[row][col-1] = false;
                 }
@@ -933,13 +933,91 @@ namespace LeetCode
                 if (col < board[0].Length-1 && !visited[row][col + 1])
                 {
                     visited[row][col + 1] = true;
-                    retCheckd = Exist(board, word, currWord + board[row][col + 1], row, col + 1, visited);
+                    retCheckd = Exist1(board, word, currWord + board[row][col + 1], row, col + 1, visited);
                     if (retCheckd) return retCheckd;
                     visited[row][col + 1] = false;
                 }
             }
 
             return retCheckd;
+        }
+        public bool Exist(char[][] board, string word)
+        {
+            bool isExisted = false;
+            if (board == null
+               || board.Length < 1 || board[0].Length < 1)
+                return isExisted;
+            List<int[]> startPoints = new List<int[]>();
+            int m = board.Length;
+            int n = board[0].Length;
+
+            for (int row = 0; row < m; row++)
+            {
+                for (int col = 0; col < n; col++)
+                {
+                    if (board[row][col] == word[0])
+                        startPoints.Add(new int[] { row, col });
+                }
+            }
+
+            foreach (var startP in startPoints)
+            {
+                bool[][] visited = new bool[m][];
+                for (int i = 0; i < m; i++)
+                {
+                    visited[i] = new bool[n];
+                    for (int j = 0; j < n; j++)
+                    {
+                        visited[i][j] = false;
+                    }
+                }
+                if (ExistDFS(board, word, visited, startP[0], startP[1], m, n))
+                    return true;
+            }
+
+            return isExisted;
+        }
+        private bool ExistDFS(char[][] board, string word, bool[][] visited, int startRow, int startCol, int m, int n)
+        {
+            visited[startRow][startCol] = true;
+            if (board[startRow][startCol] == word[0])
+            {
+                if (word.Length == 1)
+                    return true;
+                bool isExisted = false;
+
+                //Check Left
+                if (startCol - 1 >= 0 && !visited[startRow][startCol-1])
+                {
+                    isExisted = ExistDFS(board, word.Substring(1), visited, startRow, startCol - 1, m, n);
+                    if (isExisted) return isExisted;
+                    visited[startRow][startCol - 1] = false;
+                }
+                //Check Right
+                if (startCol + 1 < n && !visited[startRow][startCol + 1])
+                {
+                    isExisted = ExistDFS(board, word.Substring(1), visited, startRow, startCol + 1, m, n);
+                    if (isExisted) return isExisted;
+                    visited[startRow][startCol + 1] = false;
+                }
+                //Check Top
+                if (startRow - 1 >= 0 && !visited[startRow-1][startCol])
+                {
+                    isExisted = ExistDFS(board, word.Substring(1), visited, startRow - 1, startCol, m, n);
+                    if (isExisted) return isExisted;
+                    visited[startRow - 1][startCol] = false;
+                }
+
+                //Check Bottom
+                if (startRow + 1 < m && !visited[startRow+1][startCol])
+                {
+                    isExisted = ExistDFS(board, word.Substring(1), visited, startRow + 1, startCol, m, n);
+                    if (isExisted) return isExisted;
+                    visited[startRow + 1][startCol] = false;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>
