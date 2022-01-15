@@ -8,6 +8,145 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
+            Google_OnsiteInterview go = new Google_OnsiteInterview();
+            go.NumberOfPatterns(1, 2);
+
+            //IList<IList<string>> simiarPairs = new List<IList<string>>();
+            //IList<string> tmp = new List<string>();
+            //tmp.Add("great"); tmp.Add("good");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("fine"); tmp.Add("good");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("drama"); tmp.Add("acting");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("skills"); tmp.Add("talent");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //go.AreSentencesSimilarTwo(new string[] { "great", "acting", "skills" }, new string[] { "fine", "drama", "talent" }, simiarPairs);
+
+            //tmp.Add("great");tmp.Add("good");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("extraordinary"); tmp.Add("good");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("well"); tmp.Add("good");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("wonderful"); tmp.Add("good");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("excellent"); tmp.Add("good");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("fine"); tmp.Add("good");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("nice"); tmp.Add("good");
+            //simiarPairs.Add(tmp);
+
+            //tmp = new List<string>();
+            //tmp.Add("any"); tmp.Add("one");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("some"); tmp.Add("one");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("unique"); tmp.Add("one");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("the"); tmp.Add("one");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("an"); tmp.Add("one");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("single"); tmp.Add("one");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("a"); tmp.Add("one");
+            //simiarPairs.Add(tmp);
+
+            //tmp = new List<string>();
+            //tmp.Add("truck"); tmp.Add("car");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("wagon"); tmp.Add("car");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("automobile"); tmp.Add("car");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("auto"); tmp.Add("car");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("vehicle"); tmp.Add("car");
+            //simiarPairs.Add(tmp);
+
+            //tmp = new List<string>();
+            //tmp.Add("entertain"); tmp.Add("have");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("drink"); tmp.Add("have");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("eat"); tmp.Add("have");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("take"); tmp.Add("have");
+            //simiarPairs.Add(tmp);
+
+            //tmp = new List<string>();
+            //tmp.Add("fruits"); tmp.Add("meal");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("brunch"); tmp.Add("meal");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("breakfast"); tmp.Add("meal");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("food"); tmp.Add("meal");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("dinner"); tmp.Add("meal");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("super"); tmp.Add("meal");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("lunch"); tmp.Add("meal");
+            //simiarPairs.Add(tmp);
+
+            //tmp = new List<string>();
+            //tmp.Add("possess"); tmp.Add("own");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("keep"); tmp.Add("own");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("have"); tmp.Add("own");
+            //simiarPairs.Add(tmp);
+
+            //tmp = new List<string>();
+            //tmp.Add("extremely"); tmp.Add("very");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("actually"); tmp.Add("very");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("really"); tmp.Add("very");
+            //simiarPairs.Add(tmp);
+            //tmp = new List<string>();
+            //tmp.Add("super"); tmp.Add("very");
+            //simiarPairs.Add(tmp);
+
+            //go.AreSentencesSimilar(new string[] { "yesterday", "james", "have", "an", "extraordinary", "meal" }, new string[] { "yesterday", "james", "take", "one", "good", "dinner" }, simiarPairs);
+
+
             Algorithm_I al = new Algorithm_I();
             //al.Search(new int[] { -1, 0, -3, 5, 9, 12 }, 9);
             //al.SortedSquares(new int[] { -4, -1, 0, 3, 10 });
