@@ -187,14 +187,126 @@ namespace LeetCode
         /// </summary>
         /// <param name="sentences"></param>
         /// <param name="times"></param>
-        public AutocompleteSystem(string[] sentences, int[] times)
-        {
+        //public AutocompleteSystem(string[] sentences, int[] times)
+        //{
 
-        }
-        public IList<string> Input(char c)
-        {
+        //}
+        //public IList<string> Input(char c)
+        //{
 
-        }
+        //}
+
         #endregion
+
+
+        #region | 1/16/2022 | 
+
+        public int CalculateTime(string keyboard, string word)
+        {
+            Dictionary<char, int> keyboardMap = new Dictionary<char, int>();
+            for (int i = 0; i < keyboard.Length; i++)
+                keyboardMap.Add(keyboard[i], i);
+
+            int totalTimes = 0;
+            int currIdx = 0;
+            foreach (char c in word)
+            {
+                totalTimes += Math.Abs(currIdx - keyboardMap[c]);
+                currIdx = keyboardMap[c];
+            }
+
+            return totalTimes;
+
+        }
+
+
+        public int MaxLevelSum(TreeNode root)
+        {
+            //Check the Level of the tree
+            //Lv 1 to Max
+            //  Sum
+
+            //Lv, Sum
+            Dictionary<int, int> map = new Dictionary<int, int>();
+            if (root == null)
+                return 0;
+
+            SumperLv(root, 1, map);
+
+            int maxVal = int.MinValue;
+            int maxLv = 0;
+            foreach (var v in map)
+            {
+                if (v.Value > maxVal)
+                {
+                    maxLv = v.Key;
+                    maxVal = v.Value;
+                }
+            }
+
+            return maxLv;
+
+            
+        }
+        private void SumperLv(TreeNode root, int lv, Dictionary<int, int> map)
+        {
+            if (root == null)
+                return;
+
+            if (map.ContainsKey(lv))
+                map[lv] += root.val;
+            else
+                map.Add(lv, root.val);
+
+            SumperLv(root.left, lv + 1, map);
+            SumperLv(root.right, lv + 1, map);
+        }
+
+
+        public int OddEvenJumps(int[] arr)
+        {
+            int len = arr.Length;
+            bool[] oddStarting = new bool[len];
+            bool[] evenStarting = new bool[len];
+
+            //The last index is always good
+            oddStarting[len - 1] = evenStarting[len - 1] = true;
+            int cntOfGoodStartingIdx = 1;
+
+            for (int i = len - 2; i >= 0; i--)
+            {
+                int ceilingVal = int.MaxValue;
+                int ceilingIdx = -1;
+                int floorVal = int.MinValue;
+                int floorIdx = -1;
+                for (int j = i + 1; j < len; j++)
+                {
+                    if (arr[j] >= arr[i] && arr[j] < ceilingVal)
+                    {
+                        ceilingVal = arr[j];
+                        ceilingIdx = j;
+                    }
+
+                    if (arr[j] <= arr[i] && arr[j] > floorVal)
+                    {
+                        floorVal = arr[j];
+                        floorIdx = j;
+                    }
+                }
+                oddStarting[i] = (ceilingIdx != -1 && evenStarting[ceilingIdx]);
+                evenStarting[i] = (floorIdx != -1 && oddStarting[floorIdx]);
+
+                if (oddStarting[i])
+                    cntOfGoodStartingIdx++;
+            }
+
+            return cntOfGoodStartingIdx;
+        }
+
+
+        
+
+        #endregion
+
     }
 }
