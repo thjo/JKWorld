@@ -1,0 +1,13 @@
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\asyncawait\bin\Debug\netcoreapp3.1\asyncawait.exe
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\asyncawait\bin\Debug\netcoreapp3.1\asyncawait.deps.json
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\asyncawait\bin\Debug\netcoreapp3.1\asyncawait.runtimeconfig.json
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\asyncawait\bin\Debug\netcoreapp3.1\asyncawait.runtimeconfig.dev.json
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\asyncawait\bin\Debug\netcoreapp3.1\asyncawait.dll
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\asyncawait\bin\Debug\netcoreapp3.1\asyncawait.pdb
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\asyncawait\obj\Debug\netcoreapp3.1\asyncawait.csproj.AssemblyReference.cache
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\asyncawait\obj\Debug\netcoreapp3.1\asyncawait.AssemblyInfoInputs.cache
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\asyncawait\obj\Debug\netcoreapp3.1\asyncawait.AssemblyInfo.cs
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\asyncawait\obj\Debug\netcoreapp3.1\asyncawait.csproj.CoreCompileInputs.cache
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\asyncawait\obj\Debug\netcoreapp3.1\asyncawait.dll
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\asyncawait\obj\Debug\netcoreapp3.1\asyncawait.pdb
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\asyncawait\obj\Debug\netcoreapp3.1\asyncawait.genruntimeconfig.cache

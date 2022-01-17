@@ -4,8 +4,12 @@ using System.Text;
 
 namespace LeetCode
 {
-    class Google_OnsiteInterview
+    public class Google_OnsiteInterview
     {
+        public const int CONST_T = 0;
+        public readonly int READONLY_T = 2;
+        //public static const int CONST_ST = 10;    //const is already static
+        public static readonly int READONLY_ST = 20;
         #region | 01/14/2022 | 
 
         /// <summary>
