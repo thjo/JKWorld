@@ -899,6 +899,7 @@ namespace LeetCode
             else if (col > board[0].Length - 1 || col < 0)
                 return false;
 
+            
             bool retCheckd = false;
             if (currWord.Length < word.Length)
             {

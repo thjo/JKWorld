@@ -308,7 +308,169 @@ namespace LeetCode
         }
 
 
-        
+
+
+        #endregion
+
+
+
+        #region | 1/17/2022 | 
+
+        private Dictionary<string, int> msgDict;
+
+        public Logger()
+        {
+            msgDict = new Dictionary<string, int>();
+        }
+
+        public bool ShouldPrintMessage(int timestamp, string message)
+        {
+            if (this.msgDict.ContainsKey(message) == false)
+            {
+                this.msgDict.Add(message, timestamp);
+                return true;
+            }
+
+            int oldTimestamp = this.msgDict[message];
+            if (timestamp - oldTimestamp >= 10)
+            {
+                this.msgDict[message] = timestamp;
+                return true;
+            }
+            else
+                return false;
+
+        }
+
+
+        /// <summary>
+        /// https://leetcode.com/problems/campus-bikes/
+        /// </summary>
+        /// <param name="workers"></param>
+        /// <param name="bikes"></param>
+        /// <returns></returns>
+        public int[] AssignBikes(int[][] workers, int[][] bikes)
+        {
+
+            //1. pair with the shortest Manhattan distance between each other and assign the bike to that worker.
+            //2. If there are multiple (workeri, bikej) pairs with the same shortest Manhattan distance,
+            //2-1. we choose the pair with the smallest worker index
+            //2-2. we choose the pair with the smallest bike index
+            //3. Repeat this process until there are no available workers.
+
+            //Return an array answer of length n, where answer[i] is the index (0-indexed) of the bike that the ith worker is assigned to.
+
+            //Init
+            int[][] distanceMap = new int[workers.Length][];
+            for (int w = 0; w < workers.Length; w++)
+            {
+                distanceMap[w] = new int[bikes.Length];
+                for (int b = 0; b < bikes.Length; b++)
+                {
+                    distanceMap[w][b] = int.MaxValue;
+                }
+            }
+
+            //Calculate distance beween all workers and bikes
+            for (int w = 0; w < workers.Length; w++)
+            {
+                for (int b = 0; b < bikes.Length; b++)
+                {
+                    distanceMap[w][b] = Math.Abs(workers[w][0] - bikes[b][0]) + Math.Abs(workers[w][1] - bikes[b][1]);
+                } //End for
+            } //End for
+
+            //index: Worker, value: Bike
+            int[] res = new int[workers.Length];
+            bool[] assignedWorkers = new bool[workers.Length];
+            bool[] assignedBikes = new bool[bikes.Length];
+
+            for (int i = 0; i < workers.Length; i++)
+            {
+                int minDist = int.MaxValue;
+                int minDistW = -1, minDistB = -1;
+                for (int w = 0; w < workers.Length; w++)
+                {
+                    if (assignedWorkers[w])
+                        continue;
+                    for (int b = 0; b < bikes.Length; b++)
+                    {
+                        if (assignedBikes[b])
+                            continue;
+
+                        if (minDist > distanceMap[w][b])
+                        {
+                            minDist = distanceMap[w][b];
+                            minDistW = w;
+                            minDistB = b;
+                        }
+
+                    }
+                }
+                res[minDistW] = minDistB;
+                assignedWorkers[minDistW] = true;
+                assignedBikes[minDistB] = true;
+            }
+
+            return res;
+        }
+
+        /// <summary>
+        /// https://leetcode.com/problems/all-paths-from-source-lead-to-destination/solution/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <param name="edges"></param>
+        /// <param name="source"></param>
+        /// <param name="destination"></param>
+        /// <returns></returns>
+        public bool LeadsToDestination(int n, int[][] edges, int source, int destination)
+        {
+            if (edges == null || edges.Length == 0)
+            {
+                return source == destination;
+            }
+
+            List<int>[] g = BuildDigraph(n, edges);
+            int[] states = new int[n];
+            for (int i = 0; i < n; i++)
+                states[i] = 0;
+
+            return LeadsToDestDFS(g, source, destination, states);
+        }
+        private bool LeadsToDestDFS(List<int>[] g, int s, int d, int[] states)
+        {
+
+            if (g[s] == null || g[s].Count == 0)
+                return s == d;
+
+            if (states[s] != 0)
+                return states[s] == 2;
+
+            states[s] = 1;
+            foreach (int next in g[s])
+            {
+                if (LeadsToDestDFS(g, next, d, states) == false)
+                     return false;
+            }
+
+            states[s] = 2;
+            return true;
+        }
+        private List<int>[] BuildDigraph(int n, int[][] edges)
+        {
+            List<int>[] graph = new List<int>[n];
+            for (int i = 0; i < n; i++)
+            {
+                graph[i] = new List<int>();
+            }
+
+            foreach (var edge in edges)
+            {
+                graph[edge[0]].Add(edge[1]);
+            }
+
+            return graph;
+        }
 
         #endregion
 
