@@ -565,58 +565,39 @@ namespace LeetCode
         }
 
 
+        /// <summary>
+        /// 
+        /// https://leetcode.com/problems/sentence-screen-fitting/submissions/
+        /// </summary>
+        /// <param name="sentence"></param>
+        /// <param name="rows"></param>
+        /// <param name="cols"></param>
+        /// <returns></returns>
         public int WordsTyping(string[] sentence, int rows, int cols)
         {
-            int representedTimes = 0;
-            int maxLenOfSentence = 0;
-            int[] sens = new int[sentence.Length];
-            int i = 0;
-            foreach (string s in sentence)
+            //fill the sentences with the words
+            StringBuilder sb = new StringBuilder();
+            foreach (string str in sentence)
             {
-                sens[i++] = s.Length;
-                if (s.Length > maxLenOfSentence)
-                    maxLenOfSentence = s.Length;
+                string s = str + " ";
+                sb.Append(s);
             }
-            if (maxLenOfSentence > cols)
-                return 0;
-
-            int currLine = 1;
-            int currCol = 1;
-            int currSentenceIdx = 0;
-            while (currLine <= rows)
+            //hello world ;
+            int start = 0;
+            for (int i = 0; i < rows; i++)
             {
-                if (currSentenceIdx == sens.Length)
+                start = start + cols;
+                if (sb[start % sb.Length] == ' ')
                 {
-                    representedTimes++;
-                    currSentenceIdx = 0;
-                }
-                int spaceCols = cols - currCol + 1;
-                if (currCol > 1)
-                    spaceCols--;    //Space between sentence
-                if (sens[currSentenceIdx] <= spaceCols)
-                {
-                    if (currCol > 1)
-                        currCol++;
-
-                    currCol = currCol + sens[currSentenceIdx];
-                    currSentenceIdx++;
-                    if (currCol > cols)
-                    {
-                        currLine++;
-                        currCol = 1;
-                    }
+                    start++;     //move over the space by adding 1 to start;
                 }
                 else
-                {
-                    //Move to next line
-                    currLine++;
-                    currCol = 1;
+                { //need to look for the previous space ;
+                    while (start > 0 && sb[(start - 1) % sb.Length] != ' ')
+                        start--;
                 }
             }
-            if (currSentenceIdx == sens.Length)
-                representedTimes++;
-
-            return representedTimes;
+            return start / sb.Length;
         }
 
 
@@ -715,6 +696,92 @@ namespace LeetCode
 
         }
 
+        #endregion
+
+
+        #region | 1/20/22 - Phone Interview | 
+
+        /// <summary>
+        /// 942. DI String Match
+        /// https://leetcode.com/problems/di-string-match/solution/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public int[] DiStringMatch(string s)
+        {
+            int n = s.Length;
+            int low = 0, high = n;
+            int[] res = new int[n + 1];
+
+            for (int i = 0; i < n; i++)
+            {
+                if (s[i] == 'I')
+                    res[i] = low++;
+                else
+                    res[i] = high--;
+            }
+
+            res[n] = low;
+            return res;
+        }
+
+
+        /// <summary>
+        /// 1660. Correct a Binary Tree
+        /// https://leetcode.com/problems/correct-a-binary-tree/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public TreeNode CorrectBinaryTree(TreeNode root)
+        {
+            List<TreeNode> visited = new List<TreeNode>();
+            TreeNode invalidNode = DetectInvalidNode(root, visited, null);
+            if (invalidNode != null)
+                DeleteNode(root, null, invalidNode);
+            return root;
+        }
+        private TreeNode DetectInvalidNode(TreeNode root, List<TreeNode> visited, TreeNode parent)
+        {
+            if (root == null)
+                return null;
+            else if (visited.Contains(root))
+            {
+                return parent;
+            }
+
+            visited.Add(root);
+            TreeNode res = null;
+            if (root.right != null)
+            {
+                res = DetectInvalidNode(root.right, visited, root);
+            }
+
+            if (res == null && root.left != null)
+            {
+                res = DetectInvalidNode(root.left, visited, root);
+            }
+
+            return res;
+        }
+        private void DeleteNode(TreeNode currNode, TreeNode parent, TreeNode delNode)
+        {
+            if (currNode == null)
+                return;
+
+            if( currNode == delNode)
+            {
+                if(parent != null)
+                {
+                    if (parent.left == delNode)
+                        parent.left = null;
+                    else if (parent.right == delNode)
+                        parent.right = null;
+                }
+            }
+
+            DeleteNode(currNode.left, currNode, delNode);
+            DeleteNode(currNode.right, currNode, delNode);
+        }
         #endregion
     }
 }

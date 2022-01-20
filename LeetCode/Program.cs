@@ -9,8 +9,13 @@ namespace LeetCode
         static void Main(string[] args)
         {
             Google_OnsiteInterview go = new Google_OnsiteInterview();
-            go.NumberOfPatterns(1, 2);
-
+            //go.NumberOfPatterns(1, 2);
+            TreeNode root = new TreeNode(1);
+            root.left = new TreeNode(2);
+            TreeNode nd3 = new TreeNode(3);
+            root.left.right = nd3;
+            root.right = nd3;
+            go.CorrectBinaryTree(root);
             //IList<IList<string>> simiarPairs = new List<IList<string>>();
             //IList<string> tmp = new List<string>();
             //tmp.Add("great"); tmp.Add("good");
