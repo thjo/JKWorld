@@ -316,31 +316,31 @@ namespace LeetCode
 
         #region | 1/17/2022 | 
 
-        private Dictionary<string, int> msgDict;
+        //private Dictionary<string, int> msgDict;
 
-        public Logger()
-        {
-            msgDict = new Dictionary<string, int>();
-        }
+        //public Logger()
+        //{
+        //    msgDict = new Dictionary<string, int>();
+        //}
 
-        public bool ShouldPrintMessage(int timestamp, string message)
-        {
-            if (this.msgDict.ContainsKey(message) == false)
-            {
-                this.msgDict.Add(message, timestamp);
-                return true;
-            }
+        //public bool ShouldPrintMessage(int timestamp, string message)
+        //{
+        //    if (this.msgDict.ContainsKey(message) == false)
+        //    {
+        //        this.msgDict.Add(message, timestamp);
+        //        return true;
+        //    }
 
-            int oldTimestamp = this.msgDict[message];
-            if (timestamp - oldTimestamp >= 10)
-            {
-                this.msgDict[message] = timestamp;
-                return true;
-            }
-            else
-                return false;
+        //    int oldTimestamp = this.msgDict[message];
+        //    if (timestamp - oldTimestamp >= 10)
+        //    {
+        //        this.msgDict[message] = timestamp;
+        //        return true;
+        //    }
+        //    else
+        //        return false;
 
-        }
+        //}
 
 
         /// <summary>
@@ -474,5 +474,247 @@ namespace LeetCode
 
         #endregion
 
+
+        #region | 1/19/2022 | 
+
+        /// <summary>
+        /// 249. Group Shifted Strings
+        /// https://leetcode.com/problems/group-shifted-strings/description/
+        /// </summary>
+        /// <param name="strings"></param>
+        /// <returns></returns>
+        public IList<IList<string>> GroupStrings(string[] strings)
+        {
+            IList<IList<string>> res = new List<IList<string>>();
+            if (strings == null || strings.Length == 0) return res;
+
+            Dictionary<string, IList<string>> dic = new Dictionary<string, IList<string>>();
+            foreach (string s in strings)
+            {
+                string key = Normalize(s);
+                if (dic.ContainsKey(key))
+                    dic[key].Add(s);
+                else
+                {
+                    IList<string> buff = new List<string>();
+                    buff.Add(s);
+                    dic.Add(key, buff);
+                }
+            }
+
+            foreach (var s in dic)
+            {
+                res.Add(s.Value);
+            }
+
+            return res;
+        }
+        private string Normalize(string s)
+        {
+            if (s.Length == 0 || s[0] == 'a') return s;
+
+            char[] chars = s.ToCharArray();
+            int diff = chars[0] - 'a';
+            for (int i = 0; i < chars.Length; i++)
+            {
+                chars[i] = (char)(chars[i] - diff);
+                if (chars[i] < 'a') chars[i] = (char)(chars[i]+26);
+            }
+
+            string norStr = "";
+            foreach (char c in chars)
+                norStr += c;
+            return norStr;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public int NumIslands(char[][] grid)
+        {
+            int numOfIslands = 0;
+            int rows = grid.Length;
+            int cols = grid[0].Length;
+            for (int r = 0; r < grid.Length; r++) {
+                for (int c = 0; c < grid[r].Length; c++)
+                {
+                    if (grid[r][c] == '1')
+                    {
+                        numOfIslands++;
+                        VisitIsland(grid, r, c, rows, cols);
+                    }
+                }
+            }
+
+            return numOfIslands;
+        }
+        private void VisitIsland(char[][] grid, int currRow, int currCol, int rows, int cols)
+        {
+            if (currRow < 0 || currRow >= rows
+                || currCol < 0 || currCol >= cols
+                || grid[currRow][currCol] != '1')
+                return;
+
+            grid[currRow][currCol] = '2';   //visited
+            VisitIsland(grid, currRow - 1, currCol, rows, cols);    //LEFT
+            VisitIsland(grid, currRow + 1, currCol, rows, cols);    //RIGHT
+            VisitIsland(grid, currRow, currCol - 1, rows, cols);    //TOP
+            VisitIsland(grid, currRow, currCol + 1, rows, cols);    //BOTTON
+        }
+
+
+        public int WordsTyping(string[] sentence, int rows, int cols)
+        {
+            int representedTimes = 0;
+            int maxLenOfSentence = 0;
+            int[] sens = new int[sentence.Length];
+            int i = 0;
+            foreach (string s in sentence)
+            {
+                sens[i++] = s.Length;
+                if (s.Length > maxLenOfSentence)
+                    maxLenOfSentence = s.Length;
+            }
+            if (maxLenOfSentence > cols)
+                return 0;
+
+            int currLine = 1;
+            int currCol = 1;
+            int currSentenceIdx = 0;
+            while (currLine <= rows)
+            {
+                if (currSentenceIdx == sens.Length)
+                {
+                    representedTimes++;
+                    currSentenceIdx = 0;
+                }
+                int spaceCols = cols - currCol + 1;
+                if (currCol > 1)
+                    spaceCols--;    //Space between sentence
+                if (sens[currSentenceIdx] <= spaceCols)
+                {
+                    if (currCol > 1)
+                        currCol++;
+
+                    currCol = currCol + sens[currSentenceIdx];
+                    currSentenceIdx++;
+                    if (currCol > cols)
+                    {
+                        currLine++;
+                        currCol = 1;
+                    }
+                }
+                else
+                {
+                    //Move to next line
+                    currLine++;
+                    currCol = 1;
+                }
+            }
+            if (currSentenceIdx == sens.Length)
+                representedTimes++;
+
+            return representedTimes;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="m"></param>
+        /// <param name="n"></param>
+        /// <param name="positions"></param>
+        /// <returns></returns>
+        public IList<int> NumIslands2(int m, int n, int[][] positions)
+        {
+            IList<int> ans = new List<int>();
+            UnionFind uf = new UnionFind(m * n);
+
+            foreach (var pos in positions)
+            {
+                int r = pos[0], c = pos[1];
+                IList<int> overlap = new List<int>();
+
+                if (r - 1 >= 0 && uf.IsValid((r - 1) * n + c)) overlap.Add((r - 1) * n + c);
+                if (r + 1 < m && uf.IsValid((r + 1) * n + c)) overlap.Add((r + 1) * n + c);
+                if (c - 1 >= 0 && uf.IsValid(r * n + c - 1)) overlap.Add(r * n + c - 1);
+                if (c + 1 < n && uf.IsValid(r * n + c + 1)) overlap.Add(r * n + c + 1);
+
+                int index = r * n + c;
+                uf.SetParent(index);
+                foreach (int i in overlap) uf.Union(i, index);
+                ans.Add(uf.GetCount());
+            }
+
+            return ans;
+        }
+        class UnionFind
+        {
+            int count; // # of connected components
+            int[] parent;
+            int[] rank;
+
+            public UnionFind(int n)
+            {
+                count = n;
+                parent = new int[n];
+                rank = new int[n];
+                for(int i = 0; i <n;i++)
+                {
+                    parent[i] = -1;
+                    rank[i] = 0;
+                }
+            }
+
+            public bool IsValid(int i)
+            { // for problem 305
+                return parent[i] >= 0;
+            }
+
+            public void SetParent(int i)
+            {
+                parent[i] = i;
+                ++count;
+            }
+
+            public int Find(int i)
+            { // path compression
+                if (parent[i] != i) parent[i] = Find(parent[i]);
+                return parent[i];
+            }
+
+            public void Union(int x, int y)
+            { // union with rank
+                int rootx = Find(x);
+                int rooty = Find(y);
+                if (rootx != rooty)
+                {
+                    if (rank[rootx] > rank[rooty])
+                    {
+                        parent[rooty] = rootx;
+                    }
+                    else if (rank[rootx] < rank[rooty])
+                    {
+                        parent[rootx] = rooty;
+                    }
+                    else
+                    {
+                        parent[rooty] = rootx; rank[rootx] += 1;
+                    }
+                    --count;
+                }
+            }
+
+            public int GetCount()
+            {
+                return count;
+            }
+
+
+        }
+
+        #endregion
     }
 }
