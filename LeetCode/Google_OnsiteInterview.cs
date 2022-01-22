@@ -782,6 +782,117 @@ namespace LeetCode
             DeleteNode(currNode.left, currNode, delNode);
             DeleteNode(currNode.right, currNode, delNode);
         }
+
+        #endregion
+
+
+        #region | Online Interview - 1/22/2022 | 
+
+        public void ReverseString(char[] s)
+        {
+            if (s.Length == 1)
+                return;
+
+            int startIdx = 0, endIdx = s.Length - 1;
+            while( startIdx < endIdx)
+            {
+                char buff = s[endIdx];
+                s[endIdx] = s[startIdx];
+                s[startIdx] = buff;
+                startIdx++;
+                endIdx--;
+            }
+        }
+
+        /// <summary>
+        /// 1504. Count Submatrices With All Ones
+        /// https://leetcode.com/problems/count-submatrices-with-all-ones/
+        /// </summary>
+        /// <param name="mat"></param>
+        /// <returns></returns>
+        public int NumSubmat(int[][] mat)
+        {
+            int n = mat.Length;
+            int m = mat[0].Length;
+            int[][] ar = new int[n][];
+            for (int i = 0; i < n; i++)
+                ar[i] = new int[m];
+
+            //row direction 
+            for (int r = 0; r < n; r++)
+            {
+                for (int c = 0; c < m; c++)
+                {
+                    if (mat[r][c] == 1)
+                    {
+                        if (c == 0)
+                            ar[r][c] = 1;
+                        else
+                            ar[r][c] = ar[r][c - 1] + 1;
+                    }
+                    else
+                        ar[r][c] = 0;
+                }
+            }
+
+            //col direction
+            //based on at end of edge of a rectangle, count a possiblility        
+            int ans = 0;
+            for (int r = 0; r < n; r++) 
+            {
+                for (int c = 0; c < m; c++)
+                {
+                    int res = int.MaxValue;
+                    for(int k = r; k < n; k++)
+                    {
+                        res = Math.Min(res, ar[k][c]);
+                        ans += res;
+                    }
+                }
+            }
+
+            return ans;
+        }
+        public int NumSubmat2(int[][] mat)
+        {
+            int n = mat.Length;
+            int m = mat[0].Length;
+            int[][] ar = new int[n][];
+            for (int i = 0; i < n; i++)
+            {
+                ar[i] = new int[m];
+            }
+            for (int i = 0; i < n; i++)
+            {
+                int c = 0;
+                for (int j = m - 1; j >= 0; j--)
+                {
+                    if (mat[i][j] == 1)
+                    {
+                        c++;
+                    }
+                    else
+                        c = 0;
+                    ar[i][j] = c;
+                }
+            }
+
+            int ans = 0;
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    int x = int.MaxValue;
+                    for (int k = i; k < n; k++)
+                    {
+                        x = Math.Min(x, ar[k][j]);
+                        ans += x;
+                    }
+                }
+            }
+            return ans;
+        }
+
         #endregion
     }
 }

@@ -9,13 +9,20 @@ namespace LeetCode
         static void Main(string[] args)
         {
             Google_OnsiteInterview go = new Google_OnsiteInterview();
-            //go.NumberOfPatterns(1, 2);
-            TreeNode root = new TreeNode(1);
-            root.left = new TreeNode(2);
-            TreeNode nd3 = new TreeNode(3);
-            root.left.right = nd3;
-            root.right = nd3;
-            go.CorrectBinaryTree(root);
+
+            int[][] mat = new int[3][];
+            mat[0] = new int[3] { 1, 0, 1 };
+            mat[1] = new int[3] { 1, 1, 0 };
+            mat[2] = new int[3] { 1, 1, 0 };
+            go.NumSubmat(mat);
+
+            ////go.NumberOfPatterns(1, 2);
+            //TreeNode root = new TreeNode(1);
+            //root.left = new TreeNode(2);
+            //TreeNode nd3 = new TreeNode(3);
+            //root.left.right = nd3;
+            //root.right = nd3;
+            //go.CorrectBinaryTree(root);
             //IList<IList<string>> simiarPairs = new List<IList<string>>();
             //IList<string> tmp = new List<string>();
             //tmp.Add("great"); tmp.Add("good");
@@ -150,7 +157,6 @@ namespace LeetCode
             //simiarPairs.Add(tmp);
 
             //go.AreSentencesSimilar(new string[] { "yesterday", "james", "have", "an", "extraordinary", "meal" }, new string[] { "yesterday", "james", "take", "one", "good", "dinner" }, simiarPairs);
-
 
             Algorithm_I al = new Algorithm_I();
             //al.Search(new int[] { -1, 0, -3, 5, 9, 12 }, 9);
