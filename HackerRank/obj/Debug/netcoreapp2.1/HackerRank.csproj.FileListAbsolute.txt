@@ -9,3 +9,15 @@ C:\Projects\Pesonal\Sources\PracticeAlgorithm\HackerRank\obj\Debug\netcoreapp2.1
 C:\Projects\Pesonal\Sources\PracticeAlgorithm\HackerRank\obj\Debug\netcoreapp2.1\HackerRank.dll
 C:\Projects\Pesonal\Sources\PracticeAlgorithm\HackerRank\obj\Debug\netcoreapp2.1\HackerRank.pdb
 C:\Projects\Pesonal\Sources\PracticeAlgorithm\HackerRank\obj\Debug\netcoreapp2.1\HackerRank.genruntimeconfig.cache
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\HackerRank\bin\Debug\netcoreapp2.1\HackerRank.deps.json
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\HackerRank\bin\Debug\netcoreapp2.1\HackerRank.runtimeconfig.json
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\HackerRank\bin\Debug\netcoreapp2.1\HackerRank.runtimeconfig.dev.json
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\HackerRank\bin\Debug\netcoreapp2.1\HackerRank.dll
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\HackerRank\bin\Debug\netcoreapp2.1\HackerRank.pdb
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\HackerRank\obj\Debug\netcoreapp2.1\HackerRank.csproj.CoreCompileInputs.cache
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\HackerRank\obj\Debug\netcoreapp2.1\HackerRank.AssemblyInfoInputs.cache
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\HackerRank\obj\Debug\netcoreapp2.1\HackerRank.AssemblyInfo.cs
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\HackerRank\obj\Debug\netcoreapp2.1\HackerRank.dll
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\HackerRank\obj\Debug\netcoreapp2.1\HackerRank.pdb
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\HackerRank\obj\Debug\netcoreapp2.1\HackerRank.genruntimeconfig.cache
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\HackerRank\obj\Debug\netcoreapp2.1\HackerRank.csproj.AssemblyReference.cache
