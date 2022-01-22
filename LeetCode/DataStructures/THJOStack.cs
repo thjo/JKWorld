@@ -57,8 +57,7 @@ namespace LeetCode.DataStructures
         public void Push(int data)
         {
             THJONode newNode = new THJONode(data);
-            if (_top != null)
-                _top.Next = _top;
+            newNode.Next = _top;
             _top = newNode;
             _count++;
         }
