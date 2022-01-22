@@ -896,7 +896,103 @@ namespace LeetCode
         #endregion
 
 
+        #region | Phone Interview - 1/22/2022 | 
 
+        /// <summary>
+        /// 1672. Richest Customer Wealth  Easy
+        /// https://leetcode.com/problems/richest-customer-wealth/
+        /// </summary>
+        /// <param name="accounts"></param>
+        /// <returns></returns>
+        public int MaximumWealth(int[][] accounts)
+        {
+            int maxAmt = int.MinValue;
+
+            foreach (var cus in accounts)
+            {
+                int total = 0;
+                for (int i = 0; i < cus.Length; i++)
+                    total += cus[i];
+                maxAmt = Math.Max(maxAmt, total);
+            }
+
+            return maxAmt;
+        }
+
+        /// <summary>
+        /// 1506. Find Root of N-Ary Tree
+        /// https://leetcode.com/problems/find-root-of-n-ary-tree/
+        /// </summary>
+        /// <param name="tree"></param>
+        /// <returns></returns>
+        public Node FindRoot(List<Node> tree)
+        {
+            Node root = null;
+            int validSum = 0;
+            HashSet<int> seen = new HashSet<int>(); 
+            foreach(var n in tree)
+            {
+                seen.Add(n.val);
+                foreach (var c in n.children)
+                    seen.Add(c.val);
+            }
+
+            foreach(var n in tree)
+            {
+                if( seen.Contains(n.val) == false)
+                {
+                    root = n;
+                    break;
+                }
+            }
+
+            return root;
+
+
+            //foreach (Node n in tree)
+            //{
+            //    validSum += n.val;
+            //    foreach (Node c in n.children)
+            //    {
+            //        validSum -= c.val;
+            //    }
+            //}
+
+            //foreach (Node n in tree)
+            //{
+            //    if (n.val == validSum)
+            //    {
+            //        root = n;
+            //        break;
+            //    }
+            //}
+
+            //return root;
+        }
+        class Node
+        {
+            public int val;
+            public IList<Node> children;
+
+            public Node()
+            {
+                val = 0;
+                children = new List<Node>();
+            }
+
+            public Node(int _val)
+            {
+                val = _val;
+                children = new List<Node>();
+            }
+
+            public Node(int _val, List<Node> _children)
+            {
+                val = _val;
+                children = _children;
+            }
+        }
+        #endregion
 
     }
 }
