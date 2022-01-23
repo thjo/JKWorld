@@ -925,74 +925,256 @@ namespace LeetCode
         /// </summary>
         /// <param name="tree"></param>
         /// <returns></returns>
-        public Node FindRoot(List<Node> tree)
+        //public Node FindRoot(List<Node> tree)
+        //{
+        //    Node root = null;
+        //    int validSum = 0;
+        //    //HashSet<int> seen = new HashSet<int>(); 
+        //    //foreach(var n in tree)
+        //    //{
+        //    //    seen.Add(n.val);
+        //    //    foreach (var c in n.children)
+        //    //        seen.Add(c.val);
+        //    //}
+
+        //    //foreach(var n in tree)
+        //    //{
+        //    //    if( seen.Contains(n.val) == false)
+        //    //    {
+        //    //        root = n;
+        //    //        break;
+        //    //    }
+        //    //}
+
+        //    //return root;
+
+        //    foreach (Node n in tree)
+        //    {
+        //        validSum += n.val;
+        //        foreach (Node c in n.children)
+        //        {
+        //            validSum -= c.val;
+        //        }
+        //    }
+
+        //    foreach (Node n in tree)
+        //    {
+        //        if (n.val == validSum)
+        //        {
+        //            root = n;
+        //            break;
+        //        }
+        //    }
+
+        //    return root;
+        //}
+        //class Node
+        //{
+        //    public int val;
+        //    public IList<Node> children;
+
+        //    public Node()
+        //    {
+        //        val = 0;
+        //        children = new List<Node>();
+        //    }
+
+        //    public Node(int _val)
+        //    {
+        //        val = _val;
+        //        children = new List<Node>();
+        //    }
+
+        //    public Node(int _val, List<Node> _children)
+        //    {
+        //        val = _val;
+        //        children = _children;
+        //    }
+        //}
+
+        #endregion
+
+        #region | Onsite Interview - 01/22/2022 | 
+
+        ///1592. Rearrange Spaces Between Words
+        ///https://leetcode.com/problems/rearrange-spaces-between-words/
+        public string ReorderSpaces(string text)
         {
-            Node root = null;
-            int validSum = 0;
-            HashSet<int> seen = new HashSet<int>(); 
-            foreach(var n in tree)
+            int totalSpaces = 0;
+            int numOfWords = 0;
+            string tempWord = "";
+            //Check total # of spaces and words
+            foreach (char c in text)
             {
-                seen.Add(n.val);
-                foreach (var c in n.children)
-                    seen.Add(c.val);
+                if (c == ' ')
+                {
+                    totalSpaces++;
+
+                    if (tempWord != "")
+                    {
+                        numOfWords++;
+                        tempWord = "";
+                    }
+                }
+                else
+                    tempWord += c;
+            }
+            if (tempWord != "")
+            {
+                numOfWords++;
+                tempWord = "";
             }
 
-            foreach(var n in tree)
+            string newText = "";
+            if (numOfWords == 1)
             {
-                if( seen.Contains(n.val) == false)
+                foreach (char c in text)
                 {
-                    root = n;
-                    break;
+                    if (c != ' ')
+                        newText += c;
+                }
+                for (int i = 0; i < totalSpaces; i++)
+                    newText += " ";
+                return newText;
+            }
+
+            int modSpace = totalSpaces % (numOfWords - 1);
+            int evenlySpace = totalSpaces / (numOfWords - 1);
+            int spaceIdx = 0;
+            string spaceStr = "";
+            for (int i = 0; i < evenlySpace; i++)
+                spaceStr += " ";
+
+            foreach (char c in text)
+            {
+                if (c == ' ')
+                {
+                    if (tempWord != "")
+                    {
+                        newText += tempWord;
+                        if (spaceIdx < numOfWords - 1)
+                            newText += spaceStr;
+
+                        tempWord = "";
+                        spaceIdx++;
+                    }
+                }
+                else
+                    tempWord += c;
+            }
+            if (tempWord != "")
+            {
+                newText += tempWord;
+                if (spaceIdx < numOfWords - 1)
+                    newText += spaceStr;
+            }
+            for (int i = 0; i < modSpace; i++)
+                newText += " ";
+
+            return newText;
+        }
+
+
+        /// <summary>
+        /// 801. Minimum Swaps To Make Sequences Increasing
+        /// https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/
+        /// </summary>
+        /// <param name="nums1"></param>
+        /// <param name="nums2"></param>
+        /// <returns></returns>
+        public int MinSwap(int[] nums1, int[] nums2)
+        {
+            int n = nums1.Length;
+            int[] noSwap = new int[n];  // number of swaps needed up to i, if no swap at i
+            int[] swap = new int[n];    // number of swaps needed up to i, if swap at i
+            noSwap[0] = 0;
+            swap[0] = 1;
+            for (int i= 1; i < n; i++) {
+                noSwap[i] = n; swap[i] = n;
+
+                // elements are in order without a swap
+                if(nums1[i-1] < nums1[i] && nums2[i-1] < nums2[i])
+                {
+                    noSwap[i] = noSwap[i - 1];
+                    swap[i] = swap[i - 1];
+                }
+                // elements are in order with a swap
+                if(nums1[i-1] < nums2[i] && nums2[i-1] < nums1[i])
+                {
+                    noSwap[i] = Math.Min(noSwap[i], swap[i - 1]);
+                    swap[i] = Math.Min(swap[i], noSwap[i - 1] + 1);
                 }
             }
 
-            return root;
-
-
-            //foreach (Node n in tree)
-            //{
-            //    validSum += n.val;
-            //    foreach (Node c in n.children)
-            //    {
-            //        validSum -= c.val;
-            //    }
-            //}
-
-            //foreach (Node n in tree)
-            //{
-            //    if (n.val == validSum)
-            //    {
-            //        root = n;
-            //        break;
-            //    }
-            //}
-
-            //return root;
+            return Math.Min(swap[n - 1], noSwap[n - 1]);
         }
-        class Node
+
+        /// <summary>
+        /// 1088. Confusing Number II
+        /// https://leetcode.com/problems/confusing-number-ii/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int ConfusingNumberII(int n)
         {
-            public int val;
-            public IList<Node> children;
+            Dictionary<int, int> confusingNums = new Dictionary<int, int>();
+            confusingNums.Add(0, 0);
+            confusingNums.Add(1, 1);
+            confusingNums.Add(6, 9);
+            confusingNums.Add(8, 8);
+            confusingNums.Add(9, 6);
 
-            public Node()
-            {
-                val = 0;
-                children = new List<Node>();
-            }
+            //int totalConfusingNums = 0;
+            //for (int i = 1; i <= n; i++)
+            //{
+            //    if (IsConfusingNum(i, confusingNums))
+            //        totalConfusingNums++;
+            //}
+            //return totalConfusingNums;
 
-            public Node(int _val)
-            {
-                val = _val;
-                children = new List<Node>();
-            }
+            //Key. using all confusing numbers to make possible numbers within the range of numbers
+            //Rduce Time complexity
 
-            public Node(int _val, List<Node> _children)
-            {
-                val = _val;
-                children = _children;
-            }
+            return ConfusingNumberIIBackTrack(n, 0, confusingNums);
         }
-        #endregion
 
+        private int ConfusingNumberIIBackTrack(int n, int currNum, Dictionary<int, int> confusingNums)
+        {
+            if (currNum > n)
+                return 0;
+
+            int res = 0;
+            foreach (var v in confusingNums)
+            {
+                int nextNum = currNum * 10 + v.Key;
+                if (nextNum > 0 && nextNum <= n)
+                {
+                    if (IsConfusingNum(nextNum, confusingNums))
+                        res += 1;
+                    res += ConfusingNumberIIBackTrack(n, nextNum, confusingNums);
+                }
+            }
+            return res;
+        }
+
+        private bool IsConfusingNum(int n, Dictionary<int, int> confusingNums)
+        {
+            int orgN = n;
+            int newN = 0;
+            while (n > 0)
+            {
+                int d = n % 10;
+                n = n / 10;
+                if (confusingNums.ContainsKey(d) == false)
+                    return false;
+                else
+                    newN = newN * 10 + confusingNums[d];
+            }
+
+            return orgN != newN;
+        }
+
+
+        #endregion
     }
 }

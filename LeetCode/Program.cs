@@ -10,11 +10,14 @@ namespace LeetCode
         {
             Google_OnsiteInterview go = new Google_OnsiteInterview();
 
-            int[][] mat = new int[3][];
-            mat[0] = new int[3] { 1, 0, 1 };
-            mat[1] = new int[3] { 1, 1, 0 };
-            mat[2] = new int[3] { 1, 1, 0 };
-            go.NumSubmat(mat);
+            //go.ReorderSpaces("  this is a sentence ");
+
+            go.ConfusingNumberII(100);
+            //int[][] mat = new int[3][];
+            //mat[0] = new int[3] { 1, 0, 1 };
+            //mat[1] = new int[3] { 1, 1, 0 };
+            //mat[2] = new int[3] { 1, 1, 0 };
+            //go.NumSubmat(mat);
 
             ////go.NumberOfPatterns(1, 2);
             //TreeNode root = new TreeNode(1);
