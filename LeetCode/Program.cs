@@ -9,10 +9,15 @@ namespace LeetCode
         static void Main(string[] args)
         {
             Google_OnsiteInterview go = new Google_OnsiteInterview();
-
+            int[][] grid = new int[4][];
+            grid[0] = new int[3] { 3, 1, 1 };
+            grid[1] = new int[3] { 2, 5, 1 };
+            grid[2] = new int[3] { 1, 5, 5 };
+            grid[3] = new int[3] { 2, 1, 1 };
+            go.CherryPickup(grid);
             //go.ReorderSpaces("  this is a sentence ");
 
-            go.ConfusingNumberII(100);
+            //go.ConfusingNumberII(100);
             //int[][] mat = new int[3][];
             //mat[0] = new int[3] { 1, 0, 1 };
             //mat[1] = new int[3] { 1, 1, 0 };

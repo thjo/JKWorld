@@ -1096,7 +1096,7 @@ namespace LeetCode
                 if(nums1[i-1] < nums1[i] && nums2[i-1] < nums2[i])
                 {
                     noSwap[i] = noSwap[i - 1];
-                    swap[i] = swap[i - 1];
+                    swap[i] = swap[i - 1] + 1;
                 }
                 // elements are in order with a swap
                 if(nums1[i-1] < nums2[i] && nums2[i-1] < nums1[i])
@@ -1172,6 +1172,222 @@ namespace LeetCode
             }
 
             return orgN != newN;
+        }
+
+
+        #endregion
+
+
+        #region | Onsite Interview - 1/23/2022 | 
+
+        /// <summary>
+        /// 830. Positions of Large Groups
+        /// https://leetcode.com/problems/positions-of-large-groups
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public IList<IList<int>> LargeGroupPositions(string s)
+        {
+            IList<IList<int>> res = new List<IList<int>>();
+
+            int cnt = 1;
+            char prevChar = s[0];
+            for (int i = 1; i < s.Length; i++)
+            {
+                if (prevChar == s[i])
+                    cnt++;
+                else
+                {
+                    if (cnt >= 3)
+                    {
+                        IList<int> g = new List<int>();
+                        g.Add(i - cnt);
+                        g.Add(i - 1);
+                        res.Add(g);
+                    }
+                    prevChar = s[i];
+                    cnt = 1;
+                }
+            }
+            if (cnt >= 3)
+            {
+                IList<int> g = new List<int>();
+                g.Add(s.Length - cnt);
+                g.Add(s.Length - 1);
+                res.Add(g);
+            }
+
+            return res;
+        }
+
+        /// <summary>
+        /// 894. All Possible Full Binary Trees
+        /// https://leetcode.com/problems/all-possible-full-binary-trees/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public IList<TreeNode> AllPossibleFBT(int n)
+        {
+            Dictionary<int, IList<TreeNode>> dp = new Dictionary<int, IList<TreeNode>>();
+            dp.Add(0, new List<TreeNode>());
+            IList<TreeNode> tmp = new List<TreeNode>();
+            tmp.Add(new TreeNode(0));
+            dp.Add(1, tmp);
+
+            AllPossibleFBTR(n, dp);
+            return dp[n];
+        }
+        private IList<TreeNode> AllPossibleFBTR(int n, Dictionary<int, IList<TreeNode>> dp)
+        {
+            if (dp.ContainsKey(n))
+                return dp[n];
+
+            IList<TreeNode> ans = new List<TreeNode>();
+            if (n % 2 == 1)
+            {
+                for (int l = 0; l < n; l++)
+                {
+                    int r = n - l - 1;
+                    foreach (TreeNode left in AllPossibleFBTR(l, dp))
+                    {
+                        foreach (TreeNode right in AllPossibleFBTR(r, dp))
+                        {
+                            TreeNode bns = new TreeNode(0, left, right);
+                            ans.Add(bns);
+                        }
+                    }
+                }
+            }
+            dp.Add(n, ans);
+            return ans;
+        }
+
+
+        /// <summary>
+        /// 1463. Cherry Pickup II
+        /// https://leetcode.com/problems/cherry-pickup-ii/
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public int CherryPickup(int[][] grid)
+        {
+            int rowLen = grid.Length;
+            int colLen = grid[0].Length;
+            int[] dir = new int[] { -1, 0, 1 };
+
+            int[][][] dp = new int[rowLen][][];
+            for (int i = 0; i < rowLen; i++)
+            {
+                dp[i] = new int[colLen][];
+                for (int c1 = 0; c1 < colLen; c1++)
+                {
+                    dp[i][c1] = new int[colLen];
+                    for (int c2 = 0; c2 < colLen; c2++)
+                        dp[i][c1][c2] = -1;
+                }
+            }
+
+            int col1 = 0, col2 = colLen - 1;
+            dp[0][col1][col2] = grid[0][col1] + grid[0][col2];
+
+            int max = dp[0][col1][col2];
+            for (int row = 1; row < rowLen; row++)
+            {
+                for (int c1 = 0; c1 < colLen; c1++)
+                {
+                    for (int c2 = 0; c2 < colLen; c2++)
+                    {
+                        int prev = dp[row-1][c1][c2];
+
+                        if (prev >= 0)
+                        {
+                            foreach (var d1 in dir)
+                            {
+                                col1 = d1 + c1;
+                                foreach (var d2 in dir)
+                                {
+                                    col2 = d2 + c2;
+
+                                    if (col1 >= 0 && col1 < colLen && col2 >= 0 && col2 < colLen)
+                                    {
+                                        int newVal = prev + grid[row][col1];
+                                        if (col1 != col2)
+                                            newVal += grid[row][col2];
+                                        dp[row][col1][col2] = Math.Max(dp[row][col1][col2], newVal);
+                                        max = Math.Max(max, dp[row][col1][col2]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return max;
+
+        }
+
+        public int CherryPickupII(int[][] grid)
+        {
+            int m = grid.Length;
+            int n = grid[0].Length;
+            int[][][] dpCache = new int[m][][];
+            for (int i = 0; i < m; i++)
+            {
+                dpCache[i] = new int[n][];
+                for (int j = 0; j < n; j++)
+                {
+                    dpCache[i][j] = new int[n];
+                }
+            }
+            // initial all elements to -1 to mark unseen
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    for (int k = 0; k < n; k++)
+                    {
+                        dpCache[i][j][k] = -1;
+                    }
+                }
+            }
+            return dp(0, 0, n - 1, grid, dpCache);
+        }
+
+        private int dp(int row, int col1, int col2, int[][] grid, int[][][] dpCache)
+        {
+            if (col1 < 0 || col1 >= grid[0].Length || col2 < 0 || col2 >= grid[0].Length)
+            {
+                return 0;
+            }
+            // check cache
+            if (dpCache[row][col1][col2] != -1)
+            {
+                return dpCache[row][col1][col2];
+            }
+            // current cell
+            int result = 0;
+            result += grid[row][col1];
+            if (col1 != col2)
+            {
+                result += grid[row][col2];
+            }
+            // transition
+            if (row != grid.Length - 1)
+            {
+                int max = 0;
+                for (int newCol1 = col1 - 1; newCol1 <= col1 + 1; newCol1++)
+                {
+                    for (int newCol2 = col2 - 1; newCol2 <= col2 + 1; newCol2++)
+                    {
+                        max = Math.Max(max, dp(row + 1, newCol1, newCol2, grid, dpCache));
+                    }
+                }
+                result += max;
+            }
+
+            dpCache[row][col1][col2] = result;
+            return result;
         }
 
 
