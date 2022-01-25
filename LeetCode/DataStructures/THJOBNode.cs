@@ -6,8 +6,8 @@ namespace LeetCode.DataStructures
 {
     public class THJOBNode
     {
-        THJOBNode left, right;
-        int data;
+        public THJOBNode left, right;
+        public int data;
 
         public THJOBNode(int data)
         {
