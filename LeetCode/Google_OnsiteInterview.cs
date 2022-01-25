@@ -1392,5 +1392,53 @@ namespace LeetCode
 
 
         #endregion
+
+
+        #region | Phone Interview - 1/2/2022 | 
+
+        public int GetMaximumGold(int[][] grid)
+        {
+            //m * n
+            int[][] dir = new int[4][];
+            dir[0] = new int[] { 0, -1 }; //left. row, col
+            dir[1] = new int[] { 0, 1 };  //right. row, col
+            dir[2] = new int[] { -1, 0 }; //top. row, col
+            dir[3] = new int[] { 1, 0 };  //botom. row, col
+            int maxGold = 0;
+            int m = grid.Length;
+            int n = grid[0].Length;
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (grid[i][j] != 0)
+                    {
+                        int totalGold = CollectGold(grid, i, j, m, n, dir);
+                        maxGold = Math.Max(maxGold, totalGold);
+                    }
+                }
+            }
+
+            return maxGold;
+        }
+        private int CollectGold(int[][] grid, int currRow, int currCol, int m, int n, int[][] dir)
+        {
+            if (currRow < 0 || currRow >= m || currCol < 0 || currCol >= n || grid[currRow][currCol] == 0)
+                return 0;
+
+            int currGold = grid[currRow][currCol];
+            int max = 0;
+            grid[currRow][currCol] = 0;
+
+            foreach (var d in dir)
+            {
+                max = Math.Max(CollectGold(grid, currRow + d[0], currCol + d[1], m, n, dir), max);
+            }
+
+            grid[currRow][currCol] = currGold;
+            return max + currGold;
+        }
+
+        #endregion
     }
 }
