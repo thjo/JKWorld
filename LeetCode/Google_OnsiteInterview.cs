@@ -110,7 +110,7 @@ namespace LeetCode
                             dp.Add(string.Format("{0}^{1}", key, value), true);
                             return true;
                         }
-                        else if( checkedList.Contains(word) == false)
+                        else if (checkedList.Contains(word) == false)
                             targetKey.Enqueue(word);
                     }
                 }
@@ -149,7 +149,7 @@ namespace LeetCode
             int res = 0;
             for (int i = m; i <= n; i++)
             {
-                for(int startNum = 1; startNum < 10; startNum++)
+                for (int startNum = 1; startNum < 10; startNum++)
                 {
                     res += NumberOfPatternsDFS(visited, skip, startNum, i - 1);
                 }
@@ -251,7 +251,7 @@ namespace LeetCode
 
             return maxLv;
 
-            
+
         }
         private void SumperLv(TreeNode root, int lv, Dictionary<int, int> map)
         {
@@ -451,7 +451,7 @@ namespace LeetCode
             foreach (int next in g[s])
             {
                 if (LeadsToDestDFS(g, next, d, states) == false)
-                     return false;
+                    return false;
             }
 
             states[s] = 2;
@@ -519,7 +519,7 @@ namespace LeetCode
             for (int i = 0; i < chars.Length; i++)
             {
                 chars[i] = (char)(chars[i] - diff);
-                if (chars[i] < 'a') chars[i] = (char)(chars[i]+26);
+                if (chars[i] < 'a') chars[i] = (char)(chars[i] + 26);
             }
 
             string norStr = "";
@@ -538,7 +538,8 @@ namespace LeetCode
             int numOfIslands = 0;
             int rows = grid.Length;
             int cols = grid[0].Length;
-            for (int r = 0; r < grid.Length; r++) {
+            for (int r = 0; r < grid.Length; r++)
+            {
                 for (int c = 0; c < grid[r].Length; c++)
                 {
                     if (grid[r][c] == '1')
@@ -643,7 +644,7 @@ namespace LeetCode
                 count = n;
                 parent = new int[n];
                 rank = new int[n];
-                for(int i = 0; i <n;i++)
+                for (int i = 0; i < n; i++)
                 {
                     parent[i] = -1;
                     rank[i] = 0;
@@ -769,9 +770,9 @@ namespace LeetCode
             if (currNode == null)
                 return;
 
-            if( currNode == delNode)
+            if (currNode == delNode)
             {
-                if(parent != null)
+                if (parent != null)
                 {
                     if (parent.left == delNode)
                         parent.left = null;
@@ -795,7 +796,7 @@ namespace LeetCode
                 return;
 
             int startIdx = 0, endIdx = s.Length - 1;
-            while( startIdx < endIdx)
+            while (startIdx < endIdx)
             {
                 char buff = s[endIdx];
                 s[endIdx] = s[startIdx];
@@ -839,12 +840,12 @@ namespace LeetCode
             //col direction
             //based on at end of edge of a rectangle, count a possiblility        
             int ans = 0;
-            for (int r = 0; r < n; r++) 
+            for (int r = 0; r < n; r++)
             {
                 for (int c = 0; c < m; c++)
                 {
                     int res = int.MaxValue;
-                    for(int k = r; k < n; k++)
+                    for (int k = r; k < n; k++)
                     {
                         res = Math.Min(res, ar[k][c]);
                         ans += res;
@@ -1090,17 +1091,18 @@ namespace LeetCode
             int[] swap = new int[n];    // number of swaps needed up to i, if swap at i
             noSwap[0] = 0;
             swap[0] = 1;
-            for (int i= 1; i < n; i++) {
+            for (int i = 1; i < n; i++)
+            {
                 noSwap[i] = n; swap[i] = n;
 
                 // elements are in order without a swap
-                if(nums1[i-1] < nums1[i] && nums2[i-1] < nums2[i])
+                if (nums1[i - 1] < nums1[i] && nums2[i - 1] < nums2[i])
                 {
                     noSwap[i] = noSwap[i - 1];
                     swap[i] = swap[i - 1] + 1;
                 }
                 // elements are in order with a swap
-                if(nums1[i-1] < nums2[i] && nums2[i-1] < nums1[i])
+                if (nums1[i - 1] < nums2[i] && nums2[i - 1] < nums1[i])
                 {
                     noSwap[i] = Math.Min(noSwap[i], swap[i - 1]);
                     swap[i] = Math.Min(swap[i], noSwap[i - 1] + 1);
@@ -1298,7 +1300,7 @@ namespace LeetCode
                 {
                     for (int c2 = 0; c2 < colLen; c2++)
                     {
-                        int prev = dp[row-1][c1][c2];
+                        int prev = dp[row - 1][c1][c2];
 
                         if (prev >= 0)
                         {
@@ -1598,5 +1600,121 @@ namespace LeetCode
         #endregion
 
 
+
+        /// <summary>
+        /// 402. Remove K Digits
+        /// https://leetcode.com/problems/remove-k-digits/
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public string RemoveKdigits(string num, int k)
+        {
+            if (num.Length <= k)
+                return "0";
+
+            Stack<char> candiNums = new Stack<char>();
+            candiNums.Push(num[0]);
+            for (int i = 1; i < num.Length; i++)
+            {
+                while (candiNums.Count > 0 && k > 0
+                     && (candiNums.Peek() - num[i]) > 0)
+                {
+                    candiNums.Pop();
+                    k--;
+                }
+                candiNums.Push(num[i]);
+            }
+            for (int i = 0; i < k; i++)
+                candiNums.Pop();
+
+            string res = "";
+            while (candiNums.Count > 0)
+                res = candiNums.Pop().ToString() + res;
+            int j = 0;
+            while (j < res.Length && res[j] == '0')
+                j++;
+
+            if (res.Length == j)
+                return "0";
+            else
+                return res.Substring(j);
+        }
+
+
+        /// <summary>
+        /// 532. K-diff Pairs in an Array
+        /// https://leetcode.com/problems/k-diff-pairs-in-an-array/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public int FindPairs(int[] nums, int k)
+        {
+            Array.Sort(nums);
+            int left = 0, right = 1;
+            int result = 0;
+
+            while (left < nums.Length && right < nums.Length)
+            {
+                if (left == right || nums[right] - nums[left] < k)
+                {
+                    right++;
+                }
+                else if (nums[right] - nums[left] > k)
+                {
+                    left++;
+                }
+                else
+                {
+                    left++;
+                    result++;
+                    while (left < nums.Length && nums[left] == nums[left - 1])
+                        left++;
+                }
+            }
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// 702. Search in a Sorted Array of Unknown Size
+        /// https://leetcode.com/problems/search-in-a-sorted-array-of-unknown-size/
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public int Search(ArrayReader reader, int target)
+        {
+            if (reader.get(0) == target)
+                return 0;
+
+            int left = 0, right = 1;
+            while (reader.get(right) < target)
+            {
+                left = right;
+                right <<= 1;
+            }
+
+            // binary search
+            int pivot, num;
+            while (left <= right)
+            {
+                pivot = left + ((right - left) >> 1);
+                num = reader.get(pivot);
+
+                if (num == target) return pivot;
+                if (num > target) right = pivot - 1;
+                else left = pivot + 1;
+            }
+
+            // there is no target element
+            return -1;
+        }
+        class ArrayReader
+        {
+            public int Get(int index) { return -1; }
+        }
     }
 }

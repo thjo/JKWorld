@@ -16,7 +16,9 @@ namespace LeetCode
             //snapShot.Get(0, 2);
 
             Google_OnsiteInterview go = new Google_OnsiteInterview();
-            go.LongestSubarray(new int[] { 10, 1, 2, 4, 7, 2 }, 5);
+            go.RemoveKdigits("10", 1);
+
+            //go.LongestSubarray(new int[] { 10, 1, 2, 4, 7, 2 }, 5);
             //int[][] grid = new int[4][];
             //grid[0] = new int[3] { 3, 1, 1 };
             //grid[1] = new int[3] { 2, 5, 1 };
