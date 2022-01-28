@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LeetCode.DataStructures;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -1440,5 +1441,162 @@ namespace LeetCode
         }
 
         #endregion
+
+
+        #region | Phone Interview - 1/26/2022 | 
+
+        public int LongestSubarray(int[] nums, int limit)
+        {
+            int longestLen = 0;
+            int len = nums.Length;
+            THJOMinMaxHeap maxHeap = new THJOMinMaxHeap(len, false);
+            THJOMinMaxHeap minHeap = new THJOMinMaxHeap(len);
+
+            int start = 0;
+            for (int end = 0; end < len; end++)
+            {
+                maxHeap.Add(nums[end]);
+                minHeap.Add(nums[end]);
+
+                if (Math.Abs(maxHeap.Peek() - minHeap.Peek()) <= limit)
+                {
+                    if (longestLen < end - start + 1)
+                        longestLen = end - start + 1;
+                }
+                else
+                {
+                    while (maxHeap.Size() > 0 && maxHeap.Peek() < limit)
+                        maxHeap.Poll();
+
+                    while (minHeap.Size() > 0 && minHeap.Peek() > limit)
+                        minHeap.Poll();
+                    start++;
+                }
+            }
+
+            return longestLen;
+        }
+
+        public int NumOfMinutes(int n, int headID, int[] manager, int[] informTime)
+        {
+            List<int>[] graph = new List<int>[n];
+            for (int i = 0; i < n; i++)
+                graph[i] = new List<int>();
+
+            for (int i = 0; i < n; i++)
+            {
+                if (manager[i] != -1)
+                    graph[manager[i]].Add(i);
+            }
+
+            Queue<int[]> q = new Queue<int[]>();
+            q.Enqueue(new int[] { headID, 0 });
+            int ans = 0;
+            while (q.Count > 0)
+            {
+                int[] top = q.Dequeue();
+                int u = top[0];
+                int w = top[1];
+                ans = Math.Max(w, ans);
+
+                foreach (var v in graph[u])
+                {
+                    q.Enqueue(new int[] { v, w + informTime[u] });
+                }
+            }
+
+            return ans;
+        }
+
+
+        #endregion
+
+
+        #region | Online Interview  1/2/2022 | 
+
+        public int[] AnagramMappings(int[] nums1, int[] nums2)
+        {
+            int[] ans = new int[nums1.Length];
+            Dictionary<int, int> map = new Dictionary<int, int>();
+
+            for (int i = 0; i < nums2.Length; i++)
+            {
+                if (map.ContainsKey(nums2[i]) == false)
+                    map.Add(nums2[i], i);
+            }
+
+            for (int i = 0; i < nums1.Length; i++)
+            {
+                if (map.ContainsKey(nums1[i]))
+                    ans[i] = map[nums1[i]];
+                else if (map.ContainsKey(GetAnagram(nums1[i])))
+                    ans[i] = map[GetAnagram(nums1[i])];
+            }
+
+            return ans;
+        }
+        private int GetAnagram(int n)
+        {
+            int res = 0;
+            while (n > 0)
+            {
+                res = res * 10 + n % 10;
+                n = n / 10;
+            }
+
+            return res;
+        }
+
+        /// <summary>
+        /// 1302. Deepest Leaves Sum
+        /// https://leetcode.com/problems/deepest-leaves-sum/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public int DeepestLeavesSum(TreeNode root)
+        {
+            //level, val
+            Dictionary<int, List<int>> leaves = new Dictionary<int, List<int>>();
+            Traversal(root, 0, leaves);
+
+
+            int maxLv = -1;
+            foreach (var leaf in leaves)
+            {
+                maxLv = Math.Max(maxLv, leaf.Key);
+            }
+            int sum = 0;
+            foreach (int v in leaves[maxLv])
+            {
+                sum += v;
+            }
+            return sum;
+        }
+        private void Traversal(TreeNode root, int lv, Dictionary<int, List<int>> leaves)
+        {
+            if (root == null) return;
+
+            if (root.left == null && root.right == null)
+            {
+                if (leaves.ContainsKey(lv) == false)
+                {
+                    List<int> tmp = new List<int>();
+                    tmp.Add(root.val);
+                    leaves.Add(lv, tmp);
+                }
+
+                else
+                    leaves[lv].Add(root.val);
+
+                return;
+            }
+
+            Traversal(root.left, lv + 1, leaves);
+            Traversal(root.right, lv + 1, leaves);
+        }
+
+        #endregion
+
+
     }
 }

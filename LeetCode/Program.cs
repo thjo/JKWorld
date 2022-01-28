@@ -8,13 +8,21 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
+            //SnapshotArray snapShot = new SnapshotArray(1);
+            //snapShot.Set(0, 15);
+            //snapShot.Snap();
+            //snapShot.Snap();
+            //snapShot.Snap();
+            //snapShot.Get(0, 2);
+
             Google_OnsiteInterview go = new Google_OnsiteInterview();
-            int[][] grid = new int[4][];
-            grid[0] = new int[3] { 3, 1, 1 };
-            grid[1] = new int[3] { 2, 5, 1 };
-            grid[2] = new int[3] { 1, 5, 5 };
-            grid[3] = new int[3] { 2, 1, 1 };
-            go.CherryPickup(grid);
+            go.LongestSubarray(new int[] { 10, 1, 2, 4, 7, 2 }, 5);
+            //int[][] grid = new int[4][];
+            //grid[0] = new int[3] { 3, 1, 1 };
+            //grid[1] = new int[3] { 2, 5, 1 };
+            //grid[2] = new int[3] { 1, 5, 5 };
+            //grid[3] = new int[3] { 2, 1, 1 };
+            //go.CherryPickup(grid);
             //go.ReorderSpaces("  this is a sentence ");
 
             //go.ConfusingNumberII(100);

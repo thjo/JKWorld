@@ -10,7 +10,7 @@ namespace LeetCode.DataStructures
         public LinkedList<GNode> Adjacents = new LinkedList<GNode>();
         private GNode(int id)
         {
-            this.id = id;
+            this.Id = id;
         }
     }
     class THJOGraph
@@ -68,6 +68,20 @@ namespace LeetCode.DataStructures
             }
 
             return false;
+        }
+
+
+        void Dijkstra(int[,] g, int v, int src)
+        {
+            int[] dist = new int[v];
+            bool[] seen = new bool[v];
+
+            for(int i = 0; i < v; i++)
+            {
+                dist[i] = int.MaxValue;
+                seen[i] = false;
+            }
+            dist[src] = 0;
         }
     }
 }
