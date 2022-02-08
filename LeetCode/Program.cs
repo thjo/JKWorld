@@ -8,6 +8,16 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
+            DataStructures.DataStructureI ds1 = new DataStructures.DataStructureI();
+
+            ds1.Generate(5);
+
+            //int[][] mat = new int[2][];
+            //mat[0] = new int[2] { 1, 2 };
+            //mat[1] = new int[2] { 3, 4 };
+            //ds1.MatrixReshape(mat, 2, 4);
+
+
             //SnapshotArray snapShot = new SnapshotArray(1);
             //snapShot.Set(0, 15);
             //snapShot.Snap();
@@ -15,8 +25,8 @@ namespace LeetCode
             //snapShot.Snap();
             //snapShot.Get(0, 2);
 
-            Google_OnsiteInterview go = new Google_OnsiteInterview();
-            go.RemoveKdigits("10", 1);
+            //Google_OnsiteInterview go = new Google_OnsiteInterview();
+            //go.RemoveKdigits("10", 1);
 
             //go.LongestSubarray(new int[] { 10, 1, 2, 4, 7, 2 }, 5);
             //int[][] grid = new int[4][];

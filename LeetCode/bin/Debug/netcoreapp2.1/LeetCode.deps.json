@@ -6,15 +6,15 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.1": {
-      "HackerRank/1.0.0": {
+      "LeetCode/1.0.0": {
         "runtime": {
-          "HackerRank.dll": {}
+          "LeetCode.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "HackerRank/1.0.0": {
+    "LeetCode/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
