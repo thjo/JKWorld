@@ -272,6 +272,41 @@ namespace LeetCode.DataStructures
 
 
         /// <summary>
+        /// 74. Search a 2D Matrix
+        /// https://leetcode.com/problems/search-a-2d-matrix/
+        /// </summary>
+        /// <param name="matrix"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public bool SearchMatrix(int[][] matrix, int target)
+        {
+            int m = matrix.Length;
+            if (m == 0)
+                return false;
+            int n = matrix[0].Length;
+
+            // binary search
+            int left = 0, right = m * n - 1;
+            int pivotIdx, pivotElement;
+            while (left <= right)
+            {
+                pivotIdx = (left + right) / 2;
+                pivotElement = matrix[pivotIdx / n][pivotIdx % n];
+                if (target == pivotElement)
+                    return true;
+                else
+                {
+                    if (target < pivotElement)
+                        right = pivotIdx - 1;
+                    else
+                        left = pivotIdx + 1;
+                }
+            }
+            return false;
+        }
+
+
+        /// <summary>
         /// 387. First Unique Character in a String
         /// https://leetcode.com/problems/first-unique-character-in-a-string/
         /// </summary>
@@ -377,6 +412,232 @@ namespace LeetCode.DataStructures
 
             return isAnag;
         }
+
+
+        /// <summary>
+        /// 141. Linked List Cycle
+        /// https://leetcode.com/problems/linked-list-cycle/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public bool HasCycle(ListNode head)
+        {
+            if (head == null)
+                return false;
+
+            ListNode slow = head;
+            ListNode fast = head.next;
+
+            while(slow != fast)
+            {
+                if (fast == null || fast.next == null)
+                    return false;
+
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+
+            return true;
+        }
+
+
+        /// <summary>
+        /// 21. Merge Two Sorted Lists
+        /// https://leetcode.com/problems/merge-two-sorted-lists/
+        /// </summary>
+        /// <param name="l1"></param>
+        /// <param name="l2"></param>
+        /// <returns></returns>
+        public ListNode MergeTwoLists(ListNode l1, ListNode l2)
+        {
+            ListNode newHead = new ListNode(-1);
+            ListNode currNode = newHead;
+
+            while (l1 != null && l2 != null)
+            {
+                if (l1.val > l2.val)
+                {
+                    currNode.next = l2;
+                    l2 = l2.next;
+                }
+                else
+                {
+                    currNode.next = l1;
+                    l1 = l1.next;
+                }
+
+                currNode = currNode.next;
+            }
+
+            if (l1 != null)
+                currNode.next = l1;
+            if (l2 != null)
+                currNode.next = l2;
+
+            return newHead.next;
+        }
+
+
+        /// <summary>
+        /// 203. Remove Linked List Elements
+        /// https://leetcode.com/problems/remove-linked-list-elements/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        public ListNode RemoveElements(ListNode head, int val)
+        {
+            if (head == null)
+                return null;
+
+            ListNode newHead = new ListNode(-1);
+            newHead.next = head;
+            ListNode prev = newHead;
+            ListNode curr = head;
+
+            while(curr != null)
+            {
+                if( curr.val == val)
+                {
+                    prev.next = curr.next;
+                    curr = curr.next;
+                }
+                else
+                {
+                    prev = curr;
+                    curr = curr.next;
+                }
+            }
+
+            return newHead.next;
+        }
+
+        /// <summary>
+        /// 206. Reverse Linked List
+        /// https://leetcode.com/problems/reverse-linked-list/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public ListNode ReverseList(ListNode head)
+        {
+            if (head == null || head.next == null)
+                return head;
+
+            ListNode prev = null;
+            ListNode curr = head;
+            ListNode next = head.next;
+
+            while (curr != null)
+            {
+                curr.next = prev;
+                prev = curr;
+                curr = next;
+                if (next != null)
+                    next = next.next;
+                else
+                    next = null;
+            }
+
+            return prev;
+        }
+
+
+        /// <summary>
+        /// 83. Remove Duplicates from Sorted List
+        /// https://leetcode.com/problems/remove-duplicates-from-sorted-list/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public ListNode DeleteDuplicates(ListNode head)
+        {
+            if (head == null || head.next == null)
+                return head;
+
+            ListNode prev = head;
+            ListNode curr = head.next;
+            while(curr != null)
+            {
+                if(prev.val == curr.val)
+                {
+                    //delete current node
+                    prev.next = curr.next;
+                    curr = curr.next;
+                }
+                else
+                {
+                    //move to next node
+                    prev = curr;
+                    curr = curr.next;
+                }
+            }
+
+            return head;
+        }
+
+        /// <summary>
+        /// 20. Valid Parentheses
+        /// https://leetcode.com/problems/valid-parentheses/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public bool IsValid(string s)
+        {
+            if (string.IsNullOrWhiteSpace(s))
+                return true;
+            else if (s.Length % 2 != 0)
+                return false;
+
+            bool isValid = true;
+
+            
+            //Stack
+            Stack<char> sBuff = new Stack<char>();
+            for (int i = 0; i < s.Length; i++)
+            {
+                int val = convertParentheses(s[i]);
+                if (val == 0)
+                {
+                    isValid = false;
+                    break;
+                }
+                if (val < 10)
+                    sBuff.Push(s[i]);
+                else
+                {
+                    if (sBuff.Count > 0)
+                    {
+                        if (convertParentheses(sBuff.Pop()) == val % 10)
+                            continue;
+                    }
+
+                    isValid = false;
+                    break;
+                }
+            }
+            if (isValid == true)
+                isValid = (sBuff.Count == 0);
+
+            return isValid;
+        }
+        int convertParentheses(char c)
+        {
+            if (c == '(')
+                return 1;
+            else if (c == '[')
+                return 2;
+            else if (c == '{')
+                return 3;
+            else if (c == ')')
+                return 11;
+            else if (c == ']')
+                return 12;
+            else if (c == '}')
+                return 13;
+            else
+                return 0;
+        }
+
+
 
     }
 }
