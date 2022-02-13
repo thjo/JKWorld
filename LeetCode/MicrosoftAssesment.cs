@@ -195,5 +195,92 @@ namespace LeetCode
                 return res.Substring(j);
 
         }
+
+
+        #region | Microsoft - Technical Assessment - 02/13/2022 | 
+
+        public bool solutionOrg(int[] A, int K)
+        {
+            int n = A.Length;
+            for (int i = 0; i < n - 1; i++)
+            {
+                if (A[i] > A[i + 1])
+                    return false;
+            }
+            if (A[0] < 1 && A[n - 1] > K)
+                return false;
+            else
+                return true;
+        }
+
+        public bool solutionFix(int[] A, int K)
+        {
+            int n = A.Length;
+            for (int i = 0; i < n - 1; i++) {
+                if (A[i] > A[i + 1])
+                    return false;
+            }
+            if (A[0] < 1 || A[n - 1] > K)
+                return false;
+            else
+                return true;
+        }
+
+
+        public bool solution(string S, string T)
+        {
+            // write your code in C# 6.0 with .NET 4.5 (Mono)
+            string newS = ConvertToPattern(S);
+            string newT = ConvertToPattern(T);
+
+            if (newS.Length != newT.Length)
+                return false;
+            else
+            {
+                for(int i = 0; i < newS.Length; i++)
+                {
+                    if (newS[i] == '*' || newT[i] == '*'
+                        || newS[i] == newT[i])
+                        continue;
+                    else
+                        return false;
+                }
+            }
+            return true;
+        }
+        private string ConvertToPattern(string str)
+        {
+            string newStr = "";
+            string num = "";
+            foreach (char c in str)
+            {
+                if (Char.IsDigit(c))
+                    num += c;
+                else
+                {
+                    if( num.Length > 0)
+                    {
+                        int n = int.Parse(num);
+                        for (int i = 0; i < n; i++)
+                            newStr += "*";
+
+                        num = "";
+                    }
+                    newStr += c;
+                }
+            }
+            if (num.Length > 0)
+            {
+                int n = int.Parse(num);
+                for (int i = 0; i < n; i++)
+                    newStr += "*";
+
+                num = "";
+            }
+            return newStr;
+        }
+
+
+        #endregion
     }
 }
