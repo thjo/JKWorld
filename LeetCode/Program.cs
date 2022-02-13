@@ -8,9 +8,12 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
-            DataStructures.DataStructureI ds1 = new DataStructures.DataStructureI();
+            MicrosoftAssesment msAss = new MicrosoftAssesment();
+            msAss.Merge(new int[] { 1, 2, 3, 0, 0, 0 }, 3, new int[] { 2, 5, 6 }, 3);
 
-            ds1.Generate(5);
+
+            DataStructures.DataStructureI ds1 = new DataStructures.DataStructureI();
+            //ds1.Generate(5);
 
             //int[][] mat = new int[2][];
             //mat[0] = new int[2] { 1, 2 };
