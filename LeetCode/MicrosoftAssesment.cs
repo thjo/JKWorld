@@ -537,5 +537,149 @@ namespace LeetCode
         }
 
         #endregion
+
+
+        #region | Phone Interview - 2/16/2022 | 
+
+        /// <summary>
+        /// 979. Distribute Coins in Binary Tree
+        /// https://leetcode.com/problems/distribute-coins-in-binary-tree/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        int ans = 0;
+        public int DistributeCoins(TreeNode root)
+        {
+            dfs(root);
+            return ans;
+        }
+        private int dfs(TreeNode node)
+        {
+            if (node == null)
+                return 0;
+
+            int l = dfs(node.left);
+            int r = dfs(node.right);
+            ans += Math.Abs(l) + Math.Abs(r);
+            return node.val + l + r - 1;
+        }
+
+
+        /// <summary>
+        /// 935. Knight Dialer
+        /// https://leetcode.com/problems/knight-dialer/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int KnightDialer(int n)
+        {
+            int[] dp = new int[10];
+            int[] calDp = new int[10];
+            for (int i = 0; i < 10; i++)
+                dp[i] = 1;
+
+            for(int i = 2; i <= n; i++)
+            {
+                dp.CopyTo(calDp, 0);
+                dp[1] = dp[6] + dp[8];
+                dp[2] = dp[7] + dp[9];
+                dp[3] = dp[4] + dp[8];
+                dp[4] = dp[3] + dp[9] + dp[0];
+                dp[5] = 0;
+                dp[6] = dp[1] + dp[7] + dp[0];
+                dp[7] = dp[2] + dp[6];
+                dp[8] = dp[1] + dp[3];
+                dp[9] = dp[2] + dp[4];
+                dp[0] = dp[4] + dp[6];
+            }
+
+            int ans = 0;
+            for (int i = 0; i < 10; i++)
+                ans += dp[i] % 1000000007;
+
+            return ans;
+        }
+
+
+        #region | Bruce Force | 
+        //public int KnightDialer(int n)
+        //{
+        //    int[,] pad = new int[,] {
+        //          { 1,2,3 }
+        //        , { 4,5,6 }
+        //        , { 7,8,9 }
+        //        , {-1,0,-1 } };
+
+        //    int[][] dic = new int[8][];
+        //    dic[0] = new int[2];
+        //    dic[0][0] = -2; //row
+        //    dic[0][1] = -1; //col
+        //    dic[1] = new int[2];
+        //    dic[1][0] = -1; //row
+        //    dic[1][1] = -2; //col
+
+        //    dic[2] = new int[2];
+        //    dic[2][0] = -2; //row
+        //    dic[2][1] =  1; //col
+        //    dic[3] = new int[2];
+        //    dic[3][0] = -1; //row
+        //    dic[3][1] =  2; //col
+
+        //    dic[4] = new int[2];
+        //    dic[4][0] =  1; //row
+        //    dic[4][1] = -2; //col
+        //    dic[5] = new int[2];
+        //    dic[5][0] =  2; //row
+        //    dic[5][1] = -1; //col
+
+        //    dic[6] = new int[2];
+        //    dic[6][0] =  2; //row
+        //    dic[6][1] =  1; //col
+        //    dic[7] = new int[2];
+        //    dic[7][0] =  1; //row
+        //    dic[7][1] =  2; //col
+
+        //    List<string> res = new List<string>();
+        //    for(int r = 0; r < 4; r++)
+        //    {
+        //        for(int c = 0; c < 3; c++)
+        //        {
+        //            if (pad[r, c] >= 0)
+        //            {
+        //                int num = pad[r, c];
+        //                pad[r, c] = -2;
+        //                KnightDialerBTK(n - 1, r, c, num.ToString(), res, dic, pad);
+        //                pad[r, c] = num;
+        //            }
+        //        }
+        //    }
+
+        //    return res.Count % 1000000007;
+        //}
+        //private void KnightDialerBTK(int move, int startRow, int startCol, string num, List<string> res, int[][] dic, int[,] pad)
+        //{
+        //    if( move == 0)
+        //    {
+        //        if (res.Contains(num) == false)
+        //            res.Add(num);
+        //        return;
+        //    }
+
+        //    for(int i = 0; i < dic.Length; i++)
+        //    {
+        //        //valid movement
+        //        int row = startRow + dic[i][0];
+        //        int col = startCol + dic[i][1];
+        //        if (row >= 0 && row < 4
+        //            && col >= 0 && col < 3 && pad[row,col] >= 0)
+        //        {
+        //            int currNum = pad[row, col];
+        //            KnightDialerBTK(move - 1, row, col, num + currNum.ToString(), res, dic, pad);
+        //            pad[row, col] = currNum;
+        //        }
+        //    }
+        //}
+        #endregion
+        #endregion
     }
 }

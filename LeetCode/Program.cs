@@ -13,6 +13,7 @@ namespace LeetCode
             //msAss.SortColors(new int[] { 2, 0, 2, 1, 1, 0 });
             //msAss.solutionFix(new int[] { 1, 1, 2, 3, 3 }, 3);
 
+            msAss.KnightDialer(2);
 
             DataStructures.DataStructureI ds1 = new DataStructures.DataStructureI();
             //ds1.Generate(5);
