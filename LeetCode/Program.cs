@@ -12,8 +12,18 @@ namespace LeetCode
             //msAss.Merge(new int[] { 1, 2, 3, 0, 0, 0 }, 3, new int[] { 2, 5, 6 }, 3);
             //msAss.SortColors(new int[] { 2, 0, 2, 1, 1, 0 });
             //msAss.solutionFix(new int[] { 1, 1, 2, 3, 3 }, 3);
+            //msAss.KnightDialer(2);
+            //msAss.ReverseWords("isxw(lpq(cz(w#vdzb s!lzrrl(b)km*&*eqvvc@&gum#iojjhw)c&*dta(@$erzf!sz#mke!xxc a$ol@j$$cesr*vhpdu$vopjvkoa%ppmxwcquwm)l@tf*nugbgtcmntobfp)t%f#b *%nwwlfxteafhh(ekzrp*rqob*nq%t!zquhjo^x(ncc^lz&@wynesnijvyfgeozw&uunq kkpw)o&g&ymh%ufpj)y)f$&^hdciln&wpmj#zvy&h(r$(w@e $)p#%bw&zuecvpn!vjek&(vq!tqid ab(icyobbx*su(!lmo^ lqhvtdsk @$u#tq(wfkp&lhwun&ejbez&qjy&rvju)d sdo(qonl!!mos^zcxslj%*(pqq&p)ned&gpp!#u%gwfbrr%uum@b zo!p!g^mr!bmck%jwhhjkdxio%nxnpnx*u&lrej l*l#zan*wtawfs!(zp$@qb*pdowwpl$cq)mwh&a^x*vlgrh&la$*o^omliwdu)*lb fpy^s#ricc@se^uit@wuskx)p(klgnwccyioivdlrb%#goc%!(lig(*e^kmnh@*&vw@%ig!&&gcxcqesrnsa i$hod) @tfi@uioisb@^wxduwexgwwxyihztuelw$aa&&jop$aw#^yyh(pztomnuwrwemdpjsw )qcp%omvmd$rmuqei@u qfnw$!kjyf(yngcisbcs(&xjqnl&^j)#ihdhoxkk$gcx edt$uii!#ei)&dxniyflxf *y%mrdan&q@ws$*!tnum^#ffehwkddgq!ss%#mnwdr!mb#a)evbgdqijsh( ujcqksuttbbkphwtzr*gd%qfrkwmfc*c@g@pi&bz&& xwlahz()*linzlarxk%p&)mlo*dqgh&a%ts(dk^ug$l@oa!roikwqn(ckzxt f@n^&(sxa#b!ai&pfne%!gfqakvw)jmvabkp(piojwairsoz!%x#xb)!$qeq@r!yari*j zz!");
+            ListNode head = new ListNode(1, null);
+            ListNode nex1 = new ListNode(2);
+            head.next = nex1;
+            ListNode nex2 = new ListNode(3);
+            nex1.next = nex2;
+            //ListNode nex3 = new ListNode(4);
+            //nex2.next = nex3;
+            msAss.SwapPairs(head);
 
-            msAss.KnightDialer(2);
+
 
             DataStructures.DataStructureI ds1 = new DataStructures.DataStructureI();
             //ds1.Generate(5);
@@ -399,7 +409,7 @@ namespace LeetCode
             //node3.next = node4;
             //ListNode node5 = new ListNode(5);
             //node4.next = node5;
-            ListNode head = new ListNode(1);
+            //ListNode head = new ListNode(1);
             //ListNode node2 = new ListNode(1);
             //head.next = node2;
             //ListNode node3 = new ListNode(2);

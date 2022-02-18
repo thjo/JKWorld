@@ -573,31 +573,31 @@ namespace LeetCode
         /// <returns></returns>
         public int KnightDialer(int n)
         {
-            int[] dp = new int[10];
-            int[] calDp = new int[10];
+            long[] dp = new long[10];
+            long[] calDp = new long[10];
             for (int i = 0; i < 10; i++)
                 dp[i] = 1;
 
-            for(int i = 2; i <= n; i++)
+            for (int i = 2; i <= n; i++)
             {
                 dp.CopyTo(calDp, 0);
-                dp[1] = dp[6] + dp[8];
-                dp[2] = dp[7] + dp[9];
-                dp[3] = dp[4] + dp[8];
-                dp[4] = dp[3] + dp[9] + dp[0];
+                dp[1] = (calDp[6] + calDp[8]) % 1000000007;
+                dp[2] = (calDp[7] + calDp[9]) % 1000000007;
+                dp[3] = (calDp[4] + calDp[8]) % 1000000007;
+                dp[4] = (calDp[3] + calDp[9] + calDp[0]) % 1000000007;
                 dp[5] = 0;
-                dp[6] = dp[1] + dp[7] + dp[0];
-                dp[7] = dp[2] + dp[6];
-                dp[8] = dp[1] + dp[3];
-                dp[9] = dp[2] + dp[4];
-                dp[0] = dp[4] + dp[6];
+                dp[6] = (calDp[1] + calDp[7] + calDp[0]) % 1000000007;
+                dp[7] = (calDp[2] + calDp[6]) % 1000000007;
+                dp[8] = (calDp[1] + calDp[3]) % 1000000007;
+                dp[9] = (calDp[2] + calDp[4]) % 1000000007;
+                dp[0] = (calDp[4] + calDp[6]) % 1000000007;
             }
 
-            int ans = 0;
+            long ans = 0;
             for (int i = 0; i < 10; i++)
                 ans += dp[i] % 1000000007;
 
-            return ans;
+            return (int)(ans % 1000000007);
         }
 
 
@@ -681,5 +681,191 @@ namespace LeetCode
         //}
         #endregion
         #endregion
+
+
+        #region | Phone Interview - 2/17/2022 | 
+
+        /// <summary>
+        /// 151. Reverse Words in a String
+        /// https://leetcode.com/problems/reverse-words-in-a-string/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public string ReverseWords(string s)
+        {
+            if (s == null || s.Length == 1)
+                return s;
+
+            StringBuilder res = new StringBuilder();
+            Stack<char> sWord = new Stack<char>();
+            int i = 0;
+            while (i < s.Length)
+            {
+                if (s[i] == ' ')
+                {
+                    while (sWord.Count > 0)
+                        res.Append(sWord.Pop());
+                    res.Append(s[i]);
+                }
+                else
+                {
+                    sWord.Push(s[i]);
+                }
+                i++;
+            }
+            while (sWord.Count > 0)
+                res.Append(sWord.Pop());
+
+            return res.ToString();
+        }
+
+        /// <summary>
+        /// 24. Swap Nodes in Pairs
+        /// https://leetcode.com/problems/swap-nodes-in-pairs/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public ListNode SwapPairs(ListNode head)
+        {
+            if (head == null || head.next == null)
+                return head;
+
+            ListNode newHead = new ListNode(-1, head.next);
+            ListNode pre = null;
+            ListNode cur = head;
+            while (cur != null)
+            {
+                ListNode nex = cur.next;
+                ListNode nnext = null;
+                if( nex != null)
+                    nnext = nex.next;
+
+                //Swap
+                if (nex != null)
+                {
+                    cur.next = nnext;
+                    nex.next = cur;
+                    if (pre != null)
+                        pre.next = nex;
+                }
+                else
+                {
+                    if (pre != null)
+                        pre.next = cur;
+                }
+                pre = cur;
+                cur = nnext;
+            }
+
+            return newHead.next;
+
+            //if (head == null || head.next == null)
+            //    return head;
+
+            //int tmp = head.next.val;
+            //head.next.val = head.val;
+            //head.val = tmp;
+
+            //SwapPairs(head.next.next);
+            //return head;
+        }
+
+
+
+        char[][] _board = null;
+        List<string> _result = new List<string>();
+        public IList<string> FindWords(char[][] board, string[] words)
+        {
+            // Step 1). Construct the Trie
+            TrieNode root = new TrieNode();
+            foreach(string word in words)
+            {
+                TrieNode node = root;
+
+                foreach (char letter in word.ToCharArray())
+                {
+                    if (node.children.ContainsKey(letter))
+                    {
+                        node = node.children[letter];
+                    }
+                    else
+                    {
+                        TrieNode newNode = new TrieNode();
+                        node.children.Add(letter, newNode);
+                        node = newNode;
+                    }
+                }
+                node.word = word;  // store words in Trie
+            }
+
+            this._board = board;
+            // Step 2). Backtracking starting for each cell in the board
+            for (int row = 0; row < board.Length; ++row)
+            {
+                for (int col = 0; col < board[row].Length; ++col)
+                {
+                    if (root.children.ContainsKey(board[row][col]))
+                    {
+                        Backtracking(row, col, root);
+                    }
+                }
+            }
+
+            return this._result;
+        }
+        private void Backtracking(int row, int col, TrieNode parent)
+        {
+            char letter = this._board[row][col];
+            TrieNode currNode = parent.children[letter];
+
+            // check if there is any match
+            if (currNode.word != null)
+            {
+                this._result.Add(currNode.word);
+                currNode.word = null;
+            }
+
+            // mark the current letter before the EXPLORATION
+            this._board[row][col] = '#';
+
+            // explore neighbor cells in around-clock directions: up, right, down, left
+            int[] rowOffset = { -1, 0, 1, 0 };
+            int[] colOffset = { 0, 1, 0, -1 };
+            for (int i = 0; i < 4; ++i)
+            {
+                int newRow = row + rowOffset[i];
+                int newCol = col + colOffset[i];
+                if (newRow < 0 || newRow >= this._board.Length || newCol < 0
+                    || newCol >= this._board[0].Length)
+                {
+                    continue;
+                }
+                if (currNode.children.ContainsKey(this._board[newRow][newCol]))
+                {
+                    Backtracking(newRow, newCol, currNode);
+                }
+            }
+
+            // End of EXPLORATION, restore the original letter in the board.
+            this._board[row][col] = letter;
+
+            // Optimization: incrementally remove the leaf nodes
+            if (currNode.children.Count == 0)
+            {
+                parent.children.Remove(letter);
+            }
+        }
+
+
+        #endregion
+
+
+
+    }
+    public class TrieNode
+    {
+        public Dictionary<char, TrieNode> children = new Dictionary<char, TrieNode>();
+        public String word = null;
+        public TrieNode() { }
     }
 }
