@@ -896,6 +896,98 @@ namespace LeetCode
             return minMissingVal;
         }
 
+        #region | Online Assesement | 
+
+        /// <summary>
+        /// 669. Trim a Binary Search Tree
+        /// https://leetcode.com/problems/trim-a-binary-search-tree/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="low"></param>
+        /// <param name="high"></param>
+        /// <returns></returns>
+        public TreeNode TrimBST(TreeNode root, int low, int high)
+        {
+            if (root == null)
+                return root;
+
+            if (root.val > high)
+                return TrimBST(root.left, low, high);
+            if (root.val < low)
+                return TrimBST(root.right, low, high);
+
+            root.left = TrimBST(root.left, low, high);
+            root.right = TrimBST(root.right, low, high);
+
+            return root;
+        }
+
+
+        /// <summary>
+        /// 445. Add Two Numbers II
+        /// https://leetcode.com/problems/add-two-numbers-ii/
+        /// </summary>
+        /// <param name="l1"></param>
+        /// <param name="l2"></param>
+        /// <returns></returns>
+        public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
+        {
+            List<int> nums1 = new List<int>();
+            List<int> nums2 = new List<int>();
+
+            while (l1 != null)
+            {
+                nums1.Add(l1.val);
+                l1 = l1.next;
+            }
+
+            while (l2 != null)
+            {
+                nums2.Add(l2.val);
+                l2 = l2.next;
+            }
+
+            ListNode newRoot = new ListNode(-1);
+            int idx1 = nums1.Count - 1;
+            int idx2 = nums2.Count - 1;
+            int extraVal = 0;
+            while (idx1 >= 0 || idx2 >= 0)
+            {
+                int n1 = 0, n2 = 0;
+                if (idx1 >= 0 && idx2 >= 0)
+                {
+                    n1 = nums1[idx1--];
+                    n2 = nums2[idx2--];
+                }
+                else if (idx1 >= 0)
+                {
+                    //idx1
+                    n1 = nums1[idx1--];
+                }
+                else
+                {
+                    //idx2
+                    n2 = nums2[idx2--];
+                }
+                int sum = n1 + n2;
+                sum += extraVal;
+                ListNode node = new ListNode(sum % 10);
+                node.next = newRoot.next;
+                newRoot.next = node;
+                extraVal = sum / 10;
+            }
+            if (extraVal > 0)
+            {
+                ListNode node = new ListNode(extraVal);
+                node.next = newRoot.next;
+                newRoot.next = node;
+            }
+
+            return newRoot.next;
+
+        }
+
+        #endregion
 
 
     }
