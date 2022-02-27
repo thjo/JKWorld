@@ -213,15 +213,21 @@ namespace LeetCode.DataStructures
             if (mat.Length == 0 || r * c != mat.Length * mat[0].Length)
                 return mat;
 
-            int count = 0;
-            for (int i = 0; i < mat.Length; i++)
+            int n = mat.Length;
+            int m = mat[0].Length;
+            int newI = 0, newJ = 0;
+            int cnt = 0;
+            for(int i = 0; i < n; i++)
             {
-                for (int j = 0; j < mat[0].Length; j++)
+                for(int j = 0; j < m; j++)
                 {
-                    res[count / c][count % c] = mat[i][j];
-                    count++;
+                    newI = cnt / c;
+                    newJ = cnt % c;
+                    res[newI][newJ] = mat[i][j];
+                    cnt++;
                 }
             }
+
             return res;
         }
 
@@ -253,6 +259,42 @@ namespace LeetCode.DataStructures
         }
 
 
+        /// <summary>
+        /// 36. Valid Sudoku
+        /// https://leetcode.com/problems/valid-sudoku/
+        /// </summary>
+        /// <param name="board"></param>
+        /// <returns></returns>
+        public bool IsValidSudoku(char[][] board)
+        {
+            int N = 9;
+
+            int[] rows = new int[N];
+            int[] cols = new int[N];
+            int[] boxes = new int[N];
+
+            for (int r = 0; r < N; r++)
+            {
+                for (int c = 0; c < N; c++)
+                {
+                    if (board[r][c] == '.')
+                        continue;
+
+                    int val = board[r][c] - '0';
+                    int pos = 1 << (val - 1);
+                    int idx = (r / 3) * 3 + c / 3;
+                    if ((rows[r] & pos) > 0
+                      || (cols[c] & pos) > 0
+                      || (boxes[idx] & pos) > 0)
+                        return false;
+
+                    rows[r] |= pos;
+                    cols[c] |= pos;
+                    boxes[idx] |= pos;
+                }
+            }
+            return true;
+        }
 
 
         /// <summary>

@@ -188,5 +188,33 @@ namespace LeetCode
             }
             return;
         }
+
+        /// <summary>
+        /// 238. Product of Array Except Self
+        /// https://leetcode.com/problems/product-of-array-except-self/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int[] ProductExceptSelf(int[] nums)
+        {
+            int len = nums.Length;
+            int[] res = new int[nums.Length];
+            res[0] = 1;
+            int answer = 1;
+            for (int i = 1; i < len; i++)
+            {
+                answer *= nums[i - 1];
+                res[i] = answer;
+            }
+
+            answer = 1;
+            for (int i = len - 2; i >= 0; i--)
+            {
+                answer *= nums[i + 1];
+                res[i] *= answer;
+            }
+
+            return res;
+        }
     }
 }

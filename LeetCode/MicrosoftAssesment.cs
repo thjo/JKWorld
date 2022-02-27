@@ -861,6 +861,43 @@ namespace LeetCode
 
 
 
+        /// <summary>
+        /// 41. First Missing Positive
+        /// https://leetcode.com/problems/first-missing-positive/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int FirstMissingPositive(int[] nums)
+        {
+            int minMissingVal = nums.Length + 1;
+            Dictionary<int, bool> dp = new Dictionary<int, bool>();
+            for (int i = 0; i < nums.Length; i++)
+                dp.Add(i + 1, false);
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+
+                if (nums[i] <= 0)
+                    continue;
+                else
+                {
+                    if (dp.ContainsKey(nums[i]))
+                        dp[nums[i]] = true;
+                }
+            }
+
+            foreach (var d in dp)
+            {
+                if (d.Value == false)
+                {
+                    return d.Key;
+                }
+            }
+            return minMissingVal;
+        }
+
+
+
     }
     public class TrieNode
     {
