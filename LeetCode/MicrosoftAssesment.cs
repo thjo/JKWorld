@@ -990,6 +990,96 @@ namespace LeetCode
         #endregion
 
 
+
+        #region | 3/2/22 - Online Assessent | 
+
+        /// <summary>
+        /// 1185. Day of the Week
+        /// https://leetcode.com/problems/day-of-the-week/
+        /// </summary>
+        /// <param name="day"></param>
+        /// <param name="month"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        public string DayOfTheWeek(int day, int month, int year)
+        {
+            string[] week = new string[] { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+            int[] days = new int[] { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+            if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+                days[1] = 29;   //Leap Year
+            int cnt = 0;
+
+            for (int i = 1971; i < year; i++)
+            {
+                cnt += i % 4 == 0 ? 366 : 365;
+            }
+            for (int i = 0; i < month - 1; i++)
+                cnt += days[i];
+            cnt += day;
+
+
+            return week[(cnt + 4) % 7];
+        }
+
+        #endregion
+
+
+        #region | 3/2/22 - Phone Interview | 
+
+
+        /// <summary>
+        /// 1518. Water Bottles
+        /// https://leetcode.com/problems/water-bottles/#:~:text=Number%20of%20water%20bottles%20you%20can%20drink%3A%209%20%2B%203%20%2B,%2B%203%20%2B%201%20%3D%2019.
+        /// </summary>
+        /// <param name="numBottles"></param>
+        /// <param name="numExchange"></param>
+        /// <returns></returns>
+        public int NumWaterBottles(int numBottles, int numExchange)
+        {
+            int totalNum = numBottles;
+            if (numBottles < numExchange)
+                return totalNum;
+
+            while (numBottles >= numExchange)
+            {
+                totalNum += (numBottles / numExchange);
+
+                numBottles = (numBottles / numExchange) + (numBottles % numExchange);
+            }
+            
+            return totalNum;
+        }
+
+        /// <summary>
+        /// 1347. Minimum Number of Steps to Make Two Strings Anagram
+        /// https://leetcode.com/problems/minimum-number-of-steps-to-make-two-strings-anagram/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public int MinSteps(string s, string t)
+        {
+            int[] lowChars = new int[26];
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                lowChars[s[i] - 'a']++;
+                lowChars[t[i] - 'a']--;
+            }
+
+            int steps = 0;
+            foreach (int c in lowChars)
+            {
+                if (c > 0)
+                    steps += c;
+            }
+
+            return steps;
+        }
+
+
+        #endregion
+
     }
     public class TrieNode
     {
