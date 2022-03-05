@@ -91,5 +91,59 @@ namespace LeetCode
 
             return pDigits - sDigits;
         }
+
+        /// <summary>
+        /// 976. Largest Perimeter Triangle
+        /// https://leetcode.com/problems/largest-perimeter-triangle/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int LargestPerimeter(int[] nums)
+        {
+            Array.Sort(nums);
+            for (int i = nums.Length - 3; i >= 0; --i)
+                if (nums[i] + nums[i + 1] > nums[i + 2])
+                    return nums[i] + nums[i + 1] + nums[i + 2];
+            return 0;
+        }
+
+        /// <summary>
+        /// 1779. Find Nearest Point That Has the Same X or Y Coordinate
+        /// https://leetcode.com/problems/find-nearest-point-that-has-the-same-x-or-y-coordinate/
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="points"></param>
+        /// <returns></returns>
+        public int NearestValidPoint(int x, int y, int[][] points)
+        {
+            int minDist = int.MaxValue;
+            int idxMinDist = -1;
+            for (int i = 0; i < points.Length; i++)
+            {
+                int[] p = points[i];
+                if (p[0] == x || p[1] == y)
+                {
+                    int distX = Math.Abs(x - p[0]);
+                    int distY = Math.Abs(y - p[1]);
+                    int dist = distX;
+                    if (dist == 0)
+                        dist = distY;
+                    else
+                    {
+                        if (distY != 0)
+                            dist *= distY;
+                    }
+
+                    if (minDist > dist)
+                    {
+                        minDist = dist;
+                        idxMinDist = i;
+                    }
+                }
+            }
+
+            return idxMinDist;
+        }
     }
 }
