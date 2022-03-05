@@ -284,7 +284,17 @@ namespace LeetCode
         /// <returns></returns>
         public int ArraySign(int[] nums)
         {
-
+            int numOfNegative = 0;
+            foreach (int n in nums)
+            {
+                if (n == 0)
+                    return 0;
+                else if (n < 0)
+                {
+                    numOfNegative++;
+                }
+            }
+            return numOfNegative % 2 == 0 ? 1 : -1;
         }
     }
 }

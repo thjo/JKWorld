@@ -1080,6 +1080,68 @@ namespace LeetCode
 
         #endregion
 
+
+        #region | Phone Interview - 03/05/2022 | 
+
+        /// <summary>
+        /// 142. Linked List Cycle II
+        /// https://leetcode.com/problems/linked-list-cycle-ii/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public ListNode DetectCycle(ListNode head)
+        {
+            if (head == null || head.next == null)
+                return null;
+
+            ListNode curr = head.next;
+            ListNode fast = head.next.next;
+
+            while (curr != fast && fast != null)
+            {
+                curr = curr.next;
+                fast = fast.next != null ? fast.next.next : null;
+            }
+            if (fast == null)
+                return null;
+
+            ListNode ptr1 = head;
+            while (ptr1 != fast)
+            {
+                ptr1 = ptr1.next;
+                fast = fast.next;
+            }
+
+            return ptr1;
+        }
+
+
+        /// <summary>
+        /// 328. Odd Even Linked List
+        /// https://leetcode.com/problems/odd-even-linked-list/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public ListNode OddEvenList(ListNode head)
+        {
+            if (head == null) return null;
+
+            ListNode odd = head, even = head.next, evenHead = even;
+            while (even != null && even.next != null)
+            {
+                odd.next = even.next;
+                odd = odd.next;
+                even.next = odd.next;
+                even = even.next;
+            }
+            odd.next = evenHead;
+
+            return head;
+        }
+
+        #endregion
+
+
     }
     public class TrieNode
     {
