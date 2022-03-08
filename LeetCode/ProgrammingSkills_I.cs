@@ -296,5 +296,65 @@ namespace LeetCode
             }
             return numOfNegative % 2 == 0 ? 1 : -1;
         }
+
+
+        /// <summary>
+        /// 496. Next Greater Element I
+        /// https://leetcode.com/problems/next-greater-element-i/
+        /// </summary>
+        /// <param name="nums1"></param>
+        /// <param name="nums2"></param>
+        /// <returns></returns>
+        public int[] NextGreaterElement(int[] nums1, int[] nums2)
+        {
+            Dictionary<int, int> map = new Dictionary<int, int>();
+            Stack<int> wait = new Stack<int>();
+
+            for (int i = 0; i < nums2.Length; i++)
+            {
+                while (wait.Count > 0 && nums2[i] > wait.Peek())
+                    map.Add(wait.Pop(), nums2[i]);
+                wait.Push(nums2[i]);
+            }
+
+            while (wait.Count > 0)
+                map.Add(wait.Pop(), -1);
+
+            int[] res = new int[nums1.Length];
+            for (int i = 0; i < nums1.Length; i++)
+            {
+                res[i] = map[nums1[i]];
+            }
+
+            return res;
+        }
+
+
+        /// <summary>
+        /// 1232. Check If It Is a Straight Line
+        /// https://leetcode.com/problems/check-if-it-is-a-straight-line/
+        /// </summary>
+        /// <param name="coordinates"></param>
+        /// <returns></returns>
+        public bool CheckStraightLine(int[][] coordinates)
+        {
+
+            //dX/dY = xX/xY
+
+            int dX = coordinates[1][0] - coordinates[0][0];
+            int dY = coordinates[1][1] - coordinates[0][1];
+            for (int i = 2; i < coordinates.Length; i++)
+            {
+                int x = coordinates[i][0] - coordinates[i - 1][0];
+                int y = coordinates[i][1] - coordinates[i - 1][1];
+                if (dX * y == dY * x)
+                    continue;
+                else
+                    return false;
+            }
+            return true;
+        }
+
+
     }
 }

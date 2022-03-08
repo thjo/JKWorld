@@ -1142,6 +1142,65 @@ namespace LeetCode
         #endregion
 
 
+
+        #region | Phone Interview - 03/06/2022 | 
+
+
+        /// <summary>
+        /// 108. Convert Sorted Array to Binary Search Tree
+        /// https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public TreeNode SortedArrayToBST(int[] nums)
+        { 
+            return AddNodes(0, nums.Length - 1, nums);
+        }
+        private TreeNode AddNodes(int left, int right, int[] nums)
+        {
+            if (left > right)
+                return null;
+
+            int mid = (left + right) / 2;
+            TreeNode root = new TreeNode(nums[mid]);
+            root.left = AddNodes(left, mid - 1, nums);
+            root.right = AddNodes(mid + 1, right, nums);
+
+            return root;
+        }
+
+
+
+        /// <summary>
+        /// 28. Implement strStr()
+        /// https://leetcode.com/problems/implement-strstr/
+        /// </summary>
+        /// <param name="haystack"></param>
+        /// <param name="needle"></param>
+        /// <returns></returns>
+        public int StrStr(string haystack, string needle)
+        {
+            if (string.IsNullOrWhiteSpace(needle))
+                return 0;
+            else if (string.IsNullOrWhiteSpace(haystack))
+                return -1;
+
+            int n = haystack.Length;
+            int m = needle.Length;
+            for (int i = 0; i <= n - m; i++)
+            {
+                int j = 0;
+                while (j < m && haystack[i + j] == needle[j])
+                    j++;
+
+                if (j == m)
+                    return i;
+            }
+            return -1;
+        }
+
+        #endregion
+
     }
     public class TrieNode
     {
