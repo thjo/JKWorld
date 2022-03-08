@@ -356,5 +356,44 @@ namespace LeetCode
         }
 
 
+        /// <summary>
+        /// 1572. Matrix Diagonal Sum
+        /// https://leetcode.com/problems/matrix-diagonal-sum/
+        /// </summary>
+        /// <param name="mat"></param>
+        /// <returns></returns>
+        public int DiagonalSum(int[][] mat)
+        {
+            int sum = 0;
+
+            int len = mat.Length;
+            int l = 0, r = len - 1;
+            for (int i = 0; i < len; i++)
+            {
+                if (l + i == r - i)
+                    sum += mat[i][l + i];
+                else
+                    sum = sum + mat[i][l + i] + mat[i][r - i];
+            }
+
+            return sum;
+        }
+
+        /// <summary>
+        /// 1588. Sum of All Odd Length Subarrays
+        /// https://leetcode.com/problems/sum-of-all-odd-length-subarrays/
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public int SumOddLengthSubarrays(int[] arr)
+        {
+            int sum = 0;
+            for(int i = 1; i < arr.Length; i +=2)
+            {
+
+            }
+
+            return sum;
+        }
     }
 }

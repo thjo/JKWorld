@@ -216,7 +216,8 @@ namespace LeetCode
         public bool solutionFix(int[] A, int K)
         {
             int n = A.Length;
-            for (int i = 0; i < n - 1; i++) {
+            for (int i = 0; i < n - 1; i++)
+            {
                 if (A[i] > A[i + 1])
                     return false;
             }
@@ -237,7 +238,7 @@ namespace LeetCode
                 return false;
             else
             {
-                for(int i = 0; i < newS.Length; i++)
+                for (int i = 0; i < newS.Length; i++)
                 {
                     if (newS[i] == '*' || newT[i] == '*'
                         || newS[i] == newT[i])
@@ -258,7 +259,7 @@ namespace LeetCode
                     num += c;
                 else
                 {
-                    if( num.Length > 0)
+                    if (num.Length > 0)
                     {
                         int n = int.Parse(num);
                         for (int i = 0; i < n; i++)
@@ -737,7 +738,7 @@ namespace LeetCode
             {
                 ListNode nex = cur.next;
                 ListNode nnext = null;
-                if( nex != null)
+                if (nex != null)
                     nnext = nex.next;
 
                 //Swap
@@ -778,7 +779,7 @@ namespace LeetCode
         {
             // Step 1). Construct the Trie
             TrieNode root = new TrieNode();
-            foreach(string word in words)
+            foreach (string word in words)
             {
                 TrieNode node = root;
 
@@ -1046,7 +1047,7 @@ namespace LeetCode
 
                 numBottles = (numBottles / numExchange) + (numBottles % numExchange);
             }
-            
+
             return totalNum;
         }
 
@@ -1153,7 +1154,7 @@ namespace LeetCode
         /// <param name="nums"></param>
         /// <returns></returns>
         public TreeNode SortedArrayToBST(int[] nums)
-        { 
+        {
             return AddNodes(0, nums.Length - 1, nums);
         }
         private TreeNode AddNodes(int left, int right, int[] nums)
@@ -1200,6 +1201,85 @@ namespace LeetCode
         }
 
         #endregion
+
+
+        #region | Online Interview - 03/07/2022 | 
+
+        /// <summary>
+        /// 237. Delete Node in a Linked List
+        /// https://leetcode.com/problems/delete-node-in-a-linked-list/
+        /// </summary>
+        /// <param name="node"></param>
+        public void DeleteNode(ListNode node)
+        {
+            if (node == null)
+                return;
+
+            node.val = node.next.val;
+            node.next = node.next.next;
+        }
+
+
+        /// <summary>
+        /// 191. Number of 1 Bits
+        /// https://leetcode.com/problems/number-of-1-bits/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int HammingWeight(uint n)
+        {
+            int retVal = 0;
+            while ((n | 0) > 0)
+            {
+                if ((n & 1) > 0)
+                    retVal++;
+                n = n >> 1;
+            }
+
+            return retVal;
+        }
+
+        #endregion
+
+        #region | Phone Interview - 03/07/2022 | 
+
+        /// <summary>
+        /// 1469. Find All The Lonely Nodes
+        /// https://leetcode.com/problems/find-all-the-lonely-nodes/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public IList<int> GetLonelyNodes(TreeNode root)
+        {
+            IList<int> res = new List<int>();
+            Queue<TreeNode> nodes = new Queue<TreeNode>();
+            nodes.Enqueue(root);
+            while (nodes.Count > 0)
+            {
+                TreeNode node = nodes.Dequeue();
+                int? val = OlnyChild(node);
+                if (val != null)
+                    res.Add(val.Value);
+                if (node.left != null)
+                    nodes.Enqueue(node.left);
+                if (node.right != null)
+                    nodes.Enqueue(node.right);
+            }
+            return res;
+        }
+        private int? OlnyChild(TreeNode root)
+        {
+            if (root.left == null && root.right != null)
+                return root.right.val;
+            else if (root.left != null && root.right == null)
+                return root.left.val;
+            else
+                return null;
+        }
+
+        #endregion
+
+
 
     }
     public class TrieNode
