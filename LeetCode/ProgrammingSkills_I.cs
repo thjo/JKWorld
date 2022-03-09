@@ -395,5 +395,72 @@ namespace LeetCode
 
             return sum;
         }
+
+
+        /// <summary>
+        /// 389. Find the Difference
+        /// https://leetcode.com/problems/find-the-difference/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public char FindTheDifference(string s, string t)
+        {
+            Dictionary<char, int> map = new Dictionary<char, int>();
+            foreach (char c in s)
+            {
+                if (map.ContainsKey(c))
+                    map[c]++;
+                else
+                    map.Add(c, 1);
+            }
+
+            foreach (char c in t)
+            {
+                if (map.ContainsKey(c))
+                {
+                    map[c]--;
+                    if (map[c] == 0)
+                        map.Remove(c);
+                }
+                else
+                    return c;
+            }
+
+            return map.GetEnumerator().Current.Key;
+        }
+
+        /// <summary>
+        /// 1678. Goal Parser Interpretation
+        /// https://leetcode.com/problems/goal-parser-interpretation/submissions/
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        public string Interpret(string command)
+        {
+            return command.Replace("(al)", "al").Replace("()", "o");
+        }
+
+        /// <summary>
+        /// 1768. Merge Strings Alternately
+        /// https://leetcode.com/problems/merge-strings-alternately/
+        /// </summary>
+        /// <param name="word1"></param>
+        /// <param name="word2"></param>
+        /// <returns></returns>
+        public string MergeAlternately(string word1, string word2)
+        {
+            string res = string.Empty;
+            int w1 = 0, w2 = 0;
+            while(w1 < word1.Length || w2 < word2.Length)
+            {
+                if (w1 < word1.Length)
+                    res += word1[w1++];
+                if (w2 < word2.Length)
+                    res += word2[w2++];
+            }
+
+            return res;
+        }
     }
 }
