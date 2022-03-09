@@ -1281,6 +1281,23 @@ namespace LeetCode
 
 
 
+        #region | Phone Interview - 03/08/2022 | 
+
+
+        /// <summary>
+        /// 1470. Shuffle the Array
+        /// https://leetcode.com/problems/shuffle-the-array/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int[] Shuffle(int[] nums, int n)
+        {
+
+        }
+
+        #endregion
+
     }
     public class TrieNode
     {
