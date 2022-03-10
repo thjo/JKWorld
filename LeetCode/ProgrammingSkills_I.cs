@@ -462,5 +462,110 @@ namespace LeetCode
 
             return res;
         }
+
+
+
+        /// <summary>
+        /// 709. To Lower Case
+        /// https://leetcode.com/problems/to-lower-case/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public string ToLowerCase(string s)
+        {
+            //97 'a'
+            //65 'A'
+            //98 'b'
+            //66 'B'
+            //122 'z'
+            //90 'Z'
+            string res = "";
+            for(int i = 0; i < s.Length; i++)
+            {
+                if (s[i] >= 65 && s[i] <= 90)
+                    res += (char)(s[i] + 32);
+                else
+                    res += s[i];
+            }
+            return res;
+        }
+
+
+        /// <summary>
+        /// 1309. Decrypt String from Alphabet to Integer Mapping
+        /// https://leetcode.com/problems/decrypt-string-from-alphabet-to-integer-mapping/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public string FreqAlphabets(string s)
+        {
+            int i = 0;
+            string res = "";
+            while (i < s.Length)
+            {
+                if (i < s.Length - 2 && s[i + 2] == '#')
+                {
+                    res += DecryptTo(s.Substring(i, 3));
+                    i += 3;
+                }
+                else
+                {
+                    res += DecryptTo(s.Substring(i, 1));
+                    i += 1;
+                }
+            }
+            return res;
+        }
+        private char DecryptTo(string encerptionText)
+        {
+            if (encerptionText.Length == 1)
+            {
+                return (char)('a' + (int.Parse(encerptionText.Substring(0, 1)) - 1));
+            }
+            else
+            {
+                return (char)('a' + (int.Parse(encerptionText.Substring(0, 2)) - 1));
+            }
+        }
+
+
+        /// <summary>
+        /// 953. Verifying an Alien Dictionary
+        /// https://leetcode.com/problems/verifying-an-alien-dictionary/
+        /// </summary>
+        /// <param name="words"></param>
+        /// <param name="order"></param>
+        /// <returns></returns>
+        public bool IsAlienSorted(string[] words, string order)
+        {
+            int[] orderMap = new int[26];
+            for (int i = 0; i < order.Length; i++)
+            {
+                orderMap[order[i] - 'a'] = i;
+            }
+
+            for (int i = 0; i < words.Length - 1; i++)
+            {
+                for (int j = 0; j < words[i].Length; j++)
+                {
+                    // If we do not find a mismatch letter between words[i] and words[i + 1],
+                    // we need to examine the case when words are like ("apple", "app").
+                    if (j >= words[i + 1].Length) return false;
+
+                    if (words[i][j] != words[i + 1][j])
+                    {
+                        int currentWordChar = words[i][j] - 'a';
+                        int nextWordChar = words[i + 1][j] - 'a';
+                        if (orderMap[currentWordChar] > orderMap[nextWordChar]) return false;
+                        // if we find the first different letter and they are sorted,
+                        // then there's no need to check remaining letters
+                        else break;
+                    }
+                }
+            }
+
+            return true;
+        }
+
     }
 }

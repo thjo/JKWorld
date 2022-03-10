@@ -1293,8 +1293,47 @@ namespace LeetCode
         /// <returns></returns>
         public int[] Shuffle(int[] nums, int n)
         {
+            int idx = 0, i = 0;
+            int[] res = new int[2 * n];
+            while (idx < n)
+            {
+                res[i++] = nums[idx];
+                res[i++] = nums[idx + n];
+                idx++;
+            }
 
+            return res;
         }
+
+
+        public int MaxRepOpt1(string text)
+        {
+            int ans = 0;
+            int[] count = new int[26];
+            List<int[]> groups = new List<int[]>();
+
+            foreach (char c in text)
+                count[c - 'a']++;
+
+            groups.Add(new int[] { text[0], 1 });
+
+            for (int i = 1; i < text.Length; ++i)
+                if (text[i] == text[i - 1])
+                    groups[groups.Count - 1][1]++;
+                else
+                    groups.Add(new int[] { text[i], 1 });
+
+            foreach (int[] group in groups)
+                ans = Math.Max(ans, Math.Min(group[1] + 1, count[group[0] - 'a']));
+
+            for (int i = 1; i + 1 < groups.Count; ++i)
+                if (groups[i - 1][0] == groups[i + 1][0] && groups[i][1] == 1)
+                    ans = Math.Max(ans, Math.Min(groups[i - 1][1] + groups[i + 1][1] + 1,
+                                                 count[groups[i - 1][0] - 'a']));
+
+            return ans;
+        }
+
 
         #endregion
 

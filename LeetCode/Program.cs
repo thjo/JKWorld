@@ -8,6 +8,10 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
+            ProgrammingSkills_I pk = new ProgrammingSkills_I();
+            pk.ToLowerCase("Hello");
+
+
             MicrosoftAssesment msAss = new MicrosoftAssesment();
             //msAss.Merge(new int[] { 1, 2, 3, 0, 0, 0 }, 3, new int[] { 2, 5, 6 }, 3);
             //msAss.SortColors(new int[] { 2, 0, 2, 1, 1, 0 });
