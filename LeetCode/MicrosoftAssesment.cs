@@ -1337,6 +1337,24 @@ namespace LeetCode
 
         #endregion
 
+
+        #region | Online Interview - 03/09/2022 | 
+
+        public int DistributeCandies(int[] candyType)
+        {
+            int n = candyType.Length / 2;   //n is always even
+
+            HashSet<int> dic = new HashSet<int>();
+            foreach (int ct in candyType)
+            {
+                if (dic.Contains(ct) == false)
+                    dic.Add(ct);
+            }
+
+            return dic.Count > n ? n : dic.Count;
+        }
+
+        #endregion
     }
     public class TrieNode
     {
