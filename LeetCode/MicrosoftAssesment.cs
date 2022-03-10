@@ -1354,6 +1354,70 @@ namespace LeetCode
             return dic.Count > n ? n : dic.Count;
         }
 
+
+
+        public int[][] FlipAndInvertImage(int[][] image)
+        {
+            int n = image.Length;
+            int m = image[0].Length;
+            int halfOfM = m / 2;
+            if (m % 2 == 0)
+                halfOfM--;
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j <= halfOfM; j++)
+                {
+                    if (j == halfOfM && m % 2 == 1)
+                    {
+                        image[i][j] = (image[i][j] == 0 ? 1 : 0);
+                    }
+                    else
+                    {
+                        int tmp = image[i][j];
+                        image[i][j] = (image[i][m - j - 1] == 0 ? 1 : 0);
+                        image[i][m - j - 1] = (tmp == 0 ? 1 : 0);
+                    }
+                }
+            }
+
+            return image;
+        }
+
+
+        public bool LeafSimilar(TreeNode root1, TreeNode root2)
+        {
+            List<int> leaves1 = new List<int>();
+            ScanAllLeaf(root1, leaves1);
+            List<int> leaves2 = new List<int>();
+            ScanAllLeaf(root2, leaves2);
+
+            if (leaves1.Count != leaves2.Count)
+                return false;
+
+            for (int i = 0; i < leaves1.Count; i++)
+            {
+                if (leaves1[i] != leaves2[i])
+                    return false;
+            }
+            return true;
+        }
+        private void ScanAllLeaf(TreeNode root, List<int> leaves)
+        {
+            if (root == null)
+                return;
+
+            if (root.left == null && root.right == null)
+            {
+                leaves.Add(root.val);
+                return;
+            }
+            else
+            {
+                ScanAllLeaf(root.left, leaves);
+                ScanAllLeaf(root.right, leaves);
+            }
+        }
+
         #endregion
     }
     public class TrieNode
