@@ -567,5 +567,54 @@ namespace LeetCode
             return true;
         }
 
+
+        /// <summary>
+        /// 1290. Convert Binary Number in a Linked List to Integer
+        /// https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public int GetDecimalValue(ListNode head)
+        {
+            ListNode curr = head;
+            int res = 0;
+            if (curr == null)
+                return res;
+            res = curr.val;
+            while (curr.next != null)
+            {
+                curr = curr.next;
+                res = res << 1;
+                res += curr.val;
+            }
+            return res;
+        }
+
+
+        /// <summary>
+        /// 404. Sum of Left Leaves
+        /// https://leetcode.com/problems/sum-of-left-leaves/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public int SumOfLeftLeaves(TreeNode root)
+        {
+            if (root == null)
+                return 0;
+
+            return SumOfLeftLeavesI(root, false);
+        }
+        private int SumOfLeftLeavesI(TreeNode root, bool isLeftNode)
+        {
+            if (root == null)
+                return 0;
+
+            if (root.left == null && root.right == null)
+                return isLeftNode ? root.val : 0;
+            else
+            {
+                return SumOfLeftLeavesI(root.left, true) + SumOfLeftLeavesI(root.right, false);
+            }
+        }
     }
 }
