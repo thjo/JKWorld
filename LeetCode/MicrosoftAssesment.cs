@@ -1419,6 +1419,34 @@ namespace LeetCode
         }
 
         #endregion
+
+
+        #region | Online Interview - 3/13/2022 | 
+
+        public IList<int> MajorityElement(int[] nums)
+        {
+            IList<int> res = new List<int>();
+
+            int n = nums.Length / 3;
+            Dictionary<int, int> map = new Dictionary<int, int>();
+            foreach (int nn in nums)
+            {
+                if (map.ContainsKey(nn))
+                    map[nn]++;
+                else
+                    map.Add(nn, 1);
+            }
+
+            foreach (var d in map)
+            {
+                if (d.Value > n)
+                    res.Add(d.Key);
+            }
+
+            return res;
+        }
+
+        #endregion
     }
     public class TrieNode
     {
