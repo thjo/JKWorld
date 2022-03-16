@@ -1425,28 +1425,138 @@ namespace LeetCode
 
         public IList<int> MajorityElement(int[] nums)
         {
-            IList<int> res = new List<int>();
+            //IList<int> res = new List<int>();
 
-            int n = nums.Length / 3;
-            Dictionary<int, int> map = new Dictionary<int, int>();
-            foreach (int nn in nums)
+            //int n = nums.Length / 3;
+            //Dictionary<int, int> map = new Dictionary<int, int>();
+            //foreach (int nn in nums)
+            //{
+            //    if (map.ContainsKey(nn))
+            //        map[nn]++;
+            //    else
+            //        map.Add(nn, 1);
+            //}
+
+            //foreach (var d in map)
+            //{
+            //    if (d.Value > n)
+            //        res.Add(d.Key);
+            //}
+
+            //return res;
+            IList<int> retVals = new List<int>();
+            int nTimes = nums.Length / 3;
+
+            int? candidate1 = null, candidate2 = null;
+            int cnt1 = 0, cnt2 = 0;
+
+            foreach (int n in nums)
             {
-                if (map.ContainsKey(nn))
-                    map[nn]++;
+                if (candidate1 != null && candidate1.Value == n)
+                    cnt1++;
+                else if (candidate2 != null && candidate2.Value == n)
+                    cnt2++;
+                else if (cnt1 == 0)
+                {
+                    candidate1 = n;
+                    cnt1++;
+                }
+                else if (cnt2 == 0)
+                {
+                    candidate2 = n;
+                    cnt2++;
+                }
                 else
-                    map.Add(nn, 1);
+                {
+                    cnt1--;
+                    cnt2--;
+                }
             }
 
-            foreach (var d in map)
+            cnt1 = 0;
+            cnt2 = 0;
+            foreach (int n in nums)
             {
-                if (d.Value > n)
-                    res.Add(d.Key);
+                if (candidate1 != null && candidate1.Value == n)
+                    cnt1++;
+                else if (candidate2 != null && candidate2.Value == n)
+                    cnt2++;
             }
+            if (cnt1 > nTimes)
+                retVals.Add(candidate1.Value);
+            if (cnt2 > nTimes)
+                retVals.Add(candidate2.Value);
 
-            return res;
+            return retVals;
         }
 
         #endregion
+
+
+        #region | Phone Interview - 3/15/2022 | 
+
+
+        /// <summary>
+        /// 1700. Number of Students Unable to Eat Lunch
+        /// https://leetcode.com/problems/number-of-students-unable-to-eat-lunch/
+        /// </summary>
+        /// <param name="students"></param>
+        /// <param name="sandwiches"></param>
+        /// <returns></returns>
+        public int CountStudents(int[] students, int[] sandwiches)
+        {
+            bool isMatched = false;
+            int i = 0, j = 0;
+            int numOfMatched = 0;
+            while (i != students.Length || isMatched)
+            {
+                if (i == students.Length)
+                {
+                    i = 0;
+                    isMatched = false;
+                }
+
+                if (students[i] == -1)
+                {
+                    ;
+                }
+                else if (students[i] != sandwiches[j])
+                {
+                    ;
+                }
+                else
+                {
+                    isMatched = true;
+                    students[i] = -1;
+                    numOfMatched++;
+                    j++;
+                }
+                i++;
+            }
+
+            return students.Length - numOfMatched;
+        }
+
+
+        public TreeNode InsertIntoBST(TreeNode root, int val)
+        {
+            if (root == null)
+                return new TreeNode(val);
+
+            if(root.val > val)
+            {
+                root.left = InsertIntoBST(root.left, val);
+            }
+            else
+                root.right = InsertIntoBST(root.right, val);
+
+            return root;
+        }
+
+        #endregion
+
+
+
     }
     public class TrieNode
     {
