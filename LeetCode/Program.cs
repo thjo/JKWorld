@@ -13,7 +13,14 @@ namespace LeetCode
 
 
             MicrosoftAssesment msAss = new MicrosoftAssesment();
-            msAss.CountStudents(new int[] { 1, 1, 0, 0 }, new int[] { 0, 1, 0, 1 });
+            int[][] grid = new int[4][];
+            grid[0] = new int[] { 0,1,0,0 };
+            grid[1] = new int[] { 1,1,1,0 };
+            grid[2] = new int[] { 0,1,0,0 };
+            grid[3] = new int[] { 1,1,0,0 };
+            msAss.IslandPerimeter(grid);
+
+            //msAss.CountStudents(new int[] { 1, 1, 0, 0 }, new int[] { 0, 1, 0, 1 });
             //msAss.Merge(new int[] { 1, 2, 3, 0, 0, 0 }, 3, new int[] { 2, 5, 6 }, 3);
             //msAss.SortColors(new int[] { 2, 0, 2, 1, 1, 0 });
             //msAss.solutionFix(new int[] { 1, 1, 2, 3, 3 }, 3);

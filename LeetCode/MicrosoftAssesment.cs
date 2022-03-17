@@ -1556,6 +1556,63 @@ namespace LeetCode
         #endregion
 
 
+        #region | Phone Interview - 3/16/2022 | 
+
+        public int IslandPerimeter(int[][] grid)
+        {
+            int perimeter = 0;
+
+            for (int i = 0; i < grid.Length; i++)
+            {
+                for (int j = 0; j < grid[i].Length; j++)
+                {
+                    if (grid[i][j] == 1)
+                        perimeter += 4 - numOfNeighbors(i, j, grid);
+                }
+            }
+            return perimeter;
+        }
+        private int numOfNeighbors(int i, int j, int[][] grid)
+        {
+            int num = 0;
+            if (i > 0 && grid[i - 1][j] == 1)
+                num++;
+            if (j > 0 && grid[i][j - 1] == 1)
+                num++;
+            if (i < grid.Length - 1 && grid[i + 1][j] == 1)
+                num++;
+            if (j < grid[0].Length - 1 && grid[i][j + 1] == 1)
+                num++;
+
+            return num;
+        }
+
+        public void ReorderList(ListNode head)
+        {
+            Stack<int> reverseList = new Stack<int>();
+            Queue<int> orgList = new Queue<int>();
+            ListNode currNode = head;
+            while (currNode != null)
+            {
+                reverseList.Push(currNode.val);
+                orgList.Enqueue(currNode.val);
+                currNode = currNode.next;
+            }
+
+            currNode = head;
+            while (currNode != null)
+            {
+                currNode.val = orgList.Dequeue();
+                currNode = currNode.next;
+
+                if (currNode != null)
+                {
+                    currNode.val = reverseList.Pop();
+                    currNode = currNode.next;
+                }
+            }
+        }
+        #endregion
 
     }
     public class TrieNode
