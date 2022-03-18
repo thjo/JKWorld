@@ -1612,8 +1612,136 @@ namespace LeetCode
                 }
             }
         }
+
         #endregion
 
+
+        #region | Phone Interview - 3/17/2022 | 
+
+        public bool IsAnagram(string s, string t)
+        {
+            if (s == t)
+                return true;
+            else if (s == null || t == null)
+                return false;
+            else if (s.Length != t.Length)
+                return false;
+
+            Dictionary<char, int> map = new Dictionary<char, int>();
+            foreach (char c in s)
+            {
+                if (map.ContainsKey(c))
+                    map[c]++;
+                else
+                    map.Add(c, 1);
+            }
+            foreach (char c in t)
+            {
+                if (map.ContainsKey(c))
+                {
+                    map[c]--;
+                    if (map[c] == 0)
+                        map.Remove(c);
+                }
+            }
+
+            return map.Count == 0;
+        }
+
+        public int TitleToNumber(string columnTitle)
+        {
+            int result = 0;
+            int n = columnTitle.Length;
+            for (int i = 0; i < n; i++)
+            {
+                result = result * 26;
+                result += (columnTitle[i] - 'A' + 1);
+            }
+            return result;
+        }
+
+
+
+        public bool Exist(char[][] board, string word)
+        {
+            bool isExisted = false;
+            if (board == null
+               || board.Length < 1 || board[0].Length < 1)
+                return isExisted;
+            List<int[]> startPoints = new List<int[]>();
+            int m = board.Length;
+            int n = board[0].Length;
+
+            for (int row = 0; row < m; row++)
+            {
+                for (int col = 0; col < n; col++)
+                {
+                    if (board[row][col] == word[0])
+                        startPoints.Add(new int[] { row, col });
+                }
+            }
+
+            foreach (var startP in startPoints)
+            {
+                bool[][] visited = new bool[m][];
+                for (int i = 0; i < m; i++)
+                {
+                    visited[i] = new bool[n];
+                    for (int j = 0; j < n; j++)
+                    {
+                        visited[i][j] = false;
+                    }
+                }
+                if (ExistDFS(board, word, visited, startP[0], startP[1], m, n))
+                    return true;
+            }
+
+            return isExisted;
+        }
+        private bool ExistDFS(char[][] board, string word, bool[][] visited, int startRow, int startCol, int m, int n)
+        {
+            visited[startRow][startCol] = true;
+            if (board[startRow][startCol] == word[0])
+            {
+                if (word.Length == 1)
+                    return true;
+                bool isExisted = false;
+
+                //Check Left
+                if (startCol - 1 >= 0 && !visited[startRow][startCol - 1])
+                {
+                    isExisted = ExistDFS(board, word.Substring(1), visited, startRow, startCol - 1, m, n);
+                    if (isExisted) return isExisted;
+                    visited[startRow][startCol - 1] = false;
+                }
+                //Check Right
+                if (startCol + 1 < n && !visited[startRow][startCol + 1])
+                {
+                    isExisted = ExistDFS(board, word.Substring(1), visited, startRow, startCol + 1, m, n);
+                    if (isExisted) return isExisted;
+                    visited[startRow][startCol + 1] = false;
+                }
+                //Check Top
+                if (startRow - 1 >= 0 && !visited[startRow - 1][startCol])
+                {
+                    isExisted = ExistDFS(board, word.Substring(1), visited, startRow - 1, startCol, m, n);
+                    if (isExisted) return isExisted;
+                    visited[startRow - 1][startCol] = false;
+                }
+
+                //Check Bottom
+                if (startRow + 1 < m && !visited[startRow + 1][startCol])
+                {
+                    isExisted = ExistDFS(board, word.Substring(1), visited, startRow + 1, startCol, m, n);
+                    if (isExisted) return isExisted;
+                    visited[startRow + 1][startCol] = false;
+                }
+            }
+
+            return false;
+        }
+
+        #endregion
     }
     public class TrieNode
     {

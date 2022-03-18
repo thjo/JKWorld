@@ -13,12 +13,19 @@ namespace LeetCode
 
 
             MicrosoftAssesment msAss = new MicrosoftAssesment();
-            int[][] grid = new int[4][];
-            grid[0] = new int[] { 0,1,0,0 };
-            grid[1] = new int[] { 1,1,1,0 };
-            grid[2] = new int[] { 0,1,0,0 };
-            grid[3] = new int[] { 1,1,0,0 };
-            msAss.IslandPerimeter(grid);
+            char[][] board = new char[3][];
+            board[0] = new char[4] { 'A', 'B', 'C', 'E' };
+            board[1] = new char[4] { 'S', 'F', 'C', 'S' };
+            board[2] = new char[4] { 'A', 'D', 'E', 'E' };
+            string word = "ABCB";
+            msAss.Exist(board, word);
+            //msAss.TitleToNumber("A");
+            //int[][] grid = new int[4][];
+            //grid[0] = new int[] { 0,1,0,0 };
+            //grid[1] = new int[] { 1,1,1,0 };
+            //grid[2] = new int[] { 0,1,0,0 };
+            //grid[3] = new int[] { 1,1,0,0 };
+            //msAss.IslandPerimeter(grid);
 
             //msAss.CountStudents(new int[] { 1, 1, 0, 0 }, new int[] { 0, 1, 0, 1 });
             //msAss.Merge(new int[] { 1, 2, 3, 0, 0, 0 }, 3, new int[] { 2, 5, 6 }, 3);
