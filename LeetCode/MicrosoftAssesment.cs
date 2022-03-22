@@ -1661,7 +1661,6 @@ namespace LeetCode
         }
 
 
-
         public bool Exist(char[][] board, string word)
         {
             bool isExisted = false;
@@ -1741,6 +1740,183 @@ namespace LeetCode
             return false;
         }
 
+        #endregion
+
+
+        #region | Microsoft - 3/20/2022 | 
+
+        public int solution1(int[] A)
+        {
+            // write your code in C# 6.0 with .NET 4.5 (Mono)
+            if (A == null || A.Length < 2)
+                return 0;
+
+            int maxTotalPairs = 0;
+            bool isFirstIdxPair = true;
+            int firstPairCnt = 0;
+            int cnt = 1;
+
+            for(int i = 1; i < A.Length; i++)
+            {
+                if ((A[i - 1] + A[i]) % 2 == 0)
+                    cnt++;
+                else
+                {
+                    if( isFirstIdxPair)
+                    {
+                        firstPairCnt = cnt;
+                        isFirstIdxPair = false;
+                    }
+
+                    //update count and re-set variables
+                    maxTotalPairs = maxTotalPairs + (cnt / 2);
+                    cnt = 1;
+                }
+            }
+            //update count
+            maxTotalPairs = maxTotalPairs + (cnt / 2);
+            int lastPairCnt = cnt;
+            if ((A[0] + A[A.Length - 1]) % 2 == 0
+                && firstPairCnt % 2 == 1 && lastPairCnt % 2 == 1)
+                maxTotalPairs++;
+
+            return maxTotalPairs;
+        }
+
+        #endregion
+
+
+        #region | OnSite Interview - 3/21/2022 | 
+
+        /// <summary>
+        /// 1474. Delete N Nodes After M Nodes of a Linked List
+        /// https://leetcode.com/problems/delete-n-nodes-after-m-nodes-of-a-linked-list/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <param name="m"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public ListNode DeleteNodes(ListNode head, int m, int n)
+        {
+            if (head == null || head.next == null)
+                return head;
+
+            ListNode prevNode = head;
+            ListNode currNode = head;
+            
+            while(currNode != null)
+            {
+                int moveCursor = 1;
+                int delCursor = 1;
+                while (currNode != null && moveCursor <= m)
+                {
+                    prevNode = currNode;
+                    currNode = currNode.next;
+                    moveCursor++;
+                }
+                while(currNode != null && delCursor <= n)
+                {
+                    currNode = currNode.next;
+                    delCursor++;
+                }
+                prevNode.next = currNode;
+            }
+
+            return head;
+        }
+
+
+        /// <summary>
+        /// 654. Maximum Binary Tree
+        /// https://leetcode.com/problems/maximum-binary-tree/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public TreeNode ConstructMaximumBinaryTree(int[] nums)
+        {
+            int l = 0, r = nums.Length - 1;
+            return ConstructMaximumBinaryTreeR(nums, l, r);
+        }
+        public TreeNode ConstructMaximumBinaryTreeR(int[] nums, int startIdx, int endIdx)
+        {
+            int? idx = GetMaxIdx(nums, startIdx, endIdx);
+            if (idx == null)
+                return null;
+
+            TreeNode root = new TreeNode(nums[idx.Value]);
+            root.left = ConstructMaximumBinaryTreeR(nums, startIdx, idx.Value - 1);
+            root.right = ConstructMaximumBinaryTreeR(nums, idx.Value + 1, endIdx);
+
+            return root;
+        }
+        private int? GetMaxIdx(int[] nums, int startIdx, int endIdx)
+        {
+            if (startIdx > endIdx || startIdx < 0 || endIdx >= nums.Length)
+                return null;
+
+            int maxIdx = startIdx;
+            int max = nums[startIdx];
+            for(int i = startIdx+1; i <= endIdx; i++)
+            {
+                if( max < nums[i])
+                {
+                    max = nums[i];
+                    maxIdx = i;
+                }
+            }
+            return maxIdx;
+        }
+
+
+        /// <summary>
+        /// 296. Best Meeting Point
+        /// https://leetcode.com/problems/best-meeting-point/
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public int MinTotalDistance(int[][] grid)
+        {
+            List<int> rows = CollectRows(grid);
+            List<int> cols = CollectCols(grid);
+
+            int row = rows[rows.Count / 2];
+            int col = cols[cols.Count / 2];
+            return MinDistance(rows, row) + MinDistance(cols, col);
+        }
+        private List<int> CollectRows(int[][] grid)
+        {
+            List<int> collections  = new List<int>();
+            for(int i = 0; i < grid.Length; i++)
+            {
+                for(int j = 0; j < grid[i].Length; j++)
+                {
+                    if (grid[i][j] == 1)
+                        collections.Add(i);
+                }
+            }
+            return collections;
+        }
+        private List<int> CollectCols(int[][] grid)
+        {
+            List<int> collections = new List<int>();
+            for (int j = 0; j < grid[0].Length; j++)
+            {
+                for (int i = 0; i < grid.Length; i++)
+                {
+                    if (grid[i][j] == 1)
+                        collections.Add(j);
+                }
+            }
+            return collections;
+        }
+        private int MinDistance(List<int> points, int origin)
+        {
+            int distance = 0;
+            foreach (int point in points)
+                distance += Math.Abs(point - origin);
+
+            return distance;
+        }
         #endregion
     }
     public class TrieNode
