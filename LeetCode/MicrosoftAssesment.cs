@@ -1917,6 +1917,30 @@ namespace LeetCode
 
             return distance;
         }
+
+        public int MinTotalDistanceSorted(int[][] grid)
+        {
+            List<int> rows = new List<int>();
+            List<int> cols = new List<int>();
+            for (int i = 0; i < grid.Length; i++)
+            {
+                for (int j = 0; j < grid[i].Length; j++)
+                {
+                    if (grid[i][j] == 1)
+                    {
+                        rows.Add(i);
+                        cols.Add(j);
+                    }
+                }
+            }
+
+            int[] sortedCols = cols.ToArray();
+            Array.Sort(sortedCols);
+            int row = rows[rows.Count / 2];
+            int col = sortedCols[cols.Count / 2];
+
+            return MinDistance(rows, row) + MinDistance(cols, col);
+        }
         #endregion
     }
     public class TrieNode
