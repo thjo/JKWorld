@@ -1602,6 +1602,28 @@ namespace LeetCode
         }
 
         #endregion
+
+
+
+        public bool Find(int value)
+        {
+            Dictionary<int, int> vals = new Dictionary<int, int>();
+            vals.Add(0, 1);
+            vals.Add(-1, 1);
+            vals.Add(1, 1);
+            foreach (var v in vals)
+            {
+                int diff = value - v.Key;
+                if (v.Value > 0 && vals.ContainsKey(diff))
+                {
+                    if (diff == v.Key && v.Value > 1)
+                        return true;
+                    else if (diff != v.Key)
+                        return true;
+                }
+            }
+            return false;
+        }
     }
 
 

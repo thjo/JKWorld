@@ -82,7 +82,44 @@ namespace LeetCode
 
 
 
+        //public int LadderLength(string beginWord, string endWord, IList<string> wordList)
+        //{
+        //    Queue<string> queue = new Queue<string>();
+        //}
 
+        #endregion
+
+
+
+        #region | Online Interview - 3/27/2022 | 
+
+        /// <summary>
+        /// 541. Reverse String II
+        /// https://leetcode.com/problems/reverse-string-ii/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public string ReverseStr(string s, int k)
+        {
+            char[] strs = s.ToCharArray();
+            for (int i = 0; i < strs.Length; i += 2*k)
+            {
+                int start = i, end = Math.Min(i + k-1, strs.Length-1);
+                while (start < end)
+                {
+                    char tmp = strs[start];
+                    strs[start] = strs[end];
+                    strs[end] = tmp;
+                    start++;
+                    end--;
+                }
+            }
+            string newStr = "";
+            foreach (char c in strs)
+                newStr += c;
+            return newStr;
+        }
 
         #endregion
     }

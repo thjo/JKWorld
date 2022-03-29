@@ -8,6 +8,9 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
+            Algorithm_II aII = new Algorithm_II();
+            aII.Find(0);
+
             //ProgrammingSkills_I pk = new ProgrammingSkills_I();
             //pk.ToLowerCase("Hello");
 
