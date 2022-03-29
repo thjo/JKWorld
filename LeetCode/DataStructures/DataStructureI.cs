@@ -664,7 +664,53 @@ namespace LeetCode.DataStructures
         }
 
 
+        /// <summary>
+        /// 653. Two Sum IV - Input is a BST
+        /// https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public bool FindTarget(TreeNode root, int k)
+        {
+            //HashSet<int> sets = new HashSet<int>();
+            //return FindTargetR(root, k, sets);
 
+            List<int> sortedList = new List<int>();
+            InOrderTrav(root, sortedList);
+            int l = 0, r = sortedList.Count - 1;
+            while (l < r)
+            {
+                if (sortedList[l] + sortedList[r] == k)
+                    return true;
+                else if (sortedList[l] + sortedList[r] > k)
+                    r--;
+                else
+                    l++;
+            }
+            return false;
+        }
+        private void InOrderTrav(TreeNode root, List<int> sortedList)
+        {
+            if (root == null)
+                return;
+
+            InOrderTrav(root.left, sortedList);
+            sortedList.Add(root.val);
+            InOrderTrav(root.right, sortedList);
+        }
+        private bool FindTargetR(TreeNode root, int k, HashSet<int> sets)
+        {
+            if (root == null)
+                return false;
+
+            if (sets.Contains(k - root.val))
+                return true;
+            sets.Add(root.val);
+
+            return FindTargetR(root.left, k, sets) ||
+                FindTargetR(root.right, k, sets);
+        }
 
     }
 }
