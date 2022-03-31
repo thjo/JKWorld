@@ -34,6 +34,62 @@ namespace LeetCode
             return res;
         }
 
+        /// <summary>
+        /// 121. Best Time to Buy and Sell Stock
+        /// https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+        /// </summary>
+        /// <param name="prices"></param>
+        /// <returns></returns>
+        public int MaxProfit(int[] prices)
+        {
+            int maxProfit = 0;
+
+            if (prices.Length <= 1)
+                return maxProfit;
+
+            int startPrice = prices[0];
+            for (int i = 1; i < prices.Length; i++)
+            {
+                if (startPrice > prices[i])
+                    startPrice = prices[i];
+                else if (startPrice < prices[i])
+                {
+                    maxProfit = Math.Max(maxProfit, prices[i] - startPrice);
+                }
+
+            }
+
+            return maxProfit;
+        }
+
+        /// <summary>
+        /// 217. Contains Duplicate
+        /// https://leetcode.com/problems/contains-duplicate/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public bool ContainsDuplicate(int[] nums)
+        {
+            bool retVal = false;
+            if (nums == null || nums.Length < 2)
+                return retVal;
+
+            HashSet<int> set = new HashSet<int>();
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (set.Contains(nums[i]))
+                {
+                    retVal = true;
+                    break;
+                }
+                else
+                    set.Add(nums[i]);
+            }
+
+            return retVal;
+        }
+
+
         #endregion
 
 
@@ -51,6 +107,25 @@ namespace LeetCode
             return 0;
         }
 
+
+        /// <summary>
+        /// 191. Number of 1 Bits
+        /// https://leetcode.com/problems/number-of-1-bits/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int HammingWeight(uint n)
+        {
+            int retVal = 0;
+            while ((n | 0) > 0)
+            {
+                if ((n & 1) > 0)
+                    retVal++;
+                n = n >> 1;
+            }
+
+            return retVal;
+        }
 
         #endregion
 
@@ -75,6 +150,59 @@ namespace LeetCode
                 dp[i] = dp[i - 1] + dp[i - 2];
 
             return dp[n];
+        }
+
+
+        /// <summary>
+        /// 322. Coin Change
+        /// https://leetcode.com/problems/coin-change/
+        /// </summary>
+        /// <param name="coins"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        public int CoinChange(int[] coins, int amount)
+        {
+            if (amount <= 0)
+                return 0;
+            else if (coins == null || coins.Length == 0)
+                return -1;
+
+            //Dictionary<int, int> dp = new Dictionary<int, int>();
+            //CoinChange(coins, amount, dp, amount);
+            int max = amount + 1;
+            int[] dp = new int[amount + 1];
+            for (int i = 0; i < dp.Length; i++)
+                dp[i] = max;
+            dp[0] = 0;
+            for(int i = 1; i <= amount; i++)
+            {
+                for(int j = 0; j < coins.Length; j++)
+                {
+                    if( coins[j] <= i)
+                    {
+                        dp[i] = Math.Min(dp[i], dp[i - coins[j]] + 1);
+                    }
+                }
+            }
+            return dp[amount] == amount + 1 ? -1 : dp[amount];
+        }
+        private int CoinChange(int[] coins, int amt, Dictionary<int, int> dp, int orgAmt)
+        {
+            if (amt < 0)
+                return orgAmt + 1;
+            else if (amt == 0)
+                return 0;
+            if (dp.ContainsKey(amt))
+                return dp[amt];
+
+            int min = orgAmt + 1;
+            foreach (int c in coins)
+            {
+                min = Math.Min(min, 1 + CoinChange(coins, amt - c, dp, orgAmt));
+            }
+            dp.Add(amt, min);
+
+            return min;
         }
 
 
@@ -145,6 +273,21 @@ namespace LeetCode
             return visited[node];
         }
 
+
+        /// <summary>
+        /// 207. Course Schedule
+        /// https://leetcode.com/problems/course-schedule/
+        /// </summary>
+        /// <param name="numCourses"></param>
+        /// <param name="prerequisites"></param>
+        /// <returns></returns>
+        public bool CanFinish(int numCourses, int[][] prerequisites)
+        {
+
+        }
+
+
+
         #endregion
 
 
@@ -199,6 +342,19 @@ namespace LeetCode
             return output;
         }
 
+
+        /// <summary>
+        /// 56. Merge Intervals
+        /// https://leetcode.com/problems/merge-intervals/
+        /// </summary>
+        /// <param name="intervals"></param>
+        /// <returns></returns>
+        public int[][] Merge(int[][] intervals)
+        {
+
+        }
+
+
         #endregion
 
 
@@ -244,6 +400,32 @@ namespace LeetCode
             }
 
             return prev;
+        }
+
+        /// <summary>
+        /// 141. Linked List Cycle
+        /// https://leetcode.com/problems/linked-list-cycle/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public bool HasCycle(ListNode head)
+        {
+            if (head == null || head.next == null)
+                return false;
+
+            ListNode slow = head.next;
+            ListNode fast = head.next.next;
+
+            while (slow != fast)
+            {
+                if (fast == null || fast.next == null)
+                    return false;
+
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+
+            return true;
         }
 
         #endregion
@@ -338,6 +520,11 @@ namespace LeetCode
             //}
         }
 
+
+
+
+
+
         #endregion
 
 
@@ -407,6 +594,50 @@ namespace LeetCode
 
             MaxDepthopDown(root.left, depth + 1, ref finalAnswer);
             MaxDepthopDown(root.right, depth + 1, ref finalAnswer);
+        }
+
+
+        /// <summary>
+        /// 100. Same Tree
+        /// https://leetcode.com/problems/same-tree/
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="q"></param>
+        /// <returns></returns>
+        public bool IsSameTree(TreeNode p, TreeNode q)
+        {
+            if (p == null && q == null)
+                return true;
+            else if (p == null || q == null)
+                return false;
+
+            if (p.val != q.val)
+                return false;
+            else
+            {
+                return IsSameTree(p.left, q.left) && IsSameTree(p.right, q.right);
+            }
+        }
+
+        /// <summary>
+        /// 226. Invert Binary Tree
+        /// https://leetcode.com/problems/invert-binary-tree/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public TreeNode InvertTree(TreeNode root)
+        {
+            if (root == null)
+                return root;
+
+
+            TreeNode tmp = root.left;
+            root.left = root.right;
+            root.right = tmp;
+
+            InvertTree(root.left);
+            InvertTree(root.right);
+            return root;
         }
 
         #endregion
