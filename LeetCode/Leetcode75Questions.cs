@@ -283,7 +283,7 @@ namespace LeetCode
         /// <returns></returns>
         public bool CanFinish(int numCourses, int[][] prerequisites)
         {
-
+            return false;
         }
 
 
@@ -351,7 +351,7 @@ namespace LeetCode
         /// <returns></returns>
         public int[][] Merge(int[][] intervals)
         {
-
+            return null;
         }
 
 
@@ -521,7 +521,96 @@ namespace LeetCode
         }
 
 
+        /// <summary>
+        /// 54. Spiral Matrix
+        /// https://leetcode.com/problems/spiral-matrix/
+        /// </summary>
+        /// <param name="matrix"></param>
+        /// <returns></returns>
+        public IList<int> SpiralOrder(int[][] matrix)
+        {
+            IList<int> visitedIdx = new List<int>();
+            IList<int> visited = new List<int>();
+            int direction = 0;      //0: left, 1: Down, 2:Right, 3: Up
+            int m = matrix.Length;      //# of rows
+            int n = matrix[0].Length;   //# of cols
+            int row = 0, col = 0;
+            int curridx = 0;
+            while (visited.Count < m * n)
+            {
+                curridx = row * n + col;
+                if (direction == 0)
+                {
+                    //Left
+                    if (col >= n || visitedIdx.Contains(curridx))
+                    {
+                        //Change the direction to Down
+                        direction = 1;
+                        col--;
+                        row++;
+                    }
+                    else
+                    {
+                        visitedIdx.Add(curridx);
+                        visited.Add(matrix[row][col]);
+                        col++;
+                    }
+                }
+                else if (direction == 1)
+                {
+                    //Down
+                    if (row >= m || visitedIdx.Contains(curridx))
+                    {
+                        //Change the direction to Right
+                        direction = 2;
+                        row--;
+                        col--;
+                    }
+                    else
+                    {
+                        visitedIdx.Add(curridx);
+                        visited.Add(matrix[row][col]);
+                        row++;
+                    }
+                }
+                else if (direction == 2)
+                {
+                    //Right
+                    if (col < 0 || visitedIdx.Contains(curridx))
+                    {
+                        //Change the direction to Up
+                        direction = 3;
+                        col++;
+                        row--;
+                    }
+                    else
+                    {
+                        visitedIdx.Add(curridx);
+                        visited.Add(matrix[row][col]);
+                        col--;
+                    }
+                }
+                else
+                {
+                    //Up
+                    if (row < 0 || visitedIdx.Contains(curridx))
+                    {
+                        //Change the direction to Left
+                        direction = 0;
+                        row++;
+                        col++;
+                    }
+                    else
+                    {
+                        visitedIdx.Add(curridx);
+                        visited.Add(matrix[row][col]);
+                        row--;
+                    }
+                }
+            }
 
+            return visited;
+        }
 
 
 
@@ -565,6 +654,18 @@ namespace LeetCode
             return longestLen;
         }
 
+
+        /// <summary>
+        /// 424. Longest Repeating Character Replacement
+        /// https://leetcode.com/problems/longest-repeating-character-replacement/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public int CharacterReplacement(string s, int k)
+        {
+            return -1;
+        }
 
         #endregion
 

@@ -122,5 +122,123 @@ namespace LeetCode
         }
 
         #endregion
+
+
+
+        #region | Online Interview - 4/3/2022 | 
+
+        /// <summary>
+        /// 994. Rotting Oranges
+        /// https://leetcode.com/problems/rotting-oranges/
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public int OrangesRotting(int[][] grid)
+        {
+            int[][] directions = new int[4][];
+            directions[0] = new int[2] { 1, 0 };
+            directions[1] = new int[2] { 0, 1 };
+            directions[2] = new int[2] { -1, 0 };
+            directions[3] = new int[2] { 0, -1 };
+            int rowLen = grid.Length;
+            int colLen = grid[0].Length;
+
+            Queue<int[]> rottenOrangs = new Queue<int[]>();
+            int freshOranges = 0;
+            for (int r = 0; r < grid.Length; r++)
+            {
+                for (int c = 0; c < grid[r].Length; c++)
+                {
+                    if (grid[r][c] == 2)
+                    {
+                        List<int> loc = new List<int>();
+                        loc.Add(r); loc.Add(c);
+                        rottenOrangs.Enqueue(new int[] { r, c, 0 });
+                    }
+                    else if (grid[r][c] == 1)
+                        freshOranges++;
+                }
+            }
+
+            int numfMins = 0;
+            while (rottenOrangs.Count > 0)
+            {
+                var map = rottenOrangs.Dequeue();
+                numfMins = Math.Max(map[2], numfMins);
+                for (int i = 0; i < directions.Length; i++)
+                {
+                    int x = map[0] + directions[i][0];
+                    int y = map[1] + directions[i][1];
+                    if (x >= 0 && x < rowLen && y >= 0 && y < colLen && grid[x][y] == 1)
+                    {
+                        grid[x][y] = 2;
+                        freshOranges--;
+                        rottenOrangs.Enqueue(new int[] { x, y, (map[2] + 1) });
+                    }
+                }
+            }
+
+            return freshOranges > 0 ? -1 : numfMins;
+        }
+
+        /// <summary>
+        /// 59. Spiral Matrix II
+        /// https://leetcode.com/problems/spiral-matrix-ii/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int[][] GenerateMatrix(int n)
+        {
+            int[][] matrix = new int[n][];
+            for (int i = 0; i < n; i++)
+            {
+                matrix[i] = new int[n];
+                for (int j = 0; j < n; j++)
+                    matrix[i][j] = -1;
+            }
+
+            int[][] dir = new int[4][];
+            dir[0] = new int[] { 0, 1 };
+            dir[1] = new int[] { 1, 0 };
+            dir[2] = new int[] { 0, -1 };
+            dir[3] = new int[] { -1, 0 };
+
+            int d = 0;
+            int num = 1;
+            int row = 0, col = 0;
+            while (num <= n * n)
+            {
+                matrix[row][col] = num;
+                int newRow = row + dir[d][0];
+                int newCol = col + dir[d][1];
+                if (newRow >= 0 && newRow < n
+                  && newCol >= 0 && newCol < n
+                  && matrix[newRow][newCol] == -1)
+                {
+                    row = newRow;
+                    col = newCol;
+                    num++;
+                }
+                else
+                {
+                    if (num >= n * n)
+                        break;
+
+                    if (d == 3)
+                        d = 0;
+                    else
+                        d++;
+                }
+            }
+
+            return matrix;
+
+        }
+        
+        
+        #endregion
+
+
+
     }
 }

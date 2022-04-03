@@ -8,6 +8,14 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
+            AmazonAssessment aaaa = new AmazonAssessment();
+            //int[][] grid = new int[3][];
+            //grid[0] = new int[3] { 2, 1, 1 };
+            //grid[1] = new int[3] { 1, 1, 0 };
+            //grid[2] = new int[3] { 0, 1, 1 };
+            //aaaa.OrangesRotting(grid);
+            aaaa.GenerateMatrix(3);
+
             Algorithm_II aII = new Algorithm_II();
             aII.Find(0);
 
