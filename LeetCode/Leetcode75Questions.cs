@@ -663,7 +663,30 @@ namespace LeetCode
         /// <returns></returns>
         public int CharacterReplacement(string s, int k)
         {
-            return -1;
+            int n = s.Length;
+            int[] letterCnts = new int[26];
+            for (int i = 0; i < 26; i++)
+                letterCnts[i] = 0;
+
+            int windowStart = 0;
+            int maxCnt = 0;
+            int longestLen = 0;
+            for(int windowEnd = 0; windowEnd < n; windowEnd++)
+            {
+                letterCnts[s[windowEnd] - 'A']++;
+                int currCharCnt = letterCnts[s[windowEnd] - 'A'];
+                maxCnt = Math.Max(maxCnt, currCharCnt);
+
+                while (windowEnd - windowStart - maxCnt + 1 > k)
+                {
+                    letterCnts[s[windowStart] - 'A']--;
+                    windowStart++;
+                }
+
+                longestLen = Math.Max(longestLen, windowEnd - windowStart + 1);
+            }
+
+            return longestLen;
         }
 
         #endregion

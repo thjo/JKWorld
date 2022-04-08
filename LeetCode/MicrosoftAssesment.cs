@@ -1942,6 +1942,9 @@ namespace LeetCode
             return MinDistance(rows, row) + MinDistance(cols, col);
         }
         #endregion
+
+
+
     }
     public class TrieNode
     {
