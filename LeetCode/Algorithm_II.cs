@@ -74,11 +74,40 @@ namespace LeetCode
         /// <returns></returns>
         public int Search(int[] nums, int target)
         {
-            int retIdx = -1;
-            int n = nums.Length - 1;
-            retIdx = SearchB(nums, target, 0, n);
+            int n = nums.Length;
+            int left = 0, right = n - 1;
+            while (left <= right)
+            {
+                int mid = left + (right - left) / 2;
+                if (nums[mid] == target)
+                    return mid;
 
-            return retIdx;
+                ///* If arr[l...mid] is sorted */
+                //if mid = 0, so add =
+                if (nums[0] <= nums[mid])
+                {
+                    if (nums[mid] > target && nums[0] <= target)
+                        right = mid - 1;
+                    else
+                        left = mid + 1;
+                }
+                else
+                {
+                    // arr[mid+1...r] is sorted
+                    if (target > nums[mid] && target <= nums[n - 1])
+                        left = mid + 1;
+                    else
+                        right = mid - 1;
+                }
+            }
+
+            return -1;
+
+            //int retIdx = -1;
+            //int n = nums.Length - 1;
+            //retIdx = SearchB(nums, target, 0, n);
+
+            //return retIdx;
         }
         private int SearchB(int[] nums, int target, int startIdx, int endIdx)
         {
