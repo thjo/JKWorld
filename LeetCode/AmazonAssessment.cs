@@ -239,6 +239,61 @@ namespace LeetCode
         #endregion
 
 
+        public int CountDecreasingRatings(int[] ratings)
+        {
+            if (ratings == null || ratings.Length < 2)
+                return 0;
+            else if (ratings.Length < 2)
+                return 0;
 
+            int cnt = 0;
+            int n = ratings.Length;
+            for (int startIdx = 0; startIdx < n; startIdx++)
+            {
+                bool isBreak = false;
+                for (int period = 1; period <= n; period++)
+                {
+                    if (isBreak)
+                        break;
+
+                    bool isIncreasing = false;
+                    int currIdx = startIdx;
+                    while (isIncreasing == false && period > currIdx-startIdx+1 && currIdx < n-1)
+                    {
+                        if ((ratings[currIdx] - 1) == (ratings[currIdx + 1]))
+                            currIdx++;
+                        else
+                        {
+                            isIncreasing = true;
+                            isBreak = true;
+                        }
+                    }
+                    if (isBreak ==false && isIncreasing == false)
+                        cnt++;
+                }
+  
+            }
+    
+
+            //for (int period = 1; period <= n ; period++)
+            //{
+            //    for (int startIdx = 0; startIdx <= n - period; startIdx++)
+            //    {
+            //        int currIdx = startIdx;
+            //        bool isIncreasing = false;
+            //        while (period != 1 && isIncreasing == false && currIdx < startIdx + period-1)
+            //        {
+            //            if ( (ratings[currIdx]-1) == (ratings[currIdx + 1]))
+            //                currIdx++;
+            //            else
+            //                isIncreasing = true;
+            //        }
+            //        if (isIncreasing == false)
+            //            cnt++;
+            //    }
+            //}
+
+            return cnt;
+        }
     }
 }
