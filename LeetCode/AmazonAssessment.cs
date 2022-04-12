@@ -90,7 +90,6 @@ namespace LeetCode
         #endregion
 
 
-
         #region | Online Interview - 3/27/2022 | 
 
         /// <summary>
@@ -122,7 +121,6 @@ namespace LeetCode
         }
 
         #endregion
-
 
 
         #region | Online Interview - 4/3/2022 | 
@@ -234,9 +232,91 @@ namespace LeetCode
             return matrix;
 
         }
-        
-        
+
+
         #endregion
+
+
+        #region | Online Interview - 4/11/2022 | 
+
+        /// <summary>
+        /// 1331. Rank Transform of an Array
+        /// https://leetcode.com/problems/rank-transform-of-an-array/
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public int[] ArrayRankTransform(int[] arr)
+        {
+            Dictionary<int, List<int>> map = new Dictionary<int, List<int>>();
+            int n = arr.Length;
+            for (int i = 0; i < n; i++)
+            {
+                if (map.ContainsKey(arr[i]))
+                    map[arr[i]].Add(i);
+                else
+                {
+                    List<int> buff = new List<int>();
+                    buff.Add(i);
+                    map.Add(arr[i], buff);
+                }
+            }
+            Array.Sort(arr);
+            int[] res = new int[n];
+            int rank = 1;
+            for (int i = 0; i < n; i++)
+            {
+                if (map.ContainsKey(arr[i]))
+                {
+                    foreach (int idx in map[arr[i]])
+                        res[idx] = rank;
+                    map.Remove(arr[i]);
+                    rank++;
+                }
+            }
+
+            return res;
+        }
+
+
+        /// <summary>
+        /// 1214. Two Sum BSTs
+        /// https://leetcode.com/problems/two-sum-bsts/
+        /// </summary>
+        /// <param name="root1"></param>
+        /// <param name="root2"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public bool TwoSumBSTs(TreeNode root1, TreeNode root2, int target)
+        {
+            HashSet<int> map = new HashSet<int>();
+            SetDicMap(root1, map);
+
+            return TwoSumBSTsRR(root2, target, map);
+        }
+        private void SetDicMap(TreeNode root, HashSet<int> map)
+        {
+            if (root == null)
+                return;
+
+            SetDicMap(root.left, map);
+            if (map.Contains(root.val) == false)
+                map.Add(root.val);
+            SetDicMap(root.right, map);
+        }
+        private bool TwoSumBSTsRR(TreeNode root, int target, HashSet<int> map)
+        {
+            if (root == null)
+                return false;
+
+            if (map.Contains(target - root.val))
+                return true;
+
+            return TwoSumBSTsRR(root.left, target, map) || TwoSumBSTsRR(root.right, target, map);
+        }
+
+
+        #endregion
+
 
 
         public int CountDecreasingRatings(int[] ratings)
