@@ -1469,6 +1469,37 @@ namespace LeetCode
 
 
         #endregion
+
+
+
+        /// <summary>
+        /// 1608. Special Array With X Elements Greater Than or Equal X
+        /// https://leetcode.com/problems/special-array-with-x-elements-greater-than-or-equal-x/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int SpecialArray(int[] nums)
+        {
+            int n = nums.Length;
+            Array.Sort(nums);
+            int min = Math.Min(nums[0], n);
+            int max = Math.Min(nums[n - 1], n);
+            int val = min;
+            int idx = 0;
+            while (val <= max)
+            {
+                if (val == n - idx)
+                    return val;
+                while (idx < n && nums[idx] <= val)
+                    idx++;
+
+                val++;
+            }
+
+            return -1;
+        }
+
+
     }
     public class CTransaction
     {

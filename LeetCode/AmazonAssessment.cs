@@ -318,6 +318,79 @@ namespace LeetCode
         #endregion
 
 
+        #region | Online Interview - 4/13/2022 | 
+
+        public int[] RelativeSortArray(int[] arr1, int[] arr2)
+        {
+            int n1 = arr1.Length;
+            int n2 = arr2.Length;
+
+            int[] res = new int[n1];
+            Dictionary<int, int> arr1Dic = new Dictionary<int, int>();
+            foreach (int val in arr1)
+            {
+                if (arr1Dic.ContainsKey(val))
+                    arr1Dic[val]++;
+                else
+                    arr1Dic.Add(val, 1);
+            }
+
+            int idxArr2 = 0, idxNew = 0;
+            while (idxArr2 < n2)
+            {
+                int v2 = arr2[idxArr2];
+                while (arr1Dic[v2] > 0)
+                {
+                    res[idxNew++] = v2;
+                    arr1Dic[v2]--;
+                }
+                arr1Dic.Remove(v2);
+                idxArr2++;
+            }
+            if (arr1Dic.Count > 0)
+            {
+                int[] tmp = new int[n1 - idxNew];
+                int i = 0;
+                foreach (var v in arr1Dic)
+                {
+                    for (int k = 0; k < v.Value; k++)
+                        tmp[i++] = v.Key;
+                }
+                Array.Sort(tmp);
+                for (int j = 0; j < tmp.Length; j++)
+                    res[idxNew++] = tmp[j];
+            }
+            return res;
+        }
+
+
+        private readonly int MOD = 1000000007;
+        private Dictionary<String, int> mem = new Dictionary<string, int>();
+        public int NumRollsToTarget(int d, int f, int target)
+        {
+            if (d == 0 && target == 0)
+                return 1;
+
+            if (d <= 0 || target <= 0)
+                return 0;
+
+            String key = d + "_" + target;
+            if (mem.ContainsKey(key))
+                return mem[key];
+
+            int ans = 0;
+            for (int i = 1; i <= f && i <= target; i++)
+            {
+                ans = (ans + NumRollsToTarget(d - 1, f, target - i)) % MOD;
+            }
+            mem.Add(key, ans);
+            return ans;
+        }
+
+
+        #endregion
+
+
 
         public int CountDecreasingRatings(int[] ratings)
         {
@@ -375,5 +448,6 @@ namespace LeetCode
 
             return cnt;
         }
+
     }
 }

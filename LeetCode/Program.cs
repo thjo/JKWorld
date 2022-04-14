@@ -15,8 +15,10 @@ namespace LeetCode
             //grid[2] = new int[3] { 0, 1, 1 };
             //aaaa.OrangesRotting(grid);
             //aaaa.GenerateMatrix(3);
-            aaaa.CountDecreasingRatings(new int[] { 2, 1, 3 });
-
+            //aaaa.CountDecreasingRatings(new int[] { 2, 1, 3 });
+            //aaaa.RelativeSortArray(new int[] { 2, 21, 43, 38, 0, 42, 33, 7, 24, 13, 12, 27, 12, 24, 5, 23, 29, 48, 30, 31 }
+            //                     , new int[] { 2, 42, 38, 0, 43, 21 });
+            aaaa.NumRollsToTarget(2, 6, 7);
             //Algorithm_II aII = new Algorithm_II();
             //aII.Find(0);
             //aII.Search(new int[] { 1, 3 }, 3);
