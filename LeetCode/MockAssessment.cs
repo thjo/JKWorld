@@ -1500,6 +1500,63 @@ namespace LeetCode
         }
 
 
+        /// <summary>
+        /// 1365. How Many Numbers Are Smaller Than the Current Number
+        /// https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int[] SmallerNumbersThanCurrent(int[] nums)
+        {
+            //int n = nums.Length;
+            //int[] res = new int[n];
+
+            //Dictionary<int, int> map = new Dictionary<int, int>();
+            //int[] sortedNums = new int[n];
+            //Array.Copy(nums, sortedNums, n);
+            //Array.Sort(sortedNums);
+            //int cnt = 0;
+            //int idx = 0;
+            //while (idx < n)
+            //{
+            //    int currVal = sortedNums[idx];
+            //    int numOfVal = 1;
+            //    while ((idx + numOfVal) < n && currVal == sortedNums[idx + numOfVal])
+            //        numOfVal++;
+
+            //    map.Add(currVal, cnt);
+            //    idx += numOfVal;
+            //    cnt += numOfVal;
+            //}
+            //for (int i = 0; i < n; i++)
+            //{
+            //    res[i] = map[nums[i]];
+            //}
+
+            //return res;
+
+
+            int[] sort = new int[101];
+            int sum = 0;
+            for (int i = 0; i < nums.Length; i++)
+                sort[nums[i]]++;
+
+            for (int i = 0; i < sort.Length; i++)
+            {
+                sum += sort[i];
+                sort[i] = sum;
+            }
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] != 0)
+                    nums[i] = sort[nums[i] - 1];
+                else
+                    nums[i] = 0;
+            }
+            return nums;
+        }
+
+
     }
     public class CTransaction
     {

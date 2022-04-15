@@ -391,6 +391,67 @@ namespace LeetCode
         #endregion
 
 
+        #region | Online Interview - 4/14/2022 | 
+
+
+        public int DietPlanPerformance(int[] calories, int k, int lower, int upper)
+        {
+            int totalPoints = 0;
+            int n = calories.Length;
+            if (n < k)
+                return 0;
+
+            int startIdx = 0, endIdx = 0;
+            int sum = 0;
+            while (endIdx < k)
+            {
+                sum += calories[endIdx++];
+            }
+            //Check 
+            if (sum > upper)
+                totalPoints++;
+            else if (sum < lower)
+                totalPoints--;
+
+            while (endIdx < n)
+            {
+                sum += calories[endIdx++];
+                sum -= calories[startIdx++];
+
+                //Check 
+                if (sum > upper)
+                    totalPoints++;
+                else if (sum < lower)
+                    totalPoints--;
+            }
+
+            return totalPoints;
+        }
+
+
+        public bool IsSubtree(TreeNode root, TreeNode subRoot)
+        {
+            if (root == null)
+                return false;
+            else if (root.val == subRoot.val && IsSameTree(root, subRoot))
+                return true;
+            else
+                return IsSubtree(root.left, subRoot) || IsSubtree(root.right, subRoot);
+        }
+        private bool IsSameTree(TreeNode t1, TreeNode t2)
+        {
+            if (t1 == null && t2 == null)
+                return true;
+            else if (t1 == null || t2 == null)
+                return false;
+
+            return t1.val == t2.val && IsSameTree(t1.left, t2.left) && IsSameTree(t1.right, t2.right);
+        }
+
+        #endregion
+
+
+
 
         public int CountDecreasingRatings(int[] ratings)
         {
