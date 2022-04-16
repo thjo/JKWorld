@@ -18,7 +18,21 @@ namespace LeetCode
             //aaaa.CountDecreasingRatings(new int[] { 2, 1, 3 });
             //aaaa.RelativeSortArray(new int[] { 2, 21, 43, 38, 0, 42, 33, 7, 24, 13, 12, 27, 12, 24, 5, 23, 29, 48, 30, 31 }
             //                     , new int[] { 2, 42, 38, 0, 43, 21 });
-            aaaa.NumRollsToTarget(2, 6, 7);
+            //aaaa.NumRollsToTarget(2, 6, 7);
+            IList<IList<string>> syn = new List<IList<string>>();
+            IList<string> buff = new List<string>();
+            buff.Add("happy");
+            buff.Add("joy");
+            syn.Add(buff);
+            buff = new List<string>();
+            buff.Add("sad");
+            buff.Add("sorroow");
+            syn.Add(buff);
+            buff = new List<string>();
+            buff.Add("joy");
+            buff.Add("cheerful");
+            syn.Add(buff);
+            aaaa.GenerateSentences(syn, "I am happy today but was sad yesterday");
             //Algorithm_II aII = new Algorithm_II();
             //aII.Find(0);
             //aII.Search(new int[] { 1, 3 }, 3);

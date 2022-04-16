@@ -393,7 +393,14 @@ namespace LeetCode
 
         #region | Online Interview - 4/14/2022 | 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="calories"></param>
+        /// <param name="k"></param>
+        /// <param name="lower"></param>
+        /// <param name="upper"></param>
+        /// <returns></returns>
         public int DietPlanPerformance(int[] calories, int k, int lower, int upper)
         {
             int totalPoints = 0;
@@ -428,7 +435,12 @@ namespace LeetCode
             return totalPoints;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="subRoot"></param>
+        /// <returns></returns>
         public bool IsSubtree(TreeNode root, TreeNode subRoot)
         {
             if (root == null)
@@ -451,6 +463,107 @@ namespace LeetCode
         #endregion
 
 
+        #region | Online Interview - 4/15/2022 | 
+
+        public class TreeNodeEx
+        {
+            public TreeNode Node;
+            //public int Depth;
+            public int Total;
+            public TreeNodeEx(TreeNode node, int prevVal)
+            {
+                Node = node;
+                Total = prevVal * 2 + node.val;
+            }
+        }
+        public int SumRootToLeaf(TreeNode root)
+        {
+            int sum = 0;
+            if (root == null)
+                return sum;
+
+            Queue<TreeNodeEx> tree = new Queue<TreeNodeEx>();
+            tree.Enqueue(new TreeNodeEx(root, 0));
+            while (tree.Count > 0)
+            {
+                TreeNodeEx node = tree.Dequeue();
+                if (node.Node.left == null && node.Node.right == null)
+                    sum += node.Total;
+                else
+                {
+                    if (node.Node.left != null)
+                        tree.Enqueue(new TreeNodeEx(node.Node.left, node.Total));
+                    if (node.Node.right != null)
+                        tree.Enqueue(new TreeNodeEx(node.Node.right, node.Total));
+                }
+            }
+
+            return sum;
+        }
+
+
+        public IList<string> GenerateSentences(IList<IList<string>> synonyms, string text)
+        {
+            string[] words = text.Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+
+            IList<IList<string>> dic = new List<IList<string>>();
+            foreach (string word in words) {
+                IList<string> tmp = new List<string>();
+                tmp.Add(word);
+                dic.Add(tmp);
+            }
+            bool isContinue = true;
+            int idx = 0;
+            while (isContinue)
+            {
+                isContinue = false;
+                for (int i = 0; i < dic.Count; i++) {
+                    IList<string> map = dic[i];
+                    for (int j = 0; j < synonyms.Count; j++)
+                    {
+                        if (map.Count > idx && map[idx] == synonyms[j][0])
+                        {
+                            if (map.Contains(synonyms[j][1]) == false)
+                            {
+                                map.Add(synonyms[j][1]);
+                                isContinue = true;
+                            }
+                        }
+                    }
+                }
+                idx++;
+            }
+
+            IList<string> res = new List<string>();
+            for (int i = 0; i < words.Length; i++)
+            {
+                if (i == 0)
+                {
+                    res.Add(words[i]);
+                    for (int j = 1; j < dic[i].Count; j++)
+                        res.Add(dic[i][j]);
+                }
+                else
+                {
+                    string[] buff = new string[res.Count];
+                    for (int tt = 0; tt < res.Count; tt++)
+                        buff[tt] = res[tt];
+                    for (int r = 0; r < buff.Length; r++)
+                        res[r] += " " + words[i];
+
+                    for (int j = 1; j < dic[i].Count; j++)
+                    {
+                        for (int r = 0; r < buff.Length; r++)
+                            res.Add(buff[r] += " " + dic[i][j]);
+                    }
+                }
+            }
+
+            return res;
+        }
+
+
+        #endregion
 
 
         public int CountDecreasingRatings(int[] ratings)
