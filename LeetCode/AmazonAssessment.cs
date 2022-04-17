@@ -504,66 +504,137 @@ namespace LeetCode
 
         public IList<string> GenerateSentences(IList<IList<string>> synonyms, string text)
         {
-            string[] words = text.Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            Dictionary<string, IList<string>> dicBooks = new Dictionary<string, IList<string>>();
 
-            IList<IList<string>> dic = new List<IList<string>>();
-            foreach (string word in words) {
-                IList<string> tmp = new List<string>();
-                tmp.Add(word);
-                dic.Add(tmp);
-            }
-            bool isContinue = true;
-            int idx = 0;
-            while (isContinue)
+            for (int i = 0; i < synonyms.Count; i++)
             {
-                isContinue = false;
-                for (int i = 0; i < dic.Count; i++) {
-                    IList<string> map = dic[i];
-                    for (int j = 0; j < synonyms.Count; j++)
+                AddWord(dicBooks, synonyms[i][0], synonyms[i][1]);
+                AddWord(dicBooks, synonyms[i][1], synonyms[i][0]);
+            }
+            //happy > joy
+            //joy > happy > cheerful
+            //sad > sorrow
+            //sorrow > sad
+            // cheerful > joy
+
+            Queue<string> q = new Queue<string>();
+            IList<string> res = new List<string>();
+            q.Enqueue(text);
+            text.Split(new char[] { })
+            while (q.Count > 0)
+            {
+                string currText = q.Dequeue();
+                if(res.Contains(currText) == false)
+                    res.Add(currText);
+
+                string[] words = currText.Split(" ".ToCharArray());
+                for (int i = 0; i < words.Length; i++)
+                {
+                    if (dicBooks.ContainsKey(words[i]))
                     {
-                        if (map.Count > idx && map[idx] == synonyms[j][0])
+                        foreach (var s in dicBooks[words[i]])
                         {
-                            if (map.Contains(synonyms[j][1]) == false)
-                            {
-                                map.Add(synonyms[j][1]);
-                                isContinue = true;
-                            }
+                            words[i] = s;
+                            string newText = String.Join(" ", words);
+                            if (res.Contains(newText) == false)
+                                q.Enqueue(newText);
                         }
                     }
                 }
-                idx++;
             }
 
-            IList<string> res = new List<string>();
-            for (int i = 0; i < words.Length; i++)
-            {
-                if (i == 0)
-                {
-                    res.Add(words[i]);
-                    for (int j = 1; j < dic[i].Count; j++)
-                        res.Add(dic[i][j]);
-                }
-                else
-                {
-                    string[] buff = new string[res.Count];
-                    for (int tt = 0; tt < res.Count; tt++)
-                        buff[tt] = res[tt];
-                    for (int r = 0; r < buff.Length; r++)
-                        res[r] += " " + words[i];
-
-                    for (int j = 1; j < dic[i].Count; j++)
-                    {
-                        for (int r = 0; r < buff.Length; r++)
-                            res.Add(buff[r] += " " + dic[i][j]);
-                    }
-                }
-            }
+            string[] results = new string[res.Count];
+            res.CopyTo(results, 0);
+            Array.Sort(results);
+            res.Clear();
+            foreach (string s in results)
+                res.Add(s);
 
             return res;
         }
 
+        private void AddWord(Dictionary<string, IList<string>> dicBooks, string w1, string w2)
+        {
+            if (dicBooks.ContainsKey(w1) == false)
+                dicBooks.Add(w1, new List<string>());
+            dicBooks[w1].Add(w2);
+        }
+
 
         #endregion
+
+
+        #region | Online Interview - 4/16/2022 | 
+
+        public string MostCommonWord(string paragraph, string[] banned)
+        {
+            HashSet<string> banWords = new HashSet<string>();
+            foreach (string b in banned)
+            {
+                if (banWords.Contains(b) == false)
+                    banWords.Add(b);
+            }
+            Dictionary<string, int> pDic = new Dictionary<string, int>();
+            int max = 0;
+            string res = "";
+            paragraph = paragraph.ToLower();
+            string w = "";
+            foreach (char c in paragraph)
+            {
+                if (c >= 'a' && c <= 'z')
+                    w += c;
+                else if (w != "")
+                {
+                    if (banWords.Contains(w) == false)
+                    {
+                        if (pDic.ContainsKey(w))
+                            pDic[w]++;
+                        else
+                            pDic.Add(w, 1);
+
+                        if (pDic[w] > max)
+                        {
+                            res = w;
+                            max = pDic[w];
+                        }
+                    }
+                    w = "";
+                }
+            }
+            if (w != "")
+            {
+                if (banWords.Contains(w) == false)
+                {
+                    if (pDic.ContainsKey(w))
+                        pDic[w]++;
+                    else
+                        pDic.Add(w, 1);
+
+                    if (pDic[w] > max)
+                    {
+                        res = w;
+                        max = pDic[w];
+                    }
+                }
+            }
+
+
+            return res;
+        }
+
+        /// <summary>
+        /// 675. Cut Off Trees for Golf Event
+        /// https://leetcode.com/problems/cut-off-trees-for-golf-event/
+        /// </summary>
+        /// <param name="forest"></param>
+        /// <returns></returns>
+        public int CutOffTree(IList<IList<int>> forest)
+        {
+
+        }
+
+        #endregion
+
 
 
         public int CountDecreasingRatings(int[] ratings)
