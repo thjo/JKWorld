@@ -520,7 +520,6 @@ namespace LeetCode
             Queue<string> q = new Queue<string>();
             IList<string> res = new List<string>();
             q.Enqueue(text);
-            text.Split(new char[] { })
             while (q.Count > 0)
             {
                 string currText = q.Dequeue();
@@ -630,8 +629,90 @@ namespace LeetCode
         /// <returns></returns>
         public int CutOffTree(IList<IList<int>> forest)
         {
-
+            return -1;
         }
+
+        #endregion
+
+
+        #region | Onsite - 4/17/2022 | 
+
+        /// <summary>
+        /// 1539. Kth Missing Positive Number
+        /// https://leetcode.com/problems/kth-missing-positive-number/
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public int FindKthPositive(int[] arr, int k)
+        {
+            //4, 5, 9, 12
+            //10
+
+            int currVal = arr[0];
+            k = k + (1 - currVal);
+            if (k == 0)
+                return currVal - 1;
+            else if (k < 0)
+                return currVal + k - 1;
+
+            int n = arr.Length;
+            int idx = 1;
+            //2
+            //5
+            while (k > 0 && idx < n)
+            {
+                int interval = arr[idx] - currVal - 1;
+                currVal = arr[idx];
+                idx++;
+
+                if (interval == 0)
+                    continue;
+
+                k = k - interval;
+                if (k == 0)
+                    return currVal - 1;
+                else if (k < 0)
+                    return currVal + k - 1;
+            }
+
+            return currVal + k;
+        }
+
+        /// <summary>
+        /// 1035. Uncrossed Lines
+        /// https://leetcode.com/problems/uncrossed-lines/
+        /// </summary>
+        /// <param name="nums1"></param>
+        /// <param name="nums2"></param>
+        /// <returns></returns>
+        public int MaxUncrossedLines(int[] nums1, int[] nums2)
+        {
+            int n1 = nums1.Length;
+            int n2 = nums2.Length;
+
+            int[,] dp = new int[n1 + 1, n2 + 1];
+
+            for (int i = 0; i <= n1; i++)
+            {
+                for (int j = 0; j <= n2; j++)
+                {
+
+                    if (i == 0 || j == 0)
+                        dp[i, j] = 0;
+                    else if (nums1[i - 1] == nums2[j - 1])
+                        dp[i, j] = 1 + dp[i - 1, j - 1];
+                    else
+                    {
+                        dp[i, j] = Math.Max(dp[i - 1, j], dp[i, j - 1]);
+                    }
+                }
+            }
+
+            return dp[n1, n2];
+        }
+
+
 
         #endregion
 

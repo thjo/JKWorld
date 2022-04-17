@@ -32,7 +32,8 @@ namespace LeetCode
             buff.Add("joy");
             buff.Add("cheerful");
             syn.Add(buff);
-            aaaa.GenerateSentences(syn, "I am happy today but was sad yesterday");
+            //aaaa.GenerateSentences(syn, "I am happy today but was sad yesterday");
+            aaaa.MaxUncrossedLines(new int[] {1, 4, 2 }, new int[] {1, 2, 4 });
             //Algorithm_II aII = new Algorithm_II();
             //aII.Find(0);
             //aII.Search(new int[] { 1, 3 }, 3);
