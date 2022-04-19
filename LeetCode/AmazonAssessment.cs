@@ -714,9 +714,84 @@ namespace LeetCode
         #endregion
 
 
-        #region |  | 
+        #region | Online - 4/18/22 | 
+
+        /// <summary>
+        /// 653. Two Sum IV - Input is a BST
+        /// https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public bool FindTarget(TreeNode root, int k)
+        {
+            //HashSet<int> sets = new HashSet<int>();
+            //return FindTargetR(root, k, sets);
+            List<int> sortedList = new List<int>();
+            InOrderTrav(root, sortedList);
+            int l = 0, r = sortedList.Count - 1;
+            while (l < r)
+            {
+                if (sortedList[l] + sortedList[r] == k)
+                    return true;
+                else if (sortedList[l] + sortedList[r] > k)
+                    r--;
+                else
+                    l++;
+            }
+            return false;
+        }
+        private void InOrderTrav(TreeNode root, List<int> sortedList)
+        {
+            if (root == null)
+                return;
+
+            InOrderTrav(root.left, sortedList);
+            sortedList.Add(root.val);
+            InOrderTrav(root.right, sortedList);
+        }
+        private bool FindTargetR(TreeNode root, int k, HashSet<int> sets)
+        {
+            if (root == null)
+                return false;
+
+            if (sets.Contains(k - root.val))
+                return true;
+            sets.Add(root.val);
+
+            return FindTargetR(root.left, k, sets) ||
+                FindTargetR(root.right, k, sets);
+        }
 
 
+        /// <summary>
+        /// 1071. Greatest Common Divisor of Strings
+        /// https://leetcode.com/problems/greatest-common-divisor-of-strings/
+        /// </summary>
+        /// <param name="str1"></param>
+        /// <param name="str2"></param>
+        /// <returns></returns>
+        public string GcdOfStrings(string str1, string str2)
+        {
+            int len1 = str1.Length;
+            int len2 = str2.Length;
+            int minLen = Math.Min(len1, len2);
+
+            for (int i = minLen; i >= 1; i--)
+            {
+                if (len1 % i == 0 && len2 % i == 0 && str1.Substring(0, i).Equals(str2.Substring(0, i)))
+                {
+                    String tmp1 = str1.Substring(i) + str1.Substring(0, i);
+                    String tmp2 = str2.Substring(i) + str2.Substring(0, i);
+                    if (tmp1.Equals(str1) && tmp2.Equals(str2))
+                    {
+                        return str1.Substring(0, i);
+                    }
+                }
+            }
+
+            return "";
+        }
 
         #endregion
 
