@@ -646,9 +646,6 @@ namespace LeetCode
         /// <returns></returns>
         public int FindKthPositive(int[] arr, int k)
         {
-            //4, 5, 9, 12
-            //10
-
             int currVal = arr[0];
             k = k + (1 - currVal);
             if (k == 0)
@@ -717,6 +714,11 @@ namespace LeetCode
         #endregion
 
 
+        #region |  | 
+
+
+
+        #endregion
 
         public int CountDecreasingRatings(int[] ratings)
         {
