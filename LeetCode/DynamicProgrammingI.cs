@@ -63,7 +63,50 @@ namespace LeetCode
         }
 
 
+        /// <summary>
+        /// 70. Climbing Stairs
+        /// https://leetcode.com/problems/climbing-stairs/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int ClimbStairs(int n)
+        {
+            if (n <= 2)
+                return n;
 
+            int[] dp = new int[n + 1];
+            dp[1] = 1;
+            dp[2] = 2;
+            for (int i = 3; i <= n; i++)
+                dp[i] = dp[i - 1] + dp[i - 2];
+
+            return dp[n];
+        }
+
+
+        /// <summary>
+        /// 746. Min Cost Climbing Stairs
+        /// https://leetcode.com/problems/min-cost-climbing-stairs/
+        /// </summary>
+        /// <param name="cost"></param>
+        /// <returns></returns>
+        public int MinCostClimbingStairs(int[] cost)
+        {
+            if (cost.Length == 2)
+                return Math.Min(cost[0], cost[1]);
+
+            int n = cost.Length;
+            int[] dp = new int[n];
+            dp[0] = cost[0];
+            dp[1] = cost[1];
+
+            for (int i = 2; i < n; i++)
+            {
+                dp[i] = Math.Min(dp[i - 1], dp[i - 2]) + cost[i];
+            }
+
+            return Math.Min(dp[n - 1], dp[n - 2]);
+        }
 
     }
 }
