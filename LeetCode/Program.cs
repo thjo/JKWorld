@@ -10,7 +10,10 @@ namespace LeetCode
         {
             BinarySearchI bs = new BinarySearchI();
             //bs.FindTheDistanceValue(new int[] { 1, 4, 2, 3 }, new int[] { -4, -3, 6, 10, 20, 30 }, 3);
-            bs.NextGreatestLetter(new char[] { 'c', 'f', 'j' }, 'a');
+            //bs.NextGreatestLetter(new char[] { 'c', 'f', 'j' }, 'd');
+
+            DynamicProgrammingI dp = new DynamicProgrammingI();
+            dp.Rob1(new int[] { 1, 2, 3, 1 });
 
             AmazonAssessment aaaa = new AmazonAssessment();
             //int[][] grid = new int[3][];
