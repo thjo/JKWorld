@@ -9,7 +9,9 @@ namespace LeetCode
         static void Main(string[] args)
         {
             BinarySearchI bs = new BinarySearchI();
-            bs.FindTheDistanceValue(new int[] { 1, 4, 2, 3 }, new int[] { -4, -3, 6, 10, 20, 30 }, 3);
+            //bs.FindTheDistanceValue(new int[] { 1, 4, 2, 3 }, new int[] { -4, -3, 6, 10, 20, 30 }, 3);
+            bs.NextGreatestLetter(new char[] { 'c', 'f', 'j' }, 'a');
+
             AmazonAssessment aaaa = new AmazonAssessment();
             //int[][] grid = new int[3][];
             //grid[0] = new int[3] { 2, 1, 1 };

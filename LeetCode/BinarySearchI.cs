@@ -147,5 +147,51 @@ namespace LeetCode
             ans += arr1.Length - idx1;
             return ans;
         }
+
+
+        /// <summary>
+        /// 69. Sqrt(x)
+        /// https://leetcode.com/problems/sqrtx/
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public int MySqrt(int x)
+        {
+            int l = 0, r = x;
+            while (l <= r)
+            {
+                double mid = l + (r - l) / 2;
+                if ((mid * mid) == x)
+                    return (int)mid;
+
+                if (x > (mid * mid))
+                    l = (int)mid + 1;
+                else
+                    r = (int)mid - 1;
+            }
+            return r;
+        }
+
+
+        /// <summary>
+        /// 744. Find Smallest Letter Greater Than Target
+        /// https://leetcode.com/problems/find-smallest-letter-greater-than-target/submissions/
+        /// </summary>
+        /// <param name="letters"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public char NextGreatestLetter(char[] letters, char target)
+        {
+            int l = 0, h = letters.Length;
+            while (l < h)
+            {
+                int m = l + (h - l) / 2;
+                if (letters[m] <= target)
+                    l = m + 1;
+                else
+                    h = m;
+            }
+            return letters[l % letters.Length];
+        }
     }
 }
