@@ -115,7 +115,7 @@ namespace LeetCode
         /// </summary>
         /// <param name="nums"></param>
         /// <returns></returns>
-        public int Rob(int[] nums)
+        public int RobI(int[] nums)
         {
             if (nums.Length == 1)
                 return nums[0];
@@ -131,5 +131,44 @@ namespace LeetCode
             //1 2 4 4
             return dp[n - 1];
         }
+
+        /// <summary>
+        /// 213. House Robber II
+        /// https://leetcode.com/problems/house-robber-ii/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int RobII(int[] nums)
+        {
+            if (nums == null || nums.Length == 0)
+                return 0;
+            else if (nums.Length == 1)
+                return nums[0];
+
+            int max1 = RobRec(nums, 0, nums.Length - 2);
+            int max2 = RobRec(nums, 1, nums.Length - 1);
+
+            return Math.Max(max1, max2);
+
+        }
+        private int RobRec(int[] nums, int start, int end)
+        {
+            if (start == end)
+                return nums[start];
+
+            int[] dp = new int[nums.Length];
+            dp[start] = nums[start];
+            dp[start + 1] = Math.Max(nums[start], nums[start + 1]);
+
+            for (int i = start + 2; i <= end; i++)
+            {
+                dp[i] = Math.Max(dp[i - 1], (dp[i - 2] + nums[i]));
+            }
+
+            return dp[end];
+        }
+
+
+
     }
 }

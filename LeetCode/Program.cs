@@ -13,7 +13,6 @@ namespace LeetCode
             //bs.NextGreatestLetter(new char[] { 'c', 'f', 'j' }, 'd');
 
             DynamicProgrammingI dp = new DynamicProgrammingI();
-            dp.Rob1(new int[] { 1, 2, 3, 1 });
 
             AmazonAssessment aaaa = new AmazonAssessment();
             //int[][] grid = new int[3][];
