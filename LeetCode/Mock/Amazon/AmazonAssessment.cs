@@ -795,6 +795,156 @@ namespace LeetCode
 
         #endregion
 
+
+        #region | Online Interview - 4/24/2022 | 
+
+        /// <summary>
+        /// 922. Sort Array By Parity II
+        /// https://leetcode.com/problems/sort-array-by-parity-ii/submissions/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int[] SortArrayByParityII(int[] nums)
+        {
+            int n = nums.Length;
+
+            int even = 0;
+            //int i = 0;
+            //while(i < n && even < n)
+            for (int i = 0; i < n && even < n; i++)
+            {
+                if (nums[i] % 2 == 0)
+                {
+                    if (i % 2 != 0 || i > even)
+                    {
+                        Swap(nums, i, even);
+                    }
+                    even += 2;
+                }
+            }
+
+            return nums;
+        }
+        private void Swap(int[] nums, int i, int j)
+        {
+            int tmp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = tmp;
+        }
+
+        /// <summary>
+        /// 807. Max Increase to Keep City Skyline
+        /// https://leetcode.com/problems/max-increase-to-keep-city-skyline/
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public int MaxIncreaseKeepingSkyline(int[][] grid)
+        {
+            //North - Max of each col
+            //7 8 4 9 
+
+            //South
+            //9 4 8 7
+
+            //West - Max of row
+            //8 7 9 3
+
+            //East
+            //3, 9, 7, 8
+            int n = grid.Length;
+            int m = grid[0].Length;
+            int[] maxRow = new int[n];
+            int[] maxCol = new int[m];
+
+            for (int r = 0; r < n; r++)
+            {
+                for (int c = 0; c < m; c++)
+                {
+                    maxRow[r] = Math.Max(maxRow[r], grid[r][c]);
+                    maxCol[c] = Math.Max(maxCol[c], grid[r][c]);
+                }
+            }
+
+            int totalIncreased = 0;
+            for (int r = 0; r < n; r++)
+            {
+                for (int c = 0; c < m; c++)
+                {
+                    if (grid[r][c] < Math.Min(maxRow[r], maxCol[c]))
+                        totalIncreased += (Math.Min(maxRow[r], maxCol[c]) - grid[r][c]);
+                }
+            }
+
+            return totalIncreased;
+        }
+
+
+        /// <summary>
+        /// 980. Unique Paths III
+        /// https://leetcode.com/problems/unique-paths-iii/
+        /// </summary>
+        int totalPath = 0;
+        public int UniquePathsIII(int[][] grid)
+        {
+            int numOfEmptySpots = 0;
+            int n = grid.Length;
+            int m = grid[0].Length;
+            int startIdxRow = -1, startIdxCol = -1;
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    if (grid[i][j] == 1)
+                    {
+                        startIdxRow = i;
+                        startIdxCol = j;
+                        numOfEmptySpots++;
+                    }
+                    else if (grid[i][j] == 0)
+                        numOfEmptySpots++;
+                }
+            }
+            totalPath = 0;
+            grid[startIdxRow][startIdxCol] = 0;
+            UniquePathsIIIBackTrack(grid, startIdxRow, startIdxCol, numOfEmptySpots, n, m);
+
+            return totalPath;
+        }
+        private void UniquePathsIIIBackTrack(int[][] grid, int rowIdx, int colIdx, int remainedNumOfSpots, int n, int m)
+        {
+            if (grid[rowIdx][colIdx] == 2 && remainedNumOfSpots == 0)
+            {
+                totalPath++;
+                return;
+            }
+            if (grid[rowIdx][colIdx] != 0 || remainedNumOfSpots <= 0)
+            {
+                return;
+            }
+            int orgMark = grid[rowIdx][colIdx];
+            remainedNumOfSpots--;
+            grid[rowIdx][colIdx] = 3;   //visited
+
+            //Top
+            if (rowIdx > 0)
+                UniquePathsIIIBackTrack(grid, rowIdx - 1, colIdx, remainedNumOfSpots, n, m);
+            //Bottom
+            if (rowIdx < n - 1)
+                UniquePathsIIIBackTrack(grid, rowIdx + 1, colIdx, remainedNumOfSpots, n, m);
+            //Left
+            if (colIdx > 0)
+                UniquePathsIIIBackTrack(grid, rowIdx, colIdx - 1, remainedNumOfSpots, n, m);
+            //Right
+            if (colIdx < m - 1)
+                UniquePathsIIIBackTrack(grid, rowIdx, colIdx + 1, remainedNumOfSpots, n, m);
+
+            grid[rowIdx][colIdx] = orgMark;
+            //remainedNumOfSpots++;
+
+        }
+        #endregion
+
+
         public int CountDecreasingRatings(int[] ratings)
         {
             if (ratings == null || ratings.Length < 2)

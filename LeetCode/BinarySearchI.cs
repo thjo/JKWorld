@@ -193,5 +193,35 @@ namespace LeetCode
             }
             return letters[l % letters.Length];
         }
+
+
+        /// <summary>
+        /// 278. First Bad Version
+        /// https://leetcode.com/problems/first-bad-version/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int FirstBadVersion(int n)
+        {
+            int l = 1, h = n;
+            while (l < h)
+            {
+                int m = l + (h - l) / 2;
+                if (IsBadVersion(m) == false)
+                {
+                    l = m + 1;
+                }
+                else
+                {
+                    h = m;
+                }
+            }
+
+            return l;
+        }
+        private bool IsBadVersion(int ver)
+        {
+            return true;
+        }
     }
 }

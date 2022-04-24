@@ -15,6 +15,7 @@ namespace LeetCode
             DynamicProgrammingI dp = new DynamicProgrammingI();
 
             AmazonAssessment aaaa = new AmazonAssessment();
+            aaaa.SortArrayByParityII(new int[] { 2, 3, 0, 4, 1, 3});
             //int[][] grid = new int[3][];
             //grid[0] = new int[3] { 2, 1, 1 };
             //grid[1] = new int[3] { 1, 1, 0 };
