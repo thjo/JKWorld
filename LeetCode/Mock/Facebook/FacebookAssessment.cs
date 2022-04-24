@@ -38,6 +38,13 @@ namespace LeetCode
         }
 
 
+        /// <summary>
+        /// 496. Next Greater Element I
+        /// https://leetcode.com/problems/next-greater-element-i/
+        /// </summary>
+        /// <param name="nums1"></param>
+        /// <param name="nums2"></param>
+        /// <returns></returns>
         public int[] NextGreaterElement(int[] nums1, int[] nums2)
         {
             ////Bruce Force
@@ -87,5 +94,106 @@ namespace LeetCode
         }
 
         #endregion
+
+
+
+        #region | Onlin Assessment - 4/23/2022 | 
+
+        /// <summary>
+        /// 938. Range Sum of BST
+        /// https://leetcode.com/problems/range-sum-of-bst/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="low"></param>
+        /// <param name="high"></param>
+        /// <returns></returns>
+        public int RangeSumBST(TreeNode root, int low, int high)
+        {
+            //IList<int> arr = new List<int>();
+            int total = 0;
+            InorderTraversals(root, low, high, ref total);
+            return total;
+        }
+        private void InorderTraversals(TreeNode root, int low, int high, ref int total)
+        {
+            //, IList<int> arr) {
+            if (root == null)
+                return;
+
+            if (root.val < low)
+                InorderTraversals(root.right, low, high, ref total);
+            else if (root.val > high)
+                InorderTraversals(root.left, low, high, ref total);
+            else
+            {
+                total += root.val;
+                InorderTraversals(root.left, low, high, ref total);
+                InorderTraversals(root.right, low, high, ref total);
+            }
+        }
+
+        #endregion
+
+
+        #region | Onlin Assessment - 4/24/2022 | 
+
+        /// <summary>
+        /// 121. Best Time to Buy and Sell Stock
+        /// https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+        /// </summary>
+        /// <param name="prices"></param>
+        /// <returns></returns>
+        public int MaxProfit(int[] prices)
+        {
+            if (prices.Length == 1)
+                return 0;
+
+            int maxProfit = 0;
+            int minVal = prices[0];
+            for (int i = 1; i < prices.Length; i++)
+            {
+                if (minVal > prices[i])
+                {
+                    minVal = prices[i];
+                }
+                else
+                {
+                    maxProfit = Math.Max(maxProfit, prices[i] - minVal);
+                }
+            }
+            return maxProfit;
+        }
+
+        /// <summary>
+        /// 238. Product of Array Except Self
+        /// https://leetcode.com/problems/product-of-array-except-self/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int[] ProductExceptSelf(int[] nums)
+        {
+
+            int n = nums.Length;
+            int[] answers = new int[n];
+
+            int sum = 1;
+            for (int i = 0; i < n; i++)
+            {
+                answers[i] = sum;
+                sum *= nums[i];
+            }
+            sum = 1;
+            for (int i = n - 1; i >= 0; i--)
+            {
+                answers[i] = answers[i] * sum;
+                sum *= nums[i];
+            }
+
+            return answers;
+        }
+        #endregion
+
+
+
     }
 }
