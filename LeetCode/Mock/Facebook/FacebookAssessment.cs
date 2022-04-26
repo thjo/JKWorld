@@ -8,7 +8,6 @@ namespace LeetCode
     {
         #region | Onlin Assessment - 4/22/2022 | 
 
-
         public IList<int> ArraysIntersection(int[] arr1, int[] arr2, int[] arr3)
         {
             int i1 = 0, i2 = 0, i3 = 0;
@@ -94,7 +93,6 @@ namespace LeetCode
         }
 
         #endregion
-
 
 
         #region | Onlin Assessment - 4/23/2022 | 
@@ -194,6 +192,100 @@ namespace LeetCode
         #endregion
 
 
+        #region | Onlin Assessment - 4/25/2022 | 
 
+        public string ReverseVowels(string s)
+        {
+            int len = s.Length;
+            int l = 0, r = len - 1;
+            string lStr = "", rStr = "";
+            while (l < len && r >= 0 && l <= r)
+            {
+                while (l < r && l < len && IsVowels(s[l]) == false)
+                {
+                    lStr += s[l++];
+                }
+
+                while (l < r && r >= 0 && IsVowels(s[r]) == false)
+                {
+                    rStr = s[r] + rStr;
+                    r--;
+                }
+
+                if (l >= r)
+                {
+                    lStr += s[l];
+                    break;
+                }
+                else if (l < len && r >= 0)
+                {
+                    lStr += s[r];
+                    rStr = s[l] + rStr;
+                    l++;
+                    r--;
+                }
+            }
+
+            return lStr + rStr;
+        }
+        private bool IsVowels(char c)
+        {
+            if (c == 'a' || c == 'A' || c == 'e' || c == 'E'
+             || c == 'i' || c == 'I' || c == 'o' || c == 'O'
+             || c == 'u' || c == 'U')
+                return true;
+            else
+                return false;
+        }
+
+
+        /// <summary>
+        /// 515. Find Largest Value in Each Tree Row
+        /// https://leetcode.com/problems/find-largest-value-in-each-tree-row/
+        /// </summary>
+        public class TreeNodeInfo
+        {
+            public int Depth;
+            public TreeNode Node;
+            public TreeNodeInfo(int depth, TreeNode node)
+            {
+                Depth = depth;
+                Node = node;
+            }
+        }
+        public IList<int> LargestValues(TreeNode root)
+        {
+            IList<int> res = new List<int>();
+            if (root == null)
+                return res;
+
+            Queue<TreeNodeInfo> q = new Queue<TreeNodeInfo>();
+            q.Enqueue(new TreeNodeInfo(0, root));
+            while (q.Count > 0)
+            {
+                TreeNodeInfo nd = q.Dequeue();
+                if (nd.Depth + 1 > res.Count)
+                    res.Add(int.MinValue);
+                res[nd.Depth] = Math.Max(res[nd.Depth], nd.Node.val);
+
+                if (nd.Node.left != null)
+                    q.Enqueue(new TreeNodeInfo(nd.Depth + 1, nd.Node.left));
+                if (nd.Node.right != null)
+                    q.Enqueue(new TreeNodeInfo(nd.Depth + 1, nd.Node.right));
+            }
+            return res;
+        }
+
+        #endregion
+
+
+        #region | Onlin Assessment - 4/25/2022 | 
+
+        #endregion
+
+
+        #region | Onlin Assessment - 4/25/2022 | 
+
+        #endregion
     }
 }

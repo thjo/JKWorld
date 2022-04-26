@@ -8,6 +8,8 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
+            FacebookAssessment fb = new FacebookAssessment();
+            fb.ReverseVowels(" ");
             BinarySearchI bs = new BinarySearchI();
             //bs.FindTheDistanceValue(new int[] { 1, 4, 2, 3 }, new int[] { -4, -3, 6, 10, 20, 30 }, 3);
             //bs.NextGreatestLetter(new char[] { 'c', 'f', 'j' }, 'd');
