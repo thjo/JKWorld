@@ -273,15 +273,83 @@ namespace LeetCode
                 if (nd.Node.right != null)
                     q.Enqueue(new TreeNodeInfo(nd.Depth + 1, nd.Node.right));
             }
+
             return res;
         }
 
         #endregion
 
 
-        #region | Onlin Assessment - 4/25/2022 | 
+
+        #region | Onlin Assessment - 4/26/2022 | 
+
+
+        /// <summary>
+        /// 71. Simplify Path
+        /// https://leetcode.com/problems/simplify-path/
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public string SimplifyPath(string path)
+        {
+            Stack<string> sDir = new Stack<string>();
+            string[] dirs = path.Split("/".ToCharArray());
+
+            foreach (string dir in dirs)
+            {
+                if (dir == "." || string.IsNullOrEmpty(dir))
+                    continue;
+                else if (dir == "..")
+                {
+                    if (sDir.Count > 0)
+                        sDir.Pop();
+                }
+                else
+                    sDir.Push(dir);
+            }
+
+            String res = "";
+            while (sDir.Count > 0)
+                res = "/" + sDir.Pop() + res;
+
+            return res.Length > 0 ? res : "/";
+        }
+
+
+        /// <summary>
+        /// 270. Closest Binary Search Tree Value
+        /// https://leetcode.com/problems/closest-binary-search-tree-value/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public int ClosestValue(TreeNode root, double target)
+        {
+            int res = root.val;
+            double minDiff = int.MaxValue;
+            Queue<TreeNode> qNodes = new Queue<TreeNode>();
+            while (root != null)
+            {
+                double diff = root.val - target;
+                if (minDiff > Math.Abs(diff))
+                {
+                    res = root.val;
+                    minDiff = Math.Abs(diff);
+                }
+
+                if (root.left != null && diff > 0)
+                    root = root.left;
+                else if (root.right != null && diff < 0)
+                    root = root.right;
+                else
+                    root = null;
+            }
+            return res;
+        }
 
         #endregion
+
+
 
 
         #region | Onlin Assessment - 4/25/2022 | 
