@@ -169,6 +169,108 @@ namespace LeetCode
         }
 
 
+        /// <summary>
+        /// 740. Delete and Earn
+        /// https://leetcode.com/problems/delete-and-earn/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int DeleteAndEarn(int[] nums)
+        {
+            Dictionary<int, int> map = new Dictionary<int, int>();
+            foreach (int n in nums)
+            {
+                if (map.ContainsKey(n))
+                    map[n]++;
+                else
+                    map.Add(n, 1);
+            }
+            Array.Sort(nums);
+            int[] dp = new int[map.Count];
+            int prev = nums[0];
+            int dpIdx = 0;
+            dp[dpIdx] = nums[0] * map[nums[0]];
+            for (int i = 1; i < nums.Length; i++)
+            {
+                if (prev == nums[i])
+                    continue;
 
+                int total = nums[i] * map[nums[i]];
+                if (prev + 1 != nums[i])
+                    total += dp[dpIdx];
+                else
+                {
+                    if (dpIdx - 1 >= 0)
+                        total += dp[dpIdx - 1];
+
+                    total = Math.Max(total, dp[dpIdx]);
+                }
+                dpIdx++;
+                dp[dpIdx] = total;
+                prev = nums[i];
+            }
+            return dp[map.Count - 1];
+        }
+
+
+        /// <summary>
+        /// 55. Jump Game
+        /// https://leetcode.com/problems/jump-game/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public bool CanJump(int[] nums)
+        {
+            if (nums.Length == 1)
+                return true;
+
+            int goal = nums.Length - 1;
+
+            for (int currIdx = nums.Length - 2; currIdx >= 0; currIdx--)
+            {
+                if (nums[currIdx] + currIdx >= goal)
+                    goal = Math.Min(currIdx, goal);
+            }
+            return goal == 0;
+        }
+        public bool CanJumpI(int[] nums)
+        {
+            int n = nums.Length;
+            if (n == 1)
+                return true;
+
+            bool[] dp = new bool[n];
+            for (int i = 0; i < n; i++)
+                dp[i] = false;
+            dp[n - 1] = true;
+            int idx = n - 2;
+            while (idx >= 0)
+            {
+                int maxJump = nums[idx];
+                int addIdx = 1;
+                while (addIdx <= maxJump)
+                {
+                    if (idx + addIdx < n)
+                        dp[idx] = dp[idx + addIdx];
+                    if (dp[idx])
+                        break;
+                    addIdx++;
+                }
+                idx--;
+            }
+            return dp[0];
+        }
+
+
+        /// <summary>
+        /// 45. Jump Game II
+        /// https://leetcode.com/problems/jump-game-ii/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int Jump(int[] nums)
+        {
+            int
+        }
     }
 }
