@@ -349,10 +349,48 @@ namespace LeetCode
 
 
 
-        #region | Onlin Assessment - 4/27/2022 | 
+        #region | Onlin Assessment - 4/28/2022 | 
 
+        /// <summary>
+        /// 1528. Shuffle String
+        /// https://leetcode.com/problems/shuffle-string/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="indices"></param>
+        /// <returns></returns>
+        public string RestoreString(string s, int[] indices)
+        {
+            char[] buff = new char[s.Length];
+            for (int i = 0; i < s.Length; i++)
+            {
+                buff[indices[i]] = s[i];
+            }
+            StringBuilder res = new StringBuilder();
+            foreach (char c in buff)
+                res.Append(c);
 
+            return res.ToString();
+        }
 
+        /// <summary>
+        /// 1266. Minimum Time Visiting All Points
+        /// https://leetcode.com/problems/minimum-time-visiting-all-points/
+        /// </summary>
+        /// <param name="points"></param>
+        /// <returns></returns>
+        public int MinTimeToVisitAllPoints(int[][] points)
+        {
+            int n = points.Length;
+            int minTimes = 0;
+            int[] start = points[0];
+            for (int i = 1; i < n; i++)
+            {
+                int[] dest = points[i];
+                minTimes += Math.Max(Math.Abs(start[0] - dest[0]), Math.Abs(start[1] - dest[1]));
+                start = dest;
+            }
+            return minTimes;
+        }
         #endregion
     }
 }
