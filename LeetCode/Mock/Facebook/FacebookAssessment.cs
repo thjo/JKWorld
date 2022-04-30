@@ -348,7 +348,6 @@ namespace LeetCode
         #endregion
 
 
-
         #region | Onlin Assessment - 4/28/2022 | 
 
         /// <summary>
@@ -392,5 +391,124 @@ namespace LeetCode
             return minTimes;
         }
         #endregion
+
+
+        #region | Onlin Assessment - 4/29/2022 | 
+
+        /// <summary>
+        /// 977. Squares of a Sorted Array
+        /// https://leetcode.com/problems/squares-of-a-sorted-array/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int[] SortedSquares(int[] nums)
+        {
+            Stack<int> sNegative = new Stack<int>();
+            int n = nums.Length;
+            int[] res = new int[n];
+            int newIdx = 0;
+            for (int i = 0; i < n; i++)
+            {
+                if (nums[i] == 0)
+                {
+                    res[newIdx++] = 0;
+                }
+                else if (nums[i] < 0)
+                {
+                    //negative number
+                    sNegative.Push(nums[i]);
+                }
+                else
+                {
+                    //positive number
+                    while (sNegative.Count > 0
+                          && sNegative.Peek() * -1 <= nums[i])
+                    {
+                        int tmp = sNegative.Pop();
+                        res[newIdx++] = tmp * tmp;
+                    }
+                    res[newIdx++] = nums[i] * nums[i];
+                }
+            }
+            while (sNegative.Count > 0)
+            {
+                int tmp = sNegative.Pop();
+                res[newIdx++] = tmp * tmp;
+            }
+
+            return res;
+
+            int len = nums.Length;
+            int negativPoint = -1;
+
+            int[] newSorted = new int[len];
+            int idxNew = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] >= 0)
+                {
+                    //Positive value
+                    while (negativPoint > -1 && negativPoint < len
+                        && nums[negativPoint] * nums[negativPoint] < nums[i] * nums[i])
+                    {
+                        newSorted[idxNew++] = nums[negativPoint] * nums[negativPoint];
+                        negativPoint--;
+                    }
+                    newSorted[idxNew] = nums[i] * nums[i];
+                    idxNew++;
+                }
+                else
+                {
+                    //Negative value
+                    negativPoint = i;
+                }
+            }
+
+            while (negativPoint > -1 && negativPoint < len)
+            {
+                newSorted[idxNew] = nums[negativPoint] * nums[negativPoint];
+                idxNew++;
+                negativPoint--;
+            }
+
+            return newSorted;
+        }
+
+
+        /// <summary>
+        /// 791. Custom Sort String
+        /// https://leetcode.com/problems/custom-sort-string/
+        /// </summary>
+        /// <param name="order"></param>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public string CustomSortString(string order, string s)
+        {
+            Dictionary<char, string> strMap = new Dictionary<char, string>();
+            foreach (char c in s)
+            {
+                if (strMap.ContainsKey(c))
+                    strMap[c] += c;
+                else
+                    strMap.Add(c, c.ToString());
+            }
+            StringBuilder sbRes = new StringBuilder();
+            foreach (char c in order)
+            {
+                if (strMap.ContainsKey(c))
+                {
+                    sbRes.Append(strMap[c]);
+                    strMap.Remove(c);
+                }
+            }
+            foreach (var v in strMap)
+            {
+                sbRes.Append(v.Value);
+            }
+            return sbRes.ToString();
+        }
+        #endregion
+
+
     }
 }

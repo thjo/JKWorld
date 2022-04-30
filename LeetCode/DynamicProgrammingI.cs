@@ -270,7 +270,96 @@ namespace LeetCode
         /// <returns></returns>
         public int Jump(int[] nums)
         {
-            int
+            int n = nums.Length;
+            int[] dp = new int[n];
+            for (int i = 0; i < n; i++)
+                dp[i] = n;
+            dp[n - 1] = 0;
+
+            for (int i = n - 2; i >= 0; i--)
+            {
+                int maxJump = nums[i];
+                while (maxJump > 0)
+                {
+                    if ((i + maxJump) < n)
+                        dp[i] = Math.Min(dp[i], dp[i + maxJump] + 1);
+                    maxJump--;
+                }
+                //dp[i] = 
+            }
+            return dp[0];
         }
+
+
+        /// <summary>
+        /// 53. Maximum Subarray
+        /// https://leetcode.com/problems/maximum-subarray/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int MaxSubArray(int[] nums)
+        {
+            if (nums == null || nums.Length < 1)
+                return 0;
+
+            int sum = nums[0];
+            int max = nums[0];
+            for (int i = 1; i < nums.Length; i++)
+            {
+                if (sum + nums[i] > nums[i])
+                    sum = sum + nums[i];
+                else
+                    sum = nums[i];
+
+                if (max < sum)
+                    max = sum;
+            }
+
+            return max;
+        }
+
+
+        /// <summary>
+        /// 918. Maximum Sum Circular Subarray
+        /// https://leetcode.com/problems/maximum-sum-circular-subarray/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int MaxSubarraySumCircular(int[] nums)
+        {
+            if (nums == null || nums.Length < 1)
+                return 0;
+            else if (nums.Length == 1)
+                return nums[0];
+
+            int n = nums.Length;
+            int total = 0;
+            int min = int.MaxValue, max = int.MinValue;
+            int minSum = 0, maxSum = 0;
+            int maxItem = int.MinValue;
+            for (int i = 0; i < n; i++)
+            {
+                total += nums[i];
+                maxItem = Math.Max(maxItem, nums[i]);
+
+                maxSum += nums[i];
+                if (maxSum < 0)
+                    maxSum = 0;
+                if (max < maxSum)
+                    max = maxSum;
+
+                minSum += nums[i];
+                if (minSum > 0)
+                    minSum = 0;
+                if (min > minSum)
+                    min = minSum;
+            }
+
+            if (max == 0)
+                return maxItem;
+            else
+                return Math.Max(max, total - min);
+        }
+
     }
 }
