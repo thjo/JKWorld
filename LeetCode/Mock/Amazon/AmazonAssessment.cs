@@ -942,7 +942,72 @@ namespace LeetCode
             //remainedNumOfSpots++;
 
         }
-        
+
+        #endregion
+
+
+        #region | Online Interview - 05/01/2022 | 
+
+        /// <summary>
+        /// 957. Prison Cells After N Days
+        /// https://leetcode.com/problems/prison-cells-after-n-days/
+        /// </summary>
+        /// <param name="cells"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int[] PrisonAfterNDays(int[] cells, int n)
+        {
+            int cellLen = cells.Length;
+            List<string> results = new List<string>();
+            //results.Add(ConvertToString(cells));
+            int idx = 1;
+            while (idx <= n)
+            {
+                cells = CheckCells(cells);
+                string tmp = ConvertToString(cells);
+                if (results.Contains(tmp))
+                    break;
+                else
+                    results.Add(tmp);
+                idx++;
+            }
+            int mod = n % (results.Count);
+            if (mod == 0)
+                return ConvertToArray(results[results.Count - 1]);
+            else
+                return ConvertToArray(results[mod - 1]);
+        }
+        private int[] CheckCells(int[] cells)
+        {
+            int[] newCells = new int[cells.Length];
+            newCells[0] = 0;
+            newCells[cells.Length - 1] = 0;
+            for (int i = 1; i < cells.Length - 1; i++)
+            {
+                if (cells[i - 1] == cells[i + 1])
+                    newCells[i] = 1;
+                else
+                    newCells[i] = 0;
+            }
+            return newCells;
+        }
+        private string ConvertToString(int[] cells)
+        {
+            string res = "";
+            foreach (int c in cells)
+                res += c.ToString();
+            return res;
+        }
+        private int[] ConvertToArray(string cells)
+        {
+            int[] res = new int[cells.Length];
+            for (int i = 0; i < cells.Length; i++)
+                res[i] = int.Parse(cells[i].ToString());
+
+            return res;
+        }
+
+
         #endregion
 
 

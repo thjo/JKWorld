@@ -15,9 +15,10 @@ namespace LeetCode
             //bs.NextGreatestLetter(new char[] { 'c', 'f', 'j' }, 'd');
 
             DynamicProgrammingI dp = new DynamicProgrammingI();
-            dp.MaxSubarraySumCircular(new int[] { -10, -7, 9, -7, 6, 9, -9, -4, -8, -5 });
+            //dp.MaxSubarraySumCircular(new int[] { -10, -7, 9, -7, 6, 9, -9, -4, -8, -5 });
             AmazonAssessment aaaa = new AmazonAssessment();
-            aaaa.SortArrayByParityII(new int[] { 2, 3, 0, 4, 1, 3});
+            //aaaa.SortArrayByParityII(new int[] { 2, 3, 0, 4, 1, 3});
+            aaaa.PrisonAfterNDays(new int[] { 0, 1, 0, 1, 1, 0, 0, 1 }, 7);
             //int[][] grid = new int[3][];
             //grid[0] = new int[3] { 2, 1, 1 };
             //grid[1] = new int[3] { 1, 1, 0 };

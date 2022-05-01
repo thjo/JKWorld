@@ -510,5 +510,141 @@ namespace LeetCode
         #endregion
 
 
+        #region | OnSite Assessment - 05/01/2022 | 
+
+        /// <summary>
+        /// 438. Find All Anagrams in a String
+        /// https://leetcode.com/problems/find-all-anagrams-in-a-string/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public IList<int> FindAnagrams(string s, string p)
+        {
+            IList<int> res = new List<int>();
+            int sn = s.Length;
+            int pn = p.Length;
+            if (sn < pn)
+                return res;
+
+            int[] sCnt = new int[26];
+            int[] pCnt = new int[26];
+            foreach (char c in p)
+                pCnt[c - 'a']++;
+
+            // sliding window on the string s
+            for (int i = 0; i < sn; i++)
+            {
+                sCnt[s[i] - 'a']++;
+                //remove a letter from the left side of the window
+                if (i >= pn)
+                    sCnt[s[i - pn] - 'a']--;
+                if (IsAnagram(pCnt, sCnt))
+                    res.Add(i - pn + 1);
+            }
+
+            return res;
+        }
+        private bool IsAnagram(int[] sCnt, int[] pCnt)
+        {
+            for (int i = 0; i < sCnt.Length; i++)
+            {
+                if (sCnt[i] != pCnt[i])
+                    return false;
+            }
+            return true;
+        }
+
+
+        /// <summary>
+        /// 1123. Lowest Common Ancestor of Deepest Leaves
+        /// https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/
+        /// </summary>
+        List<TreeNode> Deepest = new List<TreeNode>();
+        int MaxDepth = 0;
+        public TreeNode LcaDeepestLeaves(TreeNode root)
+        {
+            if (root == null) return root;
+
+            GetDeepestNodes(root, 0);
+
+            //Now among all of the deepest nodes find the lca(deepest[0], deepest[1], ... deepest[n-1])
+            if (Deepest.Count == 1) return Deepest[0];
+            if (Deepest.Count == 2) return Lca(root, Deepest[0], Deepest[1]);
+
+            TreeNode lca = Lca(root, Deepest[0], Deepest[1]);
+            for (int i = 2; i < Deepest.Count; i++)
+            {
+                lca = Lca(root, lca, Deepest[i]);
+            }
+
+            return lca;
+        }
+
+
+        private TreeNode Lca(TreeNode root, TreeNode p, TreeNode q)
+        {
+            if (root == null) return null;
+            if (root == p) return p;
+            if (root == q) return q;
+
+            TreeNode left = Lca(root.left, p, q);
+            TreeNode right = Lca(root.right, p, q);
+
+            if (left != null && right != null) return root;
+            if (left != null && right == null) return Lca(root.left, p, q);
+            //if (left == null && right != null)
+            return Lca(root.right, p, q);
+        }
+
+        private void GetDeepestNodes(TreeNode root, int depth)
+        {
+            if (depth > MaxDepth)
+            {
+                MaxDepth = depth; //Update the maximum depth
+                Deepest.Clear(); //Erase old candidates
+                                 //add this node as a candidate
+                Deepest.Add(root);
+            }
+            else if (depth == MaxDepth)
+            {
+                Deepest.Add(root); //This node is one of the deepest children.
+            }
+
+            //Now try traversing the rest of the binary tree
+            if (root.left != null) GetDeepestNodes(root.left, depth + 1);
+            if (root.right != null) GetDeepestNodes(root.right, depth + 1);
+        }
+
+
+
+        /// <summary>
+        /// 416. Partition Equal Subset Sum
+        /// https://leetcode.com/problems/partition-equal-subset-sum/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public bool CanPartition(int[] nums)
+        {
+            int n = nums.Length;
+            int totalSum = 0;
+            foreach (int num in nums)
+                totalSum += num;
+
+            if (totalSum % 2 != 0) return false;
+            int subSetSum = totalSum / 2;
+            bool[] dp = new bool[subSetSum + 1];
+            dp[0] = true;
+            foreach (int curr in nums)
+            {
+                for (int j = subSetSum; j >= curr; j--)
+                    dp[j] |= dp[j - curr];
+            }
+
+            return dp[subSetSum];
+
+
+        }
+        #endregion
     }
 }

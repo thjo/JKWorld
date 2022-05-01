@@ -216,5 +216,54 @@ namespace LeetCode
 
             return res;
         }
+
+
+        public int ShipWithinDays(int[] weights, int days)
+        {
+            int n = weights.Length;
+            int minWeight = int.MinValue;
+            int maxWeight = 0;
+            foreach (int w in weights)
+            {
+                minWeight = Math.Max(minWeight, w);
+                maxWeight += w;
+            }
+            if (n == days)
+                return minWeight;
+
+            //[1,2,3,4,5,6,7,8,9,10]  - 15
+            while (minWeight < maxWeight)
+            {
+                int mid = minWeight + (maxWeight - minWeight) / 2;
+                if (CheckPossibility(weights, days, mid))
+                    maxWeight = mid;
+                else
+                    minWeight = mid + 1;
+            }
+            return maxWeight;
+        }
+
+        private bool CheckPossibility(int[] weights, int days, int capacity)
+        {
+            int currWeight = weights[0];
+            for (int i = 1; i < weights.Length; i++)
+            {
+                if(currWeight + weights[i] > capacity)
+                {
+                    if (days == 0)
+                        return false;
+                    days--;
+                    currWeight = weights[i];
+                }
+                else  {
+                    currWeight += weights[i];
+                }
+            }
+            if (currWeight > 0)
+                days--;
+
+            return days >= 0 ? true : false;
+        }
+
     }
 }
