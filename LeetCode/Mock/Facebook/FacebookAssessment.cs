@@ -646,5 +646,102 @@ namespace LeetCode
 
         }
         #endregion
+
+
+        #region | Online Assessment - 05/03/2022 | 
+
+        /// <summary>
+        /// 21. Merge Two Sorted Lists
+        /// https://leetcode.com/problems/merge-two-sorted-lists/
+        /// </summary>
+        /// <param name="list1"></param>
+        /// <param name="list2"></param>
+        /// <returns></returns>
+        public ListNode MergeTwoLists(ListNode l1, ListNode l2)
+        {
+            ListNode newHead = new ListNode(-1);
+            ListNode currNode = newHead;
+
+            while (l1 != null && l2 != null)
+            {
+                if (l1.val > l2.val)
+                {
+                    currNode.next = l2;
+                    l2 = l2.next;
+                }
+                else
+                {
+                    currNode.next = l1;
+                    l1 = l1.next;
+                }
+
+                currNode = currNode.next;
+            }
+
+            if (l1 != null)
+                currNode.next = l1;
+            if (l2 != null)
+                currNode.next = l2;
+
+            return newHead.next;
+        }
+
+
+        /// <summary>
+        /// 325. Maximum Size Subarray Sum Equals k
+        /// https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public int MaxSubArrayLen(int[] nums, int k)
+        {
+            int maxLen = 0;
+            int prefixSum = 0;
+            Dictionary<int, int> indices = new Dictionary<int, int>();
+            for (int i = 0; i < nums.Length; i++)
+            {
+                prefixSum += nums[i];
+                if (prefixSum == k)
+                    maxLen = i + 1;
+
+                if (indices.ContainsKey(prefixSum - k))
+                    maxLen = Math.Max(maxLen, i - indices[prefixSum - k]);
+
+                if (!indices.ContainsKey(prefixSum))
+                    indices.Add(prefixSum, i);
+            }
+
+            return maxLen;
+        }
+
+        /// <summary>
+        /// 209. Minimum Size Subarray Sum
+        /// https://leetcode.com/problems/minimum-size-subarray-sum/
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int MinSubArrayLen(int target, int[] nums)
+        {
+            int minLen = nums.Length + 1;
+            int start = 0;
+            int sum = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                sum += nums[i];
+                while (sum >= target)
+                {
+                    minLen = Math.Min(minLen, i - start + 1);
+                    sum -= nums[start++];
+                }
+            }
+
+            return minLen == nums.Length + 1 ? 0 : minLen;
+        }
+
+        #endregion
+
+
     }
 }
