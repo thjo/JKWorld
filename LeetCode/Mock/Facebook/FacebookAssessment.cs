@@ -743,5 +743,122 @@ namespace LeetCode
         #endregion
 
 
+        #region | Online Assessment - 05/04/2022 | 
+
+        /// <summary>
+        /// 1360. Number of Days Between Two Dates
+        /// https://leetcode.com/problems/number-of-days-between-two-dates/
+        /// </summary>
+        /// <param name="date1"></param>
+        /// <param name="date2"></param>
+        /// <returns></returns>
+        public int DaysBetweenDates(string date1, string date2)
+        {
+
+            int days1 = CalNumOfDays(date1);
+            int days2 = CalNumOfDays(date2);
+
+            return Math.Abs(days1 - days2);
+
+        }
+        private bool IsLeapYear(int year)
+        {
+            if (year % 4 == 0 && year % 100 != 0)
+                return true;
+            else if (year % 400 == 0)
+                return true;
+            else return false;
+        }
+        private int CalNumOfDays(string date)
+        {
+            int[] months = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+            int year = int.Parse(date.Substring(0, 4));
+            int month = int.Parse(date.Substring(5, 2));
+            int days = int.Parse(date.Substring(8));
+
+            for (int yr = 1971; yr < year; yr++)
+            {
+                if (IsLeapYear(yr)) days += 1;
+                days += 365;
+            }
+            for (int mth = 0; mth < month - 1; mth++)
+            {
+                if (mth == 1 && IsLeapYear(year)) days += 1;
+                days += months[mth];
+            }
+            return days;
+        }
+
+        /// <summary>
+        /// 1154. Day of the Year
+        /// https://leetcode.com/problems/day-of-the-year/
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public int DayOfYear(string date)
+        {
+            int[] months = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+            int year = int.Parse(date.Substring(0, 4));
+            int month = int.Parse(date.Substring(5, 2));
+            int day = int.Parse(date.Substring(8, 2));
+
+            int days = 0;
+            if (IsLeapYear(year) && month >= 3)
+                days += 1;
+
+            for (int m = 1; m < month; m++)
+                days += months[m];
+
+            days += day;
+
+            return days;
+        }
+        private bool IsLeapYear(int yr)
+        {
+            if (yr % 4 == 0 && yr % 100 != 0)
+                return true;
+            else if (yr % 400 == 0)
+                return true;
+            else return false;
+        }
+        public class BinaryMatrix {
+            public int Get(int row, int col) { return 0; }
+            public IList<int> Dimensions() { return null; }
+        }
+        /// <summary>
+        /// 1428. Leftmost Column with at Least a One
+        /// 
+        /// </summary>
+        /// <param name="binaryMatrix"></param>
+        /// <returns></returns>
+        public int LeftMostColumnWithOne(BinaryMatrix binaryMatrix)
+        {
+            int rows = binaryMatrix.Dimensions()[0];
+            int cols = binaryMatrix.Dimensions()[1];
+
+            // Set pointers to the top-right corner.
+            int currentRow = 0;
+            int currentCol = cols - 1;
+
+            // Repeat the search until it goes off the grid.
+            while (currentRow < rows && currentCol >= 0)
+            {
+                if (binaryMatrix.Get(currentRow, currentCol) == 0)
+                {
+                    currentRow++;
+                }
+                else
+                {
+                    currentCol--;
+                }
+            }
+
+            // If we never left the last column, this is because it was all 0's.
+            return (currentCol == cols - 1) ? -1 : currentCol + 1;
+        }
+
+        #endregion
+
+
     }
 }
