@@ -18,13 +18,13 @@ namespace LeetCode
             //dp.MaxSubarraySumCircular(new int[] { -10, -7, 9, -7, 6, 9, -9, -4, -8, -5 });
             AmazonAssessment aaaa = new AmazonAssessment();
             //aaaa.SortArrayByParityII(new int[] { 2, 3, 0, 4, 1, 3});
-            aaaa.PrisonAfterNDays(new int[] { 0, 1, 0, 1, 1, 0, 0, 1 }, 7);
+            //aaaa.PrisonAfterNDays(new int[] { 0, 1, 0, 1, 1, 0, 0, 1 }, 7);
             //int[][] grid = new int[3][];
             //grid[0] = new int[3] { 2, 1, 1 };
             //grid[1] = new int[3] { 1, 1, 0 };
             //grid[2] = new int[3] { 0, 1, 1 };
             //aaaa.OrangesRotting(grid);
-            //aaaa.GenerateMatrix(3);
+            aaaa.GenerateMatrix(3);
             //aaaa.CountDecreasingRatings(new int[] { 2, 1, 3 });
             //aaaa.RelativeSortArray(new int[] { 2, 21, 43, 38, 0, 42, 33, 7, 24, 13, 12, 27, 12, 24, 5, 23, 29, 48, 30, 31 }
             //                     , new int[] { 2, 42, 38, 0, 43, 21 });

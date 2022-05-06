@@ -803,7 +803,7 @@ namespace LeetCode
             int day = int.Parse(date.Substring(8, 2));
 
             int days = 0;
-            if (IsLeapYear(year) && month >= 3)
+            if (IsLeapYear2(year) && month >= 3)
                 days += 1;
 
             for (int m = 1; m < month; m++)
@@ -813,7 +813,7 @@ namespace LeetCode
 
             return days;
         }
-        private bool IsLeapYear(int yr)
+        private bool IsLeapYear2(int yr)
         {
             if (yr % 4 == 0 && yr % 100 != 0)
                 return true;
