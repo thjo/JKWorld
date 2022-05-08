@@ -800,24 +800,24 @@ namespace LeetCode
             for (int i = 0; i < 26; i++)
                 letterCnts[i] = 0;
 
-            int windowStart = 0;
+            int l = 0, r = 0;
+            int longestLen = 1;
             int maxCnt = 0;
-            int longestLen = 0;
-            for(int windowEnd = 0; windowEnd < n; windowEnd++)
+            //length - maxCnt <= K >> Answer. Length
+            while (r < n)
             {
-                letterCnts[s[windowEnd] - 'A']++;
-                int currCharCnt = letterCnts[s[windowEnd] - 'A'];
-                maxCnt = Math.Max(maxCnt, currCharCnt);
+                letterCnts[s[r] - 'A']++;
+                maxCnt = Math.Max(maxCnt, letterCnts[s[r] - 'A']);
 
-                while (windowEnd - windowStart - maxCnt + 1 > k)
+                while (l <= r && (r - l + 1) - maxCnt > k)
                 {
-                    letterCnts[s[windowStart] - 'A']--;
-                    windowStart++;
+                    letterCnts[s[l] - 'A']--;
+                    l++;
                 }
 
-                longestLen = Math.Max(longestLen, windowEnd - windowStart + 1);
+                longestLen = Math.Max(longestLen, r - l + 1);
+                r++;
             }
-
             return longestLen;
         }
 
@@ -894,6 +894,8 @@ namespace LeetCode
             InvertTree(root.right);
             return root;
         }
+
+
 
         #endregion
 

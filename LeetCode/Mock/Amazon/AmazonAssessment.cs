@@ -6,90 +6,6 @@ namespace LeetCode
 {
     public class AmazonAssessment
     {
-        #region | Onsite Interview - 3/24/2022 | 
-
-        /// <summary>
-        /// 13. Roman to Integer
-        /// https://leetcode.com/problems/roman-to-integer/
-        /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        public int RomanToInt(string s)
-        {
-            Dictionary<string, int> map = new Dictionary<string, int>();
-            map.Add("I", 1);
-            map.Add("IV", 4);
-            map.Add("V", 5);
-            map.Add("IX", 9);
-            map.Add("X", 10);
-            map.Add("XL", 40);
-            map.Add("L", 50);
-            map.Add("XC", 90);
-            map.Add("C", 100);
-            map.Add("CD", 400);
-            map.Add("D", 500);
-            map.Add("CM", 900);
-            map.Add("M", 1000);
-
-            int idx = 0;
-            int sum = 0;
-            while (idx < s.Length)
-            {
-                if (idx + 1 < s.Length
-                  && map.ContainsKey(s.Substring(idx, 2)))
-                {
-                    sum += map[s.Substring(idx, 2)];
-                    idx += 2;
-                }
-                else
-                {
-                    sum += map[s[idx].ToString()];
-                    idx++;
-                }
-            }
-
-            return sum;
-        }
-
-
-        /// <summary>
-        /// 236. Lowest Common Ancestor of a Binary Tree
-        /// https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
-        /// </summary>
-        /// <param name="root"></param>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <returns></returns>
-        public TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
-        {
-            if (root == null)
-                return root;
-
-            if (root.val == p.val || root.val == q.val)
-                return root;
-
-            TreeNode left = LowestCommonAncestor(root.left, p, q);
-            TreeNode right = LowestCommonAncestor(root.right, p, q);
-
-            if (left != null && right != null)
-                return root;
-            else if (left == null & right == null)
-                return null;
-            else
-                return left != null ? left : right;            
-        }
-
-
-
-
-        //public int LadderLength(string beginWord, string endWord, IList<string> wordList)
-        //{
-        //    Queue<string> queue = new Queue<string>();
-        //}
-
-        #endregion
-
-
         #region | Online Interview - 3/27/2022 | 
 
         /// <summary>
@@ -121,7 +37,6 @@ namespace LeetCode
         }
 
         #endregion
-
 
         #region | Online Interview - 4/3/2022 | 
 
@@ -236,7 +151,6 @@ namespace LeetCode
 
         #endregion
 
-
         #region | Online Interview - 4/11/2022 | 
 
         /// <summary>
@@ -317,7 +231,6 @@ namespace LeetCode
 
         #endregion
 
-
         #region | Online Interview - 4/13/2022 | 
 
         public int[] RelativeSortArray(int[] arr1, int[] arr2)
@@ -390,7 +303,6 @@ namespace LeetCode
 
         #endregion
 
-
         #region | Online Interview - 4/14/2022 | 
 
         /// <summary>
@@ -461,7 +373,6 @@ namespace LeetCode
         }
 
         #endregion
-
 
         #region | Online Interview - 4/15/2022 | 
 
@@ -562,7 +473,6 @@ namespace LeetCode
 
         #endregion
 
-
         #region | Online Interview - 4/16/2022 | 
 
         public string MostCommonWord(string paragraph, string[] banned)
@@ -633,86 +543,6 @@ namespace LeetCode
         }
 
         #endregion
-
-
-        #region | Onsite - 4/17/2022 | 
-
-        /// <summary>
-        /// 1539. Kth Missing Positive Number
-        /// https://leetcode.com/problems/kth-missing-positive-number/
-        /// </summary>
-        /// <param name="arr"></param>
-        /// <param name="k"></param>
-        /// <returns></returns>
-        public int FindKthPositive(int[] arr, int k)
-        {
-            int currVal = arr[0];
-            k = k + (1 - currVal);
-            if (k == 0)
-                return currVal - 1;
-            else if (k < 0)
-                return currVal + k - 1;
-
-            int n = arr.Length;
-            int idx = 1;
-            //2
-            //5
-            while (k > 0 && idx < n)
-            {
-                int interval = arr[idx] - currVal - 1;
-                currVal = arr[idx];
-                idx++;
-
-                if (interval == 0)
-                    continue;
-
-                k = k - interval;
-                if (k == 0)
-                    return currVal - 1;
-                else if (k < 0)
-                    return currVal + k - 1;
-            }
-
-            return currVal + k;
-        }
-
-        /// <summary>
-        /// 1035. Uncrossed Lines
-        /// https://leetcode.com/problems/uncrossed-lines/
-        /// </summary>
-        /// <param name="nums1"></param>
-        /// <param name="nums2"></param>
-        /// <returns></returns>
-        public int MaxUncrossedLines(int[] nums1, int[] nums2)
-        {
-            int n1 = nums1.Length;
-            int n2 = nums2.Length;
-
-            int[,] dp = new int[n1 + 1, n2 + 1];
-
-            for (int i = 0; i <= n1; i++)
-            {
-                for (int j = 0; j <= n2; j++)
-                {
-
-                    if (i == 0 || j == 0)
-                        dp[i, j] = 0;
-                    else if (nums1[i - 1] == nums2[j - 1])
-                        dp[i, j] = 1 + dp[i - 1, j - 1];
-                    else
-                    {
-                        dp[i, j] = Math.Max(dp[i - 1, j], dp[i, j - 1]);
-                    }
-                }
-            }
-
-            return dp[n1, n2];
-        }
-
-
-
-        #endregion
-
 
         #region | Online - 4/18/22 | 
 
@@ -794,7 +624,6 @@ namespace LeetCode
         }
 
         #endregion
-
 
         #region | Online Interview - 4/24/2022 | 
 
@@ -945,8 +774,33 @@ namespace LeetCode
 
         #endregion
 
-
         #region | Online Interview - 05/01/2022 | 
+
+        /// <summary>
+        /// 1. Two Sum
+        /// https://leetcode.com/problems/two-sum/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public int[] TwoSum(int[] nums, int target)
+        {
+            Dictionary<int, int> dp = new Dictionary<int, int>();
+            int[] res = new int[2];
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (dp.ContainsKey(target - nums[i]))
+                {
+                    res[0] = dp[target - nums[i]];
+                    res[1] = i;
+                    break;
+                }
+                else
+                    dp[nums[i]] = i;
+            }
+
+            return res;
+        }
 
         /// <summary>
         /// 957. Prison Cells After N Days
@@ -1011,12 +865,270 @@ namespace LeetCode
         #endregion
 
 
-        #region | Online Interview - 5/5/2022 | 
+
+
+        #region | Phone Interview - 5/8/2022 | 
+
+
+        /// <summary>
+        /// 1119. Remove Vowels from a String
+        /// https://leetcode.com/problems/remove-vowels-from-a-string/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public string RemoveVowels(string s)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (IsVowels(s[i]) == false)
+                    sb.Append(s[i]);
+            }
+            return sb.ToString();
+        }
+        private bool IsVowels(char c)
+        {
+            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u')
+                return true;
+            else
+                return false;
+        }
+
+
+
+        public abstract class Node
+        {
+            public abstract int evaluate();
+            // define your fields here
+            public string val;
+            public Node left;
+            public Node right;
+        };
+        public class NodeImp : Node
+        {
+            public NodeImp()
+            {
+            }
+            public NodeImp(string value, Node l, Node r)
+            {
+                val = value;
+                left = l;
+                right = r;
+            }
+            public override int evaluate()
+            {
+                return evaluate(this);
+            }
+            private int evaluate(Node n)
+            {
+                if (n.left == null && n.right == null)
+                    return int.Parse(n.val);
+                int l = evaluate(n.left);
+                int r = evaluate(n.right);
+                if (n.val == "+")
+                    return l + r;
+                else if (n.val == "-")
+                    return l + r;
+                else if (n.val == "*")
+                    return l * r;
+                else // /
+                    return l / r;
+            }
+        }
+        public Node buildTree(string[] postfix)
+        {
+            Node root = null;
+            Node currRoot = new NodeImp();
+            currRoot.val = postfix[postfix.Length - 1];
+            root = currRoot;
+            Stack<Node> sNodes = new Stack<Node>();
+            for (int i = postfix.Length - 2; i >= 0; i--)
+            {
+                Node newNode = new NodeImp(postfix[i], null, null);
+                if (currRoot.right == null)
+                    currRoot.right = newNode;
+                else if (currRoot.left == null)
+                    currRoot.left = newNode;
+
+                if (postfix[i] == "+" || postfix[i] == "-" || postfix[i] == "*" || postfix[i] == "/")
+                {
+                    sNodes.Push(currRoot);
+                    currRoot = newNode;
+                }
+                else
+                {
+                    if (currRoot.left != null && currRoot.right != null && sNodes.Count > 0)
+                        currRoot = sNodes.Pop();
+                }
+            }
+            return root;
+        }
+
+        #endregion
+
+
+
+
+        #region | Onsite - 4/17/2022 | 
+
+        /// <summary>
+        /// 1539. Kth Missing Positive Number
+        /// https://leetcode.com/problems/kth-missing-positive-number/
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public int FindKthPositive(int[] arr, int k)
+        {
+            int currVal = arr[0];
+            k = k + (1 - currVal);
+            if (k == 0)
+                return currVal - 1;
+            else if (k < 0)
+                return currVal + k - 1;
+
+            int n = arr.Length;
+            int idx = 1;
+            //2
+            //5
+            while (k > 0 && idx < n)
+            {
+                int interval = arr[idx] - currVal - 1;
+                currVal = arr[idx];
+                idx++;
+
+                if (interval == 0)
+                    continue;
+
+                k = k - interval;
+                if (k == 0)
+                    return currVal - 1;
+                else if (k < 0)
+                    return currVal + k - 1;
+            }
+
+            return currVal + k;
+        }
+
+        /// <summary>
+        /// 1035. Uncrossed Lines
+        /// https://leetcode.com/problems/uncrossed-lines/
+        /// </summary>
+        /// <param name="nums1"></param>
+        /// <param name="nums2"></param>
+        /// <returns></returns>
+        public int MaxUncrossedLines(int[] nums1, int[] nums2)
+        {
+            int n1 = nums1.Length;
+            int n2 = nums2.Length;
+
+            int[,] dp = new int[n1 + 1, n2 + 1];
+
+            for (int i = 0; i <= n1; i++)
+            {
+                for (int j = 0; j <= n2; j++)
+                {
+
+                    if (i == 0 || j == 0)
+                        dp[i, j] = 0;
+                    else if (nums1[i - 1] == nums2[j - 1])
+                        dp[i, j] = 1 + dp[i - 1, j - 1];
+                    else
+                    {
+                        dp[i, j] = Math.Max(dp[i - 1, j], dp[i, j - 1]);
+                    }
+                }
+            }
+
+            return dp[n1, n2];
+        }
 
 
 
         #endregion
 
+        #region | Onsite Interview - 3/24/2022 | 
+
+        /// <summary>
+        /// 13. Roman to Integer
+        /// https://leetcode.com/problems/roman-to-integer/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public int RomanToInt(string s)
+        {
+            Dictionary<string, int> map = new Dictionary<string, int>();
+            map.Add("I", 1);
+            map.Add("IV", 4);
+            map.Add("V", 5);
+            map.Add("IX", 9);
+            map.Add("X", 10);
+            map.Add("XL", 40);
+            map.Add("L", 50);
+            map.Add("XC", 90);
+            map.Add("C", 100);
+            map.Add("CD", 400);
+            map.Add("D", 500);
+            map.Add("CM", 900);
+            map.Add("M", 1000);
+
+            int idx = 0;
+            int sum = 0;
+            while (idx < s.Length)
+            {
+                if (idx + 1 < s.Length
+                  && map.ContainsKey(s.Substring(idx, 2)))
+                {
+                    sum += map[s.Substring(idx, 2)];
+                    idx += 2;
+                }
+                else
+                {
+                    sum += map[s[idx].ToString()];
+                    idx++;
+                }
+            }
+
+            return sum;
+        }
+
+
+        /// <summary>
+        /// 236. Lowest Common Ancestor of a Binary Tree
+        /// https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="p"></param>
+        /// <param name="q"></param>
+        /// <returns></returns>
+        public TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
+        {
+            if (root == null)
+                return root;
+
+            if (root.val == p.val || root.val == q.val)
+                return root;
+
+            TreeNode left = LowestCommonAncestor(root.left, p, q);
+            TreeNode right = LowestCommonAncestor(root.right, p, q);
+
+            if (left != null && right != null)
+                return root;
+            else if (left == null & right == null)
+                return null;
+            else
+                return left != null ? left : right;
+        }
+
+
+
+
+        //public int LadderLength(string beginWord, string endWord, IList<string> wordList)
+        //{
+        //    Queue<string> queue = new Queue<string>();
+        //}
+
+        #endregion
 
         public int CountDecreasingRatings(int[] ratings)
         {
