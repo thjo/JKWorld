@@ -89,6 +89,33 @@ namespace LeetCode
             return retVal;
         }
 
+        /// <summary>
+        /// 238. Product of Array Except Self
+        /// https://leetcode.com/problems/product-of-array-except-self/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int[] ProductExceptSelf(int[] nums)
+        {
+            int len = nums.Length;
+            int[] res = new int[nums.Length];
+            res[0] = 1;
+            int answer = 1;
+            for (int i = 1; i < len; i++)
+            {
+                answer *= nums[i - 1];
+                res[i] = answer;
+            }
+
+            answer = 1;
+            for (int i = len - 2; i >= 0; i--)
+            {
+                answer *= nums[i + 1];
+                res[i] *= answer;
+            }
+
+            return res;
+        }
 
         #endregion
 
@@ -126,6 +153,8 @@ namespace LeetCode
 
             return retVal;
         }
+
+
 
         #endregion
 
@@ -205,7 +234,69 @@ namespace LeetCode
             return min;
         }
 
+        /// <summary>
+        /// 300. Longest Increasing Subsequence
+        /// https://leetcode.com/problems/longest-increasing-subsequence/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int LengthOfLIS(int[] nums)
+        {
+            int ans = 1;
+            int n = nums.Length;
+            int[] dp = new int[n];
+            for (int i = 0; i < n; i++)
+                dp[i] = 1;
 
+            for (int i = n - 2; i >= 0; i--)
+            {
+                for (int j = i + 1; j < n; j++)
+                {
+                    if (nums[i] < nums[j])
+                    {
+                        dp[i] = dp[j] + 1;
+                        ans = Math.Max(ans, dp[i]);
+                    }
+                }
+            }
+            return ans;
+
+            //int[] longestDP = new int[nums.Length];
+            //int[] prevNums = new int[nums.Length];
+            //int longest = 1;
+            //for (int i = 0; i < longestDP.Length; i++)
+            //    longestDP[i] = 1;
+
+            //for (int i = nums.Length - 2; i >= 0; i--)
+            //{
+            //    for (int j = nums.Length - 1; j > i; j--)
+            //    {
+            //        if (nums[j] > nums[i])
+            //        {
+            //            longestDP[i] = Math.Max(longestDP[i], 1 + longestDP[j]);
+            //            longest = Math.Max(longestDP[i], longest);
+            //        }
+            //    }
+            //}
+
+            //return longest;
+            /*
+            for(int i = 1; i < nums.Length; i++)
+            {
+                for(int j = 0; j < i; j++)
+                {
+                    if (nums[j] < nums[i] && longestDP[i] < longestDP[j] + 1)
+                    {
+                        longestDP[i] = longestDP[j] + 1;
+                        prevNums[i] = nums[j];
+
+                        longest = Math.Max(longest, longestDP[i]);
+                    }
+                }
+            }
+            return longest;        
+            */
+        }
         #endregion
 
 
@@ -283,7 +374,48 @@ namespace LeetCode
         /// <returns></returns>
         public bool CanFinish(int numCourses, int[][] prerequisites)
         {
-            return false;
+            Dictionary<int, List<int>> preMap = new Dictionary<int, List<int>>();
+            foreach (var c in prerequisites)
+            {
+                if (preMap.ContainsKey(c[0]))
+                    preMap[c[0]].Add(c[1]);
+                else
+                {
+                    List<int> cc = new List<int>();
+                    cc.Add(c[1]);
+                    preMap.Add(c[0], cc);
+                }
+            }
+
+            //detect a loop in this graph
+            HashSet<int> visited = new HashSet<int>();
+            //need to check every single course because courses might be not connected 
+            bool ans = true;
+            for (int c = 0; c < numCourses; c++)
+            {
+                ans = CanFinishDFS(c, preMap, visited);
+                if (ans == false)
+                    return false;
+            }
+            return ans;
+        }
+        private bool CanFinishDFS(int course, Dictionary<int, List<int>> preMap, HashSet<int> visited)
+        {
+            if (visited.Contains(course))
+                return false;
+            if (preMap.ContainsKey(course) == false || preMap[course].Count == 0)
+                return true;
+
+            visited.Add(course);
+            foreach (int c in preMap[course])
+            {
+                if (CanFinishDFS(c, preMap, visited) == false)
+                    return false;
+            }
+            visited.Remove(course);
+            preMap[course].Clear();
+
+            return true;
         }
 
 

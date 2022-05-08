@@ -271,23 +271,39 @@ namespace LeetCode
         public int Jump(int[] nums)
         {
             int n = nums.Length;
-            int[] dp = new int[n];
-            for (int i = 0; i < n; i++)
-                dp[i] = n;
-            dp[n - 1] = 0;
-
-            for (int i = n - 2; i >= 0; i--)
+            int l = 0, r = 0;
+            int cnt = 0;
+            while (r < n - 1)
             {
-                int maxJump = nums[i];
-                while (maxJump > 0)
+                int farthest = r;
+                for (int i = l; i <= r; i++)
                 {
-                    if ((i + maxJump) < n)
-                        dp[i] = Math.Min(dp[i], dp[i + maxJump] + 1);
-                    maxJump--;
+                    farthest = Math.Max(farthest, i + nums[i]);
                 }
-                //dp[i] = 
+                l = r + 1;
+                r = farthest;
+                cnt++;
             }
-            return dp[0];
+
+            return cnt;
+
+            //int n = nums.Length;
+            //int[] dp = new int[n];
+            //for (int i = 0; i < n; i++)
+            //    dp[i] = n;
+            //dp[n - 1] = 0;
+
+            //for (int i = n - 2; i >= 0; i--)
+            //{
+            //    int maxJump = nums[i];
+            //    while (maxJump > 0)
+            //    {
+            //        if ((i + maxJump) < n)
+            //            dp[i] = Math.Min(dp[i], dp[i + maxJump] + 1);
+            //        maxJump--;
+            //    }
+            //}
+            //return dp[0];
         }
 
 
@@ -361,5 +377,95 @@ namespace LeetCode
                 return Math.Max(max, total - min);
         }
 
+
+        /// <summary>
+        /// 121. Best Time to Buy and Sell Stock
+        /// https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+        /// </summary>
+        /// <param name="prices"></param>
+        /// <returns></returns>
+        public int MaxProfit(int[] prices)
+        {
+            int maxProfit = 0;
+            int minVal = prices[0];
+            for (int i = 1; i < prices.Length; i++)
+            {
+                if (minVal > prices[i])
+                    minVal = prices[i];
+                else if (minVal < prices[i])
+                    maxProfit = Math.Max(maxProfit, prices[i] - minVal);
+            }
+
+            return maxProfit;
+        }
+
+
+        /// <summary>
+        /// 118. Pascal's Triangle
+        /// https://leetcode.com/problems/pascals-triangle/
+        /// </summary>
+        /// <param name="numRows"></param>
+        /// <returns></returns>
+        public IList<IList<int>> Generate(int numRows)
+        {
+            IList<IList<int>> res = new List<IList<int>>();
+
+            for (int i = 0; i < numRows; i++)
+            {
+                IList<int> row = new List<int>();
+                for (int j = 0; j <= i; j++)
+                {
+                    if (j == 0 || j == i)
+                        row.Add(1);
+                    else
+                        row.Add(res[i - 1][j - 1] + res[i - 1][j]);
+                }
+                res.Add(row);
+            }
+
+            return res;
+        }
+
+        /// <summary>
+        /// 119. Pascal's Triangle II
+        /// https://leetcode.com/problems/pascals-triangle-ii/
+        /// </summary>
+        /// <param name="rowIndex"></param>
+        /// <returns></returns>
+        public IList<int> GetRow(int rowIndex)
+        {
+            IList<IList<int>> ans = Generate(rowIndex + 1);
+            return ans[rowIndex];
+
+        }
+
+
+        /// <summary>
+        /// 392. Is Subsequence
+        /// https://leetcode.com/problems/is-subsequence/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public bool IsSubsequence(string s, string t)
+        {
+            if (string.IsNullOrEmpty(s) && string.IsNullOrEmpty(t))
+                return true;
+            else if (string.IsNullOrEmpty(s))
+                return true;
+            else if (string.IsNullOrEmpty(t))
+                return false;
+
+            int sIdx = 0, tIdx = 0;
+            while (sIdx < s.Length && tIdx < t.Length)
+            {
+                if (s[sIdx] == t[tIdx])
+                    sIdx++;
+
+                tIdx++;
+            }
+
+            return sIdx == s.Length;
+        }
     }
 }

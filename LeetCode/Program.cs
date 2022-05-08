@@ -8,6 +8,13 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
+            Leetcode75Questions l75 = new Leetcode75Questions();
+            //l75.LengthOfLIS(new int[] { 0, 1, 0, 3, 2, 3 });
+            int[][] prerequisites = new int[1][];
+            prerequisites[0] = new int[2] { 1, 0 };
+            l75.CanFinish(2, prerequisites);
+
+
             FacebookAssessment fb = new FacebookAssessment();
             //fb.ReverseVowels(" ");
             BinarySearchI bs = new BinarySearchI();
