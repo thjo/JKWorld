@@ -111,7 +111,100 @@ namespace LeetCode
         }
 
 
+        /// <summary>
+        /// 695. Max Area of Island
+        /// https://leetcode.com/problems/max-area-of-island/
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public int MaxAreaOfIsland(int[][] grid)
+        {
+            int rowLen = grid.Length;
+            int colLen = grid[0].Length;
+            int[][] directions = new int[4][];
+            directions[0] = new int[2] { 1, 0 };
+            directions[1] = new int[2] { 0, 1 };
+            directions[2] = new int[2] { -1, 0 };
+            directions[3] = new int[2] { 0, -1 };
 
+            int maxArea = 0;
+            for (int i = 0; i < rowLen; i++)
+            {
+                for (int j = 0; j < colLen; j++)
+                {
+                    if (grid[i][j] == 1)
+                        maxArea = Math.Max(maxArea, VisitIsland(grid, i, j, directions));
+                }
+            }
+            return maxArea;
+        }
+        private int VisitIsland(int[][] grid, int row, int col, int[][] directions)
+        {
+            if (row < 0 || row >= grid.Length
+              || col < 0 || col >= grid[0].Length)
+            {
+                return 0;
+            }
+            if (grid[row][col] != 1)
+                return 0;
 
+            int area = 1;
+            grid[row][col] = 2; //visited
+            foreach (var d in directions)
+            {
+                area += VisitIsland(grid, row + d[0], col + d[1], directions);
+            }
+
+            return area;
+        }
+
+        /// <summary>
+        /// 1254. Number of Closed Islands
+        /// https://leetcode.com/problems/number-of-closed-islands/
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public int ClosedIsland(int[][] grid)
+        {
+            int rowLen = grid.Length;
+            int colLen = grid[0].Length;
+            int[][] directions = new int[4][];
+            directions[0] = new int[2] { 1, 0 };
+            directions[1] = new int[2] { 0, 1 };
+            directions[2] = new int[2] { -1, 0 };
+            directions[3] = new int[2] { 0, -1 };
+
+            int numOfClosedIsland = 0;
+            for (int i = 0; i < rowLen; i++)
+            {
+                for (int j = 0; j < colLen; j++)
+                {
+                    if (grid[i][j] == 0 && VisitIsland(grid, i, j, directions, true))
+                        numOfClosedIsland++;
+                }
+            }
+            return numOfClosedIsland;
+        }
+        private bool VisitIsland(int[][] grid, int row, int col, int[][] directions, bool isClosedIsland)
+        {
+            if (row < 0 || row >= grid.Length
+              || col < 0 || col >= grid[0].Length)
+                return false;
+
+            if (grid[row][col] != 0)
+                return isClosedIsland;
+
+            grid[row][col] = 2; //visited
+            if (row == 0 || row == grid.Length - 1
+              || col == 0 || col == grid[0].Length - 1)
+                isClosedIsland = false;
+            foreach (var d in directions)
+            {
+                bool tmp = VisitIsland(grid, row + d[0], col + d[1], directions, isClosedIsland);
+                isClosedIsland = isClosedIsland ? tmp : isClosedIsland;
+            }
+
+            return isClosedIsland;
+        }
     }
 }

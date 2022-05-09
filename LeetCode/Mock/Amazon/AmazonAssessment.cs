@@ -928,7 +928,7 @@ namespace LeetCode
                 if (n.val == "+")
                     return l + r;
                 else if (n.val == "-")
-                    return l + r;
+                    return l - r;
                 else if (n.val == "*")
                     return l * r;
                 else // /

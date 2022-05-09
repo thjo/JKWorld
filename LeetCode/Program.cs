@@ -14,17 +14,26 @@ namespace LeetCode
             //prerequisites[0] = new int[2] { 1, 0 };
             //l75.CanFinish(2, prerequisites);
 
-
-            FacebookAssessment fb = new FacebookAssessment();
-            //fb.ReverseVowels(" ");
-
-
             BinarySearchI bs = new BinarySearchI();
             //bs.FindTheDistanceValue(new int[] { 1, 4, 2, 3 }, new int[] { -4, -3, 6, 10, 20, 30 }, 3);
             //bs.NextGreatestLetter(new char[] { 'c', 'f', 'j' }, 'd');
 
             DynamicProgrammingI dp = new DynamicProgrammingI();
             //dp.MaxSubarraySumCircular(new int[] { -10, -7, 9, -7, 6, 9, -9, -4, -8, -5 });
+
+
+            GraphTheoryI gp1 = new GraphTheoryI();
+            int[][] grid = new int[5][];
+            grid[0] = new int[] { 1, 1, 1, 1, 1, 1, 1, 0  };
+            grid[1] = new int[] { 1, 0, 0, 0, 0, 1, 1, 0  };
+            grid[2] = new int[] { 1, 0, 1, 0, 1, 1, 1, 0  };
+            grid[3] = new int[] { 1, 0, 0, 0, 0, 1, 0, 1  };
+            grid[4] = new int[] { 1, 1, 1, 1, 1, 1, 1, 0  };
+            gp1.ClosedIsland(grid);
+
+            FacebookAssessment fb = new FacebookAssessment();
+            //fb.ReverseVowels(" ");
+
 
 
             AmazonAssessment aaaa = new AmazonAssessment();
