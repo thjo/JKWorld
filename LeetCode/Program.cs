@@ -23,13 +23,28 @@ namespace LeetCode
 
 
             GraphTheoryI gp1 = new GraphTheoryI();
-            int[][] grid = new int[5][];
-            grid[0] = new int[] { 1, 1, 1, 1, 1, 1, 1, 0  };
-            grid[1] = new int[] { 1, 0, 0, 0, 0, 1, 1, 0  };
-            grid[2] = new int[] { 1, 0, 1, 0, 1, 1, 1, 0  };
-            grid[3] = new int[] { 1, 0, 0, 0, 0, 1, 0, 1  };
-            grid[4] = new int[] { 1, 1, 1, 1, 1, 1, 1, 0  };
-            gp1.ClosedIsland(grid);
+            //int[][] grid = new int[5][];
+            //grid[0] = new int[] { 1, 1, 1, 1, 1, 1, 1, 0  };
+            //grid[1] = new int[] { 1, 0, 0, 0, 0, 1, 1, 0  };
+            //grid[2] = new int[] { 1, 0, 1, 0, 1, 1, 1, 0  };
+            //grid[3] = new int[] { 1, 0, 0, 0, 0, 1, 0, 1  };
+            //grid[4] = new int[] { 1, 1, 1, 1, 1, 1, 1, 0  };
+            //gp1.ClosedIsland(grid);
+            int[][] grid = new int[10][];
+            grid[0] = new int[] { 0, 0, 0, 1, 1, 1, 0, 1, 0, 0 };
+            grid[1] = new int[] { 1,1,0,0,0,1,0,1,1, 1 };
+            grid[2] = new int[] { 0,0,0,1,1,1,0,1,0,0 };
+            grid[3] = new int[] { 0,1,1,0,0,0,1,0,1,0 };
+            grid[4] = new int[] { 0,1,1,1,1,1,0,0,1,0 };
+            grid[5] = new int[] { 0,0,1,0,1,1,1,1,0,1 };
+            grid[6] = new int[] { 0,1,1,0,0,0,1,1,1,1 };
+            grid[7] = new int[] { 0,0,1,0,0,1,0,1,0,1 };
+            grid[8] = new int[] { 1,0,1,0,1,1,0,0,0,0 };
+            grid[9] = new int[] { 0,0,0,0,1,1,0,0,0,1 };
+            gp1.NumEnclaves(grid);
+
+
+
 
             FacebookAssessment fb = new FacebookAssessment();
             //fb.ReverseVowels(" ");

@@ -206,5 +206,58 @@ namespace LeetCode
 
             return isClosedIsland;
         }
+
+        /// <summary>
+        /// 1020. Number of Enclaves
+        /// https://leetcode.com/problems/number-of-enclaves/
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public int NumEnclaves(int[][] grid)
+        {
+            //1: land, 0: sea
+            int rowLen = grid.Length;
+            int colLen = grid[0].Length;
+            int[][] directions = new int[4][];
+            directions[0] = new int[2] { 1, 0 };
+            directions[1] = new int[2] { 0, 1 };
+            directions[2] = new int[2] { -1, 0 };
+            directions[3] = new int[2] { 0, -1 };
+            int ans = 0;
+            for (int r = 0; r < rowLen; r++)
+            {
+                for (int c = 0; c < colLen; c++)
+                {
+                    if (grid[r][c] == 1)
+                    {
+                        bool isAbleWalkOff = false;
+                        int tmp = VisitIslandN(grid, r, c, rowLen, colLen, directions, ref isAbleWalkOff);
+                        if (isAbleWalkOff == false)
+                            ans += tmp;
+                    }
+                }
+            }
+            return ans;
+        }
+        private int VisitIslandN(int[][] grid, int row, int col, int rowLen, int colLen, int[][] directions, ref bool isAbleWalkOff)
+        {
+            if (row < 0 || row >= rowLen || col < 0 || col >= colLen)
+                return 0;
+            if (grid[row][col] != 1)
+                return 0;
+
+            int numOfIsland = 1;
+            grid[row][col] = 2; //visited
+            if (row == 0 || col == 0
+               || row == rowLen - 1 || col == colLen - 1)
+                isAbleWalkOff = true;
+            foreach (var d in directions)
+            {
+                numOfIsland += VisitIslandN(grid, row + d[0], col + d[1], rowLen, colLen, directions, ref isAbleWalkOff);
+            }
+
+            return numOfIsland;
+        }
     }
+
 }
