@@ -223,5 +223,118 @@ namespace LeetCode
         {
             return true;
         }
+
+
+        /// <summary>
+        /// 34. Find First and Last Position of Element in Sorted Array
+        /// https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public int[] SearchRange(int[] nums, int target)
+        {
+            int[] ans = new int[2];
+            ans[0] = SearchRangeB(nums, target, 0, nums.Length - 1, true);
+            if (ans[0] == -1)
+                ans[1] = -1;
+            else
+                ans[1] = SearchRangeB(nums, target, ans[0], nums.Length - 1, false);
+            return ans;
+        }
+        private int SearchRangeB(int[] nums, int target, int startIdx, int endIdx, bool isFirst)
+        {
+            int n = nums.Length;
+            int l = startIdx, r = endIdx;
+            while (l <= r)
+            {
+                int m = l + (r - l) / 2;
+                if (nums[m] == target)
+                {
+                    if (isFirst)
+                    {
+                        // This means we found our lower bound.
+                        if (m == l || nums[m - 1] != target)
+                        {
+                            return m;
+                        }
+
+                        // Search on the left side for the bound.
+                        r = m - 1;
+                    }
+                    else
+                    {
+                        // This means we found our upper bound.
+                        if (m == r || nums[m + 1] != target)
+                        {
+                            return m;
+                        }
+
+                        // Search on the right side for the bound.
+                        l = m + 1;
+                    }
+                }
+                else if (nums[m] > target)
+                {
+                    r = m - 1;
+                }
+                else
+                {
+                    l = m + 1;
+                }
+            }
+
+            return -1;
+        }
+
+
+        /// <summary>
+        /// 441. Arranging Coins
+        /// https://leetcode.com/problems/arranging-coins/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int ArrangeCoins(int n)
+        {
+
+        }
+
+        /// <summary>
+        /// 1539. Kth Missing Positive Number
+        /// https://leetcode.com/problems/kth-missing-positive-number/
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public int FindKthPositive(int[] arr, int k)
+        {
+            int startVal = arr[0];
+            if (k == 0)
+                return startVal;
+            else if (startVal > k)
+                return k;
+
+            int n = arr.Length;
+            int l = 0, r = n - 1;
+            while (l <= r)
+            {
+                int m = l + (r - l) / 2;
+                int interval = arr[m] - m - 1;
+                if (k == interval)
+                {
+                    while (m - 1 >= 0 && arr[m - 1] == arr[m] - 1)
+                        m--;
+                    return arr[m] - 1;
+                }
+                else if (k > interval)
+                    l = m + 1;
+                else
+                    r = m - 1;
+            }
+
+            int diff = arr[r] - r - 1;
+            return arr[r] + k - diff;
+
+        }
     }
 }

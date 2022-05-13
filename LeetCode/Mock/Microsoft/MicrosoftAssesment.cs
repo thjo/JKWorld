@@ -991,7 +991,6 @@ namespace LeetCode
         #endregion
 
 
-
         #region | 3/2/22 - Online Assessent | 
 
         /// <summary>
@@ -1023,7 +1022,6 @@ namespace LeetCode
         }
 
         #endregion
-
 
         #region | 3/2/22 - Phone Interview | 
 
@@ -1080,7 +1078,6 @@ namespace LeetCode
 
 
         #endregion
-
 
         #region | Phone Interview - 03/05/2022 | 
 
@@ -1142,8 +1139,6 @@ namespace LeetCode
 
         #endregion
 
-
-
         #region | Phone Interview - 03/06/2022 | 
 
 
@@ -1201,7 +1196,6 @@ namespace LeetCode
         }
 
         #endregion
-
 
         #region | Online Interview - 03/07/2022 | 
 
@@ -1279,8 +1273,6 @@ namespace LeetCode
 
         #endregion
 
-
-
         #region | Phone Interview - 03/08/2022 | 
 
 
@@ -1336,7 +1328,6 @@ namespace LeetCode
 
 
         #endregion
-
 
         #region | Online Interview - 03/09/2022 | 
 
@@ -1420,7 +1411,6 @@ namespace LeetCode
 
         #endregion
 
-
         #region | Online Interview - 3/13/2022 | 
 
         public IList<int> MajorityElement(int[] nums)
@@ -1492,7 +1482,6 @@ namespace LeetCode
 
         #endregion
 
-
         #region | Phone Interview - 3/15/2022 | 
 
 
@@ -1555,7 +1544,6 @@ namespace LeetCode
 
         #endregion
 
-
         #region | Phone Interview - 3/16/2022 | 
 
         public int IslandPerimeter(int[][] grid)
@@ -1614,7 +1602,6 @@ namespace LeetCode
         }
 
         #endregion
-
 
         #region | Phone Interview - 3/17/2022 | 
 
@@ -1742,7 +1729,6 @@ namespace LeetCode
 
         #endregion
 
-
         #region | Microsoft - 3/20/2022 | 
 
         public int solution1(int[] A)
@@ -1784,7 +1770,6 @@ namespace LeetCode
         }
 
         #endregion
-
 
         #region | OnSite Interview - 3/21/2022 | 
 

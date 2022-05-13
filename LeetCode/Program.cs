@@ -17,6 +17,9 @@ namespace LeetCode
             BinarySearchI bs = new BinarySearchI();
             //bs.FindTheDistanceValue(new int[] { 1, 4, 2, 3 }, new int[] { -4, -3, 6, 10, 20, 30 }, 3);
             //bs.NextGreatestLetter(new char[] { 'c', 'f', 'j' }, 'd');
+            bs.FindKthPositive(new int[] { 2,3,4,7,11 }, 5);
+
+
 
             DynamicProgrammingI dp = new DynamicProgrammingI();
             //dp.MaxSubarraySumCircular(new int[] { -10, -7, 9, -7, 6, 9, -9, -4, -8, -5 });
