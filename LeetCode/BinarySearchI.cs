@@ -296,7 +296,28 @@ namespace LeetCode
         /// <returns></returns>
         public int ArrangeCoins(int n)
         {
+            if (n <= 1)
+                return n;
 
+            int l = 1, h = n - 1;
+            while (l <= h)
+            {
+                long m = l + (h - l) / 2;
+                long nCoins = m * (m + 1) / 2L;
+                if (nCoins == n)
+                {
+                    return (int)m;
+                }
+                else if (nCoins < n)
+                {
+                    l = (int)m + 1;
+                }
+                else
+                {
+                    h = (int)m - 1;
+                }
+            }
+            return h;
         }
 
         /// <summary>
@@ -336,5 +357,59 @@ namespace LeetCode
             return arr[r] + k - diff;
 
         }
+
+        /// <summary>
+        /// 167. Two Sum II - Input Array Is Sorted
+        /// https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
+        /// </summary>
+        /// <param name="numbers"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public int[] TwoSum(int[] numbers, int target)
+        {
+            int idxLeft = 0, idxRight = numbers.Length - 1;
+
+            while (idxLeft < idxRight)
+            {
+                if (numbers[idxLeft] + numbers[idxRight] == target)
+                    return new int[] { idxLeft + 1, idxRight + 1 };
+                else if (numbers[idxLeft] + numbers[idxRight] > target)
+                    idxRight--;
+                else
+                    idxLeft++;
+            }
+            return new int[] { -1, -1 };
+        }
+
+
+        /// <summary>
+        /// 1608. Special Array With X Elements Greater Than or Equal X
+        /// https://leetcode.com/problems/special-array-with-x-elements-greater-than-or-equal-x/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int SpecialArray(int[] nums)
+        {
+            int n = nums.Length;
+            Array.Sort(nums);
+            //0, 0, 3, 4, 4
+            int min = Math.Min(nums[0], n);
+            int max = Math.Min(nums[n - 1], n);
+            int x = min;
+            int idx = 0;    //index point
+            while (x <= max)
+            {
+                if (x == n - idx)
+                    return x;
+
+                while (idx < n && nums[idx] <= x)
+                    idx++;
+
+                x++;
+            }
+
+            return -1;
+        }
+
     }
 }

@@ -125,77 +125,6 @@ namespace LeetCode
         }
 
 
-        /// <summary>
-        /// 75. Sort Colors
-        /// https://leetcode.com/problems/sort-colors/
-        /// </summary>
-        /// <param name="nums"></param>
-        public void SortColors(int[] nums)
-        {
-            if (nums == null || nums.Length < 2)
-                return;
-
-            int[] colors = new int[3];
-            foreach (int color in nums)
-                colors[color]++;
-
-            int c = 0;
-            int i = 0;
-            while (c < 3 && i < nums.Length)
-            {
-                if (colors[c] <= 0)
-                    c++;
-                else
-                {
-                    nums[i++] = c;
-                    colors[c]--;
-                }
-            }
-        }
-
-
-        /// <summary>
-        /// 402. Remove K Digits
-        /// https://leetcode.com/problems/remove-k-digits/
-        /// </summary>
-        /// <param name="num"></param>
-        /// <param name="k"></param>
-        /// <returns></returns>
-        public string RemoveKdigits(string num, int k)
-        {
-            if (num == null || num.Length < 1)
-                return "0";
-
-            Stack<char> sNums = new Stack<char>();
-            sNums.Push(num[0]);
-            for (int i = 1; i < num.Length; i++)
-            {
-                while (sNums.Count > 0 && k > 0
-                     && sNums.Peek() > num[i])
-                {
-                    sNums.Pop();
-                    k--;
-                }
-                sNums.Push(num[i]);
-            }
-            for (int i = 0; i < k; i++)
-                sNums.Pop();
-
-            string res = "";
-            while (sNums.Count > 0)
-            {
-                res = sNums.Pop().ToString() + res;
-            }
-            int j = 0;
-            while (j < res.Length && res[j] == '0')
-                j++;
-            if (res.Length == j)
-                return "0";
-            else
-                return res.Substring(j);
-
-        }
-
 
         #region | Microsoft - Technical Assessment - 02/13/2022 | 
 
@@ -860,8 +789,6 @@ namespace LeetCode
 
         #endregion
 
-
-
         /// <summary>
         /// 41. First Missing Positive
         /// https://leetcode.com/problems/first-missing-positive/
@@ -989,7 +916,6 @@ namespace LeetCode
         }
 
         #endregion
-
 
         #region | 3/2/22 - Online Assessent | 
 
@@ -1197,43 +1123,6 @@ namespace LeetCode
 
         #endregion
 
-        #region | Online Interview - 03/07/2022 | 
-
-        /// <summary>
-        /// 237. Delete Node in a Linked List
-        /// https://leetcode.com/problems/delete-node-in-a-linked-list/
-        /// </summary>
-        /// <param name="node"></param>
-        public void DeleteNode(ListNode node)
-        {
-            if (node == null)
-                return;
-
-            node.val = node.next.val;
-            node.next = node.next.next;
-        }
-
-
-        /// <summary>
-        /// 191. Number of 1 Bits
-        /// https://leetcode.com/problems/number-of-1-bits/
-        /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        public int HammingWeight(uint n)
-        {
-            int retVal = 0;
-            while ((n | 0) > 0)
-            {
-                if ((n & 1) > 0)
-                    retVal++;
-                n = n >> 1;
-            }
-
-            return retVal;
-        }
-
-        #endregion
 
         #region | Phone Interview - 03/07/2022 | 
 
@@ -1411,76 +1300,7 @@ namespace LeetCode
 
         #endregion
 
-        #region | Online Interview - 3/13/2022 | 
 
-        public IList<int> MajorityElement(int[] nums)
-        {
-            //IList<int> res = new List<int>();
-
-            //int n = nums.Length / 3;
-            //Dictionary<int, int> map = new Dictionary<int, int>();
-            //foreach (int nn in nums)
-            //{
-            //    if (map.ContainsKey(nn))
-            //        map[nn]++;
-            //    else
-            //        map.Add(nn, 1);
-            //}
-
-            //foreach (var d in map)
-            //{
-            //    if (d.Value > n)
-            //        res.Add(d.Key);
-            //}
-
-            //return res;
-            IList<int> retVals = new List<int>();
-            int nTimes = nums.Length / 3;
-
-            int? candidate1 = null, candidate2 = null;
-            int cnt1 = 0, cnt2 = 0;
-
-            foreach (int n in nums)
-            {
-                if (candidate1 != null && candidate1.Value == n)
-                    cnt1++;
-                else if (candidate2 != null && candidate2.Value == n)
-                    cnt2++;
-                else if (cnt1 == 0)
-                {
-                    candidate1 = n;
-                    cnt1++;
-                }
-                else if (cnt2 == 0)
-                {
-                    candidate2 = n;
-                    cnt2++;
-                }
-                else
-                {
-                    cnt1--;
-                    cnt2--;
-                }
-            }
-
-            cnt1 = 0;
-            cnt2 = 0;
-            foreach (int n in nums)
-            {
-                if (candidate1 != null && candidate1.Value == n)
-                    cnt1++;
-                else if (candidate2 != null && candidate2.Value == n)
-                    cnt2++;
-            }
-            if (cnt1 > nTimes)
-                retVals.Add(candidate1.Value);
-            if (cnt2 > nTimes)
-                retVals.Add(candidate2.Value);
-
-            return retVals;
-        }
-
-        #endregion
 
         #region | Phone Interview - 3/15/2022 | 
 
@@ -1930,6 +1750,251 @@ namespace LeetCode
 
 
 
+        #region | Online Interview 1 | 
+
+        /// <summary>
+        /// 237. Delete Node in a Linked List
+        /// https://leetcode.com/problems/delete-node-in-a-linked-list/
+        /// </summary>
+        /// <param name="node"></param>
+        public void DeleteNode(ListNode node)
+        {
+            if (node == null)
+                return;
+
+            node.val = node.next.val;
+            node.next = node.next.next;
+        }
+
+
+        /// <summary>
+        /// 191. Number of 1 Bits
+        /// https://leetcode.com/problems/number-of-1-bits/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int HammingWeight(uint n)
+        {
+            int retVal = 0;
+            while ((n | 0) > 0)
+            {
+                if ((n & 1) > 0)
+                    retVal++;
+                n = n >> 1;
+            }
+
+            return retVal;
+        }
+
+        #endregion
+
+        #region | Online Interview 2 | 
+
+
+        /// <summary>
+        /// 796. Rotate String
+        /// https://leetcode.com/problems/rotate-string/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="goal"></param>
+        /// <returns></returns>
+        public bool RotateString(string s, string goal)
+        {
+            if (s.Length != goal.Length)
+                return false;
+
+            int j = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == goal[0])
+                {
+                    if (RotateStringB(s, i, goal))
+                        return true;
+                }
+            }
+
+            return false;
+        }
+        private bool RotateStringB(string s, int startIdx, string goal)
+        {
+            int i = startIdx;
+            int j = 0;
+            do
+            {
+                if (s[i] != goal[j])
+                    return false;
+
+                i++;
+                j++;
+                if (i == s.Length)
+                    i = 0;
+            }
+            while (i != startIdx);
+
+            return true;
+            //return s.Equals(goal);
+        }
+
+        /// <summary>
+        /// 169. Majority Element
+        /// https://leetcode.com/problems/majority-element/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int MajorityElement(int[] nums)
+        {
+            int count = 0;
+            int? candidate = null;
+
+            foreach (int num in nums)
+            {
+                if (count == 0)
+                {
+                    candidate = num;
+                }
+                count += (num == candidate.Value) ? 1 : -1;
+            }
+
+            return candidate.Value;
+        }
+        /// <summary>
+        /// 229. Majority Element II
+        /// https://leetcode.com/problems/majority-element-ii/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public IList<int> MajorityElementII(int[] nums)
+        {
+            IList<int> ans = new List<int>();
+            int nTimes = nums.Length / 3;
+            int? candidate1 = null;
+            int cnt1 = 0;
+            int? candidate2 = null;
+            int cnt2 = 0;
+            foreach (int num in nums)
+            {
+
+                if (candidate1 != null && candidate1.Value == num)
+                    cnt1++;
+                else if (candidate2 != null && candidate2.Value == num)
+                    cnt2++;
+                else if (cnt1 == 0)
+                {
+                    candidate1 = num;
+                    cnt1++;
+                }
+                else if (cnt2 == 0)
+                {
+                    candidate2 = num;
+                    cnt2++;
+                }
+                else
+                {
+                    cnt1--;
+                    cnt2--;
+                }
+            }
+
+            cnt1 = 0;
+            cnt2 = 0;
+            foreach (int n in nums)
+            {
+                if (candidate1 != null && candidate1.Value == n)
+                    cnt1++;
+                else if (candidate2 != null && candidate2.Value == n)
+                    cnt2++;
+            }
+            if (cnt1 > nTimes)
+                ans.Add(candidate1.Value);
+            if (cnt2 > nTimes)
+                ans.Add(candidate2.Value);
+
+            return ans;
+        }
+
+        #endregion
+
+        #region | Online Interview 3 | 
+
+        /// <summary>
+        /// 75. Sort Colors
+        /// https://leetcode.com/problems/sort-colors/
+        /// </summary>
+        /// <param name="nums"></param>
+        public void SortColors(int[] nums)
+        {
+            if (nums == null || nums.Length < 2)
+                return;
+
+            int[] colors = new int[3];
+            foreach (int color in nums)
+                colors[color]++;
+
+            int c = 0;
+            int i = 0;
+            while (c < 3 && i < nums.Length)
+            {
+                if (colors[c] <= 0)
+                    c++;
+                else
+                {
+                    nums[i++] = c;
+                    colors[c]--;
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// 402. Remove K Digits
+        /// https://leetcode.com/problems/remove-k-digits/
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public string RemoveKdigits(string num, int k)
+        {
+            if (num == null || num.Length < 1)
+                return "0";
+
+            Stack<char> sNums = new Stack<char>();
+            sNums.Push(num[0]);
+            for (int i = 1; i < num.Length; i++)
+            {
+                while (sNums.Count > 0 && k > 0
+                     && sNums.Peek() > num[i])
+                {
+                    sNums.Pop();
+                    k--;
+                }
+                sNums.Push(num[i]);
+            }
+            for (int i = 0; i < k; i++)
+                sNums.Pop();
+
+            string res = "";
+            while (sNums.Count > 0)
+            {
+                res = sNums.Pop().ToString() + res;
+            }
+            int j = 0;
+            while (j < res.Length && res[j] == '0')
+                j++;
+            if (res.Length == j)
+                return "0";
+            else
+                return res.Substring(j);
+
+        }
+
+        #endregion
+
+        #region | Online Interview 4 | 
+
+
+
+
+        #endregion
     }
     public class TrieNode
     {
