@@ -17,7 +17,7 @@ namespace LeetCode
             BinarySearchI bs = new BinarySearchI();
             //bs.FindTheDistanceValue(new int[] { 1, 4, 2, 3 }, new int[] { -4, -3, 6, 10, 20, 30 }, 3);
             //bs.NextGreatestLetter(new char[] { 'c', 'f', 'j' }, 'd');
-            bs.FindKthPositive(new int[] { 2,3,4,7,11 }, 5);
+            //bs.FindKthPositive(new int[] { 2,3,4,7,11 }, 5);
 
 
 
@@ -54,8 +54,9 @@ namespace LeetCode
 
 
 
+
             AmazonAssessment aaaa = new AmazonAssessment();
-            aaaa.buildTree(new string[] { "4", "5", "2", "7", "+", "-", "*" });
+            //aaaa.buildTree(new string[] { "4", "5", "2", "7", "+", "-", "*" });
             //aaaa.SortArrayByParityII(new int[] { 2, 3, 0, 4, 1, 3});
             //aaaa.PrisonAfterNDays(new int[] { 0, 1, 0, 1, 1, 0, 0, 1 }, 7);
             //int[][] grid = new int[3][];
@@ -68,21 +69,21 @@ namespace LeetCode
             //aaaa.RelativeSortArray(new int[] { 2, 21, 43, 38, 0, 42, 33, 7, 24, 13, 12, 27, 12, 24, 5, 23, 29, 48, 30, 31 }
             //                     , new int[] { 2, 42, 38, 0, 43, 21 });
             //aaaa.NumRollsToTarget(2, 6, 7);
-            IList <IList<string>> syn = new List<IList<string>>();
-            IList<string> buff = new List<string>();
-            buff.Add("happy");
-            buff.Add("joy");
-            syn.Add(buff);
-            buff = new List<string>();
-            buff.Add("sad");
-            buff.Add("sorroow");
-            syn.Add(buff);
-            buff = new List<string>();
-            buff.Add("joy");
-            buff.Add("cheerful");
-            syn.Add(buff);
+            //IList <IList<string>> syn = new List<IList<string>>();
+            //IList<string> buff = new List<string>();
+            //buff.Add("happy");
+            //buff.Add("joy");
+            //syn.Add(buff);
+            //buff = new List<string>();
+            //buff.Add("sad");
+            //buff.Add("sorroow");
+            //syn.Add(buff);
+            //buff = new List<string>();
+            //buff.Add("joy");
+            //buff.Add("cheerful");
+            //syn.Add(buff);
             //aaaa.GenerateSentences(syn, "I am happy today but was sad yesterday");
-            aaaa.MaxUncrossedLines(new int[] {1, 4, 2 }, new int[] {1, 2, 4 });
+            //aaaa.MaxUncrossedLines(new int[] {1, 4, 2 }, new int[] {1, 2, 4 });
             //Algorithm_II aII = new Algorithm_II();
             //aII.Find(0);
             //aII.Search(new int[] { 1, 3 }, 3);
@@ -91,12 +92,13 @@ namespace LeetCode
 
 
             MicrosoftAssesment msAss = new MicrosoftAssesment();
-            char[][] board = new char[3][];
-            board[0] = new char[4] { 'A', 'B', 'C', 'E' };
-            board[1] = new char[4] { 'S', 'F', 'C', 'S' };
-            board[2] = new char[4] { 'A', 'D', 'E', 'E' };
-            string word = "ABCB";
-            msAss.Exist(board, word);
+            msAss.Merge(new int[] { 1, 2, 3, 0, 0, 0 }, 3, new int[] { 2, 5, 6 }, 3);
+            //char[][] board = new char[3][];
+            //board[0] = new char[4] { 'A', 'B', 'C', 'E' };
+            //board[1] = new char[4] { 'S', 'F', 'C', 'S' };
+            //board[2] = new char[4] { 'A', 'D', 'E', 'E' };
+            //string word = "ABCB";
+            //msAss.Exist(board, word);
             //msAss.TitleToNumber("A");
             //int[][] grid = new int[4][];
             //grid[0] = new int[] { 0,1,0,0 };

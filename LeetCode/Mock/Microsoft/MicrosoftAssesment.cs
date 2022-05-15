@@ -6,72 +6,6 @@ namespace LeetCode
 {
     public class MicrosoftAssesment
     {
-        /// <summary>
-        /// 88. Merge Sorted Array
-        /// https://leetcode.com/problems/merge-sorted-array/
-        /// </summary>
-        /// <param name="nums1"></param>
-        /// <param name="m"></param>
-        /// <param name="nums2"></param>
-        /// <param name="n"></param>
-        public void Merge(int[] nums1, int m, int[] nums2, int n)
-        {
-            if (nums1.Length == 0 || n == 0)
-                return;
-
-            int[] res = new int[nums1.Length];
-            int i = 0;
-            int idx1 = 0, idx2 = 0;
-            while (idx1 < m && idx2 < n)
-            {
-                if (nums1[idx1] > nums2[idx2])
-                {
-                    res[i++] = nums2[idx2];
-                    idx2++;
-                }
-                else
-                {
-                    res[i++] = nums1[idx1];
-                    idx1++;
-                }
-            }
-            for (int j = idx1; j < m; j++)
-                res[i++] = nums1[j];
-            for (int j = idx2; j < n; j++)
-                res[i++] = nums2[j];
-
-            for (int j = 0; j < res.Length; j++)
-                nums1[j] = res[j];
-        }
-
-        /// <summary>
-        /// 285. Inorder Successor in BST
-        /// https://leetcode.com/problems/inorder-successor-in-bst/
-        /// </summary>
-        /// <param name="root"></param>
-        /// <param name="p"></param>
-        /// <returns></returns>
-        public TreeNode InorderSuccessor(TreeNode root, TreeNode p)
-        {
-            TreeNode successor = null;
-
-            while (root != null)
-            {
-
-                if (p.val >= root.val)
-                {
-                    root = root.right;
-                }
-                else
-                {
-                    successor = root;
-                    root = root.left;
-                }
-            }
-
-            return successor;
-        }
-
         private TreeNode previous;
         private TreeNode inorderSuccessorNode;
         public TreeNode InorderSuccessorII(TreeNode root, TreeNode p)
@@ -824,98 +758,6 @@ namespace LeetCode
             return minMissingVal;
         }
 
-        #region | Online Assesement | 
-
-        /// <summary>
-        /// 669. Trim a Binary Search Tree
-        /// https://leetcode.com/problems/trim-a-binary-search-tree/
-        /// </summary>
-        /// <param name="root"></param>
-        /// <param name="low"></param>
-        /// <param name="high"></param>
-        /// <returns></returns>
-        public TreeNode TrimBST(TreeNode root, int low, int high)
-        {
-            if (root == null)
-                return root;
-
-            if (root.val > high)
-                return TrimBST(root.left, low, high);
-            if (root.val < low)
-                return TrimBST(root.right, low, high);
-
-            root.left = TrimBST(root.left, low, high);
-            root.right = TrimBST(root.right, low, high);
-
-            return root;
-        }
-
-
-        /// <summary>
-        /// 445. Add Two Numbers II
-        /// https://leetcode.com/problems/add-two-numbers-ii/
-        /// </summary>
-        /// <param name="l1"></param>
-        /// <param name="l2"></param>
-        /// <returns></returns>
-        public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
-        {
-            List<int> nums1 = new List<int>();
-            List<int> nums2 = new List<int>();
-
-            while (l1 != null)
-            {
-                nums1.Add(l1.val);
-                l1 = l1.next;
-            }
-
-            while (l2 != null)
-            {
-                nums2.Add(l2.val);
-                l2 = l2.next;
-            }
-
-            ListNode newRoot = new ListNode(-1);
-            int idx1 = nums1.Count - 1;
-            int idx2 = nums2.Count - 1;
-            int extraVal = 0;
-            while (idx1 >= 0 || idx2 >= 0)
-            {
-                int n1 = 0, n2 = 0;
-                if (idx1 >= 0 && idx2 >= 0)
-                {
-                    n1 = nums1[idx1--];
-                    n2 = nums2[idx2--];
-                }
-                else if (idx1 >= 0)
-                {
-                    //idx1
-                    n1 = nums1[idx1--];
-                }
-                else
-                {
-                    //idx2
-                    n2 = nums2[idx2--];
-                }
-                int sum = n1 + n2;
-                sum += extraVal;
-                ListNode node = new ListNode(sum % 10);
-                node.next = newRoot.next;
-                newRoot.next = node;
-                extraVal = sum / 10;
-            }
-            if (extraVal > 0)
-            {
-                ListNode node = new ListNode(extraVal);
-                node.next = newRoot.next;
-                newRoot.next = node;
-            }
-
-            return newRoot.next;
-
-        }
-
-        #endregion
 
         #region | 3/2/22 - Online Assessent | 
 
@@ -1790,7 +1632,6 @@ namespace LeetCode
 
         #region | Online Interview 2 | 
 
-
         /// <summary>
         /// 796. Rotate String
         /// https://leetcode.com/problems/rotate-string/
@@ -1991,10 +1832,168 @@ namespace LeetCode
 
         #region | Online Interview 4 | 
 
+        /// <summary>
+        /// 669. Trim a Binary Search Tree
+        /// https://leetcode.com/problems/trim-a-binary-search-tree/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="low"></param>
+        /// <param name="high"></param>
+        /// <returns></returns>
+        public TreeNode TrimBST(TreeNode root, int low, int high)
+        {
+            if (root == null)
+                return root;
+
+            if (root.val > high)
+                return TrimBST(root.left, low, high);
+            if (root.val < low)
+                return TrimBST(root.right, low, high);
+
+            root.left = TrimBST(root.left, low, high);
+            root.right = TrimBST(root.right, low, high);
+
+            return root;
+        }
+
+        /// <summary>
+        /// 445. Add Two Numbers II
+        /// https://leetcode.com/problems/add-two-numbers-ii/
+        /// </summary>
+        /// <param name="l1"></param>
+        /// <param name="l2"></param>
+        /// <returns></returns>
+        public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
+        {
+            List<int> nums1 = new List<int>();
+            List<int> nums2 = new List<int>();
+
+            while (l1 != null)
+            {
+                nums1.Add(l1.val);
+                l1 = l1.next;
+            }
+
+            while (l2 != null)
+            {
+                nums2.Add(l2.val);
+                l2 = l2.next;
+            }
+
+            ListNode newRoot = new ListNode(-1);
+            int idx1 = nums1.Count - 1;
+            int idx2 = nums2.Count - 1;
+            int extraVal = 0;
+            while (idx1 >= 0 || idx2 >= 0)
+            {
+                int n1 = 0, n2 = 0;
+                if (idx1 >= 0 && idx2 >= 0)
+                {
+                    n1 = nums1[idx1--];
+                    n2 = nums2[idx2--];
+                }
+                else if (idx1 >= 0)
+                {
+                    //idx1
+                    n1 = nums1[idx1--];
+                }
+                else
+                {
+                    //idx2
+                    n2 = nums2[idx2--];
+                }
+                int sum = n1 + n2;
+                sum += extraVal;
+                ListNode node = new ListNode(sum % 10);
+                node.next = newRoot.next;
+                newRoot.next = node;
+                extraVal = sum / 10;
+            }
+            if (extraVal > 0)
+            {
+                ListNode node = new ListNode(extraVal);
+                node.next = newRoot.next;
+                newRoot.next = node;
+            }
+
+            return newRoot.next;
+
+        }
+
+        #endregion
+
+        #region | Online Interview 5 | 
+
+        /// <summary>
+        /// 88. Merge Sorted Array
+        /// https://leetcode.com/problems/merge-sorted-array/
+        /// </summary>
+        /// <param name="nums1"></param>
+        /// <param name="m"></param>
+        /// <param name="nums2"></param>
+        /// <param name="n"></param>
+        public void Merge(int[] nums1, int m, int[] nums2, int n)
+        {
+            if (nums1.Length == 0 || n == 0)
+                return;
+            int i1 = m - 1;
+            int i2 = n - 1;
+            int cursor = nums1.Length - 1;
+            while (i1 >= 0 && i2 >= 0)
+            {
+                if (nums1[i1] > nums2[i2])
+                    nums1[cursor--] = nums1[i1--];
+                else if (nums1[i1] < nums2[i2])
+                    nums1[cursor--] = nums2[i2--];
+                else
+                {
+                    nums1[cursor--] = nums1[i1--];
+                    nums1[cursor--] = nums2[i2--];
+                }
+            }
+            for (; i1 >= 0; i1--)
+                nums1[cursor--] = nums1[i1];
+            for (; i2 >= 0; i2--)
+                nums1[cursor--] = nums2[i2];
+        }
+
+        /// <summary>
+        /// 285. Inorder Successor in BST
+        /// https://leetcode.com/problems/inorder-successor-in-bst/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public TreeNode InorderSuccessor(TreeNode root, TreeNode p)
+        {
+            TreeNode successor = null;
+
+            while (root != null)
+            {
+
+                if (p.val >= root.val)
+                {
+                    root = root.right;
+                }
+                else
+                {
+                    successor = root;
+                    root = root.left;
+                }
+            }
+
+            return successor;
+        }
+        #endregion
+
+        #region | Online Interview 6 | 
 
 
 
         #endregion
+
+
+
     }
     public class TrieNode
     {
