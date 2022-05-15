@@ -319,18 +319,16 @@ namespace LeetCode
                 return 0;
 
             int sum = nums[0];
-            int max = nums[0];
+            int max = sum;
             for (int i = 1; i < nums.Length; i++)
             {
-                if (sum + nums[i] > nums[i])
-                    sum = sum + nums[i];
-                else
+                if (sum + nums[i] < nums[i])
                     sum = nums[i];
+                else
+                    sum += nums[i];
 
-                if (max < sum)
-                    max = sum;
+                max = Math.Max(max, sum);
             }
-
             return max;
         }
 
@@ -349,29 +347,31 @@ namespace LeetCode
                 return nums[0];
 
             int n = nums.Length;
-            int total = 0;
-            int min = int.MaxValue, max = int.MinValue;
-            int minSum = 0, maxSum = 0;
-            int maxItem = int.MinValue;
-            for (int i = 0; i < n; i++)
+            int total = nums[0];
+            int min = total, max = total;
+            int minSum = total, maxSum = total;
+            int maxItem = total;
+            for (int i = 1; i < n; i++)
             {
                 total += nums[i];
                 maxItem = Math.Max(maxItem, nums[i]);
 
-                maxSum += nums[i];
-                if (maxSum < 0)
-                    maxSum = 0;
-                if (max < maxSum)
-                    max = maxSum;
+                //Max Sum
+                if (maxSum + nums[i] < nums[i])
+                    maxSum = nums[i];
+                else
+                    maxSum += nums[i];
+                max = Math.Max(max, maxSum);
 
-                minSum += nums[i];
-                if (minSum > 0)
-                    minSum = 0;
-                if (min > minSum)
-                    min = minSum;
+                //Min Sum
+                if (minSum + nums[i] > nums[i])
+                    minSum = nums[i];
+                else
+                    minSum += nums[i];
+                min = Math.Min(min, minSum);
             }
 
-            if (max == 0)
+            if (maxItem <= 0)
                 return maxItem;
             else
                 return Math.Max(max, total - min);
@@ -467,5 +467,8 @@ namespace LeetCode
 
             return sIdx == s.Length;
         }
+
+
+ 
     }
 }

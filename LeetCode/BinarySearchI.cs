@@ -411,5 +411,83 @@ namespace LeetCode
             return -1;
         }
 
+        /// <summary>
+        /// 1351. Count Negative Numbers in a Sorted Matrix
+        /// https://leetcode.com/problems/count-negative-numbers-in-a-sorted-matrix/
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public int CountNegatives(int[][] grid)
+        {
+            int rowLen = grid.Length;
+            int colLen = grid[0].Length;
+            int numOfNeg = 0;
+
+            int startCol = CountNegativesBSearchR(grid, 0, colLen);
+            if (startCol != -1)
+                numOfNeg += (colLen - startCol) * rowLen;
+            else
+                startCol = colLen;
+
+            //int startRow = CountNegativesBSearchC(grid, 0, rowLen);
+            //if (startRow != -1)
+            //    numOfNeg += (rowLen - startRow) * startCol;
+
+            for (int c = 0; c < startCol; c++)
+            {
+                int row = CountNegativesBSearchC(grid, c, rowLen);
+                if (row != -1)
+                    numOfNeg += (rowLen - row);
+            }
+            return numOfNeg;
+        }
+        private int CountNegativesBSearchR(int[][] grid, int row, int colLen)
+        {
+            int l = 0, h = colLen - 1;
+            while (l <= h)
+            {
+                int m = l + (h - l) / 2;
+                if (grid[row][m] == 0)
+                {
+                    if (m + 1 < colLen && grid[row][m + 1] < 0)
+                        return m + 1;
+                    else
+                        l = m + 1;
+                }
+                else if (grid[row][m] > 0)
+                    l = m + 1;
+                else
+                {
+                    h = m - 1;
+                }
+            }
+            return l < colLen ? l : -1;
+        }
+        private int CountNegativesBSearchC(int[][] grid, int col, int rowLen)
+        {
+            int l = 0, h = rowLen - 1;
+            while (l <= h)
+            {
+                int m = l + (h - l) / 2;
+                if (grid[m][col] == 0)
+                {
+                    if (m + 1 < rowLen && grid[m + 1][col] < 0)
+                        return m + 1;
+                    else
+                        l = m + 1;
+                }
+                else if (grid[m][col] > 0)
+                    l = m + 1;
+                else
+                {
+                    h = m - 1;
+                }
+            }
+            return l < rowLen ? l : -1;
+        }
+
+
+
+
     }
 }
