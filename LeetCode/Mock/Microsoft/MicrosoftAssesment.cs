@@ -546,183 +546,6 @@ namespace LeetCode
         #endregion
         #endregion
 
-
-        #region | Phone Interview - 2/17/2022 | 
-
-        /// <summary>
-        /// 151. Reverse Words in a String
-        /// https://leetcode.com/problems/reverse-words-in-a-string/
-        /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        public string ReverseWords(string s)
-        {
-            if (s == null || s.Length == 1)
-                return s;
-
-            StringBuilder res = new StringBuilder();
-            Stack<char> sWord = new Stack<char>();
-            int i = 0;
-            while (i < s.Length)
-            {
-                if (s[i] == ' ')
-                {
-                    while (sWord.Count > 0)
-                        res.Append(sWord.Pop());
-                    res.Append(s[i]);
-                }
-                else
-                {
-                    sWord.Push(s[i]);
-                }
-                i++;
-            }
-            while (sWord.Count > 0)
-                res.Append(sWord.Pop());
-
-            return res.ToString();
-        }
-
-        /// <summary>
-        /// 24. Swap Nodes in Pairs
-        /// https://leetcode.com/problems/swap-nodes-in-pairs/
-        /// </summary>
-        /// <param name="head"></param>
-        /// <returns></returns>
-        public ListNode SwapPairs(ListNode head)
-        {
-            if (head == null || head.next == null)
-                return head;
-
-            ListNode newHead = new ListNode(-1, head.next);
-            ListNode pre = null;
-            ListNode cur = head;
-            while (cur != null)
-            {
-                ListNode nex = cur.next;
-                ListNode nnext = null;
-                if (nex != null)
-                    nnext = nex.next;
-
-                //Swap
-                if (nex != null)
-                {
-                    cur.next = nnext;
-                    nex.next = cur;
-                    if (pre != null)
-                        pre.next = nex;
-                }
-                else
-                {
-                    if (pre != null)
-                        pre.next = cur;
-                }
-                pre = cur;
-                cur = nnext;
-            }
-
-            return newHead.next;
-
-            //if (head == null || head.next == null)
-            //    return head;
-
-            //int tmp = head.next.val;
-            //head.next.val = head.val;
-            //head.val = tmp;
-
-            //SwapPairs(head.next.next);
-            //return head;
-        }
-
-
-
-        char[][] _board = null;
-        List<string> _result = new List<string>();
-        public IList<string> FindWords(char[][] board, string[] words)
-        {
-            // Step 1). Construct the Trie
-            TrieNode root = new TrieNode();
-            foreach (string word in words)
-            {
-                TrieNode node = root;
-
-                foreach (char letter in word.ToCharArray())
-                {
-                    if (node.children.ContainsKey(letter))
-                    {
-                        node = node.children[letter];
-                    }
-                    else
-                    {
-                        TrieNode newNode = new TrieNode();
-                        node.children.Add(letter, newNode);
-                        node = newNode;
-                    }
-                }
-                node.word = word;  // store words in Trie
-            }
-
-            this._board = board;
-            // Step 2). Backtracking starting for each cell in the board
-            for (int row = 0; row < board.Length; ++row)
-            {
-                for (int col = 0; col < board[row].Length; ++col)
-                {
-                    if (root.children.ContainsKey(board[row][col]))
-                    {
-                        Backtracking(row, col, root);
-                    }
-                }
-            }
-
-            return this._result;
-        }
-        private void Backtracking(int row, int col, TrieNode parent)
-        {
-            char letter = this._board[row][col];
-            TrieNode currNode = parent.children[letter];
-
-            // check if there is any match
-            if (currNode.word != null)
-            {
-                this._result.Add(currNode.word);
-                currNode.word = null;
-            }
-
-            // mark the current letter before the EXPLORATION
-            this._board[row][col] = '#';
-
-            // explore neighbor cells in around-clock directions: up, right, down, left
-            int[] rowOffset = { -1, 0, 1, 0 };
-            int[] colOffset = { 0, 1, 0, -1 };
-            for (int i = 0; i < 4; ++i)
-            {
-                int newRow = row + rowOffset[i];
-                int newCol = col + colOffset[i];
-                if (newRow < 0 || newRow >= this._board.Length || newCol < 0
-                    || newCol >= this._board[0].Length)
-                {
-                    continue;
-                }
-                if (currNode.children.ContainsKey(this._board[newRow][newCol]))
-                {
-                    Backtracking(newRow, newCol, currNode);
-                }
-            }
-
-            // End of EXPLORATION, restore the original letter in the board.
-            this._board[row][col] = letter;
-
-            // Optimization: incrementally remove the leaf nodes
-            if (currNode.children.Count == 0)
-            {
-                parent.children.Remove(letter);
-            }
-        }
-
-
-        #endregion
-
         /// <summary>
         /// 41. First Missing Positive
         /// https://leetcode.com/problems/first-missing-positive/
@@ -758,94 +581,6 @@ namespace LeetCode
             return minMissingVal;
         }
 
-
-        #region | 3/2/22 - Online Assessent | 
-
-        /// <summary>
-        /// 1185. Day of the Week
-        /// https://leetcode.com/problems/day-of-the-week/
-        /// </summary>
-        /// <param name="day"></param>
-        /// <param name="month"></param>
-        /// <param name="year"></param>
-        /// <returns></returns>
-        public string DayOfTheWeek(int day, int month, int year)
-        {
-            string[] week = new string[] { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
-            int[] days = new int[] { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-            if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
-                days[1] = 29;   //Leap Year
-            int cnt = 0;
-
-            for (int i = 1971; i < year; i++)
-            {
-                cnt += i % 4 == 0 ? 366 : 365;
-            }
-            for (int i = 0; i < month - 1; i++)
-                cnt += days[i];
-            cnt += day;
-
-
-            return week[(cnt + 4) % 7];
-        }
-
-        #endregion
-
-        #region | 3/2/22 - Phone Interview | 
-
-
-        /// <summary>
-        /// 1518. Water Bottles
-        /// https://leetcode.com/problems/water-bottles/#:~:text=Number%20of%20water%20bottles%20you%20can%20drink%3A%209%20%2B%203%20%2B,%2B%203%20%2B%201%20%3D%2019.
-        /// </summary>
-        /// <param name="numBottles"></param>
-        /// <param name="numExchange"></param>
-        /// <returns></returns>
-        public int NumWaterBottles(int numBottles, int numExchange)
-        {
-            int totalNum = numBottles;
-            if (numBottles < numExchange)
-                return totalNum;
-
-            while (numBottles >= numExchange)
-            {
-                totalNum += (numBottles / numExchange);
-
-                numBottles = (numBottles / numExchange) + (numBottles % numExchange);
-            }
-
-            return totalNum;
-        }
-
-        /// <summary>
-        /// 1347. Minimum Number of Steps to Make Two Strings Anagram
-        /// https://leetcode.com/problems/minimum-number-of-steps-to-make-two-strings-anagram/
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        public int MinSteps(string s, string t)
-        {
-            int[] lowChars = new int[26];
-
-            for (int i = 0; i < s.Length; i++)
-            {
-                lowChars[s[i] - 'a']++;
-                lowChars[t[i] - 'a']--;
-            }
-
-            int steps = 0;
-            foreach (int c in lowChars)
-            {
-                if (c > 0)
-                    steps += c;
-            }
-
-            return steps;
-        }
-
-
-        #endregion
 
         #region | Phone Interview - 03/05/2022 | 
 
@@ -965,7 +700,6 @@ namespace LeetCode
 
         #endregion
 
-
         #region | Phone Interview - 03/07/2022 | 
 
         /// <summary>
@@ -1059,90 +793,6 @@ namespace LeetCode
 
 
         #endregion
-
-        #region | Online Interview - 03/09/2022 | 
-
-        public int DistributeCandies(int[] candyType)
-        {
-            int n = candyType.Length / 2;   //n is always even
-
-            HashSet<int> dic = new HashSet<int>();
-            foreach (int ct in candyType)
-            {
-                if (dic.Contains(ct) == false)
-                    dic.Add(ct);
-            }
-
-            return dic.Count > n ? n : dic.Count;
-        }
-
-
-
-        public int[][] FlipAndInvertImage(int[][] image)
-        {
-            int n = image.Length;
-            int m = image[0].Length;
-            int halfOfM = m / 2;
-            if (m % 2 == 0)
-                halfOfM--;
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j <= halfOfM; j++)
-                {
-                    if (j == halfOfM && m % 2 == 1)
-                    {
-                        image[i][j] = (image[i][j] == 0 ? 1 : 0);
-                    }
-                    else
-                    {
-                        int tmp = image[i][j];
-                        image[i][j] = (image[i][m - j - 1] == 0 ? 1 : 0);
-                        image[i][m - j - 1] = (tmp == 0 ? 1 : 0);
-                    }
-                }
-            }
-
-            return image;
-        }
-
-
-        public bool LeafSimilar(TreeNode root1, TreeNode root2)
-        {
-            List<int> leaves1 = new List<int>();
-            ScanAllLeaf(root1, leaves1);
-            List<int> leaves2 = new List<int>();
-            ScanAllLeaf(root2, leaves2);
-
-            if (leaves1.Count != leaves2.Count)
-                return false;
-
-            for (int i = 0; i < leaves1.Count; i++)
-            {
-                if (leaves1[i] != leaves2[i])
-                    return false;
-            }
-            return true;
-        }
-        private void ScanAllLeaf(TreeNode root, List<int> leaves)
-        {
-            if (root == null)
-                return;
-
-            if (root.left == null && root.right == null)
-            {
-                leaves.Add(root.val);
-                return;
-            }
-            else
-            {
-                ScanAllLeaf(root.left, leaves);
-                ScanAllLeaf(root.right, leaves);
-            }
-        }
-
-        #endregion
-
-
 
         #region | Phone Interview - 3/15/2022 | 
 
@@ -1261,132 +911,6 @@ namespace LeetCode
                     currNode = currNode.next;
                 }
             }
-        }
-
-        #endregion
-
-        #region | Phone Interview - 3/17/2022 | 
-
-        public bool IsAnagram(string s, string t)
-        {
-            if (s == t)
-                return true;
-            else if (s == null || t == null)
-                return false;
-            else if (s.Length != t.Length)
-                return false;
-
-            Dictionary<char, int> map = new Dictionary<char, int>();
-            foreach (char c in s)
-            {
-                if (map.ContainsKey(c))
-                    map[c]++;
-                else
-                    map.Add(c, 1);
-            }
-            foreach (char c in t)
-            {
-                if (map.ContainsKey(c))
-                {
-                    map[c]--;
-                    if (map[c] == 0)
-                        map.Remove(c);
-                }
-            }
-
-            return map.Count == 0;
-        }
-
-        public int TitleToNumber(string columnTitle)
-        {
-            int result = 0;
-            int n = columnTitle.Length;
-            for (int i = 0; i < n; i++)
-            {
-                result = result * 26;
-                result += (columnTitle[i] - 'A' + 1);
-            }
-            return result;
-        }
-
-
-        public bool Exist(char[][] board, string word)
-        {
-            bool isExisted = false;
-            if (board == null
-               || board.Length < 1 || board[0].Length < 1)
-                return isExisted;
-            List<int[]> startPoints = new List<int[]>();
-            int m = board.Length;
-            int n = board[0].Length;
-
-            for (int row = 0; row < m; row++)
-            {
-                for (int col = 0; col < n; col++)
-                {
-                    if (board[row][col] == word[0])
-                        startPoints.Add(new int[] { row, col });
-                }
-            }
-
-            foreach (var startP in startPoints)
-            {
-                bool[][] visited = new bool[m][];
-                for (int i = 0; i < m; i++)
-                {
-                    visited[i] = new bool[n];
-                    for (int j = 0; j < n; j++)
-                    {
-                        visited[i][j] = false;
-                    }
-                }
-                if (ExistDFS(board, word, visited, startP[0], startP[1], m, n))
-                    return true;
-            }
-
-            return isExisted;
-        }
-        private bool ExistDFS(char[][] board, string word, bool[][] visited, int startRow, int startCol, int m, int n)
-        {
-            visited[startRow][startCol] = true;
-            if (board[startRow][startCol] == word[0])
-            {
-                if (word.Length == 1)
-                    return true;
-                bool isExisted = false;
-
-                //Check Left
-                if (startCol - 1 >= 0 && !visited[startRow][startCol - 1])
-                {
-                    isExisted = ExistDFS(board, word.Substring(1), visited, startRow, startCol - 1, m, n);
-                    if (isExisted) return isExisted;
-                    visited[startRow][startCol - 1] = false;
-                }
-                //Check Right
-                if (startCol + 1 < n && !visited[startRow][startCol + 1])
-                {
-                    isExisted = ExistDFS(board, word.Substring(1), visited, startRow, startCol + 1, m, n);
-                    if (isExisted) return isExisted;
-                    visited[startRow][startCol + 1] = false;
-                }
-                //Check Top
-                if (startRow - 1 >= 0 && !visited[startRow - 1][startCol])
-                {
-                    isExisted = ExistDFS(board, word.Substring(1), visited, startRow - 1, startCol, m, n);
-                    if (isExisted) return isExisted;
-                    visited[startRow - 1][startCol] = false;
-                }
-
-                //Check Bottom
-                if (startRow + 1 < m && !visited[startRow + 1][startCol])
-                {
-                    isExisted = ExistDFS(board, word.Substring(1), visited, startRow + 1, startCol, m, n);
-                    if (isExisted) return isExisted;
-                    visited[startRow + 1][startCol] = false;
-                }
-            }
-
-            return false;
         }
 
         #endregion
@@ -1988,17 +1512,655 @@ namespace LeetCode
 
         #region | Online Interview 6 | 
 
+        /// <summary>
+        /// 509. Fibonacci Number
+        /// https://leetcode.com/problems/fibonacci-number/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int Fib(int n)
+        {
+            if (n <= 1)
+                return n;
+
+            return Fib(n - 1) + Fib(n - 2);
+        }
+
+        /// <summary>
+        /// 575. Distribute Candies
+        /// https://leetcode.com/problems/distribute-candies/
+        /// </summary>
+        /// <param name="candyType"></param>
+        /// <returns></returns>
+        public int DistributeCandies(int[] candyType)
+        {
+            int n = candyType.Length / 2;   //n is always even
+
+            HashSet<int> dic = new HashSet<int>();
+            foreach (int ct in candyType)
+            {
+                if (dic.Contains(ct) == false)
+                    dic.Add(ct);
+            }
+
+            return dic.Count > n ? n : dic.Count;
+        }
+
+        #endregion
+
+        #region | Online Interview 7 | 
+
+        /// <summary>
+        /// 1185. Day of the Week
+        /// https://leetcode.com/problems/day-of-the-week/
+        /// </summary>
+        /// <param name="day"></param>
+        /// <param name="month"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        public string DayOfTheWeek(int day, int month, int year)
+        {
+            string[] week = new string[] { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+            int[] days = new int[] { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+            if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+                days[1] = 29;   //Leap Year
+            int cnt = 0;
+
+            for (int i = 1971; i < year; i++)
+            {
+                cnt += i % 4 == 0 ? 366 : 365;
+            }
+            for (int i = 0; i < month - 1; i++)
+                cnt += days[i];
+            cnt += day;
+
+
+            return week[(cnt + 4) % 7];
+        }
+
+        /// <summary>
+        /// 232. Implement Queue using Stacks
+        /// https://leetcode.com/problems/implement-queue-using-stacks/
+        /// </summary>
+        public class MyQueue
+        {
+
+            private Stack<int> sData, sTemp;
+            public MyQueue()
+            {
+                sData = new Stack<int>();
+                sTemp = new Stack<int>();
+            }
+
+            public void Push(int x)
+            {
+                while (sData.Count > 0)
+                    sTemp.Push(sData.Pop());
+
+                sData.Push(x);
+
+                while (sTemp.Count > 0)
+                    sData.Push(sTemp.Pop());
+            }
+
+            public int Pop()
+            {
+                return sData.Pop();
+            }
+
+            public int Peek()
+            {
+                return sData.Peek();
+            }
+
+            public bool Empty()
+            {
+                return sData.Count == 0;
+            }
+        }
+
+        #endregion
+
+        #region | Online Interview - 03/09/2022 | 
+
+        public int[][] FlipAndInvertImage(int[][] image)
+        {
+            int n = image.Length;
+            int m = image[0].Length;
+            int halfOfM = m / 2;
+            if (m % 2 == 0)
+                halfOfM--;
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j <= halfOfM; j++)
+                {
+                    if (j == halfOfM && m % 2 == 1)
+                    {
+                        image[i][j] = (image[i][j] == 0 ? 1 : 0);
+                    }
+                    else
+                    {
+                        int tmp = image[i][j];
+                        image[i][j] = (image[i][m - j - 1] == 0 ? 1 : 0);
+                        image[i][m - j - 1] = (tmp == 0 ? 1 : 0);
+                    }
+                }
+            }
+
+            return image;
+        }
+
+
+        public bool LeafSimilar(TreeNode root1, TreeNode root2)
+        {
+            List<int> leaves1 = new List<int>();
+            ScanAllLeaf(root1, leaves1);
+            List<int> leaves2 = new List<int>();
+            ScanAllLeaf(root2, leaves2);
+
+            if (leaves1.Count != leaves2.Count)
+                return false;
+
+            for (int i = 0; i < leaves1.Count; i++)
+            {
+                if (leaves1[i] != leaves2[i])
+                    return false;
+            }
+            return true;
+        }
+        private void ScanAllLeaf(TreeNode root, List<int> leaves)
+        {
+            if (root == null)
+                return;
+
+            if (root.left == null && root.right == null)
+            {
+                leaves.Add(root.val);
+                return;
+            }
+            else
+            {
+                ScanAllLeaf(root.left, leaves);
+                ScanAllLeaf(root.right, leaves);
+            }
+        }
+
+        #endregion
+
+
+        #region | Phone Interview 1 |
+
+        /// <summary>
+        /// 151. Reverse Words in a String
+        /// https://leetcode.com/problems/reverse-words-in-a-string/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public string ReverseWords(string s)
+        {
+            if (s == null || s.Length == 1)
+                return s;
+
+            StringBuilder res = new StringBuilder();
+            Stack<char> sWord = new Stack<char>();
+            int i = 0;
+            while (i < s.Length)
+            {
+                if (s[i] == ' ')
+                {
+                    while (sWord.Count > 0)
+                        res.Append(sWord.Pop());
+                    res.Append(s[i]);
+                }
+                else
+                {
+                    sWord.Push(s[i]);
+                }
+                i++;
+            }
+            while (sWord.Count > 0)
+                res.Append(sWord.Pop());
+
+            return res.ToString();
+        }
+
+        /// <summary>
+        /// 24. Swap Nodes in Pairs
+        /// https://leetcode.com/problems/swap-nodes-in-pairs/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public ListNode SwapPairs(ListNode head)
+        {
+            if (head == null || head.next == null)
+                return head;
+
+            ListNode newHead = new ListNode(-1, head.next);
+            ListNode pre = null;
+            ListNode cur = head;
+            while (cur != null)
+            {
+                ListNode nex = cur.next;
+                ListNode nnext = null;
+                if (nex != null)
+                    nnext = nex.next;
+
+                //Swap
+                if (nex != null)
+                {
+                    cur.next = nnext;
+                    nex.next = cur;
+                    if (pre != null)
+                        pre.next = nex;
+                }
+                else
+                {
+                    if (pre != null)
+                        pre.next = cur;
+                }
+                pre = cur;
+                cur = nnext;
+            }
+
+            return newHead.next;
+
+            //if (head == null || head.next == null)
+            //    return head;
+
+            //int tmp = head.next.val;
+            //head.next.val = head.val;
+            //head.val = tmp;
+
+            //SwapPairs(head.next.next);
+            //return head;
+        }
+
+        /// <summary>
+        /// 79. Word Search
+        /// https://leetcode.com/problems/word-search/
+        /// </summary>
+        /// <param name="board"></param>
+        /// <param name="word"></param>
+        /// <returns></returns>
+        public bool Exist79(char[][] board, string word)
+        {
+            bool isExisted = false;
+            if (board == null
+               || board.Length < 1 || board[0].Length < 1)
+                return isExisted;
+            List<int[]> startPoints = new List<int[]>();
+            int m = board.Length;
+            int n = board[0].Length;
+
+            for (int row = 0; row < m; row++)
+            {
+                for (int col = 0; col < n; col++)
+                {
+                    if (board[row][col] == word[0])
+                        startPoints.Add(new int[] { row, col });
+                }
+            }
+
+            foreach (var startP in startPoints)
+            {
+                bool[][] visited = new bool[m][];
+                for (int i = 0; i < m; i++)
+                {
+                    visited[i] = new bool[n];
+                    for (int j = 0; j < n; j++)
+                    {
+                        visited[i][j] = false;
+                    }
+                }
+                if (ExistDF(startP[0], startP[1], word, board, m, n, visited))
+                    return true;
+            }
+
+            return isExisted;
+        }
+        private bool ExistDF(int startRow, int startCol, string word, char[][] board, int n, int m, bool[][] visited)
+        {
+            visited[startRow][startCol] = true;
+            if (board[startRow][startCol] == word[0])
+            {
+                if (word.Length == 1)
+                    return true;
+                else
+                {
+                    if (startRow > 0 && !visited[startRow - 1][startCol])
+                    {
+                        if (ExistDF(startRow - 1, startCol, word.Substring(1), board, n, m, visited) == false)
+                            visited[startRow - 1][startCol] = false;
+                        else
+                            return true;
+                    }
+                    if (startRow < n - 1 && !visited[startRow + 1][startCol])
+                    {
+                        if (ExistDF(startRow + 1, startCol, word.Substring(1), board, n, m, visited) == false)
+                            visited[startRow + 1][startCol] = false;
+                        else
+                            return true;
+                    }
+                    if (startCol > 0 && !visited[startRow][startCol - 1])
+                    {
+                        if (ExistDF(startRow, startCol - 1, word.Substring(1), board, n, m, visited) == false)
+                            visited[startRow][startCol - 1] = false;
+                        else
+                            return true;
+                    }
+                    if (startCol < m - 1 && !visited[startRow][startCol + 1])
+                    {
+                        if (ExistDF(startRow, startCol + 1, word.Substring(1), board, n, m, visited) == false)
+                            visited[startRow][startCol + 1] = false;
+                        else
+                            return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+
+        /// <summary>
+        /// 212. Word Search II
+        /// https://leetcode.com/problems/word-search-ii/
+        /// </summary>
+        char[][] _board = null;
+        List<string> _result = new List<string>();
+        public IList<string> FindWords(char[][] board, string[] words)
+        {
+            // Step 1). Construct the Trie
+            TrieNode root = new TrieNode();
+            foreach (string word in words)
+            {
+                TrieNode node = root;
+
+                foreach (char letter in word.ToCharArray())
+                {
+                    if (node.children.ContainsKey(letter))
+                    {
+                        node = node.children[letter];
+                    }
+                    else
+                    {
+                        TrieNode newNode = new TrieNode();
+                        node.children.Add(letter, newNode);
+                        node = newNode;
+                    }
+                }
+                node.word = word;  // store words in Trie
+            }
+
+            this._board = board;
+            // Step 2). Backtracking starting for each cell in the board
+            for (int row = 0; row < board.Length; ++row)
+            {
+                for (int col = 0; col < board[row].Length; ++col)
+                {
+                    if (root.children.ContainsKey(board[row][col]))
+                    {
+                        Backtracking(row, col, root);
+                    }
+                }
+            }
+
+            return this._result;
+        }
+        private void Backtracking(int row, int col, TrieNode parent)
+        {
+            char letter = this._board[row][col];
+            TrieNode currNode = parent.children[letter];
+
+            // check if there is any match
+            if (currNode.word != null)
+            {
+                this._result.Add(currNode.word);
+                currNode.word = null;
+            }
+
+            // mark the current letter before the EXPLORATION
+            this._board[row][col] = '#';
+
+            // explore neighbor cells in around-clock directions: up, right, down, left
+            int[] rowOffset = { -1, 0, 1, 0 };
+            int[] colOffset = { 0, 1, 0, -1 };
+            for (int i = 0; i < 4; ++i)
+            {
+                int newRow = row + rowOffset[i];
+                int newCol = col + colOffset[i];
+                if (newRow < 0 || newRow >= this._board.Length || newCol < 0
+                    || newCol >= this._board[0].Length)
+                {
+                    continue;
+                }
+                if (currNode.children.ContainsKey(this._board[newRow][newCol]))
+                {
+                    Backtracking(newRow, newCol, currNode);
+                }
+            }
+
+            // End of EXPLORATION, restore the original letter in the board.
+            this._board[row][col] = letter;
+
+            // Optimization: incrementally remove the leaf nodes
+            if (currNode.children.Count == 0)
+            {
+                parent.children.Remove(letter);
+            }
+
+        }
+        public class TrieNode
+        {
+            public Dictionary<char, TrieNode> children = new Dictionary<char, TrieNode>();
+            public String word = null;
+            public TrieNode() { }
+        }
+
+        #endregion
+
+        #region | Phone Interview 2 | 
+
+        /// <summary>
+        /// 1518. Water Bottles
+        /// https://leetcode.com/problems/water-bottles/#:~:text=Number%20of%20water%20bottles%20you%20can%20drink%3A%209%20%2B%203%20%2B,%2B%203%20%2B%201%20%3D%2019.
+        /// </summary>
+        /// <param name="numBottles"></param>
+        /// <param name="numExchange"></param>
+        /// <returns></returns>
+        public int NumWaterBottles(int numBottles, int numExchange)
+        {
+            int totalNum = numBottles;
+            if (numBottles < numExchange)
+                return totalNum;
+
+            while (numBottles >= numExchange)
+            {
+                totalNum += (numBottles / numExchange);
+
+                numBottles = (numBottles / numExchange) + (numBottles % numExchange);
+            }
+
+            return totalNum;
+        }
+
+        /// <summary>
+        /// 1347. Minimum Number of Steps to Make Two Strings Anagram
+        /// https://leetcode.com/problems/minimum-number-of-steps-to-make-two-strings-anagram/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public int MinSteps(string s, string t)
+        {
+            int[] lowChars = new int[26];
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                lowChars[s[i] - 'a']++;
+                lowChars[t[i] - 'a']--;
+            }
+
+            int steps = 0;
+            foreach (int c in lowChars)
+            {
+                if (c > 0)
+                    steps += c;
+            }
+
+            return steps;
+        }
+
+        #endregion
+
+        #region | Phone Interview 3 | 
+
+        /// <summary>
+        /// 242. Valid Anagram
+        /// https://leetcode.com/problems/valid-anagram/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public bool IsAnagram(string s, string t)
+        {
+            if (s.Length != t.Length)
+                return false;
+
+            int[] lowChars = new int[26];
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                lowChars[s[i] - 'a']++;
+                lowChars[t[i] - 'a']--;
+            }
+
+            foreach (var c in lowChars)
+            {
+                if (c != 0)
+                    return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 171. Excel Sheet Column Number
+        /// https://leetcode.com/problems/excel-sheet-column-number/
+        /// </summary>
+        /// <param name="columnTitle"></param>
+        /// <returns></returns>
+        public int TitleToNumber(string columnTitle)
+        {
+            int result = 0;
+            int n = columnTitle.Length;
+            for (int i = 0; i < n; i++)
+            {
+                result = result * 26;
+                result += (columnTitle[i] - 'A' + 1);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 79. Word Search
+        /// https://leetcode.com/problems/word-search/
+        /// </summary>
+        /// <param name="board"></param>
+        /// <param name="word"></param>
+        /// <returns></returns>
+        public bool Exist(char[][] board, string word)
+        {
+            bool isExisted = false;
+            if (board == null
+               || board.Length < 1 || board[0].Length < 1)
+                return isExisted;
+            List<int[]> startPoints = new List<int[]>();
+            int m = board.Length;
+            int n = board[0].Length;
+
+            for (int row = 0; row < m; row++)
+            {
+                for (int col = 0; col < n; col++)
+                {
+                    if (board[row][col] == word[0])
+                        startPoints.Add(new int[] { row, col });
+                }
+            }
+
+            foreach (var startP in startPoints)
+            {
+                bool[][] visited = new bool[m][];
+                for (int i = 0; i < m; i++)
+                {
+                    visited[i] = new bool[n];
+                    for (int j = 0; j < n; j++)
+                    {
+                        visited[i][j] = false;
+                    }
+                }
+                if (ExistDFS(board, word, visited, startP[0], startP[1], m, n))
+                    return true;
+            }
+
+            return isExisted;
+        }
+        private bool ExistDFS(char[][] board, string word, bool[][] visited, int startRow, int startCol, int m, int n)
+        {
+            visited[startRow][startCol] = true;
+            if (board[startRow][startCol] == word[0])
+            {
+                if (word.Length == 1)
+                    return true;
+                bool isExisted = false;
+
+                //Check Left
+                if (startCol - 1 >= 0 && !visited[startRow][startCol - 1])
+                {
+                    isExisted = ExistDFS(board, word.Substring(1), visited, startRow, startCol - 1, m, n);
+                    if (isExisted) return isExisted;
+                    visited[startRow][startCol - 1] = false;
+                }
+                //Check Right
+                if (startCol + 1 < n && !visited[startRow][startCol + 1])
+                {
+                    isExisted = ExistDFS(board, word.Substring(1), visited, startRow, startCol + 1, m, n);
+                    if (isExisted) return isExisted;
+                    visited[startRow][startCol + 1] = false;
+                }
+                //Check Top
+                if (startRow - 1 >= 0 && !visited[startRow - 1][startCol])
+                {
+                    isExisted = ExistDFS(board, word.Substring(1), visited, startRow - 1, startCol, m, n);
+                    if (isExisted) return isExisted;
+                    visited[startRow - 1][startCol] = false;
+                }
+
+                //Check Bottom
+                if (startRow + 1 < m && !visited[startRow + 1][startCol])
+                {
+                    isExisted = ExistDFS(board, word.Substring(1), visited, startRow + 1, startCol, m, n);
+                    if (isExisted) return isExisted;
+                    visited[startRow + 1][startCol] = false;
+                }
+            }
+
+            return false;
+        }
+
+
+        #endregion
+
+        #region | Phone Interview 4 | 
+
 
 
         #endregion
 
 
 
-    }
-    public class TrieNode
-    {
-        public Dictionary<char, TrieNode> children = new Dictionary<char, TrieNode>();
-        public String word = null;
-        public TrieNode() { }
+
+
+
+
     }
 }

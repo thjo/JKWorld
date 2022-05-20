@@ -487,7 +487,39 @@ namespace LeetCode
         }
 
 
+        /// <summary>
+        /// 74. Search a 2D Matrix
+        /// https://leetcode.com/problems/search-a-2d-matrix/
+        /// </summary>
+        /// <param name="matrix"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public bool SearchMatrix(int[][] matrix, int target)
+        {
+            int rowLen = matrix.Length;
+            int colLen = matrix[0].Length;
 
+            int left = 0;
+            int right = rowLen * colLen - 1;
 
+            while (left <= right)
+            {
+                int mid = (left + right) / 2;
+                int row = mid / colLen;
+                int col = mid % colLen;
+                if (matrix[row][col] == target)
+                    return true;
+                else if (matrix[row][col] < target)
+                {
+                    left = mid + 1;
+                }
+                else
+                {
+                    right = mid - 1;
+                }
+            }
+
+            return false;
+        }
     }
 }

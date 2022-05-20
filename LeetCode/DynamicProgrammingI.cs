@@ -469,6 +469,74 @@ namespace LeetCode
         }
 
 
- 
+        /// <summary>
+        /// 152. Maximum Product Subarray
+        /// https://leetcode.com/problems/maximum-product-subarray/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int MaxProduct(int[] nums)
+        {
+            int maxProduct = nums[0];
+            int totalMax = nums[0];
+            int totalMin = nums[0];
+            for (int i = 1; i < nums.Length; i++)
+            {
+                int max = Math.Max(nums[i], Math.Max(totalMax * nums[i], totalMin * nums[i]));
+                int min = Math.Min(nums[i], Math.Min(totalMax * nums[i], totalMin * nums[i]));
+                totalMax = max;
+                totalMin = min;
+                maxProduct = Math.Max(maxProduct, totalMax);
+            }
+
+            return maxProduct;
+        }
+
+        /// <summary>
+        /// 1567. Maximum Length of Subarray With Positive Product
+        /// https://leetcode.com/problems/maximum-length-of-subarray-with-positive-product/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int GetMaxLen(int[] nums)
+        {
+            int n = nums.Length;
+            int maxLen = 0;
+            int i = 0;
+            while (i < n)
+            {
+                int startIdx = i;
+                while (startIdx < n && nums[startIdx] == 0)
+                    startIdx++;
+                int endIdx = startIdx;
+                int cntOfNeg = 0;
+                int sn = -1, en = -1;
+                while (endIdx < n && nums[endIdx] != 0)
+                {
+                    if (nums[endIdx] < 0)
+                    {
+                        cntOfNeg++;
+                        if (sn == -1)
+                            sn = endIdx;
+                        en = endIdx;
+                    }
+                    endIdx++;
+                }
+                if (cntOfNeg % 2 == 0)
+                    maxLen = Math.Max(maxLen, endIdx - startIdx);
+                else
+                {
+                    int len = maxLen;
+                    len = Math.Max(len, en - startIdx);
+                    len = Math.Max(len, endIdx - sn - 1);
+                    maxLen = len;
+                }
+
+                i = endIdx;
+            }
+            return maxLen;
+        }
+
+
     }
 }
