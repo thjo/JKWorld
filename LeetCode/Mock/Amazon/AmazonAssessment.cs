@@ -1211,6 +1211,54 @@ namespace LeetCode
                 return true;
         }
 
+        /// <summary>
+        /// 763. Partition Labels
+        /// https://leetcode.com/problems/partition-labels/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public IList<int> PartitionLabels(string s)
+        {
+            Dictionary<char, int[]> dic = new Dictionary<char, int[]>();
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (dic.ContainsKey(s[i]) == false)
+                {
+                    dic.Add(s[i], new int[2] { i, i });
+                }
+                else
+                {
+                    dic[s[i]][1] = i;
+                }
+            }
+            // character --> startIdx, endIdx
+            //ababc bacad efegd ehijh klij
+            //a 0,  8
+            //b 1,  5
+            //c 4,  7
+            //d 9,  14
+            //e 10, 15
+            //f 11, 11
+            //g 13, 13
+            //h 16, 19
+            //i 17, 22
+            IList<int> ans = new List<int>();
+            int startP = 0;
+            int maxEndP = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                maxEndP = Math.Max(maxEndP, dic[s[i]][1]);
+                if (maxEndP == i)
+                {
+                    ans.Add(maxEndP - startP + 1);
+                    startP = i + 1;
+                    maxEndP = i + 1;
+                }
+            }
+
+            return ans;
+        }
+
         #endregion
     }
 }

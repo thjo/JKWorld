@@ -15,10 +15,10 @@ namespace LeetCode
             //l75.CanFinish(2, prerequisites);
 
             BinarySearchI bs = new BinarySearchI();
-            int[][] grid = new int[2][];
-            grid[0] = new int[] { 5,1,0 };
-            grid[1] = new int[] { -5,-5,-5 };
-            bs.CountNegatives(grid);
+            //int[][] grid = new int[2][];
+            //grid[0] = new int[] { 5,1,0 };
+            //grid[1] = new int[] { -5,-5,-5 };
+            //bs.CountNegatives(grid);
             //bs.FindTheDistanceValue(new int[] { 1, 4, 2, 3 }, new int[] { -4, -3, 6, 10, 20, 30 }, 3);
             //bs.NextGreatestLetter(new char[] { 'c', 'f', 'j' }, 'd');
             //bs.FindKthPositive(new int[] { 2,3,4,7,11 }, 5);
@@ -26,6 +26,7 @@ namespace LeetCode
 
 
             DynamicProgrammingI dp = new DynamicProgrammingI();
+            dp.MaxScoreSightseeingPair(new int[] { 2, 2, 2 });
             //dp.MaxSubarraySumCircular(new int[] { -10, -7, 9, -7, 6, 9, -9, -4, -8, -5 });
 
 

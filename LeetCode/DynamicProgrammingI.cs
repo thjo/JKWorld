@@ -537,6 +537,34 @@ namespace LeetCode
             return maxLen;
         }
 
+        /// <summary>
+        /// 1014. Best Sightseeing Pair
+        /// https://leetcode.com/problems/best-sightseeing-pair/
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public int MaxScoreSightseeingPair(int[] values)
+        {
+            int n = values.Length;
+            int[] iMaxVals = new int[n];
+            int[] jMaxVals = new int[n];
+            int totalMaxVal = int.MinValue;
+            iMaxVals[0] = values[0];
+            jMaxVals[0] = int.MinValue;
+            for (int i = 1; i < n; i++)
+            {
+                //values[i] + i
+                iMaxVals[i] = Math.Max(iMaxVals[i - 1], values[i] + i);
+                jMaxVals[i] = Math.Max(jMaxVals[i - 1], values[i] - i);
+            }
 
+            //2  3  4
+            //-  1  0
+            for (int i = 1; i < n; i++)
+            {
+                totalMaxVal = Math.Max(totalMaxVal, iMaxVals[i - 1] + jMaxVals[i]);
+            }
+            return totalMaxVal;
+        }
     }
 }
