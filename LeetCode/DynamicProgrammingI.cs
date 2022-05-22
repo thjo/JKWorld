@@ -555,11 +555,9 @@ namespace LeetCode
             {
                 //values[i] + i
                 iMaxVals[i] = Math.Max(iMaxVals[i - 1], values[i] + i);
-                jMaxVals[i] = Math.Max(jMaxVals[i - 1], values[i] - i);
+                jMaxVals[i] = values[i] - i;
             }
 
-            //2  3  4
-            //-  1  0
             for (int i = 1; i < n; i++)
             {
                 totalMaxVal = Math.Max(totalMaxVal, iMaxVals[i - 1] + jMaxVals[i]);
