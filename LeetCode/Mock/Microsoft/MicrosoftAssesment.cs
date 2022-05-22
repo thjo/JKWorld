@@ -148,260 +148,6 @@ namespace LeetCode
         #endregion
 
 
-        #region | Phone Interview - 2/15/2022 | 
-
-        /// <summary>
-        /// 236. Lowest Common Ancestor of a Binary Tree
-        /// https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
-        /// </summary>
-        /// <param name="root"></param>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <returns></returns>
-        public TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
-        {
-            if (root == null)
-                return null;
-
-            if (root.val == p.val || root.val == q.val)
-                return root;
-
-            TreeNode leftLowest = LowestCommonAncestor(root.left, p, q);
-            TreeNode rightLowest = LowestCommonAncestor(root.right, p, q);
-
-            if (leftLowest != null && rightLowest != null)
-                return root;
-            else if (leftLowest == null && rightLowest == null)
-                return null;
-
-            return leftLowest != null ? leftLowest : rightLowest;
-        }
-
-
-        /// <summary>
-        /// 165. Compare Version Numbers
-        /// https://leetcode.com/problems/compare-version-numbers/
-        /// </summary>
-        /// <param name="version1"></param>
-        /// <param name="version2"></param>
-        /// <returns></returns>
-        public int CompareVersion(string version1, string version2)
-        {
-            int p1 = 0, p2 = 0;
-            int n1 = version1.Length, n2 = version2.Length;
-
-            int v1, v2;
-            int[] pair = null;
-            while (p1 < n1 || p2 < n2)
-            {
-                pair = GetNextChunk(version1, n1, p1);
-                v1 = pair[0];
-                p1 = pair[1];
-
-                pair = GetNextChunk(version2, n2, p2);
-                v2 = pair[0];
-                p2 = pair[1];
-
-                if (v1 != v2)
-                    return v1 > v2 ? 1 : -1;
-            }
-
-            // the versions are equal
-            return 0;
-        }
-        private int[] GetNextChunk(string version, int n, int p)
-        {
-            int[] pair = new int[2];
-            if (p >= n)
-            {
-                pair[0] = 0;
-                pair[1] = p;
-                return pair;
-            }
-
-            // find the end of chunk        
-            int i, pEnd = p;
-            string val = "";
-            while (pEnd < n && version[pEnd] != '.')
-            {
-                val = val + version[pEnd].ToString();
-                pEnd++;
-            }
-
-            // retrieve the chunk
-            i = int.Parse(val);
-
-            // find the beginning of next chunk
-            p = pEnd + 1;
-
-            pair[0] = i;
-            pair[1] = p;
-            return pair;
-        }
-        #region | Bruce Force |
-        //public int CompareVersion(string version1, string version2)
-        //{
-        //    List<int> ver1 = DisassembleVersion(version1);
-        //    List<int> ver2 = DisassembleVersion(version2);
-
-        //    int res = 0;
-        //    int i = 0;
-        //    while (i < ver1.Count && i < ver2.Count)
-        //    {
-        //        if (ver1[i] > ver2[i])
-        //            return 1;
-        //        else if (ver1[i] < ver2[i])
-        //            return -1;
-        //    }
-
-        //    if (ver1.Count > ver2.Count)
-        //    {
-        //        while (i < ver1.Count)
-        //        {
-        //            if (ver1[i] > 0)
-        //                return 1;
-        //        }
-        //    }
-        //    else if (ver1.Count < ver2.Count)
-        //    {
-        //        while (i < ver2.Count)
-        //        {
-        //            if (ver2[i] > 0)
-        //                return -1;
-        //        }
-        //    }
-
-
-        //    return res;
-        //}
-        //private List<int> DisassembleVersion(string version)
-        //{
-        //    List<int> ver = new List<int>();
-        //    if (version == null || version.Length < 1)
-        //        return ver;
-
-        //    int i = 0;
-        //    int? tmpNum = null;
-        //    while (i < version.Length)
-        //    {
-        //        if (version[i] == '.')
-        //        {
-        //            if (tmpNum != null)
-        //                ver.Add(tmpNum.Value);
-        //            tmpNum = null;
-        //        }
-        //        else
-        //        {
-        //            if (tmpNum == null)
-        //                tmpNum = int.Parse(version[i].ToString());
-        //            else
-        //                tmpNum = tmpNum * 10 + int.Parse(version[i].ToString());
-        //        }
-        //        i++;
-        //    }
-        //    if (tmpNum != null)
-        //        ver.Add(tmpNum.Value);
-        //    return ver;
-        //}
-        #endregion
-
-        /// <summary>
-        /// 43. Multiply Strings
-        /// https://leetcode.com/problems/multiply-strings/
-        /// </summary>
-        /// <param name="num1"></param>
-        /// <param name="num2"></param>
-        /// <returns></returns>
-        public string Multiply(string num1, string num2)
-        {
-            if (num1.Equals("0") || num2.Equals("0"))
-                return "0";
-            if (num1.Length > num2.Length)
-            {
-                String tmp = num1;
-                num1 = num2;
-                num2 = tmp;
-            }
-            int num1_len = num1.Length, num2_len = num2.Length;
-            int[] res = new int[num1_len + num2_len];
-            for (int i = 0; i < res.Length; i++)
-                res[i] = 0;
-
-            for (int i = num1_len - 1; i >= 0; i--)
-            {
-                for (int j = num2_len - 1; j >= 0; j--)
-                {
-                    int p1 = i + j, p2 = p1 + 1;
-                    int sum = (num1[i] - '0') * (num2[j] - '0') + res[p2];
-                    res[p2] = sum % 10;
-                    res[p1] += sum / 10;
-                }
-            }
-            String output = ""; int idx = -1;
-            for (int i = 0; i < num1_len + num2_len && res[i] == 0; i++)
-                idx = i;
-            for (int i = idx + 1; i < num1_len + num2_len; i++)
-                output += res[i].ToString();
-            return output;
-        }
-
-        // Multiply the current digit of secondNumber with firstNumber.
-        List<int> MultiplyOneDigit(StringBuilder sbN1, char secondNumberDigit, int numZeros)
-        {
-            // Insert zeros at the beginning based on the current digit's place.
-            List<int> currentResult = new List<int>();
-            for (int i = 0; i < numZeros; ++i)
-            {
-                currentResult.Add(0);
-            }
-
-            int carry = 0;
-
-            // Multiply firstNumber with the current digit of secondNumber.
-            for (int i = 0; i < sbN1.Length; ++i)
-            {
-                char firstNumberDigit = sbN1[i];
-                int multiplication = (secondNumberDigit - '0') * (firstNumberDigit - '0') + carry;
-                // Set carry equal to the tens place digit of multiplication.
-                carry = multiplication / 10;
-                // Append last digit to the current result.
-                currentResult.Add(multiplication % 10);
-            }
-
-            if (carry != 0)
-            {
-                currentResult.Add(carry);
-            }
-            return currentResult;
-        }
-        private List<int> AddStrings(List<int> num1, List<int> num2)
-        {
-            List<int> ans = new List<int>();
-            int carry = 0;
-
-            for (int i = 0; i < num1.Count || i < num2.Count; ++i)
-            {
-                // If num2 is shorter than num1 or vice versa, use 0 as the current digit.
-                int digit1 = i < num1.Count ? num1[i] : 0;
-                int digit2 = i < num2.Count ? num2[i] : 0;
-
-                // Add current digits of both numbers.
-                int sum = digit1 + digit2 + carry;
-                // Set carry equal to the tens place digit of sum.
-                carry = sum / 10;
-                // Append the ones place digit of sum to answer.
-                ans.Add(sum % 10);
-            }
-
-            if (carry != 0)
-            {
-                ans.Add(carry);
-            }
-            return ans;
-        }
-
-        #endregion
-
 
         #region | Phone Interview - 2/16/2022 | 
 
@@ -735,62 +481,6 @@ namespace LeetCode
             else
                 return null;
         }
-
-        #endregion
-
-        #region | Phone Interview - 03/08/2022 | 
-
-
-        /// <summary>
-        /// 1470. Shuffle the Array
-        /// https://leetcode.com/problems/shuffle-the-array/
-        /// </summary>
-        /// <param name="nums"></param>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        public int[] Shuffle(int[] nums, int n)
-        {
-            int idx = 0, i = 0;
-            int[] res = new int[2 * n];
-            while (idx < n)
-            {
-                res[i++] = nums[idx];
-                res[i++] = nums[idx + n];
-                idx++;
-            }
-
-            return res;
-        }
-
-
-        public int MaxRepOpt1(string text)
-        {
-            int ans = 0;
-            int[] count = new int[26];
-            List<int[]> groups = new List<int[]>();
-
-            foreach (char c in text)
-                count[c - 'a']++;
-
-            groups.Add(new int[] { text[0], 1 });
-
-            for (int i = 1; i < text.Length; ++i)
-                if (text[i] == text[i - 1])
-                    groups[groups.Count - 1][1]++;
-                else
-                    groups.Add(new int[] { text[i], 1 });
-
-            foreach (int[] group in groups)
-                ans = Math.Max(ans, Math.Min(group[1] + 1, count[group[0] - 'a']));
-
-            for (int i = 1; i + 1 < groups.Count; ++i)
-                if (groups[i - 1][0] == groups[i + 1][0] && groups[i][1] == 1)
-                    ans = Math.Max(ans, Math.Min(groups[i - 1][1] + groups[i + 1][1] + 1,
-                                                 count[groups[i - 1][0] - 'a']));
-
-            return ans;
-        }
-
 
         #endregion
 
@@ -2153,10 +1843,343 @@ namespace LeetCode
         #region | Phone Interview 4 | 
 
 
+        /// <summary>
+        /// 236. Lowest Common Ancestor of a Binary Tree
+        /// https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="p"></param>
+        /// <param name="q"></param>
+        /// <returns></returns>
+        public TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
+        {
+            if (root == null)
+                return null;
 
+            if (root.val == p.val || root.val == q.val)
+                return root;
+
+            TreeNode leftLowest = LowestCommonAncestor(root.left, p, q);
+            TreeNode rightLowest = LowestCommonAncestor(root.right, p, q);
+
+            if (leftLowest != null && rightLowest != null)
+                return root;
+            else if (leftLowest == null && rightLowest == null)
+                return null;
+
+            return leftLowest != null ? leftLowest : rightLowest;
+        }
+
+
+        /// <summary>
+        /// 165. Compare Version Numbers
+        /// https://leetcode.com/problems/compare-version-numbers/
+        /// </summary>
+        /// <param name="version1"></param>
+        /// <param name="version2"></param>
+        /// <returns></returns>
+        public int CompareVersion(string version1, string version2)
+        {
+            int p1 = 0, p2 = 0;
+            int n1 = version1.Length, n2 = version2.Length;
+
+            int v1, v2;
+            int[] pair = null;
+            while (p1 < n1 || p2 < n2)
+            {
+                pair = GetNextChunk(version1, n1, p1);
+                v1 = pair[0];
+                p1 = pair[1];
+
+                pair = GetNextChunk(version2, n2, p2);
+                v2 = pair[0];
+                p2 = pair[1];
+
+                if (v1 != v2)
+                    return v1 > v2 ? 1 : -1;
+            }
+
+            // the versions are equal
+            return 0;
+        }
+        private int[] GetNextChunk(string version, int n, int p)
+        {
+            int[] pair = new int[2];
+            if (p >= n)
+            {
+                pair[0] = 0;
+                pair[1] = p;
+                return pair;
+            }
+
+            // find the end of chunk        
+            int i, pEnd = p;
+            string val = "";
+            while (pEnd < n && version[pEnd] != '.')
+            {
+                val = val + version[pEnd].ToString();
+                pEnd++;
+            }
+
+            // retrieve the chunk
+            i = int.Parse(val);
+
+            // find the beginning of next chunk
+            p = pEnd + 1;
+
+            pair[0] = i;
+            pair[1] = p;
+            return pair;
+        }
+
+        #region | Bruce Force |
+        //public int CompareVersion(string version1, string version2)
+        //{
+
+            //string[] ver1 = version1.Split(".".ToCharArray());
+            //string[] ver2 = version2.Split(".".ToCharArray());
+
+            //int p1 = 0, p2 = 0;
+            //while (p1 < ver1.Length && p2 < ver2.Length)
+            //{
+            //    int v1 = int.Parse(ver1[p1++]);
+            //    int v2 = int.Parse(ver2[p2++]);
+            //    if (v1 > v2)
+            //        return 1;
+            //    else if (v1 < v2)
+            //        return -1;
+            //}
+
+            //for (int i = p1; i < ver1.Length; i++)
+            //{
+            //    if (int.Parse(ver1[i]) > 0)
+            //        return 1;
+            //}
+            //for (int i = p2; i < ver2.Length; i++)
+            //{
+            //    if (int.Parse(ver2[i]) > 0)
+            //        return -1;
+            //}
+            //return 0;
+        //    List<int> ver1 = DisassembleVersion(version1);
+        //    List<int> ver2 = DisassembleVersion(version2);
+
+        //    int res = 0;
+        //    int i = 0;
+        //    while (i < ver1.Count && i < ver2.Count)
+        //    {
+        //        if (ver1[i] > ver2[i])
+        //            return 1;
+        //        else if (ver1[i] < ver2[i])
+        //            return -1;
+        //    }
+
+        //    if (ver1.Count > ver2.Count)
+        //    {
+        //        while (i < ver1.Count)
+        //        {
+        //            if (ver1[i] > 0)
+        //                return 1;
+        //        }
+        //    }
+        //    else if (ver1.Count < ver2.Count)
+        //    {
+        //        while (i < ver2.Count)
+        //        {
+        //            if (ver2[i] > 0)
+        //                return -1;
+        //        }
+        //    }
+
+
+        //    return res;
+        //}
+        //private List<int> DisassembleVersion(string version)
+        //{
+        //    List<int> ver = new List<int>();
+        //    if (version == null || version.Length < 1)
+        //        return ver;
+
+        //    int i = 0;
+        //    int? tmpNum = null;
+        //    while (i < version.Length)
+        //    {
+        //        if (version[i] == '.')
+        //        {
+        //            if (tmpNum != null)
+        //                ver.Add(tmpNum.Value);
+        //            tmpNum = null;
+        //        }
+        //        else
+        //        {
+        //            if (tmpNum == null)
+        //                tmpNum = int.Parse(version[i].ToString());
+        //            else
+        //                tmpNum = tmpNum * 10 + int.Parse(version[i].ToString());
+        //        }
+        //        i++;
+        //    }
+        //    if (tmpNum != null)
+        //        ver.Add(tmpNum.Value);
+        //    return ver;
+        //}
         #endregion
 
+        /// <summary>
+        /// 43. Multiply Strings
+        /// https://leetcode.com/problems/multiply-strings/
+        /// </summary>
+        /// <param name="num1"></param>
+        /// <param name="num2"></param>
+        /// <returns></returns>
+        public string Multiply(string num1, string num2)
+        {
+            if (num1.Equals("0") || num2.Equals("0"))
+                return "0";
+            if (num1.Length > num2.Length)
+            {
+                String tmp = num1;
+                num1 = num2;
+                num2 = tmp;
+            }
+            int num1_len = num1.Length, num2_len = num2.Length;
+            int[] res = new int[num1_len + num2_len];
+            for (int i = 0; i < res.Length; i++)
+                res[i] = 0;
 
+            for (int i = num1_len - 1; i >= 0; i--)
+            {
+                for (int j = num2_len - 1; j >= 0; j--)
+                {
+                    int p1 = i + j, p2 = p1 + 1;
+                    int sum = (num1[i] - '0') * (num2[j] - '0') + res[p2];
+                    res[p2] = sum % 10;
+                    res[p1] += sum / 10;
+                }
+            }
+            String output = ""; int idx = -1;
+            for (int i = 0; i < num1_len + num2_len && res[i] == 0; i++)
+                idx = i;
+            for (int i = idx + 1; i < num1_len + num2_len; i++)
+                output += res[i].ToString();
+            return output;
+        }
+
+        // Multiply the current digit of secondNumber with firstNumber.
+        List<int> MultiplyOneDigit(StringBuilder sbN1, char secondNumberDigit, int numZeros)
+        {
+            // Insert zeros at the beginning based on the current digit's place.
+            List<int> currentResult = new List<int>();
+            for (int i = 0; i < numZeros; ++i)
+            {
+                currentResult.Add(0);
+            }
+
+            int carry = 0;
+
+            // Multiply firstNumber with the current digit of secondNumber.
+            for (int i = 0; i < sbN1.Length; ++i)
+            {
+                char firstNumberDigit = sbN1[i];
+                int multiplication = (secondNumberDigit - '0') * (firstNumberDigit - '0') + carry;
+                // Set carry equal to the tens place digit of multiplication.
+                carry = multiplication / 10;
+                // Append last digit to the current result.
+                currentResult.Add(multiplication % 10);
+            }
+
+            if (carry != 0)
+            {
+                currentResult.Add(carry);
+            }
+            return currentResult;
+        }
+        private List<int> AddStrings(List<int> num1, List<int> num2)
+        {
+            List<int> ans = new List<int>();
+            int carry = 0;
+
+            for (int i = 0; i < num1.Count || i < num2.Count; ++i)
+            {
+                // If num2 is shorter than num1 or vice versa, use 0 as the current digit.
+                int digit1 = i < num1.Count ? num1[i] : 0;
+                int digit2 = i < num2.Count ? num2[i] : 0;
+
+                // Add current digits of both numbers.
+                int sum = digit1 + digit2 + carry;
+                // Set carry equal to the tens place digit of sum.
+                carry = sum / 10;
+                // Append the ones place digit of sum to answer.
+                ans.Add(sum % 10);
+            }
+
+            if (carry != 0)
+            {
+                ans.Add(carry);
+            }
+            return ans;
+        }
+        #endregion
+
+        #region | Phone Interview 5 | 
+
+
+        /// <summary>
+        /// 1470. Shuffle the Array
+        /// https://leetcode.com/problems/shuffle-the-array/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int[] Shuffle(int[] nums, int n)
+        {
+            int idx = 0, i = 0;
+            int[] res = new int[2 * n];
+            while (idx < n)
+            {
+                res[i++] = nums[idx];
+                res[i++] = nums[idx + n];
+                idx++;
+            }
+
+            return res;
+        }
+
+        /// <summary>
+        /// 1156. Swap For Longest Repeated Character Substring
+        /// https://leetcode.com/problems/swap-for-longest-repeated-character-substring/
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public int MaxRepOpt1(string text)
+        {
+            int ans = 0;
+            int[] count = new int[26];
+            List<int[]> groups = new List<int[]>();
+
+            foreach (char c in text)
+                count[c - 'a']++;
+
+            groups.Add(new int[] { text[0], 1 });
+
+            for (int i = 1; i < text.Length; ++i)
+                if (text[i] == text[i - 1])
+                    groups[groups.Count - 1][1]++;
+                else
+                    groups.Add(new int[] { text[i], 1 });
+
+            foreach (int[] group in groups)
+                ans = Math.Max(ans, Math.Min(group[1] + 1, count[group[0] - 'a']));
+
+            for (int i = 1; i + 1 < groups.Count; ++i)
+                if (groups[i - 1][0] == groups[i + 1][0] && groups[i][1] == 1)
+                    ans = Math.Max(ans, Math.Min(groups[i - 1][1] + groups[i + 1][1] + 1,
+                                                 count[groups[i - 1][0] - 'a']));
+
+            return ans;
+        }
+
+        #endregion
 
 
 

@@ -260,6 +260,46 @@ namespace LeetCode
         }
 
 
+        public int CountSubIslands(int[][] grid1, int[][] grid2)
+        {
+            int ans = 0;
+            int[][] directions = new int[4][];
+            directions[0] = new int[2] { 1, 0 };
+            directions[1] = new int[2] { 0, 1 };
+            directions[2] = new int[2] { -1, 0 };
+            directions[3] = new int[2] { 0, -1 };
+            for (int r = 0; r < grid2.Length; r++)
+            {
+                for (int c = 0; c < grid2[0].Length; c++)
+                {
+                    if (grid2[r][c] == 1)
+                    {
+                        if (CountSubIslandsR(grid1, grid2, r, c, true, directions))
+                            ans++;
+                    }
+                }
+            }
+            return ans;
+        }
+        private bool CountSubIslandsR(int[][] grid1, int[][] grid2, int row, int col, bool isSubIsland, int[][] directions)
+        {
+            if (row < 0 || row >= grid2.Length
+              || col < 0 || col >= grid2[0].Length)
+                return isSubIsland;
+            else if (grid2[row][col] != 1)
+                return isSubIsland;
+
+            grid2[row][col] = 2;
+            if (isSubIsland)
+                isSubIsland = grid1[row][col] == 1;
+
+            foreach (var d in directions)
+            {
+                if (CountSubIslandsR(grid1, grid2, row + d[0], col + d[1], isSubIsland, directions) == false)
+                    isSubIsland = false;
+            }
+            return isSubIsland;
+        }
 
 
 
