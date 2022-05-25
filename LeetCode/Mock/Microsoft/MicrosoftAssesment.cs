@@ -2180,7 +2180,101 @@ namespace LeetCode
 
         #endregion
 
+        #region | Phone Interview 6 | 
 
+        /// <summary>
+        /// 160. Intersection of Two Linked Lists
+        /// https://leetcode.com/problems/intersection-of-two-linked-lists/solution/
+        /// </summary>
+        /// <param name="headA"></param>
+        /// <param name="headB"></param>
+        /// <returns></returns>
+        public ListNode GetIntersectionNode(ListNode headA, ListNode headB)
+        {
+            HashSet<ListNode> nodesInB = new HashSet<ListNode>();
+
+            while (headB != null)
+            {
+                nodesInB.Add(headB);
+                headB = headB.next;
+            }
+
+            while (headA != null)
+            {
+                // if we find the node pointed to by headA,
+                // in our set containing nodes of B, then return the node
+                if (nodesInB.Contains(headA))
+                {
+                    return headA;
+                }
+                headA = headA.next;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 223. Rectangle Area
+        /// https://leetcode.com/problems/rectangle-area/
+        /// </summary>
+        /// <param name="ax1"></param>
+        /// <param name="ay1"></param>
+        /// <param name="ax2"></param>
+        /// <param name="ay2"></param>
+        /// <param name="bx1"></param>
+        /// <param name="by1"></param>
+        /// <param name="bx2"></param>
+        /// <param name="by2"></param>
+        /// <returns></returns>
+        public int ComputeArea(int ax1, int ay1, int ax2, int ay2, int bx1, int by1, int bx2, int by2)
+        {
+            int areaA = Math.Abs((ax2 - ax1) * (ay2 - ay1));
+            int areaB = Math.Abs((bx2 - bx1) * (by2 - by1));
+            int total = areaA + areaB;
+            if (bx1 >= ax2 || ax1 >= bx2 || ay1 >= by2 || by1 >= ay2)
+                return total;
+            else
+            {
+                int x1 = Math.Min(ax2, bx2);
+                int x2 = Math.Max(ax1, bx1);
+                int y1 = Math.Min(ay2, by2);
+                int y2 = Math.Max(ay1, by1);
+                return total - Math.Abs((x1 - x2) * (y1 - y2));
+            }
+        }
+
+        /// <summary>
+        /// 322. Coin Change
+        /// https://leetcode.com/problems/coin-change/
+        /// </summary>
+        /// <param name="coins"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        public int CoinChange(int[] coins, int amount)
+        {
+            //amount, # of coins
+            Dictionary<int, int> dp = new Dictionary<int, int>();
+            int min = CoinChangeR(coins, amount, amount, dp);
+            return min == amount + 1 ? -1 : min;
+        }
+        private int CoinChangeR(int[] coins, int currAmt, int orgAmt, Dictionary<int, int> dp)
+        {
+            if (currAmt < 0)
+                return orgAmt + 1;
+            else if (currAmt == 0)
+                return 0;
+            if (dp.ContainsKey(currAmt))
+                return dp[currAmt];
+
+            int minNumOfCoins = orgAmt + 1;
+            foreach (var c in coins)
+            {
+                minNumOfCoins = Math.Min(minNumOfCoins, 1 + CoinChangeR(coins, currAmt - c, orgAmt, dp));
+            }
+            dp.Add(currAmt, minNumOfCoins);
+            return minNumOfCoins;
+        }
+        #endregion
 
 
 

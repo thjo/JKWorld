@@ -564,5 +564,53 @@ namespace LeetCode
             }
             return totalMaxVal;
         }
+
+        /// <summary>
+        /// 121. Best Time to Buy and Sell Stock
+        /// https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+        /// </summary>
+        /// <param name="prices"></param>
+        /// <returns></returns>
+        public int MaxProfit121(int[] prices)
+        {
+            int max = 0;
+            int initPrice = prices[0];
+            for (int i = 1; i < prices.Length; i++)
+            {
+                if (initPrice < prices[i])
+                    max = Math.Max(max, prices[i] - initPrice);
+
+                initPrice = Math.Min(initPrice, prices[i]);
+            }
+            return max;
+        }
+
+        /// <summary>
+        /// 122. Best Time to Buy and Sell Stock II
+        /// https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
+        /// </summary>
+        /// <param name="prices"></param>
+        /// <returns></returns>
+        public int MaxProfit122(int[] prices)
+        {
+            int maxProfits = 0;
+            int init = prices[0];
+            foreach (var p in prices)
+            {
+                if (init < p)
+                {
+                    maxProfits += p - init;
+                }
+                init = p;
+            }
+            return maxProfits;
+            //int maxprofit = 0;
+            //for (int i = 1; i < prices.Length; i++)
+            //{
+            //    if (prices[i] > prices[i - 1])
+            //        maxprofit += prices[i] - prices[i - 1];
+            //}
+            //return maxprofit;
+        }
     }
 }
