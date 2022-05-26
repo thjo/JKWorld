@@ -484,68 +484,6 @@ namespace LeetCode
 
         #endregion
 
-        #region | Phone Interview - 3/15/2022 | 
-
-
-        /// <summary>
-        /// 1700. Number of Students Unable to Eat Lunch
-        /// https://leetcode.com/problems/number-of-students-unable-to-eat-lunch/
-        /// </summary>
-        /// <param name="students"></param>
-        /// <param name="sandwiches"></param>
-        /// <returns></returns>
-        public int CountStudents(int[] students, int[] sandwiches)
-        {
-            bool isMatched = false;
-            int i = 0, j = 0;
-            int numOfMatched = 0;
-            while (i != students.Length || isMatched)
-            {
-                if (i == students.Length)
-                {
-                    i = 0;
-                    isMatched = false;
-                }
-
-                if (students[i] == -1)
-                {
-                    ;
-                }
-                else if (students[i] != sandwiches[j])
-                {
-                    ;
-                }
-                else
-                {
-                    isMatched = true;
-                    students[i] = -1;
-                    numOfMatched++;
-                    j++;
-                }
-                i++;
-            }
-
-            return students.Length - numOfMatched;
-        }
-
-
-        public TreeNode InsertIntoBST(TreeNode root, int val)
-        {
-            if (root == null)
-                return new TreeNode(val);
-
-            if(root.val > val)
-            {
-                root.left = InsertIntoBST(root.left, val);
-            }
-            else
-                root.right = InsertIntoBST(root.right, val);
-
-            return root;
-        }
-
-        #endregion
-
         #region | Phone Interview - 3/16/2022 | 
 
         public int IslandPerimeter(int[][] grid)
@@ -2276,7 +2214,121 @@ namespace LeetCode
         }
         #endregion
 
+        #region | Phone Interview 7 | 
 
+        /// <summary>
+        /// 1700. Number of Students Unable to Eat Lunch
+        /// https://leetcode.com/problems/number-of-students-unable-to-eat-lunch/
+        /// </summary>
+        /// <param name="students"></param>
+        /// <param name="sandwiches"></param>
+        /// <returns></returns>
+        public int CountStudents(int[] students, int[] sandwiches)
+        {
+            Queue<int> stu = new Queue<int>();
+            Stack<int> san = new Stack<int>();
+            int idxSan = 0;
+            foreach (var s in students)
+            {
+                if (s == sandwiches[idxSan])
+                {
+                    idxSan++;
+                }
+                else
+                    stu.Enqueue(s);
+            }
+            int remainedStu = stu.Count;
+            int progress = 0;
+            while (stu.Count > 0)
+            {
+                if (remainedStu == progress)
+                    return stu.Count;
+                else
+                {
+                    int s = stu.Dequeue();
+                    if (s == sandwiches[idxSan])
+                    {
+                        idxSan++;
+                        remainedStu--;
+                        progress = 0;
+                    }
+                    else
+                    {
+                        stu.Enqueue(s);
+                        progress++;
+                    }
+                }
+            }
+            return stu.Count;
+            //bool isMatched = false;
+            //int i = 0, j = 0;
+            //int numOfMatched = 0;
+            //while (i != students.Length || isMatched)
+            //{
+            //    if (i == students.Length)
+            //    {
+            //        i = 0;
+            //        isMatched = false;
+            //    }
+
+            //    if (students[i] == -1)
+            //    {
+            //        ;
+            //    }
+            //    else if (students[i] != sandwiches[j])
+            //    {
+            //        ;
+            //    }
+            //    else
+            //    {
+            //        isMatched = true;
+            //        students[i] = -1;
+            //        numOfMatched++;
+            //        j++;
+            //    }
+            //    i++;
+            //}
+
+            //return students.Length - numOfMatched;
+        }
+
+        /// <summary>
+        /// 701. Insert into a Binary Search Tree
+        /// https://leetcode.com/problems/insert-into-a-binary-search-tree/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        public TreeNode InsertIntoBST(TreeNode root, int val)
+        {
+            if (root == null)
+                return new TreeNode(val);
+
+            if (root.val > val)
+            {
+                root.left = InsertIntoBST(root.left, val);
+            }
+            else
+                root.right = InsertIntoBST(root.right, val);
+
+            return root;
+        }
+
+        #endregion
+
+
+        #region | Phone Interview 8 | 
+
+        #endregion
+
+        #region | Phone Interview 9 | 
+
+        #endregion
+
+
+        #region | Phone Interview 10 | 
+
+        #endregion
 
     }
 }

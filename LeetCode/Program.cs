@@ -99,7 +99,8 @@ namespace LeetCode
 
 
             MicrosoftAssesment msAss = new MicrosoftAssesment();
-            msAss.Merge(new int[] { 1, 2, 3, 0, 0, 0 }, 3, new int[] { 2, 5, 6 }, 3);
+            msAss.CountStudents(new int[] { 1,1,1,0,0,1 }, new int[] { 1,0,0,0,1,1 });
+            //msAss.Merge(new int[] { 1, 2, 3, 0, 0, 0 }, 3, new int[] { 2, 5, 6 }, 3);
             //char[][] board = new char[3][];
             //board[0] = new char[4] { 'A', 'B', 'C', 'E' };
             //board[1] = new char[4] { 'S', 'F', 'C', 'S' };
