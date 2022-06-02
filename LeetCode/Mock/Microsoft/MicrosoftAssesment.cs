@@ -148,150 +148,6 @@ namespace LeetCode
         #endregion
 
 
-
-        #region | Phone Interview - 2/16/2022 | 
-
-        /// <summary>
-        /// 979. Distribute Coins in Binary Tree
-        /// https://leetcode.com/problems/distribute-coins-in-binary-tree/
-        /// </summary>
-        /// <param name="root"></param>
-        /// <returns></returns>
-        int ans = 0;
-        public int DistributeCoins(TreeNode root)
-        {
-            dfs(root);
-            return ans;
-        }
-        private int dfs(TreeNode node)
-        {
-            if (node == null)
-                return 0;
-
-            int l = dfs(node.left);
-            int r = dfs(node.right);
-            ans += Math.Abs(l) + Math.Abs(r);
-            return node.val + l + r - 1;
-        }
-
-
-        /// <summary>
-        /// 935. Knight Dialer
-        /// https://leetcode.com/problems/knight-dialer/
-        /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        public int KnightDialer(int n)
-        {
-            long[] dp = new long[10];
-            long[] calDp = new long[10];
-            for (int i = 0; i < 10; i++)
-                dp[i] = 1;
-
-            for (int i = 2; i <= n; i++)
-            {
-                dp.CopyTo(calDp, 0);
-                dp[1] = (calDp[6] + calDp[8]) % 1000000007;
-                dp[2] = (calDp[7] + calDp[9]) % 1000000007;
-                dp[3] = (calDp[4] + calDp[8]) % 1000000007;
-                dp[4] = (calDp[3] + calDp[9] + calDp[0]) % 1000000007;
-                dp[5] = 0;
-                dp[6] = (calDp[1] + calDp[7] + calDp[0]) % 1000000007;
-                dp[7] = (calDp[2] + calDp[6]) % 1000000007;
-                dp[8] = (calDp[1] + calDp[3]) % 1000000007;
-                dp[9] = (calDp[2] + calDp[4]) % 1000000007;
-                dp[0] = (calDp[4] + calDp[6]) % 1000000007;
-            }
-
-            long ans = 0;
-            for (int i = 0; i < 10; i++)
-                ans += dp[i] % 1000000007;
-
-            return (int)(ans % 1000000007);
-        }
-
-
-        #region | Bruce Force | 
-        //public int KnightDialer(int n)
-        //{
-        //    int[,] pad = new int[,] {
-        //          { 1,2,3 }
-        //        , { 4,5,6 }
-        //        , { 7,8,9 }
-        //        , {-1,0,-1 } };
-
-        //    int[][] dic = new int[8][];
-        //    dic[0] = new int[2];
-        //    dic[0][0] = -2; //row
-        //    dic[0][1] = -1; //col
-        //    dic[1] = new int[2];
-        //    dic[1][0] = -1; //row
-        //    dic[1][1] = -2; //col
-
-        //    dic[2] = new int[2];
-        //    dic[2][0] = -2; //row
-        //    dic[2][1] =  1; //col
-        //    dic[3] = new int[2];
-        //    dic[3][0] = -1; //row
-        //    dic[3][1] =  2; //col
-
-        //    dic[4] = new int[2];
-        //    dic[4][0] =  1; //row
-        //    dic[4][1] = -2; //col
-        //    dic[5] = new int[2];
-        //    dic[5][0] =  2; //row
-        //    dic[5][1] = -1; //col
-
-        //    dic[6] = new int[2];
-        //    dic[6][0] =  2; //row
-        //    dic[6][1] =  1; //col
-        //    dic[7] = new int[2];
-        //    dic[7][0] =  1; //row
-        //    dic[7][1] =  2; //col
-
-        //    List<string> res = new List<string>();
-        //    for(int r = 0; r < 4; r++)
-        //    {
-        //        for(int c = 0; c < 3; c++)
-        //        {
-        //            if (pad[r, c] >= 0)
-        //            {
-        //                int num = pad[r, c];
-        //                pad[r, c] = -2;
-        //                KnightDialerBTK(n - 1, r, c, num.ToString(), res, dic, pad);
-        //                pad[r, c] = num;
-        //            }
-        //        }
-        //    }
-
-        //    return res.Count % 1000000007;
-        //}
-        //private void KnightDialerBTK(int move, int startRow, int startCol, string num, List<string> res, int[][] dic, int[,] pad)
-        //{
-        //    if( move == 0)
-        //    {
-        //        if (res.Contains(num) == false)
-        //            res.Add(num);
-        //        return;
-        //    }
-
-        //    for(int i = 0; i < dic.Length; i++)
-        //    {
-        //        //valid movement
-        //        int row = startRow + dic[i][0];
-        //        int col = startCol + dic[i][1];
-        //        if (row >= 0 && row < 4
-        //            && col >= 0 && col < 3 && pad[row,col] >= 0)
-        //        {
-        //            int currNum = pad[row, col];
-        //            KnightDialerBTK(move - 1, row, col, num + currNum.ToString(), res, dic, pad);
-        //            pad[row, col] = currNum;
-        //        }
-        //    }
-        //}
-        #endregion
-        #endregion
-
         /// <summary>
         /// 41. First Missing Positive
         /// https://leetcode.com/problems/first-missing-positive/
@@ -327,66 +183,6 @@ namespace LeetCode
             return minMissingVal;
         }
 
-
-        #region | Phone Interview - 03/05/2022 | 
-
-        /// <summary>
-        /// 142. Linked List Cycle II
-        /// https://leetcode.com/problems/linked-list-cycle-ii/
-        /// </summary>
-        /// <param name="head"></param>
-        /// <returns></returns>
-        public ListNode DetectCycle(ListNode head)
-        {
-            if (head == null || head.next == null)
-                return null;
-
-            ListNode curr = head.next;
-            ListNode fast = head.next.next;
-
-            while (curr != fast && fast != null)
-            {
-                curr = curr.next;
-                fast = fast.next != null ? fast.next.next : null;
-            }
-            if (fast == null)
-                return null;
-
-            ListNode ptr1 = head;
-            while (ptr1 != fast)
-            {
-                ptr1 = ptr1.next;
-                fast = fast.next;
-            }
-
-            return ptr1;
-        }
-
-
-        /// <summary>
-        /// 328. Odd Even Linked List
-        /// https://leetcode.com/problems/odd-even-linked-list/
-        /// </summary>
-        /// <param name="head"></param>
-        /// <returns></returns>
-        public ListNode OddEvenList(ListNode head)
-        {
-            if (head == null) return null;
-
-            ListNode odd = head, even = head.next, evenHead = even;
-            while (even != null && even.next != null)
-            {
-                odd.next = even.next;
-                odd = odd.next;
-                even.next = odd.next;
-                even = even.next;
-            }
-            odd.next = evenHead;
-
-            return head;
-        }
-
-        #endregion
 
         #region | Phone Interview - 03/06/2022 | 
 
@@ -446,43 +242,6 @@ namespace LeetCode
 
         #endregion
 
-        #region | Phone Interview - 03/07/2022 | 
-
-        /// <summary>
-        /// 1469. Find All The Lonely Nodes
-        /// https://leetcode.com/problems/find-all-the-lonely-nodes/
-        /// </summary>
-        /// <param name="root"></param>
-        /// <returns></returns>
-        public IList<int> GetLonelyNodes(TreeNode root)
-        {
-            IList<int> res = new List<int>();
-            Queue<TreeNode> nodes = new Queue<TreeNode>();
-            nodes.Enqueue(root);
-            while (nodes.Count > 0)
-            {
-                TreeNode node = nodes.Dequeue();
-                int? val = OlnyChild(node);
-                if (val != null)
-                    res.Add(val.Value);
-                if (node.left != null)
-                    nodes.Enqueue(node.left);
-                if (node.right != null)
-                    nodes.Enqueue(node.right);
-            }
-            return res;
-        }
-        private int? OlnyChild(TreeNode root)
-        {
-            if (root.left == null && root.right != null)
-                return root.right.val;
-            else if (root.left != null && root.right == null)
-                return root.left.val;
-            else
-                return null;
-        }
-
-        #endregion
 
         #region | Phone Interview - 3/16/2022 | 
 
@@ -2129,26 +1888,48 @@ namespace LeetCode
         /// <returns></returns>
         public ListNode GetIntersectionNode(ListNode headA, ListNode headB)
         {
-            HashSet<ListNode> nodesInB = new HashSet<ListNode>();
-
-            while (headB != null)
+            ListNode pA = headA;
+            ListNode pB = headB;
+            bool isFirstA = true, isFirstB = true;
+            while (pA != null || pB != null)
             {
-                nodesInB.Add(headB);
-                headB = headB.next;
-            }
+                if (pA == pB)
+                    return pA;
 
-            while (headA != null)
-            {
-                // if we find the node pointed to by headA,
-                // in our set containing nodes of B, then return the node
-                if (nodesInB.Contains(headA))
+                pA = pA.next;
+                if (pA == null && isFirstA)
                 {
-                    return headA;
+                    pA = headB;
+                    isFirstA = false;
                 }
-                headA = headA.next;
+                pB = pB.next;
+                if (pB == null && isFirstB)
+                {
+                    pB = headA;
+                    isFirstB = false;
+                }
             }
-
             return null;
+            ////Hash table
+            //HashSet<ListNode> nodesInB = new HashSet<ListNode>();
+            //while (headB != null)
+            //{
+            //    nodesInB.Add(headB);
+            //    headB = headB.next;
+            //}
+
+            //while (headA != null)
+            //{
+            //    // if we find the node pointed to by headA,
+            //    // in our set containing nodes of B, then return the node
+            //    if (nodesInB.Contains(headA))
+            //    {
+            //        return headA;
+            //    }
+            //    headA = headA.next;
+            //}
+
+            //return null;
         }
 
         /// <summary>
@@ -2316,19 +2097,479 @@ namespace LeetCode
 
         #endregion
 
-
         #region | Phone Interview 8 | 
+
+        /// <summary>
+        /// 142. Linked List Cycle II
+        /// https://leetcode.com/problems/linked-list-cycle-ii/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public ListNode DetectCycle(ListNode head)
+        {
+            if (head == null || head.next == null)
+                return null;
+
+            ListNode curr = head.next;
+            ListNode fast = head.next.next;
+
+            while (curr != fast && fast != null)
+            {
+                curr = curr.next;
+                fast = fast.next != null ? fast.next.next : null;
+            }
+            if (fast == null)
+                return null;
+
+            ListNode ptr1 = head;
+            while (ptr1 != fast)
+            {
+                ptr1 = ptr1.next;
+                fast = fast.next;
+            }
+
+            return ptr1;
+        }
+
+
+        /// <summary>
+        /// 328. Odd Even Linked List
+        /// https://leetcode.com/problems/odd-even-linked-list/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public ListNode OddEvenList(ListNode head)
+        {
+            if (head == null)
+                return null;
+
+            ListNode oddHead = head;
+            ListNode evenHead = head.next;
+            ListNode oddCurr = oddHead, evenCurr = evenHead;
+            ListNode currNode = (head.next != null) ? head.next.next : null;
+            int idx = 3;
+            while (currNode != null)
+            {
+                if (idx % 2 == 0)
+                {
+                    //even node
+                    evenCurr.next = evenCurr;
+                    evenCurr = evenCurr.next;
+                }
+                else
+                {
+                    //odd node
+                    oddCurr.next = evenCurr;
+                    oddCurr = oddCurr.next;
+                }
+                currNode = currNode.next;
+                idx++;
+            }
+
+            oddCurr.next = evenHead;
+            return oddHead;
+
+            //if (head == null) return null;
+
+            //ListNode odd = head, even = head.next, evenHead = even;
+            //while (even != null && even.next != null)
+            //{
+            //    odd.next = even.next;
+            //    odd = odd.next;
+            //    even.next = odd.next;
+            //    even = even.next;
+            //}
+            //odd.next = evenHead;
+
+            //return head;
+        }
 
         #endregion
 
         #region | Phone Interview 9 | 
 
+        /// <summary>
+        /// 979. Distribute Coins in Binary Tree
+        /// https://leetcode.com/problems/distribute-coins-in-binary-tree/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        int ans = 0;
+        public int DistributeCoins(TreeNode root)
+        {
+            return dfs(root);
+        }
+        private int dfs(TreeNode node)
+        {
+            if (node == null)
+                return 0;
+
+            int l = dfs(node.left);
+            int r = dfs(node.right);
+            ans += Math.Abs(l) + Math.Abs(r);
+            return node.val + l + r - 1;
+        }
+
+
+        /// <summary>
+        /// 935. Knight Dialer
+        /// https://leetcode.com/problems/knight-dialer/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int KnightDialer(int n)
+        {
+            long[] dp = new long[10];
+            long[] calDp = new long[10];
+            for (int i = 0; i < 10; i++)
+                dp[i] = 1;
+
+            for (int i = 2; i <= n; i++)
+            {
+                dp.CopyTo(calDp, 0);
+                dp[1] = (calDp[6] + calDp[8]) % 1000000007;
+                dp[2] = (calDp[7] + calDp[9]) % 1000000007;
+                dp[3] = (calDp[4] + calDp[8]) % 1000000007;
+                dp[4] = (calDp[3] + calDp[9] + calDp[0]) % 1000000007;
+                dp[5] = 0;
+                dp[6] = (calDp[1] + calDp[7] + calDp[0]) % 1000000007;
+                dp[7] = (calDp[2] + calDp[6]) % 1000000007;
+                dp[8] = (calDp[1] + calDp[3]) % 1000000007;
+                dp[9] = (calDp[2] + calDp[4]) % 1000000007;
+                dp[0] = (calDp[4] + calDp[6]) % 1000000007;
+            }
+
+            long ans = 0;
+            for (int i = 0; i < 10; i++)
+                ans += dp[i] % 1000000007;
+
+            return (int)(ans % 1000000007);
+        }
+
+
+        #region | Bruce Force | 
+        //public int KnightDialer(int n)
+        //{
+        //    int[,] pad = new int[,] {
+        //          { 1,2,3 }
+        //        , { 4,5,6 }
+        //        , { 7,8,9 }
+        //        , {-1,0,-1 } };
+
+        //    int[][] dic = new int[8][];
+        //    dic[0] = new int[2];
+        //    dic[0][0] = -2; //row
+        //    dic[0][1] = -1; //col
+        //    dic[1] = new int[2];
+        //    dic[1][0] = -1; //row
+        //    dic[1][1] = -2; //col
+
+        //    dic[2] = new int[2];
+        //    dic[2][0] = -2; //row
+        //    dic[2][1] =  1; //col
+        //    dic[3] = new int[2];
+        //    dic[3][0] = -1; //row
+        //    dic[3][1] =  2; //col
+
+        //    dic[4] = new int[2];
+        //    dic[4][0] =  1; //row
+        //    dic[4][1] = -2; //col
+        //    dic[5] = new int[2];
+        //    dic[5][0] =  2; //row
+        //    dic[5][1] = -1; //col
+
+        //    dic[6] = new int[2];
+        //    dic[6][0] =  2; //row
+        //    dic[6][1] =  1; //col
+        //    dic[7] = new int[2];
+        //    dic[7][0] =  1; //row
+        //    dic[7][1] =  2; //col
+
+        //    List<string> res = new List<string>();
+        //    for(int r = 0; r < 4; r++)
+        //    {
+        //        for(int c = 0; c < 3; c++)
+        //        {
+        //            if (pad[r, c] >= 0)
+        //            {
+        //                int num = pad[r, c];
+        //                pad[r, c] = -2;
+        //                KnightDialerBTK(n - 1, r, c, num.ToString(), res, dic, pad);
+        //                pad[r, c] = num;
+        //            }
+        //        }
+        //    }
+
+        //    return res.Count % 1000000007;
+        //}
+        //private void KnightDialerBTK(int move, int startRow, int startCol, string num, List<string> res, int[][] dic, int[,] pad)
+        //{
+        //    if( move == 0)
+        //    {
+        //        if (res.Contains(num) == false)
+        //            res.Add(num);
+        //        return;
+        //    }
+
+        //    for(int i = 0; i < dic.Length; i++)
+        //    {
+        //        //valid movement
+        //        int row = startRow + dic[i][0];
+        //        int col = startCol + dic[i][1];
+        //        if (row >= 0 && row < 4
+        //            && col >= 0 && col < 3 && pad[row,col] >= 0)
+        //        {
+        //            int currNum = pad[row, col];
+        //            KnightDialerBTK(move - 1, row, col, num + currNum.ToString(), res, dic, pad);
+        //            pad[row, col] = currNum;
+        //        }
+        //    }
+        //}
         #endregion
 
+        #endregion
 
         #region | Phone Interview 10 | 
 
+        /// <summary>
+        /// 1469. Find All The Lonely Nodes
+        /// https://leetcode.com/problems/find-all-the-lonely-nodes/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public IList<int> GetLonelyNodes(TreeNode root)
+        {
+            IList<int> res = new List<int>();
+            Queue<TreeNode> nodes = new Queue<TreeNode>();
+            nodes.Enqueue(root);
+            while (nodes.Count > 0)
+            {
+                TreeNode node = nodes.Dequeue();
+                int? val = OlnyChild(node);
+                if (val != null)
+                    res.Add(val.Value);
+                if (node.left != null)
+                    nodes.Enqueue(node.left);
+                if (node.right != null)
+                    nodes.Enqueue(node.right);
+            }
+            return res;
+        }
+        private int? OlnyChild(TreeNode root)
+        {
+            if (root.left == null && root.right != null)
+                return root.right.val;
+            else if (root.left != null && root.right == null)
+                return root.left.val;
+            else
+                return null;
+        }
+
+        public IList<int> GetLonelyNodesII(TreeNode root)
+        {
+            IList<int> ans = new List<int>();
+            GetLonelyNodesR(root, ans);
+
+            return ans;
+        }
+        private void GetLonelyNodesR(TreeNode root, IList<int> ans)
+        {
+            if (root == null)
+                return;
+
+            if (root.left == null && root.right == null)
+                return;
+            else if (root.left == null && root.right != null)
+            {
+                ans.Add(root.right.val);
+                GetLonelyNodesR(root.right, ans);
+            }
+            else if (root.left != null && root.right == null)
+            {
+                ans.Add(root.left.val);
+                GetLonelyNodesR(root.left, ans);
+            }
+            else
+            {
+                GetLonelyNodesR(root.left, ans);
+                GetLonelyNodesR(root.right, ans);
+            }
+        }
+
+        //1381. Design a Stack With Increment Operation
+        //https://leetcode.com/problems/design-a-stack-with-increment-operation/
+        //List<int> data = null;
+        //int MAX_SIZE = 0;
+        //public CustomStack(int maxSize)
+        //{
+        //    MAX_SIZE = maxSize;
+        //    data = new List<int>();
+        //}
+
+        //public void Push(int x)
+        //{
+        //    if (data.Count < MAX_SIZE)
+        //    {
+        //        data.Add(x);
+        //    }
+        //}
+
+        //public int Pop()
+        //{
+        //    if (data.Count <= 0)
+        //        return -1;
+
+        //    int tmp = data[data.Count - 1];
+        //    data.RemoveAt(data.Count - 1);
+        //    return tmp;
+        //}
+
+        //public void Increment(int k, int val)
+        //{
+        //    int min = data.Count;
+        //    if (k < min)
+        //        min = k;
+        //    for (int i = 0; i < min; i++)
+        //    {
+        //        data[i] = data[i] + val;
+        //    }
+        //}
         #endregion
 
+
+        #region | Phone Interview 11 | 
+
+
+        /// <summary>
+        /// 917. Reverse Only Letters
+        /// https://leetcode.com/problems/reverse-only-letters/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public string ReverseOnlyLetters(string s)
+        {
+            char?[] ans = new char?[s.Length];
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (!Char.IsLower(s[i]) && !Char.IsUpper(s[i]))
+                    ans[i] = s[i];
+                else
+                    ans[i] = null;
+            }
+            int ansIdx = s.Length - 1;
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (Char.IsLower(s[i]) || Char.IsUpper(s[i]))
+                {
+                    while (ans[ansIdx] != null)
+                        ansIdx--;
+                    ans[ansIdx--] = s[i];
+                }
+            }
+            string result = "";
+            foreach (var c in ans)
+                result += c;
+            return result;
+        }
+
+        #region | 622. Design Circular Queue | 
+        //https://leetcode.com/problems/design-circular-queue/
+
+        //public class Node
+        //{
+        //    public int value;
+        //    public Node next;
+
+        //    public Node(int value)
+        //    {
+        //        this.value = value;
+        //        this.next = null;
+        //    }
+        //}
+        //public class MyCircularQueue
+        //{
+
+        //    private Node head, tail;
+        //    private int count;
+        //    private int capacity;
+
+        //    public MyCircularQueue(int k)
+        //    {
+        //        this.capacity = k;
+        //    }
+
+        //    public bool EnQueue(int value)
+        //    {
+        //        if (this.count == this.capacity)
+        //            return false;
+
+        //        Node newNode = new Node(value);
+        //        if (this.count == 0)
+        //        {
+        //            this.head = newNode;
+        //            this.tail = newNode;
+        //        }
+        //        else
+        //        {
+        //            tail.next = newNode;
+        //            tail = newNode;
+        //        }
+        //        this.count++;
+        //        return true;
+        //    }
+
+        //    public bool DeQueue()
+        //    {
+        //        if (this.count == 0)
+        //            return false;
+
+        //        this.head = this.head.next;
+        //        if (this.head == null)
+        //            this.tail = null;
+        //        this.count--;
+        //        return true;
+        //    }
+
+        //    public int Front()
+        //    {
+        //        if (this.count == 0)
+        //            return -1;
+        //        else
+        //            return this.head.value;
+        //    }
+
+        //    public int Rear()
+        //    {
+        //        if (this.count == 0)
+        //            return -1;
+        //        else
+        //            return this.tail.value;
+        //    }
+
+        //    public bool IsEmpty()
+        //    {
+        //        return this.count == 0;
+        //    }
+
+        //    public bool IsFull()
+        //    {
+        //        return this.count == this.capacity;
+        //    }
+        //}
+
+        #endregion
+
+        #endregion
+
+
+        #region | Phone Interview 12 | 
+
+
+        #endregion
+
+        #region | Phone Interview 13 | 
+
+
+        #endregion
     }
 }

@@ -521,5 +521,116 @@ namespace LeetCode
 
             return false;
         }
+
+        /// <summary>
+        /// 1337. The K Weakest Rows in a Matrix
+        /// https://leetcode.com/problems/the-k-weakest-rows-in-a-matrix/
+        /// </summary>
+        /// <param name="mat"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public int[] KWeakestRows(int[][] mat, int k)
+        {
+            //row, # of soldiers
+            int[] ans = new int[k];
+            int cursor = 0;
+            int n = mat.Length;
+            int m = mat[0].Length;
+            for (int col = 0; col < m; col++)
+            {
+                for (int row = 0; row < n; row++)
+                {
+                    if (mat[row][col] == 0)
+                    {
+                        if (col == 0)
+                            ans[cursor++] = row;
+                        else
+                        {
+                            if (mat[row][col - 1] == 1)
+                                ans[cursor++] = row;
+                        }
+                        if (cursor == k)
+                            return ans;
+                    }
+                }
+            }
+            //all elements are 1.
+            for (int row = 0; row < n; row++)
+            {
+                if (mat[row][m - 1] == 1)
+                    ans[cursor++] = row;
+
+                if (cursor == k)
+                    return ans;
+            }
+            return ans;
+        }
+
+
+        /// <summary>
+        /// 1346. Check If N and Its Double Exist
+        /// https://leetcode.com/problems/check-if-n-and-its-double-exist/
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public bool CheckIfExist(int[] arr)
+        {
+            HashSet<int> map = new HashSet<int>();
+            foreach (var num in arr)
+            {
+                if (map.Contains(num * 2) || (num % 2 != 1 && map.Contains(num / 2)))
+                    return true;
+                else
+                    map.Add(num);
+            }
+            return false;
+        }
+
+
+        /// <summary>
+        /// 350. Intersection of Two Arrays II
+        /// https://leetcode.com/problems/intersection-of-two-arrays-ii/
+        /// </summary>
+        /// <param name="nums1"></param>
+        /// <param name="nums2"></param>
+        /// <returns></returns>
+        public int[] Intersect(int[] nums1, int[] nums2)
+        {
+            Array.Sort(nums1);
+            Array.Sort(nums2);
+            int n1 = 0, n2 = 0;
+            List<int> res = new List<int>();
+            while (n1 < nums1.Length && n2 < nums2.Length)
+            {
+                if (nums1[n1] == nums2[n2])
+                {
+                    res.Add(nums1[n1]);
+                    n1++; n2++;
+                }
+                else if (nums1[n1] > nums2[n2])
+                    n2++;
+                else
+                    n1++;
+            }
+
+            return res.ToArray();
+        }
+
+        /// <summary>
+        /// 633. Sum of Square Numbers
+        /// https://leetcode.com/problems/sum-of-square-numbers/
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public bool JudgeSquareSum(int c)
+        {
+            for (long a = 0; a * a <= c; a++)
+            {
+                double b = Math.Sqrt(c - a * a);
+                if (b == (int)b)
+                    return true;
+            }
+            return false;
+        }
     }
 }
