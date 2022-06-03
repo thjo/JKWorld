@@ -2398,6 +2398,7 @@ namespace LeetCode
 
         //1381. Design a Stack With Increment Operation
         //https://leetcode.com/problems/design-a-stack-with-increment-operation/
+        //public class CustomStack {
         //List<int> data = null;
         //int MAX_SIZE = 0;
         //public CustomStack(int maxSize)
@@ -2433,6 +2434,7 @@ namespace LeetCode
         //    {
         //        data[i] = data[i] + val;
         //    }
+        //}
         //}
         #endregion
 
