@@ -2573,5 +2573,122 @@ namespace LeetCode
 
 
         #endregion
+
+
+        public int Solution1_06052022(int[] A)
+        {
+            // write your code in C# 6.0 with .NET 4.5 (Mono)
+            //Validate the argument
+            if (A == null || A.Length <= 1)
+                return 0;
+
+            //Check it without start and end index connected
+            int ans1 = GetEvenPairs(A, 0);
+            //Check it with start and end index connected
+            int ans2 = GetEvenPairs(A, 1);
+            return Math.Max(ans1, ans2);
+        }
+        private int GetEvenPairs(int[] A, int startIdx)
+        {
+            int n = A.Length;   //Length of the array
+            int ans = 0;
+            //number at start
+            int? prevNum = A[startIdx];
+            for(int i = startIdx+1; i < n; i++)
+            {
+                if (prevNum != null && (prevNum.Value + A[i]) % 2 == 0)
+                {
+                    ans++;
+                    prevNum = null;
+                }
+                else
+                    prevNum = A[i];
+            }
+
+            //If do not proceed the first index, check it
+            if( startIdx != 0 && prevNum != null) {
+                if ((prevNum.Value + A[0]) % 2 == 0)
+                    ans++;
+            }
+            return ans;
+        }
+
+
+        public int Solution2_06052022(int N, string S)
+        {
+            // write your code in C# 6.0 with .NET 4.5 (Mono)
+            //Validate the arguments
+            if (N < 1)
+                return 0;
+
+            int numOfAvailSeatsFromReserve = 0;
+            int numOfReservedRows = 0;
+            ////Reverved - Row, seats
+            //Dictionary<int, bool[]> reservedDic = new Dictionary<int, bool[]>();
+            string[] reservedSeats = S.Split(" ".ToCharArray());
+            Array.Sort(reservedSeats);
+            int currRow = -1;
+            List<int> currSeat = new List<int>();
+            foreach(string reservSeat in reservedSeats)
+            {
+                if (string.IsNullOrWhiteSpace(reservSeat))
+                    continue;
+
+                int row = int.Parse(reservSeat.Substring(0, reservSeat.Length - 1));
+                //A to K represents 0 to 9
+                int col = (int)(reservSeat[reservSeat.Length - 1] - 'A');
+                if( currRow != row )
+                {
+                    //Check available seats
+                    numOfAvailSeatsFromReserve += IsAvailableSeats(currSeat);
+                    currRow = row;
+                    currSeat.Clear();
+                    numOfReservedRows++;
+                }
+                currSeat.Add(col);
+            }
+            if(currSeat.Count > 0)
+            {
+                //Check available seats
+                numOfAvailSeatsFromReserve += IsAvailableSeats(currSeat);
+            }
+            return (N - numOfReservedRows) * 2 + numOfAvailSeatsFromReserve;
+        }
+ 
+        private int IsAvailableSeats(List<int> currSeat)
+        {
+            //0::B,C   1::D,E    2::F,G     3::H,J
+            bool[] availables = new bool[4];
+            //0 to 9 represents A to K 
+            if (currSeat.Contains(1) && currSeat.Contains(2))
+            {
+                //B, C are available
+                availables[0] = true;
+            }
+            if (currSeat.Contains(3) == false && currSeat.Contains(4) == false)
+            {
+                //D, E are available
+                availables[1] = true;
+            }
+            if (currSeat.Contains(5) == false && currSeat.Contains(6) == false)
+            {
+                //F, G are available
+                availables[2] = true;
+            }
+            if (currSeat.Contains(7) == false && currSeat.Contains(8) == false)
+            {
+                //H, J are available
+                availables[3] = true;
+            }
+            if (availables[0] && availables[1] && availables[2] && availables[3])
+                return 2;
+            else if ((availables[0] && availables[1])
+                || (availables[1] && availables[2])
+                || (availables[2] && availables[3]))
+                return 1;
+            else
+                return 0;
+        }
+
     }
 }

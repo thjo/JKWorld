@@ -15,13 +15,7 @@ namespace LeetCode
             //l75.CanFinish(2, prerequisites);
 
             BinarySearchI bs = new BinarySearchI();
-            int[][] mat = new int[5][];
-            mat[0] = new int[] { 1, 1, 1, 1, 1 };
-            mat[1] = new int[] { 1, 0, 0, 0, 0 };
-            mat[2] = new int[] { 1, 1, 0, 0, 0 };
-            mat[3] = new int[] { 1, 1, 1, 1, 0 };
-            mat[4] = new int[] { 1, 1, 1, 1, 1 };
-            bs.KWeakestRows(mat, 3);
+          
             //int[][] grid = new int[2][];
             //grid[0] = new int[] { 5,1,0 };
             //grid[1] = new int[] { -5,-5,-5 };
@@ -70,6 +64,7 @@ namespace LeetCode
 
 
             AmazonAssessment aaaa = new AmazonAssessment();
+
             //aaaa.buildTree(new string[] { "4", "5", "2", "7", "+", "-", "*" });
             //aaaa.SortArrayByParityII(new int[] { 2, 3, 0, 4, 1, 3});
             //aaaa.PrisonAfterNDays(new int[] { 0, 1, 0, 1, 1, 0, 0, 1 }, 7);
@@ -106,6 +101,7 @@ namespace LeetCode
 
 
             MicrosoftAssesment msAss = new MicrosoftAssesment();
+            msAss.Solution2_06052022(2, "1A 2F 1C");
             //msAss.CountStudents(new int[] { 1,1,1,0,0,1 }, new int[] { 1,0,0,0,1,1 });
             //msAss.Merge(new int[] { 1, 2, 3, 0, 0, 0 }, 3, new int[] { 2, 5, 6 }, 3);
             //char[][] board = new char[3][];
