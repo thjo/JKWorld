@@ -2637,10 +2637,13 @@ namespace LeetCode
                 int row = int.Parse(reservSeat.Substring(0, reservSeat.Length - 1));
                 //A to K represents 0 to 9
                 int col = (int)(reservSeat[reservSeat.Length - 1] - 'A');
-                if( currRow != row )
+                if(currRow != row )
                 {
-                    //Check available seats
-                    numOfAvailSeatsFromReserve += IsAvailableSeats(currSeat);
+                    if (currRow != -1)
+                    {
+                        //Check available seats
+                        numOfAvailSeatsFromReserve += IsAvailableSeats(currSeat);
+                    }
                     currRow = row;
                     currSeat.Clear();
                     numOfReservedRows++;

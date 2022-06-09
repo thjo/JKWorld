@@ -8,6 +8,10 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
+            DataStructures.MyHashMap hashM = new DataStructures.MyHashMap();
+            hashM.Put(1, 1);
+            hashM.Put(2, 2);
+            hashM.Get(1);
             Leetcode75Questions l75 = new Leetcode75Questions();
             //l75.LengthOfLIS(new int[] { 0, 1, 0, 3, 2, 3 });
             //int[][] prerequisites = new int[1][];

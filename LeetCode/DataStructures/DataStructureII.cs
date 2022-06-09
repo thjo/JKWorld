@@ -92,5 +92,13 @@ namespace LeetCode.DataStructures
 
             return groups;
         }
+
+
+        //706. Design HashMap
+        //https://leetcode.com/problems/design-hashmap/
+        //DataStructures.MyHashMap
+
+
+
     }
 }
