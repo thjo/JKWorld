@@ -265,5 +265,16 @@ namespace LeetCode
             return days >= 0 ? true : false;
         }
 
+        /// <summary>
+        /// 1151. Minimum Swaps to Group All 1's Together
+        /// https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together/
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public int MinSwaps(int[] data)
+        {
+
+        }
+
     }
 }
