@@ -117,6 +117,55 @@ namespace LeetCode
             return res;
         }
 
+        /// <summary>
+        /// 53. Maximum Subarray
+        /// https://leetcode.com/problems/maximum-subarray/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int MaxSubArray(int[] nums)
+        {
+            if (nums == null || nums.Length < 1)
+                return 0;
+
+            int sum = nums[0];
+            int max = sum;
+            for (int i = 1; i < nums.Length; i++)
+            {
+                if (sum + nums[i] < nums[i])
+                    sum = nums[i];
+                else
+                    sum += nums[i];
+
+                max = Math.Max(max, sum);
+            }
+            return max;
+        }
+
+
+        /// <summary>
+        /// 152. Maximum Product Subarray
+        /// https://leetcode.com/problems/maximum-product-subarray/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int MaxProduct(int[] nums)
+        {
+            int maxProduct = nums[0];
+            int totalMax = nums[0];
+            int totalMin = nums[0];
+            for (int i = 1; i < nums.Length; i++)
+            {
+                int max = Math.Max(nums[i], Math.Max(totalMax * nums[i], totalMin * nums[i]));
+                int min = Math.Min(nums[i], Math.Min(totalMax * nums[i], totalMin * nums[i]));
+                totalMax = max;
+                totalMin = min;
+                maxProduct = Math.Max(maxProduct, totalMax);
+            }
+
+            return maxProduct;
+        }
+
         #endregion
 
 
@@ -154,7 +203,22 @@ namespace LeetCode
             return retVal;
         }
 
-
+        /// <summary>
+        /// 338. Counting Bits
+        /// https://leetcode.com/problems/counting-bits/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int[] CountBits(int n)
+        {
+            int[] ans = new int[n + 1];
+            ans[0] = 0;
+            for (int i = 1; i <= n; i++)
+            {
+                ans[i] = ans[i / 2] + i % 2;
+            }
+            return ans;
+        }
 
         #endregion
 
@@ -297,6 +361,48 @@ namespace LeetCode
             return longest;        
             */
         }
+
+
+        /// <summary>
+        /// 1143. Longest Common Subsequence
+        /// https://leetcode.com/problems/longest-common-subsequence/
+        /// </summary>
+        /// <param name="text1"></param>
+        /// <param name="text2"></param>
+        /// <returns></returns>
+        public int LongestCommonSubsequence(string text1, string text2)
+        {
+            //abcde      ace
+            //     Equal: +1      abcd     ac     remove the last character
+            // Not Equal: +0      MAX( (abcd, a) , (abc, ac) )
+            //                   +0 
+            //Focus on the last character.
+            if (string.IsNullOrWhiteSpace(text1) || string.IsNullOrWhiteSpace(text2))
+                return 0;
+            Dictionary<string, int> dp = new Dictionary<string, int>();
+            return LongestCommonSubsequenceR(text1, text2, text1.Length - 1, text2.Length - 1, dp);
+        }
+        private int LongestCommonSubsequenceR(string text1, string text2, int end1, int end2, Dictionary<string, int> dp)
+        {
+            if (end1 < 0 || end2 < 0)
+                return 0;
+            else if (dp.ContainsKey(string.Format("{0}_{1}", end1, end2)))
+                return dp[string.Format("{0}_{1}", end1, end2)];
+
+            int longestLen = 0;
+            if (text1[end1] == text2[end2])
+                longestLen = 1 + LongestCommonSubsequenceR(text1, text2, end1 - 1, end2 - 1, dp);
+            else
+            {
+                longestLen = Math.Max(LongestCommonSubsequenceR(text1, text2, end1 - 1, end2, dp)
+                                    , LongestCommonSubsequenceR(text1, text2, end1, end2 - 1, dp));
+            }
+
+            dp.Add(string.Format("{0}_{1}", end1, end2), longestLen);
+            return longestLen;
+        }
+
+
         #endregion
 
 

@@ -273,7 +273,37 @@ namespace LeetCode
         /// <returns></returns>
         public int MinSwaps(int[] data)
         {
+            int numOfOne = 0;
+            int numOfZero = 0; 
 
+            foreach(int n in data)
+            {
+                if (n == 0)
+                    numOfZero++;
+                else
+                    numOfOne++;
+            }
+            if (numOfOne <= 1 || numOfZero <= 1)
+                return 0;
+
+            int l = 0, r = 0;
+            int currSeenOne = 0;
+            int maxSeenOne = 0;
+            while(r < data.Length)
+            {
+                if (data[r] == 1)
+                    currSeenOne++;
+
+                if (r - l + 1 > numOfOne)
+                {
+                    if (data[l] == 1)
+                        currSeenOne--;
+                    l++;
+                }
+                maxSeenOne = Math.Max(maxSeenOne, currSeenOne);
+                r++;
+            }
+            return numOfOne - maxSeenOne;
         }
 
     }
