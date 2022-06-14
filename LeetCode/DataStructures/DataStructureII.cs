@@ -196,5 +196,110 @@ namespace LeetCode.DataStructures
             }
         }
 
+
+        /// <summary>
+        /// 435. Non-overlapping Intervals
+        /// https://leetcode.com/problems/non-overlapping-intervals/
+        /// </summary>
+        /// <param name="intervals"></param>
+        /// <returns></returns>
+        public int EraseOverlapIntervals(int[][] intervals)
+        {
+
+        }
+
+        /// <summary>
+        /// 334. Increasing Triplet Subsequence
+        /// https://leetcode.com/problems/increasing-triplet-subsequence/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public bool IncreasingTriplet(int[] nums)
+        {
+            if (nums.Length < 3)
+                return false;
+            int firstNum = int.MaxValue;
+            int secNum = int.MaxValue;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] <= firstNum)
+                    firstNum = nums[i];
+                else if (nums[i] <= secNum)
+                    secNum = nums[i];
+                else
+                    return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 238. Product of Array Except Self
+        /// https://leetcode.com/problems/product-of-array-except-self/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int[] ProductExceptSelf(int[] nums)
+        {
+            int len = nums.Length;
+            int[] res = new int[nums.Length];
+            res[0] = 1;
+            int answer = 1;
+            for (int i = 1; i < len; i++)
+            {
+                answer *= nums[i - 1];
+                res[i] = answer;
+            }
+
+            answer = 1;
+            for (int i = len - 2; i >= 0; i--)
+            {
+                answer *= nums[i + 1];
+                res[i] *= answer;
+            }
+
+            return res;
+        }
+
+
+        /// <summary>
+        /// 560. Subarray Sum Equals K
+        /// https://leetcode.com/problems/subarray-sum-equals-k/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public int SubarraySum(int[] nums, int k)
+        {
+
+            int count = 0, sum = 0;
+            int n = nums.Length;
+            Dictionary<int, int> map = new Dictionary<int, int>();
+            map.Add(0, 1);  //one value is equal to k
+            for (int i = 0; i < nums.Length; i++)
+            {
+                sum += nums[i];
+                if (map.ContainsKey(sum - k))
+                    count += map[sum - k];
+                if (map.ContainsKey(sum))
+                    map[sum]++;
+                else
+                    map.Add(sum, 1);
+            }
+            return count;
+
+            /*
+            int count = 0;
+            for (int start = 0; start < nums.Length; start++) {
+                int sum=0;
+                for (int end = start; end < nums.Length; end++) {
+                    sum+=nums[end];
+                    if (sum == k)
+                        count++;
+                }
+            }
+            return count;
+            */
+        }
+
     }
 }
