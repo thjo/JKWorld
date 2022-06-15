@@ -301,5 +301,303 @@ namespace LeetCode.DataStructures
             */
         }
 
+
+        /// <summary>
+        /// 415. Add Strings
+        /// https://leetcode.com/problems/add-strings/
+        /// </summary>
+        /// <param name="num1"></param>
+        /// <param name="num2"></param>
+        /// <returns></returns>
+        public string AddStrings(string num1, string num2)
+        {
+            int comp = 0;
+            int idx1 = num1.Length - 1, idx2 = num2.Length - 1;
+
+            string ans = "";
+            while (idx1 >= 0 && idx2 >= 0)
+            {
+                int sum = (num1[idx1] - '0') + (num2[idx2] - '0');
+                if (comp == 1)
+                    sum++;
+                ans = (sum % 10).ToString() + ans;
+                comp = sum / 10;
+                idx1--; idx2--;
+            }
+            while (idx1 >= 0)
+            {
+                int sum = (num1[idx1] - '0');
+                if (comp == 1)
+                    sum++;
+                ans = (sum % 10).ToString() + ans;
+                comp = sum / 10;
+                idx1--;
+            }
+            while (idx2 >= 0)
+            {
+                int sum = (num2[idx2] - '0');
+                if (comp == 1)
+                    sum++;
+                ans = (sum % 10).ToString() + ans;
+                comp = sum / 10;
+                idx2--;
+            }
+            if (comp == 1)
+                ans = "1" + ans;
+            return ans;
+        }
+
+
+        /// <summary>
+        /// 290. Word Pattern
+        /// https://leetcode.com/problems/word-pattern/
+        /// </summary>
+        /// <param name="pattern"></param>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public bool WordPattern(string pattern, string s)
+        {
+
+            int n = pattern.Length;
+            string[] words = s.Split(" ".ToCharArray());
+            if (words.Length != n)
+                return false;
+
+            Dictionary<char, string> dicPattern = new Dictionary<char, string>();
+            Dictionary<string, char> dicStr = new Dictionary<string, char>();
+            for (int i = 0; i < n; i++)
+            {
+                if (dicPattern.ContainsKey(pattern[i]))
+                {
+                    if (dicPattern[pattern[i]] != words[i])
+                        return false;
+                }
+                else if (dicStr.ContainsKey(words[i]))
+                {
+                    if (dicStr[words[i]] != pattern[i])
+                        return false;
+                }
+
+                if (dicPattern.ContainsKey(pattern[i]) == false)
+                    dicPattern.Add(pattern[i], words[i]);
+                if (dicStr.ContainsKey(words[i]) == false)
+                    dicStr.Add(words[i], pattern[i]);
+            }
+
+            return true;
+        }
+
+
+        /// <summary>
+        /// 763. Partition Labels
+        /// https://leetcode.com/problems/partition-labels/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public IList<int> PartitionLabels(string s)
+        {
+            int[] last = new int[26];
+            for (int i = 0; i < s.Length; i++)
+                last[s[i] - 'a'] = i;
+
+            IList<int> partitions = new List<int>();
+            int endIdx = 0, startIdx = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                endIdx = Math.Max(endIdx, last[s[i] - 'a']);
+                if (i == endIdx)
+                {
+                    partitions.Add(i - startIdx + 1);
+                    startIdx = i + 1;
+                }
+            }
+            return partitions;
+        }
+
+
+        /// <summary>
+        /// 49. Group Anagrams
+        /// https://leetcode.com/problems/group-anagrams/
+        /// </summary>
+        /// <param name="strs"></param>
+        /// <returns></returns>
+        public IList<IList<string>> GroupAnagrams(string[] strs)
+        {
+            IList<IList<string>> result = new List<IList<string>>();
+
+            if (strs == null)
+                return result;
+            else if (strs.Length == 1)
+            {
+                IList<string> buff = new List<string>();
+                buff.Add(strs[0]);
+                result.Add(buff);
+                return result;
+            }
+
+            IList<Dictionary<char, int>> words = new List<Dictionary<char, int>>();
+            foreach (string s in strs)
+            {
+                Dictionary<char, int> word = new Dictionary<char, int>();
+                foreach (char c in s)
+                {
+                    if (word.ContainsKey(c))
+                        word[c]++;
+                    else
+                        word.Add(c, 1);
+                }
+                words.Add(word);
+            }
+
+            int[] checkedList = new int[strs.Length];
+            for (int idx = 0; idx < words.Count; idx++)
+            {
+                if (checkedList[idx] == 1)
+                    continue;
+
+                Dictionary<char, int> word = words[idx];
+                IList<string> buff = new List<string>();
+                buff.Add(strs[idx]);
+                checkedList[idx] = 1;
+
+                if (idx + 1 == words.Count)
+                {
+                    result.Add(buff);
+                    continue;
+                }
+
+                for (int curr = idx + 1; curr < words.Count; curr++)
+                {
+                    if (checkedList[curr] == 1)
+                        continue;
+                    if (GroupAnagramsCompareWords(word, words[curr]))
+                    {
+                        buff.Add(strs[curr]);
+                        checkedList[curr] = 1;
+                    }
+                }
+                result.Add(buff);
+            }
+
+            return result;
+        }
+        private bool GroupAnagramsCompareWords(Dictionary<char, int> word1, Dictionary<char, int> word2)
+        {
+            bool retVal = true;
+            if (word1.Count != word2.Count)
+                return false;
+            else if (word1.Count == 0 && word2.Count == 0)
+                return true;
+
+            foreach (var c in word1)
+            {
+                if (word2.ContainsKey(c.Key) && word2[c.Key] == c.Value)
+                    continue;
+                else
+                {
+                    retVal = false;
+                    break;
+                }
+            }
+
+            return retVal;
+        }
+
+
+
+        /// <summary>
+        /// 43. Multiply Strings
+        /// https://leetcode.com/problems/multiply-strings/
+        /// </summary>
+        /// <param name="num1"></param>
+        /// <param name="num2"></param>
+        /// <returns></returns>
+        public string Multiply(string num1, string num2)
+        {
+            if (num1.Equals("0") || num2.Equals("0"))
+                return "0";
+            if (num1.Length > num2.Length)
+            {
+                String tmp = num1;
+                num1 = num2;
+                num2 = tmp;
+            }
+            int num1_len = num1.Length, num2_len = num2.Length;
+            int[] res = new int[num1_len + num2_len];
+            for (int i = 0; i < res.Length; i++)
+                res[i] = 0;
+
+            for (int i = num1_len - 1; i >= 0; i--)
+            {
+                for (int j = num2_len - 1; j >= 0; j--)
+                {
+                    int p1 = i + j, p2 = p1 + 1;
+                    int sum = (num1[i] - '0') * (num2[j] - '0') + res[p2];
+                    res[p2] = sum % 10;
+                    res[p1] += sum / 10;
+                }
+            }
+            String output = ""; int idx = -1;
+            for (int i = 0; i < num1_len + num2_len && res[i] == 0; i++)
+                idx = i;
+            for (int i = idx + 1; i < num1_len + num2_len; i++)
+                output += res[i].ToString();
+            return output;
+        }
+
+        // Multiply the current digit of secondNumber with firstNumber.
+        List<int> MultiplyOneDigit(StringBuilder sbN1, char secondNumberDigit, int numZeros)
+        {
+            // Insert zeros at the beginning based on the current digit's place.
+            List<int> currentResult = new List<int>();
+            for (int i = 0; i < numZeros; ++i)
+            {
+                currentResult.Add(0);
+            }
+
+            int carry = 0;
+
+            // Multiply firstNumber with the current digit of secondNumber.
+            for (int i = 0; i < sbN1.Length; ++i)
+            {
+                char firstNumberDigit = sbN1[i];
+                int multiplication = (secondNumberDigit - '0') * (firstNumberDigit - '0') + carry;
+                // Set carry equal to the tens place digit of multiplication.
+                carry = multiplication / 10;
+                // Append last digit to the current result.
+                currentResult.Add(multiplication % 10);
+            }
+
+            if (carry != 0)
+            {
+                currentResult.Add(carry);
+            }
+            return currentResult;
+        }
+        private List<int> AddStrings(List<int> num1, List<int> num2)
+        {
+            List<int> ans = new List<int>();
+            int carry = 0;
+
+            for (int i = 0; i < num1.Count || i < num2.Count; ++i)
+            {
+                // If num2 is shorter than num1 or vice versa, use 0 as the current digit.
+                int digit1 = i < num1.Count ? num1[i] : 0;
+                int digit2 = i < num2.Count ? num2[i] : 0;
+
+                // Add current digits of both numbers.
+                int sum = digit1 + digit2 + carry;
+                // Set carry equal to the tens place digit of sum.
+                carry = sum / 10;
+                // Append the ones place digit of sum to answer.
+                ans.Add(sum % 10);
+            }
+
+            if (carry != 0)
+            {
+                ans.Add(carry);
+            }
+            return ans;
+        }
     }
 }
