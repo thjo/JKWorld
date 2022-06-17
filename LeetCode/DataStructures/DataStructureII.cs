@@ -205,8 +205,48 @@ namespace LeetCode.DataStructures
         /// <returns></returns>
         public int EraseOverlapIntervals(int[][] intervals)
         {
+            List<IntervalTime> listOfIntervals = new List<IntervalTime>();
+            for (int i = 0; i < intervals.Length; i++)
+            {
+                listOfIntervals.Add(new IntervalTime(i, intervals[i][0], intervals[i][1]));
+            }
+            var sortedList = listOfIntervals.OrderBy(x => x.STime).ThenBy(x => x.ETime);
 
+            int ans = 0;
+            int? end = null;
+            foreach (var interval in sortedList)
+            {
+                if (end == null)
+                    end = interval.ETime;
+                else
+                {
+                    //not overlapping
+                    if (interval.STime >= end)
+                        end = interval.ETime;
+                    else
+                    {
+                        //overlapping
+                        end = Math.Min(end.Value, interval.ETime);
+                        ans++;
+                    }
+                }
+            }
+
+            return ans;
         }
+        public class IntervalTime
+        {
+            public int GroupId;
+            public int STime;
+            public int ETime;
+            public IntervalTime(int groupId, int sTime, int eTime)
+            {
+                GroupId = groupId;
+                STime = sTime;
+                ETime = eTime;
+            }
+        }
+
 
         /// <summary>
         /// 334. Increasing Triplet Subsequence

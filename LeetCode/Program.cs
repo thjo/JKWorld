@@ -8,10 +8,14 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
-            DataStructures.MyHashMap hashM = new DataStructures.MyHashMap();
-            hashM.Put(1, 1);
-            hashM.Put(2, 2);
-            hashM.Get(1);
+            DataStructures.DataStructureII dsII = new DataStructures.DataStructureII();
+            int[][] intervals = new int[4][];
+            intervals[0] = new int[2] { 1, 2 };
+            intervals[1] = new int[2] { 2, 3 };
+            intervals[2] = new int[2] { 3, 4 };
+            intervals[3] = new int[2] { 1, 3 };
+            dsII.EraseOverlapIntervals(intervals);
+
             Leetcode75Questions l75 = new Leetcode75Questions();
             //l75.LengthOfLIS(new int[] { 0, 1, 0, 3, 2, 3 });
             //int[][] prerequisites = new int[1][];

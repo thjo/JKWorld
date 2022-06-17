@@ -402,7 +402,78 @@ namespace LeetCode
             return longestLen;
         }
 
+        /// <summary>
+        /// 139. Word Break
+        /// https://leetcode.com/problems/word-break/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="wordDict"></param>
+        /// <returns></returns>
+        public bool WordBreak(string s, IList<string> wordDict)
+        {
+            return false;
+        }
 
+
+        /// <summary>
+        /// 39. Combination Sum
+        /// https://leetcode.com/problems/combination-sum/
+        /// </summary>
+        /// <param name="candidates"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public IList<IList<int>> CombinationSum(int[] candidates, int target)
+        {
+            IList<IList<int>> results = new List<IList<int>>();
+            CombinationCases(candidates, target, 0, new List<int>(), results);
+
+            return results;
+        }
+        private void CombinationCases(int[] candidates, int target, int idx, IList<int> currCombination, IList<IList<int>> allCombinaions)
+        {
+            if (target == 0)
+            {
+                List<int> tmp = new List<int>();
+                foreach (int i in currCombination)
+                    tmp.Add(i);
+                allCombinaions.Add(tmp);
+                return;
+            }
+            else if (idx >= candidates.Length || target < 0)
+                return;
+            else
+            {
+                currCombination.Add(candidates[idx]);
+                CombinationCases(candidates, target - candidates[idx], idx, currCombination, allCombinaions);
+                currCombination.RemoveAt(currCombination.Count - 1);
+                CombinationCases(candidates, target, idx + 1, currCombination, allCombinaions);
+            }
+            return;
+        }
+
+
+        /// <summary>
+        /// 198. House Robber
+        /// https://leetcode.com/problems/house-robber/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int Rob(int[] nums)
+        {
+            if (nums.Length == 1)
+                return nums[0];
+
+            int n = nums.Length;
+            int[] dp = new int[n];
+            dp[0] = nums[0];
+            dp[1] = Math.Max(nums[0], nums[1]);
+            for (int i = 2; i < n; i++)
+            {
+                dp[i] = Math.Max(dp[i - 2] + nums[i], dp[i - 1]);
+            }
+            //1 2 4 4
+            return dp[n - 1];
+        }
         #endregion
 
 
