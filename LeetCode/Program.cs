@@ -9,12 +9,12 @@ namespace LeetCode
         static void Main(string[] args)
         {
             DataStructures.DataStructureII dsII = new DataStructures.DataStructureII();
-            int[][] intervals = new int[4][];
-            intervals[0] = new int[2] { 1, 2 };
-            intervals[1] = new int[2] { 2, 3 };
-            intervals[2] = new int[2] { 3, 4 };
-            intervals[3] = new int[2] { 1, 3 };
-            dsII.EraseOverlapIntervals(intervals);
+            //int[][] intervals = new int[4][];
+            //intervals[0] = new int[2] { 1, 2 };
+            //intervals[1] = new int[2] { 2, 3 };
+            //intervals[2] = new int[2] { 3, 4 };
+            //intervals[3] = new int[2] { 1, 3 };
+            //dsII.EraseOverlapIntervals(intervals);
 
             Leetcode75Questions l75 = new Leetcode75Questions();
             //l75.LengthOfLIS(new int[] { 0, 1, 0, 3, 2, 3 });
@@ -35,7 +35,7 @@ namespace LeetCode
 
 
             DynamicProgrammingI dp = new DynamicProgrammingI();
-            dp.MaxScoreSightseeingPair(new int[] { 2, 2, 2 });
+            //dp.MaxScoreSightseeingPair(new int[] { 2, 2, 2 });
             //dp.MaxSubarraySumCircular(new int[] { -10, -7, 9, -7, 6, 9, -9, -4, -8, -5 });
 
 

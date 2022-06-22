@@ -32,7 +32,6 @@ namespace LeetCode
 
             return this.inorderSuccessorNode;
         }
-
         private void InorderCase2(TreeNode node, TreeNode p)
         {
 
@@ -57,7 +56,6 @@ namespace LeetCode
             // Recurse on the right side
             this.InorderCase2(node.right, p);
         }
-
 
 
         #region | Microsoft - Technical Assessment - 02/13/2022 | 
@@ -147,7 +145,6 @@ namespace LeetCode
 
         #endregion
 
-
         /// <summary>
         /// 41. First Missing Positive
         /// https://leetcode.com/problems/first-missing-positive/
@@ -182,7 +179,6 @@ namespace LeetCode
             }
             return minMissingVal;
         }
-
 
         #region | Phone Interview - 03/06/2022 | 
 
@@ -241,7 +237,6 @@ namespace LeetCode
         }
 
         #endregion
-
 
         #region | Phone Interview - 3/16/2022 | 
 
@@ -1075,6 +1070,7 @@ namespace LeetCode
         #endregion
 
 
+
         #region | Phone Interview 1 |
 
         /// <summary>
@@ -1538,7 +1534,6 @@ namespace LeetCode
         #endregion
 
         #region | Phone Interview 4 | 
-
 
         /// <summary>
         /// 236. Lowest Common Ancestor of a Binary Tree
@@ -2438,7 +2433,6 @@ namespace LeetCode
         //}
         #endregion
 
-
         #region | Phone Interview 11 | 
 
 
@@ -2563,7 +2557,6 @@ namespace LeetCode
 
         #endregion
 
-
         #region | Phone Interview 12 | 
 
 
@@ -2573,6 +2566,11 @@ namespace LeetCode
 
 
         #endregion
+
+
+
+
+
 
 
         public int Solution1_06052022(int[] A)
@@ -2657,28 +2655,27 @@ namespace LeetCode
             }
             return (N - numOfReservedRows) * 2 + numOfAvailSeatsFromReserve;
         }
- 
         private int IsAvailableSeats(List<int> currSeat)
         {
             //0::B,C   1::D,E    2::F,G     3::H,J
             bool[] availables = new bool[4];
             //0 to 9 represents A to K 
-            if (currSeat.Contains(1) && currSeat.Contains(2))
+            if (!currSeat.Contains(1) && !currSeat.Contains(2))
             {
                 //B, C are available
                 availables[0] = true;
             }
-            if (currSeat.Contains(3) == false && currSeat.Contains(4) == false)
+            if (!currSeat.Contains(3) && !currSeat.Contains(4))
             {
                 //D, E are available
                 availables[1] = true;
             }
-            if (currSeat.Contains(5) == false && currSeat.Contains(6) == false)
+            if (!currSeat.Contains(5) && !currSeat.Contains(6))
             {
                 //F, G are available
                 availables[2] = true;
             }
-            if (currSeat.Contains(7) == false && currSeat.Contains(8) == false)
+            if (!currSeat.Contains(7) && !currSeat.Contains(8))
             {
                 //H, J are available
                 availables[3] = true;
@@ -2692,6 +2689,9 @@ namespace LeetCode
             else
                 return 0;
         }
+
+
+
 
     }
 }

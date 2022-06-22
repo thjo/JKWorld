@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LeetCode.DataStructures;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -306,5 +307,134 @@ namespace LeetCode
             return numOfOne - maxSeenOne;
         }
 
+
+
+
+        public int OpenLock(string[] deadends, string target)
+        {
+            HashSet<string> deadDic = new HashSet<string>();
+            foreach (string end in deadends)
+            {
+                if (deadDic.Contains(end) == false)
+                    deadDic.Add(end);
+            }
+
+            HashSet<string> seen = new HashSet<string>();
+            Queue<KeyInfo> keys = new Queue<KeyInfo>();
+            KeyInfo defKey = new KeyInfo(0, "0000");
+            keys.Enqueue(defKey);
+            seen.Add(defKey.Key);
+            while (keys.Count > 0)
+            {
+                KeyInfo key = keys.Dequeue();
+                if (key.Key == target)
+                    return key.Depth;
+                else if (IsDeadEnd(deadDic, key.Key) == false)
+                {
+                    for (int pos = 0; pos < 4; pos++)
+                    {
+                        String buffKey = NewKey(pos, key.Key, true);
+                        if (seen.Contains(buffKey) == false)
+                        {
+                            keys.Enqueue(new KeyInfo(key.Depth + 1, buffKey));
+                            seen.Add(buffKey);
+                        }
+                        buffKey = NewKey(pos, key.Key, false);
+                        if (seen.Contains(buffKey) == false)
+                        {
+                            keys.Enqueue(new KeyInfo(key.Depth + 1, buffKey));
+                            seen.Add(buffKey);
+                        }
+                    }
+                }
+            }
+
+            return - 1;
+        }
+        private string NewKey(int pos, string currKey, bool increased)
+        {
+            int posKey = int.Parse(currKey.Substring(pos, 1));
+            if (increased)
+                posKey = (posKey + 1) % 10;
+            else
+                posKey = (posKey - 1) < 0 ? 9 : posKey;
+            return pos == 0 ? posKey.ToString() + currKey.Substring(pos + 1) : currKey.Substring(0, pos+1)+ posKey.ToString() + currKey.Substring(pos + 1);
+        }
+        private bool IsDeadEnd(HashSet<string> deadDic, string key)
+        {
+            return deadDic.Contains(key);
+        }
+        public class KeyInfo
+        {
+            public int Depth;
+            public string Key;
+            public KeyInfo(int depth, string key)
+            {
+                Depth = depth;
+                Key = key;
+            }
+        }
+
+
+        /// <summary>
+        /// 1642. Furthest Building You Can Reach
+        /// https://leetcode.com/problems/furthest-building-you-can-reach/
+        /// </summary>
+        /// <param name="heights"></param>
+        /// <param name="bricks"></param>
+        /// <param name="ladders"></param>
+        /// <returns></returns>
+        public int FurthestBuilding(int[] heights, int bricks, int ladders)
+        {
+            THJOMinMaxHeap minDic = new THJOMinMaxHeap(heights.Length, true);
+            for (int i = 0; i < heights.Length - 1; i++)
+            {
+                int diff = heights[i + 1] - heights[i];
+                if (diff > 0)
+                    minDic.Add(diff);
+
+                if (minDic.Size() > ladders)
+                {
+                    if (minDic.Peek() > bricks)
+                        return i;
+                    else
+                        bricks -= minDic.Poll();
+                }
+            }
+            return heights.Length - 1;
+        }
+        public int FurthestBuildingI(int[] heights, int bricks, int ladders)
+        {
+            Dictionary<string, int> dp = new Dictionary<string, int>();
+            return FurthestBuildingR(heights, 0, bricks, ladders, dp);
+        }
+        private int FurthestBuildingR(int[] heights, int startIdx, int bricks, int ladders, Dictionary<string, int> dp)
+        {
+            int furthVal = startIdx;
+            if (startIdx >= heights.Length - 1)
+                return furthVal;
+            string key = string.Format("{0}_{1}", bricks, ladders);
+            if (dp.ContainsKey(key))
+                return dp[key];
+            int diff = heights[startIdx + 1] - heights[startIdx];
+            if (diff > 0)
+            {
+                if (bricks >= diff)
+                    furthVal = Math.Max(furthVal, FurthestBuildingR(heights, startIdx + 1, bricks - diff, ladders, dp));
+                if (ladders > 0)
+                    furthVal = Math.Max(furthVal, FurthestBuildingR(heights, startIdx + 1, bricks, ladders - 1, dp));
+            }
+            else
+            {
+                furthVal = FurthestBuildingR(heights, startIdx + 1, bricks, ladders, dp);
+            }
+            if (dp.ContainsKey(key) == false)
+                dp.Add(key, furthVal);
+
+            return furthVal;
+
+        }
     }
+
 }
+

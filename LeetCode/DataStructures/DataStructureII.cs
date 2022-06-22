@@ -639,5 +639,231 @@ namespace LeetCode.DataStructures
             }
             return ans;
         }
+
+
+        /// <summary>
+        /// 87. Repeated DNA Sequences
+        /// https://leetcode.com/problems/repeated-dna-sequences/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public IList<string> FindRepeatedDnaSequences(string s)
+        {
+            IList<string> repeatedSubSeqs = new List<string>();
+            Dictionary<string, int> seen = new Dictionary<string, int>();
+            int i = 0;
+            while (i + 10 <= s.Length)
+            {
+                string subSeqs = s.Substring(i, 10);
+                if (seen.ContainsKey(subSeqs))
+                    seen[subSeqs]++;
+                else
+                    seen.Add(subSeqs, 1);
+                if (seen[subSeqs] == 2)
+                    repeatedSubSeqs.Add(subSeqs);
+                i++;
+            }
+
+            return repeatedSubSeqs;
+        }
+
+
+        /// <summary>
+        /// 5. Longest Palindromic Substring
+        /// https://leetcode.com/problems/longest-palindromic-substring/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public string LongestPalindrome(string s)
+        {
+            if (s.Length == 1)
+                return s;
+
+            int start = 0, end = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                int len1 = ExpandAroundCenter(s, i, i);
+                int len2 = ExpandAroundCenter(s, i, i + 1);
+                int len = Math.Max(len1, len2);
+                if (len > end - start)
+                {
+                    if (len % 2 == 0)
+                        start = i - (len - 1) / 2;
+                    else
+                        start = i - len / 2;
+                    end = i + len / 2;
+                }
+            }
+
+            return s.Substring(start, end - start + 1);
+        }
+        private int ExpandAroundCenter(string s, int left, int right)
+        {
+            while (left >= 0 && right < s.Length && s[left] == s[right])
+            {
+                left--; right++;
+            }
+            return right - left - 1;
+        }
+
+
+        /// <summary>
+        /// 2. Add Two Numbers
+        /// https://leetcode.com/problems/add-two-numbers/
+        /// </summary>
+        /// <param name="l1"></param>
+        /// <param name="l2"></param>
+        /// <returns></returns>
+        public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
+        {
+            ListNode head = new ListNode(-1);
+            ListNode currNode = head;
+            int exraNum = 0;
+            int total = 0;
+            while (l1 != null || l2 != null)
+            {
+                if (l1 != null && l2 != null)
+                {
+                    total = l1.val + l2.val + exraNum;
+                }
+                else
+                {
+                    total = l1 != null ? l1.val : l2.val;
+                    if (exraNum == 1)
+                        total += 1;
+                }
+                if (total >= 10)
+                    exraNum = 1;
+                else
+                    exraNum = 0;
+
+                //Add a node
+                ListNode node = new ListNode(total % 10);
+                currNode.next = node;
+                currNode = node;
+
+                if (l1 != null)
+                    l1 = l1.next;
+                if (l2 != null)
+                    l2 = l2.next;
+            }
+
+            if (exraNum == 1)
+            {
+                ListNode node = new ListNode(1);
+                currNode.next = node;
+            }
+
+            return head.next;
+        }
+
+
+        /// <summary>
+        /// 142. Linked List Cycle II
+        /// https://leetcode.com/problems/linked-list-cycle-ii/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public ListNode DetectCycle(ListNode head)
+        {
+            if (head == null || head.next == null)
+                return null;
+
+            ListNode curr = head.next;
+            ListNode fast = head.next.next;
+
+            while (curr != fast && fast != null)
+            {
+                curr = curr.next;
+                fast = fast.next != null ? fast.next.next : null;
+            }
+            if (fast == null)
+                return null;
+
+            ListNode ptr1 = head;
+            while (ptr1 != fast)
+            {
+                ptr1 = ptr1.next;
+                fast = fast.next;
+            }
+
+            return ptr1;
+        }
+
+
+        /// <summary>
+        /// 160. Intersection of Two Linked Lists
+        /// https://leetcode.com/problems/intersection-of-two-linked-lists/
+        /// </summary>
+        /// <param name="headA"></param>
+        /// <param name="headB"></param>
+        /// <returns></returns>
+        public ListNode GetIntersectionNode(ListNode headA, ListNode headB)
+        {
+            ListNode pA = headA;
+            ListNode pB = headB;
+            bool isFirstA = true, isFirstB = true;
+            while (pA != null || pB != null)
+            {
+                if (pA == pB)
+                    return pA;
+
+                pA = pA.next;
+                if (pA == null && isFirstA)
+                {
+                    pA = headB;
+                    isFirstA = false;
+                }
+                pB = pB.next;
+                if (pB == null && isFirstB)
+                {
+                    pB = headA;
+                    isFirstB = false;
+                }
+            }
+            return null;
+        }
+
+
+        /// <summary>
+        /// 82. Remove Duplicates from Sorted List II
+        /// https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public ListNode DeleteDuplicates(ListNode head)
+        {
+            if (head == null || head.next == null)
+                return head;
+
+            ListNode newHead = new ListNode(-1, head);
+            ListNode currNew = newHead;
+
+            while (head != null)
+            {
+                if (head.next != null && head.val == head.next.val)
+                {
+                    while (head.next != null && head.val == head.next.val)
+                        head = head.next;
+                    currNew.next = head.next;
+                }
+                else
+                    currNew = currNew.next;
+
+                head = head.next;
+            }
+
+            return newHead.next;
+        }
+
+
+
+
+
+
+
+
+
+
     }
 }
