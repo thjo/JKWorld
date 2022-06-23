@@ -407,6 +407,9 @@ namespace LeetCode
         {
             Dictionary<string, int> dp = new Dictionary<string, int>();
             return FurthestBuildingR(heights, 0, bricks, ladders, dp);
+
+            Random ranNum = new Random();
+            
         }
         private int FurthestBuildingR(int[] heights, int startIdx, int bricks, int ladders, Dictionary<string, int> dp)
         {
@@ -433,6 +436,58 @@ namespace LeetCode
 
             return furthVal;
 
+        }
+
+
+        /// <summary>
+        /// 215. Kth Largest Element in an Array
+        /// https://leetcode.com/problems/kth-largest-element-in-an-array/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public int FindKthLargest(int[] nums, int k)
+        {
+            int n = nums.Length;
+            return QuickSelect(nums, 0, n - 1, n - k);
+        }
+        private int QuickSelect(int[] nums, int left, int right, int kSmallest)
+        {
+            if (left == right)
+                return nums[left];
+
+            Random ranNum = new Random();
+            int pivot = left + (ranNum.Next() % (right - left));
+            pivot = Partition(nums, left, right, pivot);
+            if (kSmallest == pivot)
+                return nums[kSmallest];
+            else if (kSmallest < pivot)
+                return QuickSelect(nums, left, pivot - 1, kSmallest);
+            else
+                return QuickSelect(nums, pivot + 1, right, kSmallest);
+        }
+        private int Partition(int[] nums, int left, int right, int pivot)
+        {
+            int pivotVal = nums[pivot];
+            Swap(pivot, right, nums);
+            int ansIdx = left;
+
+            for (int i = left; i <= right; i++)
+            {
+                if (nums[i] < pivotVal)
+                {
+                    Swap(ansIdx, i, nums);
+                    ansIdx++;
+                }
+            }
+            Swap(ansIdx, right, nums);
+            return ansIdx;
+        }
+        private void Swap(int a, int b, int[] nums)
+        {
+            int tmp = nums[a];
+            nums[a] = nums[b];
+            nums[b] = tmp;
         }
     }
 
