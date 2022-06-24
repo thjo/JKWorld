@@ -632,5 +632,133 @@ namespace LeetCode
             }
             return false;
         }
+
+
+        /// <summary>
+        /// 1855. Maximum Distance Between a Pair of Values
+        /// https://leetcode.com/problems/maximum-distance-between-a-pair-of-values/
+        /// </summary>
+        /// <param name="nums1"></param>
+        /// <param name="nums2"></param>
+        /// <returns></returns>
+        public int MaxDistance(int[] nums1, int[] nums2)
+        {
+            int maxDist = 0;
+
+            for (int j = nums2.Length - 1; j > 0; j--)
+                if (nums2[j] >= nums1[Math.Min(j, nums1.Length - 1)])
+                    maxDist = Math.Max(maxDist, j - BinSearch(nums1, j, nums2[j]));
+
+            return maxDist;
+
+            //int maxDist = 0;
+            //for (int i = 0; i < nums1.Length; i++)
+            //{
+
+            //    for (int j = nums2.Length - 1; j > i; j--)
+            //    {
+            //        if (nums1[i] <= nums2[j])
+            //            maxDist = Math.Max(maxDist, j - i);
+            //    }
+
+            //    prevNum = nums1[i];
+            //}
+            //return maxDist;
+        }
+        private int BinSearch(int[] nums1, int jIdx, int jVal)
+        {
+            int left = 0, right = Math.Min(jIdx, nums1.Length - 1);
+            while (left < right)
+            {
+                int mid = left + (right - left) / 2;
+                if (nums1[mid] > jVal)
+                    left = mid + 1;
+                else
+                {
+                    if (mid >= jIdx) // || nums[mid+1] > jVal) -- since it's non-increasing array
+                        return jIdx;
+                    else
+                    {
+                        right = mid;
+                    }
+                }
+            }   //End while
+
+            return right;
+        }
+
+
+        /// <summary>
+        /// 33. Search in Rotated Sorted Array
+        /// https://leetcode.com/problems/search-in-rotated-sorted-array/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public int SearchII(int[] nums, int target)
+        {
+            int n = nums.Length;
+            int left = 0, right = n - 1;
+            while (left <= right)
+            {
+                int mid = left + (right - left) / 2;
+                if (nums[mid] == target)
+                    return mid;
+
+                ///* If arr[l...mid] is sorted */
+                //if mid = 0, so add =
+                if (nums[0] <= nums[mid])
+                {
+                    if (nums[mid] > target && nums[0] <= target)
+                        right = mid - 1;
+                    else
+                        left = mid + 1;
+                }
+                else
+                {
+                    // arr[mid+1...r] is sorted
+                    if (target > nums[mid] && target <= nums[n - 1])
+                        left = mid + 1;
+                    else
+                        right = mid - 1;
+                }
+            }
+
+            return -1;
+        }
+
+
+        /// <summary>
+        /// 153. Find Minimum in Rotated Sorted Array
+        /// https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int FindMin(int[] nums)
+        {
+            if (nums.Length == 1)
+                return nums[0];
+
+            int left = 0, right = nums.Length - 1;
+            //the array is sorted? 
+            if (nums[left] < nums[right])
+                return nums[left];
+
+            while (right >= left)
+            {
+                int mid = left + (right - left) / 2;
+                if (mid + 1 < nums.Length && nums[mid] > nums[mid + 1])
+                    return nums[mid + 1];
+                else if (mid - 1 >= 0 && nums[mid] < nums[mid - 1])
+                    return nums[mid];
+
+                if (nums[mid] > nums[0])
+                    left = mid + 1;
+                else
+                    right = mid - 1;
+            }
+
+            return -1;
+        }
     }
 }
