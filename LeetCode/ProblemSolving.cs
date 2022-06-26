@@ -489,6 +489,49 @@ namespace LeetCode
             nums[a] = nums[b];
             nums[b] = tmp;
         }
+
+
+        /// <summary>
+        /// 1705. Maximum Number of Eaten Apples
+        /// https://leetcode.com/problems/maximum-number-of-eaten-apples/
+        /// </summary>
+        /// <param name="apples"></param>
+        /// <param name="days"></param>
+        /// <returns></returns>
+        public int EatenApples(int[] apples, int[] days)
+        {
+            int currday = 1;
+            int idx = 0;
+            int deadline = days.Length;
+            int numOfEatenApps = 0;
+            int[] currApple = new int[] { days[idx], apples[idx] };
+            deadline = Math.Max(deadline, days[idx]);
+            idx = 1;
+            while (currday <= deadline)
+            {
+                if (currApple[0] >= currday && currApple[1] > 0)
+                {
+
+                    numOfEatenApps++;
+                    currApple[1]--;
+                    currday++;
+                }
+                else if (idx < days.Length)
+                {
+
+                    currApple[0] = days[idx] + idx;
+                    currApple[1] = apples[idx];
+                    deadline = Math.Max(deadline, currApple[0]);
+                    idx++;
+                }
+                else
+                    currday++;
+            }
+
+            return numOfEatenApps;
+
+        }
+
     }
 
 }

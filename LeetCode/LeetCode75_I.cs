@@ -102,5 +102,57 @@ namespace LeetCode
 
             return sIdx == s.Length;
         }
+
+        /// <summary>
+        /// 876. Middle of the Linked List
+        /// https://leetcode.com/problems/middle-of-the-linked-list/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public ListNode MiddleNode(ListNode head)
+        {
+            ListNode dummy = new ListNode(0, head);
+            ListNode slow = dummy, fast = dummy;
+            while (fast != null)
+            {
+                slow = slow.next;
+                fast = fast.next != null ? fast.next.next : null;
+            }
+
+            return slow;
+        }
+
+
+        /// <summary>
+        /// 142. Linked List Cycle II
+        /// https://leetcode.com/problems/linked-list-cycle-ii/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public ListNode DetectCycle(ListNode head)
+        {
+            if (head == null || head.next == null)
+                return null;
+
+            ListNode curr = head.next;
+            ListNode fast = head.next.next;
+
+            while (curr != fast && fast != null)
+            {
+                curr = curr.next;
+                fast = fast.next != null ? fast.next.next : null;
+            }
+            if (fast == null)
+                return null;
+
+            ListNode ptr1 = head;
+            while (ptr1 != fast)
+            {
+                ptr1 = ptr1.next;
+                fast = fast.next;
+            }
+
+            return ptr1;
+        }
     }
 }

@@ -760,5 +760,56 @@ namespace LeetCode
 
             return -1;
         }
+
+
+
+        /// <summary>
+        /// 364. Nested List Weight Sum II
+        /// https://leetcode.com/problems/nested-list-weight-sum-ii/
+        /// </summary>
+        /// <param name="nestedList"></param>
+        /// <returns></returns>
+        //public int DepthSumInverse(IList<NestedInteger> nestedList)
+        //{
+        //    int maxDepth = 1;
+        //    List<NestedIntWithDepth> list = new List<NestedIntWithDepth>();
+        //    Queue<NestedIntWithDepth> q = new Queue<NestedIntWithDepth>();
+        //    foreach (var nInt in nestedList)
+        //        q.Enqueue(new NestedIntWithDepth(nInt, 1));
+
+        //    while (q.Count > 0)
+        //    {
+        //        NestedIntWithDepth currInt = q.Dequeue();
+        //        if (currInt.NestedInt.IsInteger())
+        //        {
+        //            list.Add(currInt);
+        //            maxDepth = Math.Max(maxDepth, currInt.Depth);
+        //        }
+        //        else
+        //        {
+        //            foreach (var nInt in currInt.NestedInt.GetList())
+        //                q.Enqueue(new NestedIntWithDepth(nInt, currInt.Depth + 1));
+        //        }
+        //    }
+
+        //    int sum = 0;
+        //    foreach (var val in list)
+        //        sum += ((maxDepth - val.Depth + 1) * val.NestedInt.GetInteger());
+
+        //    return sum;
+        //}
+        //class NestedIntWithDepth
+        //{
+        //    public NestedInteger NestedInt;
+        //    public int Depth;
+        //    public NestedIntWithDepth(NestedInteger nestedInt, int depth)
+        //    {
+        //        NestedInt = nestedInt;
+        //        Depth = depth;
+        //    }
+        //}
+
+
     }
+
 }

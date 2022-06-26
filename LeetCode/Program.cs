@@ -8,6 +8,10 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
+            ProblemSolving pss = new ProblemSolving();
+            //pss.EatenApples(new int[] { 3, 0, 0, 0, 0, 2 }, new int[] { 3, 0, 0, 0, 0, 2 });
+            pss.EatenApples(new int[] { 2, 1, 10 }, new int[] { 2, 10, 1 });
+
             DataStructures.DataStructureII dsII = new DataStructures.DataStructureII();
             //int[][] intervals = new int[4][];
             //intervals[0] = new int[2] { 1, 2 };
