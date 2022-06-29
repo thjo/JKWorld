@@ -532,6 +532,39 @@ namespace LeetCode
 
         }
 
+
+
+        public IList<int> MinAvailableDuration(int[][] slots1, int[][] slots2, int duration)
+        {
+            IList<int> ans = new List<int>();
+            CSort(slots1, 1);
+            CSort(slots2, 1);
+            int n1 = slots1.Length, n2 = slots2.Length; ;
+            int idx1 = 0, idx2 = 0;
+            while (idx1 < n1 && idx2 < n2)
+            {
+                int left = Math.Max(slots1[idx1][0], slots2[idx2][0]);
+                int right = Math.Min(slots1[idx1][1], slots2[idx2][1]);
+
+                if (right - left >= duration)
+                {
+                    ans.Add(left);
+                    ans.Add(left + duration);
+                    return ans;
+                }
+
+                if (slots1[idx1][0] > slots2[idx2][0])
+                    idx2++;
+                else
+                    idx1++;
+            }
+            return ans;
+        }
+        private static void CSort<T>(T[][] data, int col)
+        {
+            Comparer<T> comparer = Comparer<T>.Default;
+            Array.Sort<T[]>(data, (x, y) => comparer.Compare(x[col], y[col]));
+        }
     }
 
 }
