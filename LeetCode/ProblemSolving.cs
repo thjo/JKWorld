@@ -501,35 +501,14 @@ namespace LeetCode
         public int EatenApples(int[] apples, int[] days)
         {
             int currday = 1;
-            int idx = 0;
-            int deadline = days.Length;
             int numOfEatenApps = 0;
-            int[] currApple = new int[] { days[idx], apples[idx] };
-            deadline = Math.Max(deadline, days[idx]);
-            idx = 1;
-            while (currday <= deadline)
+            //apples, days
+            PriorityQueue<int, int> minQueue = PriorityQueue<int, int>();
+            for (int i = 0; i < apples.Length; i++)
             {
-                if (currApple[0] >= currday && currApple[1] > 0)
-                {
 
-                    numOfEatenApps++;
-                    currApple[1]--;
-                    currday++;
-                }
-                else if (idx < days.Length)
-                {
-
-                    currApple[0] = days[idx] + idx;
-                    currApple[1] = apples[idx];
-                    deadline = Math.Max(deadline, currApple[0]);
-                    idx++;
-                }
-                else
-                    currday++;
             }
-
             return numOfEatenApps;
-
         }
 
 
@@ -553,7 +532,7 @@ namespace LeetCode
                     return ans;
                 }
 
-                if (slots1[idx1][0] > slots2[idx2][0])
+                if (slots1[idx1][1] > slots2[idx2][1])
                     idx2++;
                 else
                     idx1++;
@@ -565,6 +544,8 @@ namespace LeetCode
             Comparer<T> comparer = Comparer<T>.Default;
             Array.Sort<T[]>(data, (x, y) => comparer.Compare(x[col], y[col]));
         }
+
+
     }
 
 }
