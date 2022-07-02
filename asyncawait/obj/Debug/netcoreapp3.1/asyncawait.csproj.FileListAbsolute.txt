@@ -11,3 +11,4 @@ C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\asyncawait\obj\Debug\netco
 C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\asyncawait\obj\Debug\netcoreapp3.1\asyncawait.dll
 C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\asyncawait\obj\Debug\netcoreapp3.1\asyncawait.pdb
 C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\asyncawait\obj\Debug\netcoreapp3.1\asyncawait.genruntimeconfig.cache
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\asyncawait\obj\Debug\netcoreapp3.1\asyncawait.GeneratedMSBuildEditorConfig.editorconfig

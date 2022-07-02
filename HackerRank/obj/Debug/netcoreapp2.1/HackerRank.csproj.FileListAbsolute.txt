@@ -20,3 +20,5 @@ C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\HackerRank\obj\Debug\netco
 C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\HackerRank\obj\Debug\netcoreapp2.1\HackerRank.dll
 C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\HackerRank\obj\Debug\netcoreapp2.1\HackerRank.pdb
 C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\HackerRank\obj\Debug\netcoreapp2.1\HackerRank.genruntimeconfig.cache
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\HackerRank\obj\Debug\netcoreapp2.1\HackerRank.csproj.AssemblyReference.cache
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\HackerRank\obj\Debug\netcoreapp2.1\HackerRank.GeneratedMSBuildEditorConfig.editorconfig

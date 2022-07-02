@@ -500,14 +500,60 @@ namespace LeetCode
         /// <returns></returns>
         public int EatenApples(int[] apples, int[] days)
         {
-            int currday = 1;
+            int d = 1;
             int numOfEatenApps = 0;
-            //apples, days
-            PriorityQueue<int, int> minQueue = PriorityQueue<int, int>();
-            for (int i = 0; i < apples.Length; i++)
-            {
+            ////apples, days
+            //PriorityQueue<int, int> minQ = new PriorityQueue<int, int>();
 
-            }
+            //for (int i = 0; i < apples.Length; i++)
+            //{
+            //    minQ.Enqueue(apples[i], d+days[i]);
+            //    int? currApple = null, currDay = null;
+            //    while (minQ.TryDequeue(out int apple, out int day))
+            //    {
+            //        if (day < d || apple <= 0)
+            //            continue;
+            //        else
+            //        {
+            //            currApple = apple;
+            //            currDay = day;
+            //            break;
+            //        }
+            //    }
+            //    if( currApple != null)
+            //    {
+            //        currApple--;
+            //        minQ.Enqueue(currApple.Value, currDay.Value);
+            //        numOfEatenApps++;
+            //    }
+
+            //    d++;
+            //}
+            ////rest of them.
+            //while(minQ.Count > 0 )
+            //{
+            //    int? currApple = null, currDay = null;
+            //    while (minQ.TryDequeue(out int apple, out int day))
+            //    {
+            //        if (day < d || apple <= 0)
+            //            continue;
+            //        else
+            //        {
+            //            currApple = apple;
+            //            currDay = day;
+            //            break;
+            //        }
+            //    }
+            //    if (currApple != null)
+            //    {
+            //        currApple--;
+            //        minQ.Enqueue(currApple.Value, currDay.Value);
+            //        numOfEatenApps++;
+            //    }
+
+            //    d++;
+            //}
+
             return numOfEatenApps;
         }
 
@@ -545,6 +591,44 @@ namespace LeetCode
             Array.Sort<T[]>(data, (x, y) => comparer.Compare(x[col], y[col]));
         }
 
+
+
+        /// <summary>
+        /// /1465. Maximum Area of a Piece of Cake After Horizontal and Vertical Cuts
+        /// https://leetcode.com/problems/maximum-area-of-a-piece-of-cake-after-horizontal-and-vertical-cuts/
+        /// </summary>
+        /// <param name="h"></param>
+        /// <param name="w"></param>
+        /// <param name="horizontalCuts"></param>
+        /// <param name="verticalCuts"></param>
+        /// <returns></returns>
+        public int MaxArea(int h, int w, int[] horizontalCuts, int[] verticalCuts)
+        {
+            int mod = 1000000007;
+            Array.Sort(horizontalCuts);
+            Array.Sort(verticalCuts);
+            long maxH = horizontalCuts[0] - 0;
+            long maxW = verticalCuts[0] - 0;
+            for (int i = 1; i < horizontalCuts.Length; i++)
+            {
+                if (h < horizontalCuts[i])
+                    break;
+                int height = Math.Min(h, horizontalCuts[i]);
+                maxH = Math.Max(height - horizontalCuts[i - 1], maxH);
+            }
+            if (h > horizontalCuts[horizontalCuts.Length - 1])
+                maxH = Math.Max(h - horizontalCuts[horizontalCuts.Length - 1], maxH);
+            for (int i = 1; i < verticalCuts.Length; i++)
+            {
+                if (w < verticalCuts[i])
+                    break;
+                int width = Math.Min(w, verticalCuts[i]);
+                maxW = Math.Max(verticalCuts[i] - verticalCuts[i - 1], maxW);
+            }
+            if (w > verticalCuts[verticalCuts.Length - 1])
+                maxW = Math.Max(w - verticalCuts[verticalCuts.Length - 1], maxW);
+            return (int)((maxH * maxW) % mod);
+        }
 
     }
 
