@@ -231,9 +231,88 @@ namespace LeetCode.Mock.Apple
 
         #region | Online Assessment #4 | 
 
+        /// <summary>
+        /// 1002. Find Common Characters
+        /// https://leetcode.com/problems/find-common-characters/
+        /// </summary>
+        /// <param name="words"></param>
+        /// <returns></returns>
+        public IList<string> CommonChars(string[] words)
+        {
+            Dictionary<char, int[]> charDic = new Dictionary<char, int[]>();
+            IList<string> ans = new List<string>();
+            string word = words[0];
+            for (int i = 0; i < word.Length; i++)
+            {
+                if (charDic.ContainsKey(word[i]))
+                    charDic[word[i]][0]++;
+                else
+                    charDic.Add(word[i], new int[2] { 1, 0 });
+            }
+
+            for(int i = 1; i < words.Length; i++)
+                CheckCommonChars(words[i], charDic);
+
+            foreach(var c in charDic)
+            {
+                for(int i = 0; i < c.Value[0]; i++)
+                    ans.Add(c.Key.ToString());
+            }
+            return ans;
+        }
+        private void CheckCommonChars(string word, Dictionary<char, int[]> charDic)
+        {
+            for (int i = 0; i < word.Length; i++)
+            {
+                if (charDic.ContainsKey(word[i]))
+                    charDic[word[i]][1]++;
+            }
+
+            foreach(var c in charDic)
+            {
+                if (c.Value[1] == 0)
+                    charDic.Remove(c.Key);
+                else if (c.Value[0] == c.Value[1])
+                    charDic[c.Key][1] = 0;
+                else
+                {
+                    charDic[c.Key][0] = Math.Min(c.Value[0], c.Value[1]);
+                    charDic[c.Key][1] = 0;
+                }
+            }
+        }
 
 
+        /// <summary>
+        /// 1221. Split a String in Balanced Strings
+        /// https://leetcode.com/problems/split-a-string-in-balanced-strings/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public int BalancedStringSplit(string s)
+        {
+            int cntL = 0, cntR = 0;
+            Stack<char> checker = new Stack<char>();
+            int ans = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (checker.Count == 0)
+                    checker.Push(s[i]);
+                else
+                {
+                    if (checker.Peek() == s[i])
+                    {
+                        checker.Push(s[i]);
+                    }
+                    else
+                        checker.Pop();
+                }
+                if (checker.Count == 0)
+                    ans++;
+            }
 
+            return ans;
+        }
         #endregion
     }
 }
