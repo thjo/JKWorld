@@ -9,7 +9,7 @@ namespace LeetCode
         static void Main(string[] args)
         {
             ProblemSolving pss = new ProblemSolving();
-            pss.MaxArea(6, 5, new int[] { 5 }, new int[] { 2, 1, 4 });
+            pss.EatenApples(new int[] { 1, 2, 3, 5, 2 }, new int[] { 3, 2, 1, 4, 2 });
 
             DataStructures.DataStructureII dsII = new DataStructures.DataStructureII();
             //int[][] intervals = new int[4][];

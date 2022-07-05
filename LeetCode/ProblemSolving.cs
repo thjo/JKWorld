@@ -502,57 +502,42 @@ namespace LeetCode
         {
             int d = 1;
             int numOfEatenApps = 0;
-            ////apples, days
-            //PriorityQueue<int, int> minQ = new PriorityQueue<int, int>();
+            //apples, days
+            PriorityQueue<int, int> minQ = new PriorityQueue<int, int>();
+            for (int i = 0; i < apples.Length; i++)
+            {
+                minQ.Enqueue(apples[i], (d + days[i]-1));
+                while (minQ.TryDequeue(out int apple, out int day))
+                {
+                    if (day >= d && apple > 0)
+                    {
+                        apple--;
+                        if (day > d && apple > 0)
+                            minQ.Enqueue(apple, day);
+                        numOfEatenApps++;
+                        break;
+                    }
+                }
 
-            //for (int i = 0; i < apples.Length; i++)
-            //{
-            //    minQ.Enqueue(apples[i], d+days[i]);
-            //    int? currApple = null, currDay = null;
-            //    while (minQ.TryDequeue(out int apple, out int day))
-            //    {
-            //        if (day < d || apple <= 0)
-            //            continue;
-            //        else
-            //        {
-            //            currApple = apple;
-            //            currDay = day;
-            //            break;
-            //        }
-            //    }
-            //    if( currApple != null)
-            //    {
-            //        currApple--;
-            //        minQ.Enqueue(currApple.Value, currDay.Value);
-            //        numOfEatenApps++;
-            //    }
+                d++;
+            }
+            //rest of them.
+            while (minQ.Count > 0)
+            {
+                while (minQ.TryDequeue(out int apple, out int day))
+                {
+                    if (day >= d && apple > 0)
+                    {
+                        apple--;
+                        if (day > d && apple > 0)
+                            minQ.Enqueue(apple, day);
+                        numOfEatenApps++;
+                        break;
+                    }
+                }
 
-            //    d++;
-            //}
-            ////rest of them.
-            //while(minQ.Count > 0 )
-            //{
-            //    int? currApple = null, currDay = null;
-            //    while (minQ.TryDequeue(out int apple, out int day))
-            //    {
-            //        if (day < d || apple <= 0)
-            //            continue;
-            //        else
-            //        {
-            //            currApple = apple;
-            //            currDay = day;
-            //            break;
-            //        }
-            //    }
-            //    if (currApple != null)
-            //    {
-            //        currApple--;
-            //        minQ.Enqueue(currApple.Value, currDay.Value);
-            //        numOfEatenApps++;
-            //    }
-
-            //    d++;
-            //}
+                d++;
+            }
 
             return numOfEatenApps;
         }
@@ -628,6 +613,42 @@ namespace LeetCode
             if (w > verticalCuts[verticalCuts.Length - 1])
                 maxW = Math.Max(w - verticalCuts[verticalCuts.Length - 1], maxW);
             return (int)((maxH * maxW) % mod);
+        }
+
+
+        /// <summary>
+        /// 299. Bulls and Cows
+        /// https://leetcode.com/problems/bulls-and-cows/
+        /// </summary>
+        /// <param name="secret"></param>
+        /// <param name="guess"></param>
+        /// <returns></returns>
+        public string GetHint(string secret, string guess)
+        {
+            int[] keys = new int[10];
+            int bulls = 0;
+            int cows = 0;
+            for (int i = 0; i < secret.Length; i++)
+            {
+                char s = secret[i];
+                char g = guess[i];
+                if (s == g)
+                {
+                    bulls++;
+                }
+                else
+                {
+                    if (keys[s - '0'] < 0)
+                        cows++;
+                    if (keys[g - '0'] > 0)
+                        cows++;
+
+                    keys[s - '0']++;
+                    keys[g - '0']--;
+                }
+            }
+
+            return string.Format("{0}A{1}B", bulls, cows);
         }
 
     }
