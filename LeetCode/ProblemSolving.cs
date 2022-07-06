@@ -651,6 +651,57 @@ namespace LeetCode
             return string.Format("{0}A{1}B", bulls, cows);
         }
 
+
+
+        public string DecodeString(string s)
+        {
+            #region | Using Stack | 
+
+            int i = 0;
+            Stack<char> decoder = new Stack<char>();
+            while (i < s.Length)
+            {
+                if (s[i] == ']')
+                {
+                    List<char> decodeStr = new List<char>();
+                    while (decoder.Peek() != '[')
+                        decodeStr.Add(decoder.Pop());
+
+                    //pop '['
+                    decoder.Pop();
+
+                    //Get a number
+                    int b = 1;
+                    int k = 0;
+                    while (decoder.Count > 0
+                          && Char.IsDigit(decoder.Peek()))
+                    {
+                        k = k + (decoder.Pop() - '0') * b;
+                        b *= 10;
+                    }
+                    //decoded string
+                    while (k > 0)
+                    {
+                        for (int j = decodeStr.Count - 1; j >= 0; j--)
+                            decoder.Push(decodeStr[j]);
+                        k--;
+                    }
+                }
+                else
+                    decoder.Push(s[i]);
+                i++;
+            } //End while
+
+            string plainText = "";
+            while (decoder.Count > 0)
+            {
+                plainText = decoder.Pop() + plainText;
+            }
+
+            return plainText;
+
+            #endregion
+        }
     }
 
 }

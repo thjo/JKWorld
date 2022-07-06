@@ -358,9 +358,7 @@ namespace LeetCode
             ListNode leftPointer = dummy;
 
             for (int i = 0; i < n; i++)
-            {
                 rightPointer = rightPointer.next;
-            }
 
             while (rightPointer != null)
             {

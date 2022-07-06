@@ -2569,6 +2569,11 @@ namespace LeetCode
 
 
 
+        #region | Onsite Interview - 1 | 
+
+
+
+        #endregion
 
 
 
@@ -2610,7 +2615,6 @@ namespace LeetCode
             }
             return ans;
         }
-
 
         public int Solution2_06052022(int N, string S)
         {
@@ -2689,9 +2693,5 @@ namespace LeetCode
             else
                 return 0;
         }
-
-
-
-
     }
 }
