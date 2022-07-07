@@ -22,6 +22,8 @@ namespace LeetCode.DataStructures
             return size;
         }
 
+        #region | private members |
+
         //              0         --> left child. parent index * 2 + 1 right child. parent index*2 + 2
         //        1           2
         //      3   4      5     6
@@ -82,6 +84,8 @@ namespace LeetCode.DataStructures
             }
         }
 
+        #endregion
+
         public int Peek()
         {
             if (size == 0) return -1;
@@ -132,7 +136,7 @@ namespace LeetCode.DataStructures
                     if (HasRightChildIndex(index) && RightChild(index) > LeftChild(index))
                         biggerChildIndex = GetRightChildIndex(index);
 
-                    if (items[index] > items[biggerChildIndex])
+                    if (items[index] < items[biggerChildIndex])
                     {
                         Swap(index, biggerChildIndex);
                         index = biggerChildIndex;

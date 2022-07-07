@@ -8,8 +8,11 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
+            LeetCode75_I leet = new LeetCode75_I();
+            leet.LastStoneWeight(new int[] { 2,7,4,1,8,1});
+
             ProblemSolving pss = new ProblemSolving();
-            pss.EatenApples(new int[] { 1, 2, 3, 5, 2 }, new int[] { 3, 2, 1, 4, 2 });
+            
 
             DataStructures.DataStructureII dsII = new DataStructures.DataStructureII();
             //int[][] intervals = new int[4][];

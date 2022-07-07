@@ -1,5 +1,7 @@
-﻿using System;
+﻿using LeetCode.DataStructures;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace LeetCode
@@ -153,6 +155,59 @@ namespace LeetCode
             }
 
             return ptr1;
+        }
+
+
+        public int LastStoneWeight(int[] stones)
+        {
+            THJOMinMaxHeap maxHeap = new THJOMinMaxHeap(stones.Length, false);
+            foreach (int s in stones)
+                maxHeap.Add(s);
+
+            while (maxHeap.Size() > 1)
+            {
+                int y = maxHeap.Poll();
+                int x = maxHeap.Poll();
+                if (y != x)
+                    maxHeap.Add(y - x);
+            }
+
+            return maxHeap.Size() == 0 ? 0 : maxHeap.Poll();
+        }
+
+        public IList<string> TopKFrequent(string[] words, int k)
+        {
+            Dictionary<string, int> dic = new Dictionary<string, int>();
+            foreach (string w in words)
+            {
+                if (dic.ContainsKey(w))
+                    dic[w]++;
+                else
+                    dic.Add(w, 1);
+            }
+            IList<FrequentWord> freqWords = new List<FrequentWord>();
+            foreach (var f in dic)
+                freqWords.Add(new FrequentWord(f.Key, f.Value));
+
+            var results = from fre in freqWords
+                          orderby fre.Frequency descending, fre.Word
+                          select fre;
+            IList<string> ans = new List<string>();
+            foreach (var r in results)
+                ans.Add(r.Word);
+
+            return ans;
+        }
+        public class FrequentWord
+        {
+            public string Word;
+            public int Frequency;
+
+            public FrequentWord(string word, int freq)
+            {
+                Word = word;
+                Frequency = freq;
+            }
         }
     }
 }
