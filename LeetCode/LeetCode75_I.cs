@@ -194,7 +194,12 @@ namespace LeetCode
                           select fre;
             IList<string> ans = new List<string>();
             foreach (var r in results)
+            {
                 ans.Add(r.Word);
+                if (ans.Count == k)
+                    break;
+            }
+
 
             return ans;
         }

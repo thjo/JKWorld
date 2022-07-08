@@ -703,7 +703,75 @@ namespace LeetCode
             #endregion
         }
 
+        /// <summary>
+        /// 97. Interleaving String
+        /// https://leetcode.com/problems/interleaving-string/
+        /// </summary>
+        /// <param name="s1"></param>
+        /// <param name="s2"></param>
+        /// <param name="s3"></param>
+        /// <returns></returns>
+        public bool IsInterleave(string s1, string s2, string s3)
+        {
+            if (s1.Length + s2.Length != s3.Length)
+                return false;
 
+            bool[] dp = new bool[s2.Length + 1];
+            for (int i = 0; i <= s1.Length; i++)
+            {
+                for (int j = 0; j <= s2.Length; j++)
+                {
+                    if (i == 0 && j == 0)
+                    {
+                        dp[j] = true;
+                    }
+                    else if (i == 0)
+                    {
+                        dp[j] = dp[j - 1] && s2[j - 1] == s3[i + j - 1];
+                    }
+                    else if (j == 0)
+                    {
+                        dp[j] = dp[j] && s1[i - 1] == s3[i + j - 1];
+                    }
+                    else
+                    {
+                        dp[j] = (dp[j] && s1[i - 1] == s3[i + j - 1]) || (dp[j - 1] && s2[j - 1] == s3[i + j - 1]);
+                    }
+                }
+            }
+            return dp[s2.Length];
+        }
+        public bool IsInterleave1(string s1, string s2, string s3)
+        {
+            if (s1.Length + s2.Length != s3.Length)
+                return false;
+            int[][] dp = new int[s1.Length][];
+            for (int i = 0; i < s1.Length; i++)
+            {
+                dp[i] = new int[s2.Length];
+                for (int j = 0; j < s2.Length; j++)
+                    dp[i][j] = 0;
+            }
+            return IsInterleaveR(s1, s2, s3, 0, 0, 0, dp);
+        }
+        private bool IsInterleaveR(string s1, string s2, string s3, int iS1, int iS2, int iS3, int[][] dp)
+        {
+            if (iS1 == s1.Length && iS2 == s2.Length && iS3 == s3.Length)
+                return true;
+            else if (iS1 == s1.Length)
+                return s2.Substring(iS2).Equals(s3.Substring(iS3));
+            else if (iS2 == s2.Length)
+                return s1.Substring(iS1).Equals(s3.Substring(iS3));
+            if (dp[iS1][iS2] > 0)
+                return dp[iS1][iS2] == 1 ? true : false;
+
+            bool ans = false;
+            if ((s1[iS1] == s3[iS3] && IsInterleaveR(s1, s2, s3, iS1 + 1, iS2, iS3 + 1, dp)) || (s2[iS2] == s3[iS3] && IsInterleaveR(s1, s2, s3, iS1, iS2 + 1, iS3 + 1, dp)))
+                ans = true;
+
+            dp[iS1][iS2] = ans == true ? 1 : 2;
+            return ans;
+        }
     }
 
 }
