@@ -772,6 +772,32 @@ namespace LeetCode
             dp[iS1][iS2] = ans == true ? 1 : 2;
             return ans;
         }
+
+
+
+        public int MaxResult(int[] nums, int k)
+        {
+            return MaxResultR(nums, 0, k, 0);
+        }
+        private int MaxResultR(int[] nums, int currPos, int k, int maxScore)
+        {
+            maxScore += nums[currPos];
+            if (currPos == nums.Length - 1)
+                return maxScore;
+
+            int maxJump = Math.Min(nums.Length - 1, currPos + k);
+            int? score = null;
+            for (int j = currPos + 1; j <= maxJump; j++)
+            {
+                if (score == null)
+                    score = MaxResultR(nums, j, k, maxScore);
+                else
+                    score = Math.Max(score.Value, MaxResultR(nums, j, k, maxScore));
+            }
+            PriorityQueue<int, int> aa = null;
+
+            return score.Value + maxScore;
+        }
     }
 
 }

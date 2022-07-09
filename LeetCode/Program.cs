@@ -9,7 +9,7 @@ namespace LeetCode
         static void Main(string[] args)
         {
             ProblemSolving pss = new ProblemSolving();
-            pss.IsInterleave("aabcc", "dbbca", "aadbbbaccc");
+            pss.MaxResult(new int[] { 1, -1, -2, 4, -7, 3 }, 2);
 
             DataStructures.DataStructureII dsII = new DataStructures.DataStructureII();
             //int[][] intervals = new int[4][];
