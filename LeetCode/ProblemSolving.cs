@@ -775,29 +775,67 @@ namespace LeetCode
 
 
 
+        /// <summary>
+        /// 1696. Jump Game VI
+        /// https://leetcode.com/problems/jump-game-vi/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
         public int MaxResult(int[] nums, int k)
         {
-            return MaxResultR(nums, 0, k, 0);
-        }
-        private int MaxResultR(int[] nums, int currPos, int k, int maxScore)
-        {
-            maxScore += nums[currPos];
-            if (currPos == nums.Length - 1)
-                return maxScore;
+            //Bruce Force
+            //dp[i] = Max(dp[i-k], ..., dp[i-1]) + nums[i]
+            //int[] dp = new int[nums.Length];
+            //dp[0] = nums[0];
 
-            int maxJump = Math.Min(nums.Length - 1, currPos + k);
-            int? score = null;
-            for (int j = currPos + 1; j <= maxJump; j++)
+            //for (int i = 1; i < nums.Length; i++)
+            //{
+            //    int maxVal = dp[i-1];
+            //    for(int j = i - 2; j >= 0 && j >= i - k; j--)
+            //        maxVal = Math.Max(maxVal, dp[j]);
+
+            //    dp[i] = maxVal + nums[i];
+            //}
+            //return dp[dp.Length-1];
+
+            //value, index
+            Dictionary<int, Queue<int>> dic = new Dictionary<int, Queue<int>>();
+            //index, value
+            PriorityQueue<int, int> pQ = new PriorityQueue<int, int>(new OrdercComparer(true));
+            int[] dp = new int[nums.Length];
+            dp[0] = nums[0];
+            Queue<int> tmp = new Queue<int>();
+            tmp.Enqueue(0);
+            dic.Add(nums[0], tmp);
+            pQ.Enqueue(0, nums[0]);
+            for (int i = 1; i < nums.Length; i++)
             {
-                if (score == null)
-                    score = MaxResultR(nums, j, k, maxScore);
+                int idx, maxVal;
+                pQ.TryPeek(out idx, out maxVal);
+                dp[i] = maxVal + nums[i];
+                if (dic.ContainsKey(dp[i]))
+                    dic[dp[i]].Enqueue(i);
                 else
-                    score = Math.Max(score.Value, MaxResultR(nums, j, k, maxScore));
-            }
-            PriorityQueue<int, int> aa = null;
+                {
+                    Queue<int> buff = new Queue<int>();
+                    buff.Enqueue(i);
+                    dic.Add(dp[i], buff);
+                }
+                pQ.Enqueue(i, dp[i]);
 
-            return score.Value + maxScore;
+                while (pQ.Count > k && pQ.TryPeek(out idx, out maxVal)
+                    && dic.ContainsKey(maxVal) && dic[maxVal].Peek() <= i - k)
+                {
+                    dic[maxVal].Dequeue();
+                    if (dic[maxVal].Count == 0)
+                        dic.Remove(maxVal);
+                    pQ.Dequeue();
+                }
+            }
+            return dp[dp.Length - 1];
         }
+
     }
 
 }

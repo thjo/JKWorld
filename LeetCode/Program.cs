@@ -10,7 +10,7 @@ namespace LeetCode
         {
             ProblemSolving pss = new ProblemSolving();
             pss.MaxResult(new int[] { 1, -1, -2, 4, -7, 3 }, 2);
-
+            pss.MaxResult(new int[] { 10, -5, -2, 4, 0, 3 }, 3);
             DataStructures.DataStructureII dsII = new DataStructures.DataStructureII();
             //int[][] intervals = new int[4][];
             //intervals[0] = new int[2] { 1, 2 };
