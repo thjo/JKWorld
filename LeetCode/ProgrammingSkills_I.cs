@@ -616,5 +616,48 @@ namespace LeetCode
                 return SumOfLeftLeavesI(root.left, true) + SumOfLeftLeavesI(root.right, false);
             }
         }
+
+
+
+        /// <summary>
+        /// 1356. Sort Integers by The Number of 1 Bits
+        /// https://leetcode.com/problems/sort-integers-by-the-number-of-1-bits/
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public int[] SortByBits(int[] arr)
+        {
+            List<int>[] count = new List<int>[32];
+            for (int i = 0; i < count.Length; i++)
+                count[i] = new List<int>();
+
+            Array.Sort(arr);
+            for (int i = 0; i < arr.Length; i++)
+            {
+                int cntBits = CountBits(arr[i]);
+                count[cntBits].Add(arr[i]);
+            }
+
+            int j = 0;
+            for (int i = 0; i < 31; i++)
+            {
+                List<int> li = count[i];
+                for (int c = 0; c < li.Count; c++)
+                    arr[j++] = li[c];
+            }
+
+            return arr;
+        }
+        private int CountBits(int a)
+        {
+            int cnt = 0;
+            while (a > 0)
+            {
+                if ((a & 1) > 0)
+                    cnt++;
+                a = a >> 1;
+            }
+            return cnt;
+        }
     }
 }
