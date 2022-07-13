@@ -835,6 +835,62 @@ namespace LeetCode
             return dp[dp.Length - 1];
         }
 
+
+        /// <summary>
+        /// 542. 01 Matrix
+        /// https://leetcode.com/problems/01-matrix/
+        /// </summary>
+        /// <param name="mat"></param>
+        /// <returns></returns>
+        public int[][] UpdateMatrix(int[][] mat)
+        {
+            if (mat == null || mat.Length < 1)
+                return null;
+
+            int lenRows = mat.Length;
+            int lenCols = mat[0].Length;
+
+            int[][] dist = new int[lenRows][];
+            for (int row = 0; row < lenRows; row++)
+            {
+                dist[row] = new int[lenCols];
+                for (int col = 0; col < lenCols; col++)
+                    dist[row][col] = int.MaxValue - 1;
+            }
+
+            //Scan for Left and Top
+            for (int row = 0; row < lenRows; row++)
+            {
+                for (int col = 0; col < lenCols; col++)
+                {
+                    if (mat[row][col] == 0)
+                        dist[row][col] = 0;
+                    else
+                    {
+                        if (row > 0)
+                            dist[row][col] = Math.Min(dist[row][col], dist[row - 1][col] + 1);
+                        if (col > 0)
+                            dist[row][col] = Math.Min(dist[row][col], dist[row][col - 1] + 1);
+
+                    }
+                }
+            }
+
+            //Scan for Right and Bottom
+            for (int row = lenRows - 1; row >= 0; row--)
+            {
+                for (int col = lenCols - 1; col >= 0; col--)
+                {
+                    if (row + 1 < lenRows)
+                        dist[row][col] = Math.Min(dist[row][col], dist[row + 1][col] + 1);
+                    if (col + 1 < lenCols)
+                        dist[row][col] = Math.Min(dist[row][col], dist[row][col + 1] + 1);
+                }
+            }
+
+            return dist;
+        }
+
     }
 
 }
