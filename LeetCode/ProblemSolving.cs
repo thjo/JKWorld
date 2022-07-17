@@ -891,6 +891,146 @@ namespace LeetCode
             return dist;
         }
 
+
+        /// <summary>
+        /// 3. Longest Substring Without Repeating Characters
+        /// https://leetcode.com/problems/longest-substring-without-repeating-characters/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public int LengthOfLongestSubstring(string s)
+        {
+            if (s == null || s.Length == 0)
+                return 0;
+
+            //char, index
+            Dictionary<char, int> dic = new Dictionary<char, int>();
+            int startIdx = 0;
+            int longestLen = 1;
+            dic.Add(s[0], 0);
+            for (int i = 1; i < s.Length; i++)
+            {
+                if (dic.ContainsKey(s[i]))
+                {
+                    int dupPos = dic[s[i]];
+                    while (startIdx <= dupPos)
+                        dic.Remove(s[startIdx++]);
+                }
+
+                dic.Add(s[i], i);
+                longestLen = Math.Max(longestLen, dic.Count);
+            }
+            return longestLen;
+        }
+
+        /// <summary>
+        /// 567. Permutation in String
+        /// https://leetcode.com/problems/permutation-in-string/
+        /// </summary>
+        /// <param name="s1"></param>
+        /// <param name="s2"></param>
+        /// <returns></returns>
+        public bool CheckInclusion(string s1, string s2)
+        {
+            //Length of string p and s
+            int s1Len = s1.Length;
+            int s2Len = s2.Length;
+
+            //Return empty result if any of the condition
+            if (s2.Length == 0 || s1Len > s2Len)
+                return false;
+
+            int[] s1Arr = new int[26];
+            int[] s2Arr = new int[26];
+
+            for (int i = 0; i < s1Len; i++)
+            {
+                s1Arr[s1[i] - 'a']++;
+                s2Arr[s2[i] - 'a']++;
+            }
+
+            for (int i = 0; i < s2Len - s1Len; i++)
+            {
+                if (isPermutation(s1Arr, s2Arr))
+                    return true;
+
+                s2Arr[s2[i] - 'a']--;
+                s2Arr[s2[i + s1Len] - 'a']++;
+            }
+
+            if (isPermutation(s1Arr, s2Arr))
+                return true;
+
+            return false;
+        }
+        private bool isPermutation(int[] s1Arr, int[] s2Arr)
+        {
+            for (int i = 0; i < s1Arr.Length; i++)
+            {
+                if (s1Arr[i] != s2Arr[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+
+
+        /// <summary>
+        /// 994. Rotting Oranges
+        /// https://leetcode.com/problems/rotting-oranges/
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public int OrangesRotting(int[][] grid)
+        {
+            int[][] directions = new int[4][];
+            directions[0] = new int[2] { 1, 0 };
+            directions[1] = new int[2] { 0, 1 };
+            directions[2] = new int[2] { -1, 0 };
+            directions[3] = new int[2] { 0, -1 };
+            int rowLen = grid.Length;
+            int colLen = grid[0].Length;
+
+            Queue<int[]> rottenOrangs = new Queue<int[]>();
+            int freshOranges = 0;
+            for (int r = 0; r < grid.Length; r++)
+            {
+                for (int c = 0; c < grid[r].Length; c++)
+                {
+                    if (grid[r][c] == 2)
+                    {
+                        List<int> loc = new List<int>();
+                        loc.Add(r); loc.Add(c);
+                        rottenOrangs.Enqueue(new int[] { r, c, 0 });
+                    }
+                    else if (grid[r][c] == 1)
+                        freshOranges++;
+                }
+            }
+
+            int numfMins = 0;
+            while (rottenOrangs.Count > 0)
+            {
+                var map = rottenOrangs.Dequeue();
+                //numfMins = Math.Max(map[2], numfMins);
+                numfMins = map[2];
+                for (int i = 0; i < directions.Length; i++)
+                {
+                    int x = map[0] + directions[i][0];
+                    int y = map[1] + directions[i][1];
+                    if (x >= 0 && x < rowLen && y >= 0 && y < colLen && grid[x][y] == 1)
+                    {
+                        grid[x][y] = 2;
+                        freshOranges--;
+                        rottenOrangs.Enqueue(new int[] { x, y, (map[2] + 1) });
+                    }
+                }
+            }
+
+            return freshOranges > 0 ? -1 : numfMins;
+        }
+
     }
 
 }

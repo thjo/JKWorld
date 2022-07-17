@@ -8,6 +8,9 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
+            AmazonOA_2022_07 amazonOA = new AmazonOA_2022_07();
+            amazonOA.AddSpaces("LeetcodeHelpsMeLearn", new int[] { 8, 13, 15 });
+
             ProblemSolving pss = new ProblemSolving();
             pss.MaxResult(new int[] { 1, -1, -2, 4, -7, 3 }, 2);
             pss.MaxResult(new int[] { 10, -5, -2, 4, 0, 3 }, 3);
