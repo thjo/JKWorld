@@ -72,7 +72,19 @@ namespace LeetCode
         /// <returns></returns>
         public long GetDescentPeriods(int[] prices)
         {
-            return -1;
+            //7,6,5,4, 3,2,3,4,5,3,2,1
+            //dp[0] = 1
+            //dp[1] = (p[i-1]-1==p[i]) ? dp[i] + 1 : 1 >> 2
+            //dp[2] = 3
+            //dp[3] = 
+            long ans = 1, prevCnt = 1;  //index = 0;
+            for (int i = 1; i < prices.Length; i++)
+            {
+                prevCnt = prices[i - 1] - 1 == prices[i] ? prevCnt + 1 : 1;
+                ans += prevCnt;
+            }
+
+            return ans;
         }
 
 
@@ -86,14 +98,30 @@ namespace LeetCode
         /// <returns></returns>
         public int KIncreasing(int[] arr, int k)
         {
-            return -1;
+            int ans = 0;
+            for(int i = 0; i < k; i++)
+            {
+                ans += MinKIncreasingOp(arr, k, i);
+            }
+            return ans;
+        }
+        private int MinKIncreasingOp(int[] arr, int k, int startIdx)
+        {
+            int ans = 0;
+            for(int i = startIdx+k; i < arr.Length; i+=k)
+            {
+                if (arr[i - k] > arr[i])
+                    ans++;
+            }
+
+            return ans;
         }
 
 
         //5.Divide a String Into Groups of Size k
         /// <summary>
         /// 2138. Divide a String Into Groups of Size k - E
-        /// https://leetcode.com/problems/divide-a-string-into-groups-of-size-k/#:~:text=The%20first%20group%20consists%20of,used%20to%20complete%20the%20group.
+        /// https://leetcode.com/problems/divide-a-string-into-groups-of-size-k/
         /// </summary>
         /// <param name="s"></param>
         /// <param name="k"></param>
@@ -101,7 +129,23 @@ namespace LeetCode
         /// <returns></returns>
         public string[] DivideString(string s, int k, char fill)
         {
-            return null;
+            int len = s.Length / k;
+            if (s.Length % k != 0)
+                len++;
+            string[] ans = new string[len];
+            int idxS = 0, idxA = 0;
+            while (idxS < s.Length)
+            {
+                if (idxS + k >= s.Length)
+                    ans[idxA] = s.Substring(idxS);
+                else
+                    ans[idxA++] = s.Substring(idxS, k);
+                idxS += k;
+            }
+            for (int i = k - ans[idxA].Length; i > 0; i--)
+                ans[idxA] += fill;
+
+            return ans;
         }
 
 
@@ -199,7 +243,16 @@ namespace LeetCode
         /// <returns></returns>
         public int FindFinalValue(int[] nums, int original)
         {
-            return -1;
+            int final = original;
+            //Case 1. Use an extra space
+            HashSet<int> map = new HashSet<int>();
+            foreach (int n in nums)
+                map.Add(n);
+
+            while (map.Contains(final))
+                final *= 2;
+
+            return final;
         }
 
 
@@ -283,7 +336,18 @@ namespace LeetCode
         /// <returns></returns>
         public long MinimumRemoval(int[] beans)
         {
-            return -1;
+            int len = beans.Length;
+            Array.Sort(beans);
+            long sum = 0;
+            for (int i = 0; i < len; i++)
+                sum += beans[i];
+            long ans = long.MaxValue;
+            for (int i = 0; i < len; i++)
+                ans = Math.Min(ans, sum - (beans[i] * 1L * (len - i)));
+
+            return ans;
+            //https://jooncco.com/leetcode-2171/
+            //key idea: beansToRemove = totalBeans - beans[i]*(n-i)
         }
 
 
