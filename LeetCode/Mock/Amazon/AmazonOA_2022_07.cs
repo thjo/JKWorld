@@ -265,7 +265,40 @@ namespace LeetCode
         /// <returns></returns>
         public IList<int> MaxScoreIndices(int[] nums)
         {
-            return null;
+            int totalCntZero = 0;
+            int totalCntOne = 0;
+            foreach (int n in nums)
+            {
+                if (n == 0)
+                    totalCntZero++;
+                else
+                    totalCntOne++;
+            }
+
+            int maxSocre = 0;
+            int[] score = new int[nums.Length + 1];
+            score[0] = totalCntOne;
+            maxSocre = score[0];
+            int currTotalZero = 0, currTotalOne = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] == 0)
+                    currTotalZero++;
+                else
+                    currTotalOne++;
+
+                //count of curr zero, left of one (total one - curr one)
+                score[i + 1] = currTotalZero + (totalCntOne - currTotalOne);
+                maxSocre = Math.Max(maxSocre, score[i + 1]);
+            }
+
+            IList<int> listOfIdx = new List<int>();
+            for (int i = 0; i < score.Length; i++)
+            {
+                if (score[i] == maxSocre)
+                    listOfIdx.Add(i);
+            }
+            return listOfIdx;
         }
 
 
@@ -310,7 +343,27 @@ namespace LeetCode
         /// <returns></returns>
         public int CountOperations(int num1, int num2)
         {
-            return -1;
+            if (num1 < num2) (num1, num2) = (num2, num1);
+
+            int numberOfOperations = 0;
+            while (num1 != 0 && num2 != 0)
+            {
+                numberOfOperations += num1 / num2;
+                (num1, num2) = (num2, num1 % num2);
+            }
+
+            return numberOfOperations;
+            /*
+                int op = 0;
+                if (num1 == 0 || num2 == 0)
+                    return op;
+                if (num1 >= num2)
+                    op = CountOperations(num1 - num2, num2) + 1;
+                else
+                    op = CountOperations(num1, num2 - num1) + 1;
+
+                return op;        
+            */
         }
 
 
@@ -323,7 +376,51 @@ namespace LeetCode
         /// <returns></returns>
         public int MinimumOperations(int[] nums)
         {
-            return -1;
+            if (nums.Length < 2)
+                return 0;
+
+            //value, frequency
+            //Need to use Priority Queue
+            Dictionary<int, int> maxFrqEvenVals = new Dictionary<int, int>();
+            Dictionary<int, int> maxFrqOddVals = new Dictionary<int, int>();
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    //Even
+                    if (maxFrqEvenVals.ContainsKey(nums[i]) == false)
+                        maxFrqEvenVals.Add(nums[i], 0);
+                    maxFrqEvenVals[nums[i]]++;
+                }
+                else
+                {
+                    //Odd
+                    if (maxFrqOddVals.ContainsKey(nums[i]) == false)
+                        maxFrqOddVals.Add(nums[i], 0);
+                    maxFrqOddVals[nums[i]]++;
+                }
+            }
+
+            //Calculate min operations
+            var eeList = maxFrqEvenVals.OrderByDescending(k => k.Value).ToList();
+            var ooList = maxFrqOddVals.OrderByDescending(k => k.Value).ToList();
+
+            int maxEE = eeList[0].Value, maxOO = ooList[0].Value;
+            if (eeList[0].Key == ooList[0].Key)
+            {
+                int secEE = 0, secOO = 0;
+                if (eeList.Count > 1)
+                    secEE = eeList[1].Value;
+                if (ooList.Count > 1)
+                    secOO = ooList[1].Value;
+                if (maxEE + secOO > maxOO + secEE)
+                    maxOO = secOO;
+                else
+                    maxEE = secEE;
+            }
+
+
+            return nums.Length - (maxOO + maxEE);
         }
 
 
