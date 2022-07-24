@@ -90,7 +90,7 @@ namespace LeetCode
 
         //4.Minimum Operations to Make the Array K-Increasing
         /// <summary>
-        /// 2111. Minimum Operations to Make the Array K-Increasing  H
+        /// 2111. Minimum Operations to Make the Array K-Increasing  H ??
         /// https://leetcode.com/problems/minimum-operations-to-make-the-array-k-increasing/
         /// </summary>
         /// <param name="arr"></param>
@@ -99,23 +99,61 @@ namespace LeetCode
         public int KIncreasing(int[] arr, int k)
         {
             int ans = 0;
-            for(int i = 0; i < k; i++)
+            // size of arr
+            int n = arr.Length;
+            for (int i = 0; i < k; i++)
             {
-                ans += MinKIncreasingOp(arr, k, i);
-            }
-            return ans;
-        }
-        private int MinKIncreasingOp(int[] arr, int k, int startIdx)
-        {
-            int ans = 0;
-            for(int i = startIdx+k; i < arr.Length; i+=k)
-            {
-                if (arr[i - k] > arr[i])
-                    ans++;
-            }
+                List<int> buff = new List<int>();
+                for (int j = i; j < n; j += k)
+                    buff.Add(arr[j]);
 
+                int len = buff.Count;
+                //Calculate min operations
+                ans += len - MinOps(buff);
+            }
             return ans;
         }
+        private int MinOps(List<int> list)
+        {
+            int n = list.Count;
+            int[] tail = new int[list.Count];
+            int len = 1;
+            tail[0] = list[0];
+
+            for (int i = 1; i < n; i++)
+            {
+                if (list[i] >= tail[len - 1])
+                {
+                    //list[i] extends the largest subseq
+                    tail[len++] = list[i];
+                }
+                else
+                {
+                    //discard old subseq
+                    var idx = LowerBound(list, 1, list.Count-1, list[i]);
+                    if (idx < 0)
+                        idx = -1 * idx - 1;
+
+                    //replace the existing subseq with a new value
+                    tail[idx] = list[i];
+                }
+            }
+            return len;
+        }
+        private int LowerBound(List<int> list, int low, int high, int ele)
+        {
+            while (low < high)
+            {
+                int mid = low + (high - low) / 2;
+                if (ele > list[mid])
+                    low = mid + 1;
+                else
+                    high = mid;
+            }
+            return low;
+        }
+
+
 
 
         //5.Divide a String Into Groups of Size k
@@ -228,7 +266,49 @@ namespace LeetCode
         /// <returns></returns>
         public long MaxRunTime(int n, int[] batteries)
         {
-            return -1;
+            long totalSum = batteries[0];
+            long low = batteries[0];
+            for (int i = 1; i < batteries.Length; i++)
+            {
+                totalSum += batteries[i];
+                low = Math.Min(low, batteries[i]);
+            }
+
+            long high = (totalSum / n) + 1;
+            long ans = -1;
+
+            //binary search
+            while (low < high)
+            {
+                long mid = low + (high - low) / 2;
+                if (CanFit(n, mid, batteries))
+                {
+                    ans = mid;
+                    low = mid + 1;
+                }
+                else
+                    high = mid;
+            }
+
+            return ans;
+        }
+        private bool CanFit(int n, long timeSpan, int[] batteries)
+        {
+            long currBatSum = 0;
+            long targetBatSum = n * timeSpan;
+
+            foreach (int bat in batteries)
+            {
+                if (bat < timeSpan)
+                    currBatSum += bat;
+                else
+                    currBatSum += timeSpan;
+
+                if (currBatSum >= targetBatSum)
+                    return true;
+            }
+
+            return currBatSum >= targetBatSum;
         }
 
 
@@ -304,7 +384,7 @@ namespace LeetCode
 
         //11.Find Substring With Given Hash Value
         /// <summary>
-        /// 2156. Find Substring With Given Hash Value - H
+        /// 2156. Find Substring With Given Hash Value - H ???
         /// https://leetcode.com/problems/find-substring-with-given-hash-value/
         /// </summary>
         /// <param name="s"></param>
@@ -315,14 +395,32 @@ namespace LeetCode
         /// <returns></returns>
         public string SubStrHash(string s, int power, int modulo, int k, int hashValue)
         {
+            long maxPower = 1;
+            long hashed = 0;
+            int bestLeft = -1;
 
-            return null;
+            for (int i = s.Length - 1; i >= 0; --i)
+            {
+                hashed = (hashed * power + GetVal(s[i])) % modulo;
+                if (i + k < s.Length)
+                    hashed = (hashed - GetVal(s[i + k]) * maxPower % modulo + modulo) % modulo;
+                else
+                    maxPower = maxPower * power % modulo;
+                if (hashed == hashValue)
+                    bestLeft = i;
+            }
+            return s.Substring(bestLeft, k);
+
+        }
+        private int GetVal(char c)
+        {
+            return c - 'a' + 1;
         }
 
 
         //12.Groups of Strings
         /// <summary>
-        /// 2157. Groups of Strings - H
+        /// 2157. Groups of Strings - H 
         /// https://leetcode.com/problems/groups-of-strings/
         /// </summary>
         /// <param name="words"></param>

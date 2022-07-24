@@ -8,8 +8,9 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
-            AmazonOA_2022_07 amazonOA = new AmazonOA_2022_07();
-            amazonOA.MinimumRemoval(new int[] { 66, 90, 47, 25, 92, 90, 76, 85, 22, 3 });
+
+            ProgrammingSkills_II pp = new ProgrammingSkills_II();
+            pp.AddToArrayForm(new int[] { 1, 2, 0, 0 }, 34);
 
             ProblemSolving pss = new ProblemSolving();
             pss.MaxResult(new int[] { 1, -1, -2, 4, -7, 3 }, 2);
