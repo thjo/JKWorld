@@ -427,7 +427,150 @@ namespace LeetCode
         /// <returns></returns>
         public int[] GroupStrings(string[] words)
         {
-            return null;
+            Dictionary<string, int> dic = new Dictionary<string, int>();
+            List<string> uniqWords = new List<string>();
+            foreach (string s in words)
+            {
+                if (dic.ContainsKey(s) == false)
+                {
+                    uniqWords.Add(s);
+                    dic.Add(s, 0);
+                }
+                dic[s]++;
+            }
+
+            List<HashSet<string>> groups = new List<HashSet<string>>();
+            groups.Add(new HashSet<string>());
+            groups[0].Add(words[0]);
+            for (int i = 1; i < words.Length; i++)
+            {
+                UnionFind(words[i], groups);
+            }
+
+            //the maximum number of groups words can be divided into, and
+            //the size of the largest group.
+            int[] ans = new int[2];
+            ans[0] = groups.Count;
+            foreach (var g in groups)
+            {
+                int total = 0;
+                foreach (var gg in g)
+                {
+                    total += dic[gg];
+                }
+                ans[1] = Math.Max(total, ans[1]);
+            }
+            return ans;
+        }
+        private void UnionFind(string word, List<HashSet<string>> groups)
+        {
+            List<int> connectedIdxes = new List<int>();
+            for (int i = 0; i < groups.Count; i++)
+            {
+                foreach (string w in groups[i])
+                {
+                    if (IsConnected(w, word))
+                    {
+                        connectedIdxes.Add(i);
+                        break;
+                    }
+                }
+            }
+            if (connectedIdxes.Count > 0)
+            {
+                groups[connectedIdxes[0]].Add(word);
+                for (int i = connectedIdxes.Count -1; i > 0; i--)
+                {
+                    foreach (var w in groups[connectedIdxes[i]])
+                        groups[connectedIdxes[0]].Add(w);
+                    groups.Remove(groups[connectedIdxes[i]]);
+                }
+            }
+            else
+            {
+                groups.Add(new HashSet<string>());
+                groups[groups.Count-1].Add(word);
+            }
+        }
+        public int[] GroupStrings2(string[] words)
+        {
+            Dictionary<string, int> dic = new Dictionary<string, int>();
+            List<string> uniqWords = new List<string>();
+            foreach (string s in words)
+            {
+                if (dic.ContainsKey(s) == false)
+                {
+                    uniqWords.Add(s);
+                    dic.Add(s, 0);
+                }
+                dic[s]++;
+            }
+
+            int gCnt = 0;
+            int largestGroup = 0;
+            for (int i = 0; i < words.Length; i++)
+            {
+                string w = words[i];
+                if (uniqWords.Contains(w) == false)
+                    continue;
+
+                HashSet<string> g = new HashSet<string>();
+                Queue<string> qBuff = new Queue<string>();
+                qBuff.Enqueue(w);
+                while (qBuff.Count > 0)
+                {
+                    string word = qBuff.Dequeue();
+                    if (uniqWords.Contains(word) == false)
+                        continue;
+
+                    uniqWords.Remove(word);
+                    g.Add(word);
+                    for (int j = uniqWords.Count - 1; j >= 0; j--)
+                    {
+                        string ww = uniqWords[j];
+                        if (IsConnected(word, ww))
+                            qBuff.Enqueue(ww);
+                    }
+                }
+                if (g.Count > 0)
+                {
+                    gCnt++;
+                    int total = 0;
+                    foreach (var gg in g)
+                    {
+                        total += dic[gg];
+                    }
+                    largestGroup = Math.Max(largestGroup, total);
+                }
+            }
+
+            int[] ans = new int[2];
+            //the maximum number of groups words can be divided into, and
+            ans[0] = gCnt;
+            //the size of the largest group.
+            ans[1] = largestGroup;
+            return ans;
+        }
+        private bool IsConnected(string s1, string s2)
+        {
+            if (Math.Abs(s1.Length - s2.Length) > 1)
+                return false;
+
+            if (s1.Length < s2.Length)
+            {
+                string tmp = s1;
+                s1 = s2;
+                s2 = tmp;
+            }
+            HashSet<char> dic = new HashSet<char>();
+            foreach (char c in s1)
+                dic.Add(c);
+            for (int i = 0; i < s2.Length; i++)
+            {
+                if (dic.Contains(s2[i]))
+                    dic.Remove(s2[i]);
+            }
+            return dic.Count > 1 ? false : true;
         }
 
 

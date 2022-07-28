@@ -303,5 +303,112 @@ namespace LeetCode
 
             return ans;
         }
+
+
+
+        /// <summary>
+        /// 1886. Determine Whether Matrix Can Be Obtained By Rotation
+        /// https://leetcode.com/problems/determine-whether-matrix-can-be-obtained-by-rotation/
+        /// </summary>
+        /// <param name="mat"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public bool FindRotation(int[][] mat, int[][] target)
+        {
+            if (Compare(mat, target)) return true;
+
+            int size = mat.Length;
+            int layer = size / 2;
+            for (int rotate = 0; rotate < 3; rotate++)
+            {
+                for (int i = 0; i < layer; i++)
+                    mat = Rotate(mat, i, size);
+
+                if (Compare(mat, target)) return true;
+            }
+            return false;
+        }
+        private bool Compare(int[][] mat, int[][] target)
+        {
+            for (int i = 0; i < mat.Length; i++)
+                for (int j = 0; j < mat[0].Length; j++)
+                    if (mat[i][j] != target[i][j])
+                        return false;
+            return true;
+        }
+        private int[][] Rotate(int[][] mat, int layer, int size)
+        {
+            int first = layer;
+            int last = size - first - 1;
+            for (int j = first; j < last; j++)
+            {
+                int offset = j - first;
+
+                int tmp = mat[first][j];
+                mat[first][j] = mat[last - offset][first];
+                mat[last - offset][first] = mat[last][last - offset];
+                mat[last][last - offset] = mat[j][last];
+                mat[j][last] = tmp;
+            }
+            return mat;
+        }
+
+
+        /// <summary>
+        /// 429. N-ary Tree Level Order Traversal
+        /// https://leetcode.com/problems/n-ary-tree-level-order-traversal/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public IList<IList<int>> LevelOrder(Node root)
+        {
+            IList<IList<int>> ans = new List<IList<int>>();
+            Queue<NodeLv> qBuff = new Queue<NodeLv>();
+            if (root == null)
+                return ans;
+
+            qBuff.Enqueue(new NodeLv(root, 0));
+            while (qBuff.Count > 0)
+            {
+                NodeLv nd = qBuff.Dequeue();
+                if (ans.Count <= nd.Level)
+                {
+                    ans.Add(new List<int>());
+                }
+                ans[nd.Level].Add(nd.NodeInfo.val);
+                foreach (var child in nd.NodeInfo.children)
+                    qBuff.Enqueue(new NodeLv(child, nd.Level + 1));
+            }
+
+            return ans;
+        }
+        public class Node
+        {
+            public int val;
+            public IList<Node> children;
+
+            public Node() { }
+
+            public Node(int _val)
+            {
+                val = _val;
+            }
+
+            public Node(int _val, IList<Node> _children)
+            {
+                val = _val;
+                children = _children;
+            }
+        }
+        public class NodeLv
+        {
+            public Node NodeInfo = null;
+            public int Level = 0;
+            public NodeLv(Node nd, int lv)
+            {
+                NodeInfo = nd;
+                Level = lv;
+            }
+        }
     }
 }
