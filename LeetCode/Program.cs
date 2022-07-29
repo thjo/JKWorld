@@ -8,11 +8,11 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
-            AmazonOA_2022_07 amaa = new AmazonOA_2022_07();
-            amaa.GroupStrings(new string[] { "a", "b", "ab", "cde" });
+            //AmazonOA_2022_07 amaa = new AmazonOA_2022_07();
+            //amaa.GroupStrings(new string[] { "a", "b", "ab", "cde" });
 
             ProgrammingSkills_II pp = new ProgrammingSkills_II();
-            pp.AddToArrayForm(new int[] { 1, 2, 0, 0 }, 34);
+            pp.NextGreaterElementIII(101);
 
             ProblemSolving pss = new ProblemSolving();
             pss.MaxResult(new int[] { 1, -1, -2, 4, -7, 3 }, 2);

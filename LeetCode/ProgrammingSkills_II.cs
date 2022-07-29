@@ -410,5 +410,131 @@ namespace LeetCode
                 Level = lv;
             }
         }
+
+
+        /// <summary>
+        /// 1630. Arithmetic Subarrays
+        /// https://leetcode.com/problems/arithmetic-subarrays/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="l"></param>
+        /// <param name="r"></param>
+        /// <returns></returns>
+        public IList<bool> CheckArithmeticSubarrays(int[] nums, int[] l, int[] r)
+        {
+            List<bool> ans = new List<bool>();
+            for (int i = 0; i < l.Length; i++)
+            {
+                ans.Add(IsArithmetic(nums, l[i], r[i]));
+            }
+            return ans;
+        }
+        private bool IsArithmetic(int[] nums, int start, int end)
+        {
+            List<int> list = new List<int>();
+            for (int i = start; i <= end; i++)
+                list.Add(nums[i]);
+            list.Sort();
+            for (int i = 1; i < list.Count; i++)
+            {
+                if (list[i] - list[i - 1] != list[1] - list[0])
+                    return false;
+            }
+            return true;
+        }
+
+
+        /// <summary>
+        /// 503. Next Greater Element II
+        /// https://leetcode.com/problems/next-greater-element-ii/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int[] NextGreaterElements(int[] nums)
+        {
+            int n = nums.Length;
+            int[] nextGreaterList = new int[n];
+            for (int i = 0; i < n; i++)
+                nextGreaterList[i] = -1;
+
+            //0: value, 1: index
+            Stack<int[]> sBuff = new Stack<int[]>();
+            sBuff.Push(new int[] { nums[0], 0 });
+            for (int i = 1; i < n * 2; i++)
+            {
+                while (sBuff.Count > 0 && sBuff.Peek()[0] < nums[i % n])
+                {
+                    int[] tmp = sBuff.Pop();
+                    if (tmp[1] < n)
+                        nextGreaterList[tmp[1]] = nums[i % n];
+                }
+                sBuff.Push(new int[] { nums[i % n], i });
+            }
+            while (sBuff.Count > 0)
+            {
+                int[] tmp = sBuff.Pop();
+                if (tmp[1] < n)
+                    nextGreaterList[tmp[1]] = -1;
+            }
+            return nextGreaterList;
+        }
+
+
+        /// <summary>
+        /// 556. Next Greater Element III
+        /// https://leetcode.com/problems/next-greater-element-iii/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int NextGreaterElementIII(int n)
+        {
+            //No answer case
+            //single number
+            //numbers in descending order
+
+            char[] nums = n.ToString().ToCharArray();
+            //find the position where starting descending
+            int firstIdx = nums.Length - 2;
+            while (firstIdx >= 0 && nums[firstIdx] >= nums[firstIdx + 1])
+                firstIdx--;
+            if (firstIdx < 0)
+                return -1;
+
+            int secIdx = nums.Length - 1;
+            //find a number which is greater than the position "firstIdx"
+            while (secIdx >= 0 && nums[secIdx] <= nums[firstIdx])
+                secIdx--;
+
+            //swap 
+            SwapChar(nums, firstIdx, secIdx);
+
+            //In order to minimize, order >> reverse since it's in descending order
+            Reverse(nums, firstIdx + 1);
+
+            int ans = 0;
+            try
+            {
+                string tmp = "";
+                for (int i = 0; i < nums.Length; i++)
+                    tmp += nums[i];
+                ans = int.Parse(tmp);
+            }
+            catch { ans = -1; }
+            return ans;
+        }
+        private void Reverse(char[] nums, int start)
+        {
+            int i = start, j = nums.Length - 1;
+            while (i < j)
+            {
+                SwapChar(nums, i++, j--);
+            }
+        }
+        private void SwapChar(char[] nums, int i, int j)
+        {
+            char tmp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = tmp;
+        }
     }
 }
