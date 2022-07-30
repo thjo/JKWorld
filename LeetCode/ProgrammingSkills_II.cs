@@ -536,5 +536,210 @@ namespace LeetCode
             nums[i] = nums[j];
             nums[j] = tmp;
         }
+
+
+        /// <summary>
+        /// 860. Lemonade Change
+        /// https://leetcode.com/problems/lemonade-change/
+        /// </summary>
+        /// <param name="bills"></param>
+        /// <returns></returns>
+        public bool LemonadeChange(int[] bills)
+        {
+            int five = 0, ten = 0;
+            for (int i = 0; i < bills.Length; i++)
+            {
+                if (bills[i] != 5)
+                {
+                    int change = bills[i] - 5;
+                    while (change != 0)
+                    {
+                        if (change >= 10 && ten >= 1)
+                        {
+                            ten--;
+                            change -= 10;
+                        }
+                        else if (change >= 10 && five >= 2)
+                        {
+                            five -= 2;
+                            change -= 10;
+                        }
+                        else if (change >= 5 && five >= 1)
+                        {
+                            five--;
+                            change -= 5;
+                        }
+                        else
+                            return false;
+                    }
+                }
+
+                if (bills[i] == 5)
+                    five++;
+                else if (bills[i] == 10)
+                    ten++;
+            }
+
+            return true;
+        }
+
+
+        /// <summary>
+        /// 173. Binary Search Tree Iterator
+        /// https://leetcode.com/problems/binary-search-tree-iterator/
+        /// </summary>
+        public class BSTIterator
+        {
+
+            private TreeNode currPoint = null;
+            Queue<TreeNode> q = new Queue<TreeNode>();
+            public BSTIterator(TreeNode root)
+            {
+                currPoint = root;
+                SetQueue(currPoint);
+            }
+            private void SetQueue(TreeNode root)
+            {
+                if (root == null)
+                    return;
+                SetQueue(root.left);
+                q.Enqueue(root);
+                SetQueue(root.right);
+            }
+            public int Next()
+            {
+                currPoint = q.Dequeue();
+                return currPoint.val;
+            }
+
+            public bool HasNext()
+            {
+                return q.Count > 0;
+            }
+
+        }
+
+
+        /// <summary>
+        /// 1845. Seat Reservation Manager
+        /// https://leetcode.com/problems/seat-reservation-manager/
+        /// </summary>
+        public class SeatManager
+        {
+
+            int[] seats = null;
+            int size = 0;
+            public SeatManager(int n)
+            {
+                seats = new int[n];
+                for (int i = 1; i <= n; i++)
+                    Add(i);
+            }
+            private void Add(int seat)
+            {
+                //add a new item at the end of the list
+                seats[size] = seat;
+                size++;
+
+                //Move Up
+                MoveUp();
+            }
+            private int Peek()
+            {
+                if (size == 0) return -1;
+                return seats[0];
+            }
+            private int Poll()
+            {
+                if (size == 0) return -1;
+
+                int retVal = seats[0];
+                seats[0] = seats[size - 1];
+                size--;
+                MoveDown();
+                return retVal;
+            }
+            private void MoveUp()
+            {
+                int idx = size - 1;
+                while (HasParentIndex(idx) && Parent(idx) > seats[idx])
+                {
+                    Swap(GetParentIndex(idx), idx);
+                    idx = GetParentIndex(idx);
+                }
+            }
+            private void MoveDown()
+            {
+                int idx = 0;
+                while (HasLeftChildIndex(idx))
+                {
+                    int sChildIdx = GetLeftChildIndex(idx);
+                    if (HasRightChildIndex(idx) && RightChild(idx) < LeftChild(idx))
+                        sChildIdx = GetRightChildIndex(idx);
+
+                    if (seats[idx] > seats[sChildIdx])
+                    {
+                        Swap(idx, sChildIdx);
+                        idx = sChildIdx;
+                    }
+                    else
+                        break;
+                }
+            }
+            private int GetLeftChildIndex(int parentIndex)
+            {
+                return parentIndex * 2 + 1;
+            }
+            private int GetRightChildIndex(int parentIndex)
+            {
+                return parentIndex * 2 + 2;
+            }
+            private int GetParentIndex(int childIdex)
+            {
+                return (childIdex - 1) / 2;
+            }
+            private bool HasLeftChildIndex(int index)
+            {
+                return GetLeftChildIndex(index) < size;
+            }
+            private bool HasRightChildIndex(int index)
+            {
+                return GetRightChildIndex(index) < size;
+            }
+            private bool HasParentIndex(int index)
+            {
+                return GetParentIndex(index) >= 0;
+            }
+
+            private int LeftChild(int index)
+            {
+                return seats[GetLeftChildIndex(index)];
+            }
+            private int RightChild(int index)
+            {
+                return seats[GetRightChildIndex(index)];
+            }
+            private int Parent(int index)
+            {
+                return seats[GetParentIndex(index)];
+            }
+
+            private void Swap(int index1, int index2)
+            {
+                int temp = seats[index1];
+                seats[index1] = seats[index2];
+                seats[index2] = temp;
+            }
+            public int Reserve()
+            {
+                return Poll();
+            }
+
+            public void Unreserve(int seatNumber)
+            {
+                Add(seatNumber);
+            }
+        }
+
     }
 }
