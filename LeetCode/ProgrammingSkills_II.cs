@@ -741,5 +741,60 @@ namespace LeetCode
             }
         }
 
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class NumMatrix
+        {
+
+            int[][] _matrix = null;
+            public NumMatrix(int[][] matrix)
+            {
+                int n = matrix.Length;
+                int m = matrix[0].Length;
+                _matrix = new int[n][];
+
+                //3 0 1
+                //5 6 3
+                //1 2 0
+
+                //Sum left to right
+                //3  3  4
+                //5  11 14
+                //1  3  3
+                for (int row = 0; row < n; row++)
+                {
+                    _matrix[row] = new int[m];
+                    _matrix[row][0] = matrix[row][0];
+                    for (int col = 1; col < m; col++)
+                        _matrix[row][col] = _matrix[row][col - 1] + matrix[row][col];
+                }
+
+                //Sum top to bottom
+                //3  3  4
+                //8  14 18
+                //9  17 21
+                for(int col = 0;  col < m; col++)
+                {
+                    for(int row = 1; row < n; row++)
+                        _matrix[row][col] = _matrix[row-1][col] + _matrix[row][col];
+                }
+            }
+
+            public int SumRegion(int row1, int col1, int row2, int col2)
+            {
+                int sum = _matrix[row2][col2];
+                if (row1 > 0)
+                    sum -= _matrix[row1 - 1][col2];
+                if (col1 > 0)
+                    sum -= _matrix[row2][col1-1];
+                if (row1 > 0 && col1 > 0)
+                    sum += _matrix[row1 - 1][col1 - 1];
+
+                return sum;
+            }
+        }
     }
 }
