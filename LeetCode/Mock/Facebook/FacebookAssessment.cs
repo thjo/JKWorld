@@ -821,7 +821,8 @@ namespace LeetCode
                 return true;
             else return false;
         }
-        public class BinaryMatrix {
+        public class BinaryMatrix
+        {
             public int Get(int row, int col) { return 0; }
             public IList<int> Dimensions() { return null; }
         }
@@ -860,5 +861,150 @@ namespace LeetCode
         #endregion
 
 
+        #region | Phone Interview - 07/30/2022 | 
+
+        /// <summary>
+        /// 349. Intersection of Two Arrays
+        /// https://leetcode.com/problems/intersection-of-two-arrays/solution/
+        /// </summary>
+        /// <param name="nums1"></param>
+        /// <param name="nums2"></param>
+        /// <returns></returns>
+        public int[] Intersection(int[] nums1, int[] nums2)
+        {
+            //Sort
+            Array.Sort(nums1);
+            Array.Sort(nums2);
+            List<int> intersections = new List<int>();
+
+            int idx1 = 0, idx2 = 0;
+            while (idx1 < nums1.Length && idx2 < nums2.Length)
+            {
+                if (nums1[idx1] == nums2[idx2])
+                {
+                    if (intersections.Contains(nums1[idx1]) == false)
+                        intersections.Add(nums1[idx1]);
+                    idx1++; idx2++;
+                }
+                else if (nums1[idx1] > nums2[idx2])
+                {
+                    idx2++;
+                }
+                else
+                {
+                    idx1++;
+                }
+            }
+
+            return intersections.ToArray();
+        }
+
+        /// <summary>
+        /// 340. Longest Substring with At Most K Distinct Characters
+        /// https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public int LengthOfLongestSubstringKDistinct(string s, int k)
+        {
+            Dictionary<char, int> dic = new Dictionary<char, int>();
+            int l = 0, r = 0;
+            int maxLen = 0;
+            while (r < s.Length)
+            {
+                if (dic.ContainsKey(s[r]) == false)
+                    dic.Add(s[r], 0);
+                dic[s[r]]++;
+
+                while (dic.Count > k)
+                {
+                    //Remove
+                    dic[s[l]]--;
+                    if (dic[s[l]] == 0)
+                        dic.Remove(s[l]);
+                    l++;
+                }
+
+                maxLen = Math.Max(maxLen, r - l + 1);
+                r++;
+            }
+
+            return maxLen;
+        }
+
+
+        /// <summary>
+        /// 395. Longest Substring with At Least K Repeating Characters
+        /// https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public int LongestSubstring(string s, int k)
+        {
+            int longestLen = 0;
+            int maxUniqueChars = GetUniqueChars(s);
+
+            //유니크한 문자 갯수가 각각 들어갔을 때를 가정하여 반복문으로 품
+            for (int currUnique = 1; currUnique < maxUniqueChars; currUnique++)
+            {
+                longestLen = Math.Max(longestLen, LongestSubstringWithKUniqueChars(s, k, currUnique));
+            }
+            return longestLen;
+        }
+        private int GetUniqueChars(string s)
+        {
+            HashSet<char> map = new HashSet<char>();
+            foreach (char c in s)
+            {
+                if (map.Contains(c) == false)
+                    map.Add(c);
+            }
+            return map.Count;
+        }
+        private int LongestSubstringWithKUniqueChars(string s, int k, int u)
+        {
+            int longestLen = 0;
+            int l = 0, r = 0;
+            int[] dic = new int[26];
+            while (r < s.Length)
+            {
+                dic[s[r] - 'a']++;
+
+                while (GetUniqueCharCnt(dic) > u)
+                {
+                    dic[s[l] - 'a']--;
+                    l++;
+                }
+                if (IsArleastKRepeat(dic, k))
+                    longestLen = Math.Max(longestLen, r - l + 1);
+
+                r++;
+            }
+
+            return longestLen;
+        }
+
+        private int GetUniqueCharCnt(int[] dic)
+        {
+            int ans = 0;
+            foreach (int c in dic)
+            {
+                if (c > 0) ans++;
+            }
+            return ans;
+        }
+        private bool IsArleastKRepeat(int[] dic, int k)
+        {
+            foreach (int c in dic)
+            {
+                if (c != 0 && c < k)
+                    return false;
+            }
+            return true;
+        }
+
+        #endregion
     }
 }

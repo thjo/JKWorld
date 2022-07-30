@@ -9,6 +9,8 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
+            FacebookAssessment fa = new FacebookAssessment();
+            fa.LongestSubstring("aaabbb", 3);
             //AmazonOA_2022_07 amaa = new AmazonOA_2022_07();
             //amaa.GroupStrings(new string[] { "a", "b", "ab", "cde" });
 
