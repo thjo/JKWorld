@@ -9,19 +9,6 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
-            FacebookAssessment fa = new FacebookAssessment();
-            fa.LongestSubstring("aaabbb", 3);
-            //AmazonOA_2022_07 amaa = new AmazonOA_2022_07();
-            //amaa.GroupStrings(new string[] { "a", "b", "ab", "cde" });
-
-            int[][] mm = new int[5][];
-            mm[0] = new int[5] { 3, 0, 1, 4, 2 };
-            mm[1] = new int[5] { 5, 6, 3, 2, 1 };
-            mm[2] = new int[5] { 1, 2, 0, 1, 5 };
-            mm[3] = new int[5] { 4, 1, 0, 1, 7 };
-            mm[4] = new int[5] { 1, 0, 3, 0, 5 };
-            NumMatrix nm = new NumMatrix(mm);
-            nm.SumRegion(2, 1, 4, 3);
             ProgrammingSkills_II pp = new ProgrammingSkills_II();
             pp.NextGreaterElementIII(101);
 

@@ -947,7 +947,7 @@ namespace LeetCode
             int maxUniqueChars = GetUniqueChars(s);
 
             //유니크한 문자 갯수가 각각 들어갔을 때를 가정하여 반복문으로 품
-            for (int currUnique = 1; currUnique < maxUniqueChars; currUnique++)
+            for (int currUnique = 1; currUnique <= maxUniqueChars; currUnique++)
             {
                 longestLen = Math.Max(longestLen, LongestSubstringWithKUniqueChars(s, k, currUnique));
             }
