@@ -1031,6 +1031,52 @@ namespace LeetCode
             return freshOranges > 0 ? -1 : numfMins;
         }
 
+
+        /// <summary>
+        /// 684. Redundant Connection
+        /// https://leetcode.com/problems/redundant-connection/
+        /// </summary>
+        /// <param name="edges"></param>
+        /// <returns></returns>
+        public int[] FindRedundantConnection(int[][] edges)
+        {
+            //node, linked nodes
+            Dictionary<int, List<int>> graph = new Dictionary<int, List<int>>();
+            HashSet<int> visited = new HashSet<int>();
+            foreach (var edge in edges)
+            {
+                visited.Clear();
+                int source = edge[0];
+                int dest = edge[1];
+                if (graph.ContainsKey(source) && graph[source].Count > 0
+                    && graph.ContainsKey(dest) && graph[dest].Count > 0
+                    && DFSRC(graph, source, dest, visited))
+                    return edge;
+
+                if (graph.ContainsKey(source) == false)
+                    graph.Add(source, new List<int>());
+                if (graph.ContainsKey(dest) == false)
+                    graph.Add(dest, new List<int>());
+                graph[source].Add(dest);
+                graph[dest].Add(source);
+            }
+            return new int[] { -1, -1 };
+        }
+        private bool DFSRC(Dictionary<int, List<int>> graph, int source, int dest, HashSet<int> visited)
+        {
+            if (visited.Contains(source))
+                return false;
+
+            if (source == dest)
+                return true;
+            visited.Add(source);
+            foreach(var c in graph[source])
+            {
+                if (DFSRC(graph, c, dest, visited))
+                    return true;
+            }
+            return false;
+        }
     }
 
 }
