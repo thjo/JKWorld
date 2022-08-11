@@ -229,5 +229,143 @@ namespace LeetCode
             }
 
         }
+
+
+        /// <summary>
+        /// 417. Pacific Atlantic Water Flow
+        /// https://leetcode.com/problems/pacific-atlantic-water-flow/
+        /// </summary>
+        /// <param name="heights"></param>
+        /// <returns></returns>
+        public IList<IList<int>> PacificAtlantic(int[][] heights)
+        {
+            int rows = heights.Length;
+            int cols = heights[0].Length;
+            //default: null, 0: No way, 1: Pacific, 2: Atlantic, 3: Both
+            int?[][] dp = new int?[rows][];
+            for (int i = 0; i < rows; i++)
+                dp[i] = new int?[cols];
+
+            //Direction: to left, to bottom
+            for (int r = 0; r < rows; r++)
+            {
+                for (int c = cols - 1; c >= 0; c--)
+                {
+                    dp[r][c] = GetPacificAtlanticDef(r, c, rows, cols);
+                    //Compare it to top
+                    if (r > 0 && dp[r - 1][c] <= dp[r][c])
+                        dp[r][c] |= dp[r - 1][c];
+                    //Compare it to right
+                    if (c < cols - 1 && dp[r][c + 1] <= dp[r][c])
+                        dp[r][c] |= dp[r][c + 1];
+                }
+            }
+            //Direction: to right, to top
+            for (int r = 0; r < rows; r++)
+            {
+                for (int c = cols - 1; c >= 0; c--)
+                {
+                    dp[r][c] |= GetPacificAtlanticDef(r, c, rows, cols);
+                    //Compare it to bottom
+                    if (r < rows - 1 && dp[r + 1][c] <= dp[r][c])
+                        dp[r][c] |= dp[r + 1][c];
+                    //Compare it to left
+                    if (c > 0 && dp[r][c - 1] <= dp[r][c])
+                        dp[r][c] |= dp[r][c - 1];
+                }
+            }
+
+            IList<IList<int>> ans = new List<IList<int>>();
+            for (int r = 0; r < rows; r++)
+            {
+                for (int c = cols - 1; c >= 0; c--)
+                {
+                    if (dp[r][c] == 3)
+                    {
+                        IList<int> buff = new List<int>();
+                        buff.Add(r); buff.Add(c);
+                        ans.Add(buff);
+                    }
+                }
+            }
+            return ans;
+        }
+        private int GetPacificAtlanticDef(int r, int c, int rows, int cols)
+        {
+            int val = 0;    //No way
+            if (r == 0)
+                val |= 1;    //Pacific;
+            if (r == rows - 1)
+                val |= 2;    //Atlantic
+            if (c == 0)
+                val |= 1;   //Pacific;
+            if (c == cols - 1)
+                val |= 2;    //Atlantic        
+            return val;
+        }
+
+
+
+        /// <summary>
+        /// 416. Partition Equal Subset Sum
+        /// https://leetcode.com/problems/partition-equal-subset-sum/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public bool CanPartition(int[] nums)
+        {
+            if (nums.Length == 0)
+                return false;
+            int totalSum = 0;
+            // find sum of all array elements
+            foreach (int num in nums)
+            {
+                totalSum += num;
+            }
+            // if totalSum is odd, it cannot be partitioned into equal sum subset
+            if (totalSum % 2 != 0) return false;
+            int subSetSum = totalSum / 2;
+            bool?[][] dp = new bool?[nums.Length][];
+            for (int i = 0; i < nums.Length; i++)
+                dp[i] = new bool?[subSetSum + 1];
+            return CanPartitionR(nums, 0, subSetSum, dp);
+        }
+        private bool CanPartitionR(int[] nums, int idx, int subSetSum, bool?[][] dp)
+        {
+            if (subSetSum == 0) return true;
+            else if (subSetSum < 0) return false;
+            if (idx < 0 || idx == nums.Length) return false;
+
+            if (dp[idx][subSetSum] != null) return dp[idx][subSetSum].Value;
+            bool ret = CanPartitionR(nums, idx + 1, subSetSum, dp) || CanPartitionR(nums, idx + 1, subSetSum - nums[idx], dp);
+            dp[idx][subSetSum] = ret;
+            return ret;
+        }
+
+        /// <summary>
+        /// 152. Maximum Product Subarray
+        /// https://leetcode.com/problems/maximum-product-subarray/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int MaxProduct(int[] nums)
+        {
+            int maxProduct = nums[0];
+            int totalMax = nums[0];
+            int totalMin = nums[0];
+            for(int i = 1; i < nums.Length; i++)
+            {
+                int max = Math.Max(nums[i], Math.Max(totalMin * nums[i], totalMax * nums[i]));
+                int min = Math.Min(nums[i], Math.Min(totalMin * nums[i], totalMax * nums[i]));
+                totalMax = max;
+                totalMin = min;
+                maxProduct = Math.Max(totalMax, maxProduct);
+            }
+
+            return maxProduct;
+        }
+
+
+
     }
 }
