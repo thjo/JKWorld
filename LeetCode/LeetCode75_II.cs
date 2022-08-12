@@ -366,6 +366,38 @@ namespace LeetCode
         }
 
 
+        /// <summary>
+        /// 16. 3Sum Closest
+        /// https://leetcode.com/problems/3sum-closest/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public int ThreeSumClosest(int[] nums, int target)
+        {
+            int ans = int.MaxValue;
+            int n = nums.Length;
+            Array.Sort(nums);
+            for(int i = 0; i < n; i++)
+            {
+                int low = i + 1;
+                int high = n - 1;
+                while(low < high)
+                {
+                    int sum = nums[i] + nums[low] + nums[high];
+                    if (Math.Abs(target - sum) < Math.Abs(ans))
+                        ans = target - sum;
 
+                    if (target - sum == 0)
+                        return target;
+                    else if (target > sum)
+                        low++;
+                    else
+                        high--;
+                }
+            }
+
+            return target - ans;
+        }
     }
 }
