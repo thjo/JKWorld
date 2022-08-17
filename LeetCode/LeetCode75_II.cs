@@ -430,5 +430,143 @@ namespace LeetCode
 
             return ans;
         }
+
+
+        /// <summary>
+        /// 208. Implement Trie (Prefix Tree)
+        /// https://leetcode.com/problems/implement-trie-prefix-tree/
+        /// </summary>
+        public class Trie
+        {
+
+            private TrieNode root;
+            public Trie()
+            {
+                root = new TrieNode();
+            }
+
+            public void Insert(string word)
+            {
+                TrieNode node = root;
+                for (int i = 0; i < word.Length; i++)
+                {
+                    char c = word[i];
+                    if (node.ContainsKey(c) == false)
+                        node.Put(c, new TrieNode());
+                    node = node.Get(c);
+                }
+                node.SetEnd();
+            }
+
+            private TrieNode SearchPrefix(string word)
+            {
+                TrieNode node = root;
+                for (int i = 0; i < word.Length; i++)
+                {
+                    char c = word[i];
+                    if (node.ContainsKey(c))
+                    {
+                        node = node.Get(c);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                return node;
+            }
+            public bool Search(string word)
+            {
+                TrieNode node = SearchPrefix(word);
+                return node != null && node.IsEnd();
+            }
+            public bool StartsWith(string prefix)
+            {
+                TrieNode node = SearchPrefix(prefix);
+                return node != null;
+            }
+        }
+        public class TrieNode
+        {
+            private TrieNode[] links;
+            private const int R = 26;
+            private bool isEnd;
+            public TrieNode()
+            {
+                links = new TrieNode[R];
+            }
+
+            public bool ContainsKey(char c)
+            {
+                return links[c - 'a'] != null;
+            }
+            public TrieNode Get(char c)
+            {
+                return links[c - 'a'];
+            }
+            public void Put(char c, TrieNode node)
+            {
+                links[c - 'a'] = node;
+            }
+            public void SetEnd()
+            {
+                isEnd = true;
+            }
+            public bool IsEnd()
+            {
+                return isEnd;
+            }
+        }
+
+
+        /// <summary>
+        /// 155. Min Stack
+        /// https://leetcode.com/problems/min-stack/
+        /// </summary>
+        public class MinStack
+        {
+            //0: original value, 1: min value
+            Stack<int[]> sData = null;
+            public MinStack()
+            {
+                sData = new Stack<int[]>();
+            }
+
+
+            public void Push(int val)
+            {
+                if (sData.Count == 0)
+                    sData.Push(new int[] { val, val });
+                else
+                {
+                    sData.Push(new int[] { val, Math.Min(val, GetMin()) });
+                }
+            }
+
+            public void Pop()
+            {
+                sData.Pop();
+            }
+
+            public int Top()
+            {
+                if (sData.Count > 0)
+                {
+                    int[] tmp = sData.Peek();
+                    return tmp[0];
+                }
+                else return -1;
+            }
+
+            public int GetMin()
+            {
+                if (sData.Count > 0)
+                {
+                    int[] tmp = sData.Peek();
+                    return tmp[1];  
+                }
+                else return -1;
+            }
+        }
     }
 }
