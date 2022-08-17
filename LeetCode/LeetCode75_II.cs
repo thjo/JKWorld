@@ -399,5 +399,36 @@ namespace LeetCode
 
             return target - ans;
         }
+
+
+
+        /// <summary>
+        /// 199. Binary Tree Right Side View
+        /// https://leetcode.com/problems/binary-tree-right-side-view/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public IList<int> RightSideView(TreeNode root)
+        {
+            IList<int> ans = new List<int>();
+            if (root == null)
+                return ans;
+
+            Queue<TreeNode> q = new Queue<TreeNode>();
+            q.Enqueue(root);
+            while (q.Count > 0)
+            {
+                int size = q.Count;
+                for (int i = 0; i < size; i++)
+                {
+                    var node = q.Dequeue();
+                    if (i == 0) ans.Add(node.val);
+                    if (node.right != null) q.Enqueue(node.right);
+                    if (node.left != null) q.Enqueue(node.left);
+                }
+            }
+
+            return ans;
+        }
     }
 }
