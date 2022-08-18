@@ -568,5 +568,84 @@ namespace LeetCode
                 else return -1;
             }
         }
+
+
+        /// <summary>
+        /// 815. Bus Routes
+        /// https://leetcode.com/problems/bus-routes/
+        /// </summary>
+        /// <param name="routes"></param>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public int NumBusesToDestination(int[][] routes, int source, int target)
+        {
+            if (source == target)
+                return 0;
+            int n = routes.Length;
+
+            //O(nm) n: # of routes, m: # of stops
+            //Stop, Routes
+            Dictionary<int, List<int>> mapStopRoute = new Dictionary<int, List<int>>();
+            for(int r = 0; r < n; r++)
+            {
+                for(int s = 0; s < routes[r].Length; s++)
+                {
+                    if (mapStopRoute.ContainsKey(routes[r][s]) == false)
+                        mapStopRoute.Add(routes[r][s], new List<int>());
+                    mapStopRoute[routes[r][s]].Add(r);
+                }
+            }
+
+            HashSet<int> seenRoutes = new HashSet<int>();
+            HashSet<int> seenStops = new HashSet<int>();
+            //0: stop, 1: # of routes taken so far
+            int ans = -1;
+
+            //O(m*m) n: # of routes, m: # of stops
+            Queue<int[]> qStops = new Queue<int[]>();
+            qStops.Enqueue(new int[] { source, 0 });
+            while(qStops.Count > 0)
+            {
+                int[] stop = qStops.Dequeue();
+                seenStops.Add(stop[0]);
+                if (stop[0] == target)
+                {
+                    ans = stop[1];
+                    break;
+                }
+                //which route does this stop belong to
+                foreach(var route in mapStopRoute[stop[0]])
+                {
+                    if(seenRoutes.Contains(route)==false)
+                    {
+                        //Add all stops belongs to this route except the stops already visited.
+                        int startIdx = -1;
+                        for(int i = 0; i < routes[route].Length; i++)
+                        {
+                            if(routes[route][i] == stop[0])
+                            {
+                                startIdx = i;
+                                break;
+                            }
+                        }
+                        for(int i = startIdx+1; i < routes[route].Length; i++)
+                        {
+                            if( seenStops.Contains(routes[route][i]) == false)
+                                qStops.Enqueue(new int[] { routes[route][i], stop[1] + 1 });
+                        }
+                        for (int i = 0; i < startIdx; i++)
+                        {
+                            if (seenStops.Contains(routes[route][i]) == false)
+                                qStops.Enqueue(new int[] { routes[route][i], stop[1] + 1 });
+                        }
+
+                        seenRoutes.Add(route);
+                    }
+                }
+            }
+
+            return ans;
+        }
     }
 }
