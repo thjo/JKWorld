@@ -9,12 +9,8 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
-
-            LeetCode75_II l75II = new LeetCode75_II();
-            int[][] heights = new int[2][];
-            heights[0] = new int[] { 1,2,7 };
-            heights[1] = new int[] { 3,6,7};
-            l75II.NumBusesToDestination(heights, 1, 6);
+            DataStructures.DataStructureII dsII = new DataStructures.DataStructureII();
+            dsII.MinRemoveToMakeValid("lee(t(c)o)de)");
 
             ProgrammingSkills_II pp = new ProgrammingSkills_II();
             pp.NextGreaterElementIII(101);
@@ -22,13 +18,6 @@ namespace LeetCode
             ProblemSolving pss = new ProblemSolving();
             pss.MaxResult(new int[] { 1, -1, -2, 4, -7, 3 }, 2);
             pss.MaxResult(new int[] { 10, -5, -2, 4, 0, 3 }, 3);
-            DataStructures.DataStructureII dsII = new DataStructures.DataStructureII();
-            //int[][] intervals = new int[4][];
-            //intervals[0] = new int[2] { 1, 2 };
-            //intervals[1] = new int[2] { 2, 3 };
-            //intervals[2] = new int[2] { 3, 4 };
-            //intervals[3] = new int[2] { 1, 3 };
-            //dsII.EraseOverlapIntervals(intervals);
 
             Leetcode75Questions l75 = new Leetcode75Questions();
             //l75.LengthOfLIS(new int[] { 0, 1, 0, 3, 2, 3 });

@@ -857,8 +857,54 @@ namespace LeetCode.DataStructures
         }
 
 
+        /// <summary>
+        /// 1249. Minimum Remove to Make Valid Parentheses
+        /// https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public string MinRemoveToMakeValid(string s)
+        {
+            //Track '(' char - index
+            Stack<int> sParenthes = new Stack<int>();
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == '(')
+                {
+                    sParenthes.Push(i);
+                }
+                else if (s[i] == ')')
+                {
+                    if (sParenthes.Count > 0 && s[sParenthes.Peek()] == '(')
+                    {
+                        sParenthes.Pop();
+                    }
+                    else
+                        sParenthes.Push(i);
+                }
+            }
 
-
+            StringBuilder sbAns = new StringBuilder();
+            int[] skipIdx = new int[sParenthes.Count];
+            int idx = sParenthes.Count - 1;
+            while (sParenthes.Count > 0)
+            {
+                skipIdx[idx] = sParenthes.Pop();
+                idx--;
+            }
+            idx = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (idx < skipIdx.Length && skipIdx[idx] == i)
+                {
+                    idx++;
+                    continue;
+                }
+                else
+                    sbAns.Append(s[i]);
+            }
+            return sbAns.ToString();
+        }
 
 
 
