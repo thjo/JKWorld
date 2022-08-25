@@ -1,4 +1,5 @@
 ﻿using LeetCode.Mock;
+using LeetCode.Mock.Uber;
 using System;
 using System.Collections.Generic;
 using static LeetCode.ProgrammingSkills_II;
@@ -9,6 +10,13 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
+            PhoneInterview uber = new PhoneInterview();
+            int[][] pieces = new int[3][];
+            pieces[0] = new int[1] { 78 };
+            pieces[1] = new int[2] { 4,64 };
+            pieces[2] = new int[1] { 91 };
+            uber.CanFormArray(new int[] { 91, 4, 64, 78 }, pieces);
+
             DataStructures.DataStructureII dsII = new DataStructures.DataStructureII();
             dsII.MinRemoveToMakeValid("lee(t(c)o)de)");
 
