@@ -45,7 +45,6 @@ namespace LeetCode.Mock.Uber
             return true;
         }
 
-
         /// <summary>
         /// 1400. Construct K Palindrome Strings
         /// https://leetcode.com/problems/construct-k-palindrome-strings/
@@ -74,6 +73,72 @@ namespace LeetCode.Mock.Uber
                     cnt++;
             }
             return cnt > k ? false : true;
+        }
+
+        /// <summary>
+        /// 1281. Subtract the Product and Sum of Digits of an Integer
+        /// https://leetcode.com/problems/subtract-the-product-and-sum-of-digits-of-an-integer/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int SubtractProductAndSum(int n)
+        {
+            int product = n % 10;
+            int sum = n % 10;
+            while (n / 10 > 0)
+            {
+                n = n / 10;
+                product *= n % 10;
+                sum += n % 10;
+            }
+            return product - sum;
+        }
+
+
+        /// <summary>
+        /// 226. Invert Binary Tree
+        /// https://leetcode.com/problems/invert-binary-tree/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public TreeNode InvertTree(TreeNode root)
+        {
+            if (root == null)
+                return root;
+
+            TreeNode temp = root.left;
+            root.left = root.right;
+            root.right = temp;
+
+            InvertTree(root.right);
+            InvertTree(root.left);
+            return root;
+        }
+
+
+        public class Employee
+        {
+            public int id;
+            public int importance;
+            public IList<int> subordinates;
+        }
+        public int GetImportance(IList<Employee> employees, int id)
+        {
+            Dictionary<int, Employee> dicEmps = new Dictionary<int, Employee>();
+            foreach (var emp in employees)
+                dicEmps.Add(emp.id, emp);
+
+            Queue<Employee> qEmp = new Queue<Employee>();
+            qEmp.Enqueue(dicEmps[id]);
+            int sum = 0;
+            while (qEmp.Count > 0)
+            {
+                Employee empl = qEmp.Dequeue();
+                sum += empl.importance;
+                foreach (var eId in empl.subordinates)
+                    qEmp.Enqueue(dicEmps[eId]);
+            }
+            return sum;
         }
     }
 }
