@@ -140,5 +140,72 @@ namespace LeetCode.Mock.Uber
             }
             return sum;
         }
+
+
+        public TreeNode SearchBST(TreeNode root, int val)
+        {
+            if (root == null)
+                return null;
+
+            if (root.val == val)
+                return root;
+            else if (root.val > val)
+                return SearchBST(root.left, val);
+            else
+                return SearchBST(root.right, val);
+        }
+
+        /// <summary>
+        /// 1136. Parallel Courses
+        /// https://leetcode.com/problems/parallel-courses/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <param name="relations"></param>
+        /// <returns></returns>
+        public int MinimumSemesters(int n, int[][] relations)
+        {
+            //prevCoursei, nextCoursei
+            //int[][] relations
+            //course, prev-courses
+            List<List<int>> graph = new List<List<int>>();
+            int[] inDegree = new int[n + 1];
+            for(int i = 0; i <= n; i++)
+                graph.Add(new List<int>());
+
+            foreach(var p in relations)
+            {
+                graph[p[0]].Add(p[1]);
+                inDegree[p[1]]++;
+            }
+
+
+            Queue<int> qG = new Queue<int>();
+            for(int i = 1; i <= n; i++)
+            {
+                if (inDegree[i] == 0)
+                    qG.Enqueue(i);
+            }
+
+            int minSemester = 0;
+            while(qG.Count > 0)
+            {
+                minSemester++;
+                Queue<int> qNewG = new Queue<int>();
+                while (qG.Count > 0)
+                {
+                    n--;
+                    int c = qG.Dequeue();
+                    foreach (int endCourse in graph[c])
+                    {
+                        inDegree[endCourse]--;
+                        if (inDegree[endCourse] == 0)
+                            qNewG.Enqueue(endCourse);
+                    }
+                }
+                qG = qNewG;
+            }
+            return n == 0 ? minSemester : -1;
+        }
     }
+
 }

@@ -623,8 +623,6 @@ namespace LeetCode
         {
             if (grid == null)
                 return -1;
-            else if (grid.Length <= 1)
-                return grid.Length;
 
             int n = grid.Length;
             int[][] directions = new int[8][];
@@ -1653,9 +1651,34 @@ namespace LeetCode
             }
             return false;
         }
+
+
+        public void Solve(char[][] board)
+        {
+            int n = board.Length;
+            int m = board[0].Length;
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    if (board[i][j] == 'O' )
+                    {
+                        paths.Clear();
+                        SolveR(board, i, j, n, m);
+                    }
+                }
+            }
+        }
+        private void SolveR(char[][] board, int row, int col, int n, int m)
+        {
+            board[row][col] = 'V';
+
+
+        }
+        
+
+
+
     }
-
-
-
 
 }
