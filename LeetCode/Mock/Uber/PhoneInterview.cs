@@ -169,10 +169,10 @@ namespace LeetCode.Mock.Uber
             //course, prev-courses
             List<List<int>> graph = new List<List<int>>();
             int[] inDegree = new int[n + 1];
-            for(int i = 0; i <= n; i++)
+            for (int i = 0; i <= n; i++)
                 graph.Add(new List<int>());
 
-            foreach(var p in relations)
+            foreach (var p in relations)
             {
                 graph[p[0]].Add(p[1]);
                 inDegree[p[1]]++;
@@ -180,14 +180,14 @@ namespace LeetCode.Mock.Uber
 
 
             Queue<int> qG = new Queue<int>();
-            for(int i = 1; i <= n; i++)
+            for (int i = 1; i <= n; i++)
             {
                 if (inDegree[i] == 0)
                     qG.Enqueue(i);
             }
 
             int minSemester = 0;
-            while(qG.Count > 0)
+            while (qG.Count > 0)
             {
                 minSemester++;
                 Queue<int> qNewG = new Queue<int>();
@@ -206,6 +206,194 @@ namespace LeetCode.Mock.Uber
             }
             return n == 0 ? minSemester : -1;
         }
+
+
+        /// <summary>
+        /// 1064. Fixed Point
+        /// https://leetcode.com/problems/fixed-point/
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public int FixedPoint(int[] arr)
+        {
+            int ans = -1;
+            int left = 0, right = arr.Length - 1;
+            while (left <= right)
+            {
+                int mid = left + (right - left) / 2;
+                if (arr[mid] == mid)
+                {
+                    ans = mid;
+                    //return the smallest index i that satisfies arr[i] == i
+                    right = mid - 1;
+                }
+                else if (arr[mid] > mid)
+                    right = mid - 1;
+                else
+                    left = mid + 1;
+            }
+
+            return ans;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public Node Construct(int[][] grid)
+        {
+            Node root = new Node(true, true);
+            if (grid == null || grid.Length == 0 || grid[0].Length == 0)
+                return root;
+            root.isLeaf = false;
+            int n = grid.Length;
+            int m = grid[0].Length;
+            int[] start = new int[] { 0, 0 };
+            int[] end = new int[] { n - 1, m - 1 };
+            if (IsSameValue(grid, n, m, start, end))
+            {
+                root.val = grid[start[0]][start[1]] == 1;
+                root.isLeaf = true;
+            }
+            else
+                ConstructR(grid, n, m, start, end, root);
+            return root;
+        }
+        private void ConstructR(int[][] grid, int n, int m, int[] start, int[] end, Node root)
+        {
+            if (start[0] == end[0])
+                return;
+            int[] startP, endP;
+            int rowMid = start[0] + (end[0] - start[0]) / 2;
+            int colMid = start[1] + (end[1] - start[1]) / 2;
+            //4,5,6,7
+            //4+(7-4)/2
+            //topLeft
+            Node topLeft = new Node(true, false);
+            startP = new int[] { start[0], start[1] };
+            endP = new int[] { rowMid, colMid };
+            if (IsSameValue(grid, n, m, startP, endP))
+            {
+                topLeft.val = grid[startP[0]][startP[1]] == 1;
+                topLeft.isLeaf = true;
+                root.topLeft = topLeft;
+            }
+            else
+            {
+                root.topLeft = topLeft;
+                ConstructR(grid, n, m, startP, endP, topLeft);
+            }
+            //topRight
+            Node topRight = new Node(true, false);
+            startP = new int[] { start[0], colMid + 1 };
+            endP = new int[] { rowMid, end[1] };
+            if (IsSameValue(grid, n, m, startP, endP))
+            {
+                topRight.val = grid[startP[0]][startP[1]] == 1;
+                topRight.isLeaf = true;
+                root.topRight = topRight;
+            }
+            else
+            {
+                root.topRight = topRight;
+                ConstructR(grid, n, m, startP, endP, topRight);
+            }
+            //bottomLeft
+            Node bottomLeft = new Node(true, false);
+            startP = new int[] { rowMid + 1, start[1] };
+            endP = new int[] { end[0], colMid };
+            if (IsSameValue(grid, n, m, startP, endP))
+            {
+                bottomLeft.val = grid[startP[0]][startP[1]] == 1;
+                bottomLeft.isLeaf = true;
+                root.bottomLeft = bottomLeft;
+            }
+            else
+            {
+                root.bottomLeft = bottomLeft;
+                ConstructR(grid, n, m, startP, endP, bottomLeft);
+            }
+            //bottomRight        
+            Node bottomRight = new Node(true, false);
+            startP = new int[] { rowMid + 1, colMid + 1 };
+            endP = new int[] { end[0], end[1] };
+            if (IsSameValue(grid, n, m, startP, endP))
+            {
+                bottomRight.val = grid[startP[0]][startP[1]] == 1;
+                bottomRight.isLeaf = true;
+                root.bottomRight = bottomRight;
+            }
+            else
+            {
+                root.bottomRight = bottomRight;
+                ConstructR(grid, n, m, startP, endP, bottomRight);
+            }
+        }
+        private bool IsSameValue(int[][] grid, int n, int m, int[] start, int[] end)
+        {
+            int? val = null;
+            for (int r = start[0]; r <= end[0]; r++)
+            {
+                for (int c = start[1]; c <= end[1]; c++)
+                {
+                    if (val == null)
+                        val = grid[r][c];
+                    else if (val.Value != grid[r][c])
+                        return false;
+                }
+            }
+            return true;
+        }
+        public class Node
+        {
+            public bool val;
+            public bool isLeaf;
+            public Node topLeft;
+            public Node topRight;
+            public Node bottomLeft;
+            public Node bottomRight;
+
+            public Node()
+            {
+                val = false;
+                isLeaf = false;
+                topLeft = null;
+                topRight = null;
+                bottomLeft = null;
+                bottomRight = null;
+            }
+
+            public Node(bool _val, bool _isLeaf)
+            {
+                val = _val;
+                isLeaf = _isLeaf;
+                topLeft = null;
+                topRight = null;
+                bottomLeft = null;
+                bottomRight = null;
+            }
+
+            public Node(bool _val, bool _isLeaf, Node _topLeft, Node _topRight, Node _bottomLeft, Node _bottomRight)
+            {
+                val = _val;
+                isLeaf = _isLeaf;
+                topLeft = _topLeft;
+                topRight = _topRight;
+                bottomLeft = _bottomLeft;
+                bottomRight = _bottomRight;
+            }
+        }
+
+
+
+
+
+
+
+
+
     }
 
 }

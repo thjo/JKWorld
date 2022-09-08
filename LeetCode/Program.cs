@@ -11,11 +11,12 @@ namespace LeetCode
         static void Main(string[] args)
         {
             PhoneInterview uber = new PhoneInterview();
-            int[][] pieces = new int[3][];
-            pieces[0] = new int[1] { 78 };
-            pieces[1] = new int[2] { 4,64 };
-            pieces[2] = new int[1] { 91 };
-            uber.CanFormArray(new int[] { 91, 4, 64, 78 }, pieces);
+            //[[0,1],[1,0]]
+            int[][] grid = new int[2][];
+            grid[0] = new int[2] { 0, 1 };
+            grid[1] = new int[2] { 1, 0 };
+            uber.Construct(grid);
+
 
             DataStructures.DataStructureII dsII = new DataStructures.DataStructureII();
             dsII.MinRemoveToMakeValid("lee(t(c)o)de)");

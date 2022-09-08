@@ -1663,7 +1663,7 @@ namespace LeetCode
                 {
                     if (board[i][j] == 'O' )
                     {
-                        paths.Clear();
+                        //paths.Clear();
                         SolveR(board, i, j, n, m);
                     }
                 }
