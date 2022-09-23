@@ -1,9 +1,10 @@
-﻿using System;
+﻿using LeetCode.DataStructures;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace LeetCode.DataStructures
+namespace LeetCode.Study
 {
     public class DataStructureII
     {
@@ -56,43 +57,40 @@ namespace LeetCode.DataStructures
         public IList<IList<int>> ThreeSum(int[] nums)
         {
             IList<IList<int>> groups = new List<IList<int>>();
-
-            if (nums == null || nums.Length < 3)
-                return groups;
-
+            int n = nums.Length;
             Array.Sort(nums);
 
-            int len = nums.Length;
-            for (int i = 0; i < len; i++)
+            for (int i = 0; i < n - 1; i++)
             {
-                if (i != 0 && nums[i] == nums[i - 1]) { continue; }
-                int j = i + 1;
-                int k = len - 1;
-                while (j < k)
+                if (i > 0 && nums[i - 1] == nums[i])
+                    continue;
+
+                int l = i + 1, r = n - 1;
+                while (l < r)
                 {
-                    if (nums[i] + nums[j] + nums[k] == 0)
+                    int sum = nums[i] + nums[l] + nums[r];
+                    if (sum == 0)
                     {
-                        IList<int> tmp = new List<int>();
-                        tmp.Add(nums[i]); tmp.Add(nums[j]); tmp.Add(nums[k]);
+                        List<int> tmp = new List<int>();
+                        tmp.Add(nums[i]); tmp.Add(nums[l]); tmp.Add(nums[r]);
                         groups.Add(tmp);
-                        j++;
-                        while (j < k && nums[j] == nums[j - 1]) { j++; }
                     }
-                    else if (nums[i] + nums[j] + nums[k] > 0)
+                    if (sum <= 0)
                     {
-                        k--;
-                        while (j < k && nums[k] == nums[k + 1]) { k--; }
+                        l++;
+                        while (l < n && nums[l - 1] == nums[l])
+                            l++;
                     }
                     else
                     {
-                        j++;
-                        while (j < k && nums[j] == nums[j - 1]) { j++; }
+                        r--;
                     }
                 }
             }
 
             return groups;
         }
+
 
 
         //706. Design HashMap
@@ -905,11 +903,5 @@ namespace LeetCode.DataStructures
             }
             return sbAns.ToString();
         }
-
-
-
-
-
-
     }
 }

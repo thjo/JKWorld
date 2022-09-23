@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LeetCode
+namespace LeetCode.Study
 {
     public class Algorithm_I
     {
@@ -608,10 +608,10 @@ namespace LeetCode
             newTree.val = mergeVal;
 
             //Left
-            newTree.left = MergeTrees((root1 != null ? root1.left : null), (root2 != null ? root2.left : null));
+            newTree.left = MergeTrees(root1 != null ? root1.left : null, root2 != null ? root2.left : null);
 
             //Right
-            newTree.right = MergeTrees((root1 != null ? root1.right : null), (root2 != null ? root2.right : null));
+            newTree.right = MergeTrees(root1 != null ? root1.right : null, root2 != null ? root2.right : null);
 
             return newTree;
         }
@@ -664,7 +664,7 @@ namespace LeetCode
             {
                 dist[row] = new int[lenCols];
                 for (int col = 0; col < lenCols; col++)
-                    dist[row][col] = int.MaxValue-1;
+                    dist[row][col] = int.MaxValue - 1;
             }
 
             //Scan for Left and Top
@@ -678,22 +678,22 @@ namespace LeetCode
                     {
                         if (row > 0)
                             dist[row][col] = Math.Min(dist[row][col], dist[row - 1][col] + 1);
-                        if( col > 0 )
-                            dist[row][col] = Math.Min(dist[row][col], dist[row][col-1] + 1);
+                        if (col > 0)
+                            dist[row][col] = Math.Min(dist[row][col], dist[row][col - 1] + 1);
 
                     }
                 }
             }
 
             //Scan for Right and Bottom
-            for (int row = lenRows-1; row >= 0; row--)
+            for (int row = lenRows - 1; row >= 0; row--)
             {
-                for (int col = lenCols-1; col >= 0; col--)
+                for (int col = lenCols - 1; col >= 0; col--)
                 {
-                    if(row + 1 < lenRows)
-                        dist[row][col] = Math.Min(dist[row][col], dist[row+1][col] + 1);
+                    if (row + 1 < lenRows)
+                        dist[row][col] = Math.Min(dist[row][col], dist[row + 1][col] + 1);
                     if (col + 1 < lenCols)
-                        dist[row][col] = Math.Min(dist[row][col], dist[row][col+1] + 1);
+                        dist[row][col] = Math.Min(dist[row][col], dist[row][col + 1] + 1);
                 }
             }
 
@@ -744,11 +744,11 @@ namespace LeetCode
                 {
                     int x = map[0] + directions[i][0];
                     int y = map[1] + directions[i][1];
-                    if (x >= 0 && x < rowLen && y >=0 && y < colLen && grid[x][y] == 1)
+                    if (x >= 0 && x < rowLen && y >= 0 && y < colLen && grid[x][y] == 1)
                     {
                         grid[x][y] = 2;
                         freshOranges--;
-                        rottenOrangs.Enqueue(new int[] { x, y, (map[2] + 1) });
+                        rottenOrangs.Enqueue(new int[] { x, y, map[2] + 1 });
                     }
                 }
             }
@@ -865,7 +865,7 @@ namespace LeetCode
             phonePad.Add('7', new char[] { 'p', 'q', 'r', 's' });
             phonePad.Add('8', new char[] { 't', 'u', 'v' });
             phonePad.Add('9', new char[] { 'w', 'x', 'y', 'z' });
-            phonePad.Add('0', new char[] { ' '});
+            phonePad.Add('0', new char[] { ' ' });
 
             LetterCombinationsBackTrack(0, "", len, digits, combs, phonePad);
 
@@ -876,10 +876,11 @@ namespace LeetCode
             if (currComb.Length == len)
                 combs.Add(currComb);
 
-            if(startIdx < len && currComb.Length < len && phonePad.ContainsKey(digits[startIdx]))
+            if (startIdx < len && currComb.Length < len && phonePad.ContainsKey(digits[startIdx]))
             {
                 char[] chars = phonePad[digits[startIdx]];
-                foreach (char c in chars) {
+                foreach (char c in chars)
+                {
                     currComb += c;
                     LetterCombinationsBackTrack(startIdx + 1, currComb, len, digits, combs, phonePad);
                     if (string.IsNullOrWhiteSpace(currComb) == false && currComb.Length > 1)
@@ -887,7 +888,7 @@ namespace LeetCode
                     else
                         currComb = "";
                 }
-            } 
+            }
         }
 
         /// <summary>
@@ -920,7 +921,7 @@ namespace LeetCode
                 results.Add(newCom);
             }
 
-            for(int i = start; i <= n && current.Count < k; i++)
+            for (int i = start; i <= n && current.Count < k; i++)
             {
                 current.Add(i);
                 CombineBackTrack(i + 1, current, n, k, results);
@@ -945,9 +946,9 @@ namespace LeetCode
 
             return results;
         }
-        private void PermuteBackTrack(IList<int> permutation, int[] nums, bool[] used,  IList<IList<int>> results)
+        private void PermuteBackTrack(IList<int> permutation, int[] nums, bool[] used, IList<IList<int>> results)
         {
-            if(permutation.Count == nums.Length)
+            if (permutation.Count == nums.Length)
             {
                 IList<int> tmpPerm = new List<int>();
                 foreach (int n in permutation)
@@ -955,7 +956,7 @@ namespace LeetCode
                 results.Add(tmpPerm);
             }
 
-            for(int i = 0; i < nums.Length; i++)
+            for (int i = 0; i < nums.Length; i++)
             {
                 if (used[i])
                     continue;
@@ -985,7 +986,7 @@ namespace LeetCode
         private void LetterCasePermutationBTrack(int currInx, int mode, string currStr, string orignStr, IList<string> results)
         {
             //mode:0: lower, 1 = upper
-            if( currStr.Length == orignStr.Length)
+            if (currStr.Length == orignStr.Length)
             {
                 results.Add(currStr.Clone().ToString());
             }
@@ -995,7 +996,7 @@ namespace LeetCode
             {
                 if (mode == 0)
                     currStr += orignStr[i].ToString().ToLower();
-                else 
+                else
                 {
                     //Mode is 1
                     if (LetterCaseIsAphabet(orignStr[i]))
@@ -1021,7 +1022,7 @@ namespace LeetCode
         }
         private bool LetterCaseIsAphabet(char c)
         {
-            if ( (c - 'a' >= 0 && 'z' - c >= 0)
+            if (c - 'a' >= 0 && 'z' - c >= 0
                 || c - 'A' >= 0 && 'Z' - c >= 0)
                 return true;
             else
@@ -1053,7 +1054,7 @@ namespace LeetCode
             return dp[n];
         }
 
-       /// <summary>
+        /// <summary>
         /// 198. House Robber
         /// https://leetcode.com/problems/house-robber/
         /// </summary>
@@ -1111,7 +1112,7 @@ namespace LeetCode
             foreach (var n in triangle[triangle.Count - 1])
                 dp.Add(n);
 
-            for (int row = triangle.Count -2; row >= 0; row--)
+            for (int row = triangle.Count - 2; row >= 0; row--)
             {
                 for (int col = 0; col <= row; col++)
                 {
@@ -1178,10 +1179,10 @@ namespace LeetCode
         {
             int len = sizeof(uint) * 8;
             uint reverse = 0;
-            for(int i = 0; i < len; i++)
+            for (int i = 0; i < len; i++)
             {
-                if ((n & (uint)1) == 1)
-                    reverse = reverse | (uint)(1 << (len - (i+1)));
+                if ((n & 1) == 1)
+                    reverse = reverse | (uint)(1 << len - (i + 1));
 
                 n = n >> 1;
             }

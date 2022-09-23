@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LeetCode
+namespace LeetCode.Study
 {
     public class BinarySearchI
     {
@@ -19,7 +19,7 @@ namespace LeetCode
             //[5], 5 ==> 0
             while (l <= r)
             {
-                int mid = l + (r-l)/2;
+                int mid = l + (r - l) / 2;
                 if (nums[mid] == target)
                     return mid;
                 else if (nums[mid] > target)
@@ -161,10 +161,10 @@ namespace LeetCode
             while (l <= r)
             {
                 double mid = l + (r - l) / 2;
-                if ((mid * mid) == x)
+                if (mid * mid == x)
                     return (int)mid;
 
-                if (x > (mid * mid))
+                if (x > mid * mid)
                     l = (int)mid + 1;
                 else
                     r = (int)mid - 1;
@@ -437,7 +437,7 @@ namespace LeetCode
             {
                 int row = CountNegativesBSearchC(grid, c, rowLen);
                 if (row != -1)
-                    numOfNeg += (rowLen - row);
+                    numOfNeg += rowLen - row;
             }
             return numOfNeg;
         }
@@ -578,7 +578,7 @@ namespace LeetCode
             HashSet<int> map = new HashSet<int>();
             foreach (var num in arr)
             {
-                if (map.Contains(num * 2) || (num % 2 != 1 && map.Contains(num / 2)))
+                if (map.Contains(num * 2) || num % 2 != 1 && map.Contains(num / 2))
                     return true;
                 else
                     map.Add(num);

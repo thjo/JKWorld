@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LeetCode
+namespace LeetCode.Study
 {
     public class Algorithm_III
     {
@@ -20,7 +20,7 @@ namespace LeetCode
                     return new int[] { (i + 1) * -1 };
 
                 //Calculate cashback 
-                while (hisWithdraws.Count > 0 && (tran.Timestamp - hisWithdraws.Peek().Timestamp) >= (long)24 * 60 * 60)
+                while (hisWithdraws.Count > 0 && tran.Timestamp - hisWithdraws.Peek().Timestamp >= (long)24 * 60 * 60)
                 {
                     TransInfo cashbackTran = hisWithdraws.Dequeue();
                     balances[cashbackTran.AccountId - 1] += (int)Math.Floor(cashbackTran.Amount * 0.02);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LeetCode.DataStructures
+namespace LeetCode.Study
 {
     public class DataStructureI
     {
@@ -72,7 +72,7 @@ namespace LeetCode.DataStructures
         {
             Dictionary<int, int> dp = new Dictionary<int, int>();
             int[] res = new int[2];
-            for(int i = 0; i < nums.Length; i++)
+            for (int i = 0; i < nums.Length; i++)
             {
                 if (dp.ContainsKey(target - nums[i]))
                 {
@@ -129,7 +129,7 @@ namespace LeetCode.DataStructures
             Array.Sort(nums2);
             int n1 = 0, n2 = 0;
             List<int> res = new List<int>();
-            while(n1 < nums1.Length && n2 < nums2.Length)
+            while (n1 < nums1.Length && n2 < nums2.Length)
             {
                 if (nums1[n1] == nums2[n2])
                 {
@@ -217,9 +217,9 @@ namespace LeetCode.DataStructures
             int m = mat[0].Length;
             int newI = 0, newJ = 0;
             int cnt = 0;
-            for(int i = 0; i < n; i++)
+            for (int i = 0; i < n; i++)
             {
-                for(int j = 0; j < m; j++)
+                for (int j = 0; j < m; j++)
                 {
                     newI = cnt / c;
                     newJ = cnt % c;
@@ -281,8 +281,8 @@ namespace LeetCode.DataStructures
                         continue;
 
                     int val = board[r][c] - '0';
-                    int pos = 1 << (val - 1);
-                    int idx = (r / 3) * 3 + c / 3;
+                    int pos = 1 << val - 1;
+                    int idx = r / 3 * 3 + c / 3;
                     if ((rows[r] & pos) > 0
                       || (cols[c] & pos) > 0
                       || (boxes[idx] & pos) > 0)
@@ -454,7 +454,7 @@ namespace LeetCode.DataStructures
             ListNode slow = head;
             ListNode fast = head.next;
 
-            while(slow != fast)
+            while (slow != fast)
             {
                 if (fast == null || fast.next == null)
                     return false;
@@ -521,9 +521,9 @@ namespace LeetCode.DataStructures
             ListNode prev = newHead;
             ListNode curr = head;
 
-            while(curr != null)
+            while (curr != null)
             {
-                if( curr.val == val)
+                if (curr.val == val)
                 {
                     prev.next = curr.next;
                     curr = curr.next;
@@ -581,9 +581,9 @@ namespace LeetCode.DataStructures
 
             ListNode prev = head;
             ListNode curr = head.next;
-            while(curr != null)
+            while (curr != null)
             {
-                if(prev.val == curr.val)
+                if (prev.val == curr.val)
                 {
                     //delete current node
                     prev.next = curr.next;
@@ -615,7 +615,7 @@ namespace LeetCode.DataStructures
 
             bool isValid = true;
 
-            
+
             //Stack
             Stack<char> sBuff = new Stack<char>();
             for (int i = 0; i < s.Length; i++)
@@ -641,7 +641,7 @@ namespace LeetCode.DataStructures
                 }
             }
             if (isValid == true)
-                isValid = (sBuff.Count == 0);
+                isValid = sBuff.Count == 0;
 
             return isValid;
         }

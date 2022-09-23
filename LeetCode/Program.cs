@@ -1,8 +1,9 @@
 ﻿using LeetCode.Mock;
 using LeetCode.Mock.Uber;
+using LeetCode.Study;
 using System;
 using System.Collections.Generic;
-using static LeetCode.ProgrammingSkills_II;
+using static LeetCode.Study.ProgrammingSkills_II;
 
 namespace LeetCode
 {
@@ -10,16 +11,15 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
+            DataStructureII dsII = new DataStructureII();
+            dsII.ThreeSum(new int[] { -1, 0, 1, 2, -1, -4, -2, -3, 3, 0, 4 });
+
             PhoneInterview uber = new PhoneInterview();
             //[[0,1],[1,0]]
             int[][] grid = new int[2][];
             grid[0] = new int[2] { 0, 1 };
             grid[1] = new int[2] { 1, 0 };
             uber.Construct(grid);
-
-
-            DataStructures.DataStructureII dsII = new DataStructures.DataStructureII();
-            dsII.MinRemoveToMakeValid("lee(t(c)o)de)");
 
             ProgrammingSkills_II pp = new ProgrammingSkills_II();
             pp.NextGreaterElementIII(101);
@@ -154,9 +154,6 @@ namespace LeetCode
             msAss.SwapPairs(head);
 
 
-
-            DataStructures.DataStructureI ds1 = new DataStructures.DataStructureI();
-            //ds1.Generate(5);
 
             //int[][] mat = new int[2][];
             //mat[0] = new int[2] { 1, 2 };

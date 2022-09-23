@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace LeetCode
+namespace LeetCode.Study
 {
     public class LeetCode75_II
     {
@@ -353,7 +353,7 @@ namespace LeetCode
             int maxProduct = nums[0];
             int totalMax = nums[0];
             int totalMin = nums[0];
-            for(int i = 1; i < nums.Length; i++)
+            for (int i = 1; i < nums.Length; i++)
             {
                 int max = Math.Max(nums[i], Math.Max(totalMin * nums[i], totalMax * nums[i]));
                 int min = Math.Min(nums[i], Math.Min(totalMin * nums[i], totalMax * nums[i]));
@@ -378,11 +378,11 @@ namespace LeetCode
             int ans = int.MaxValue;
             int n = nums.Length;
             Array.Sort(nums);
-            for(int i = 0; i < n; i++)
+            for (int i = 0; i < n; i++)
             {
                 int low = i + 1;
                 int high = n - 1;
-                while(low < high)
+                while (low < high)
                 {
                     int sum = nums[i] + nums[low] + nums[high];
                     if (Math.Abs(target - sum) < Math.Abs(ans))
@@ -563,7 +563,7 @@ namespace LeetCode
                 if (sData.Count > 0)
                 {
                     int[] tmp = sData.Peek();
-                    return tmp[1];  
+                    return tmp[1];
                 }
                 else return -1;
             }
@@ -587,9 +587,9 @@ namespace LeetCode
             //O(nm) n: # of routes, m: # of stops
             //Stop, Routes
             Dictionary<int, List<int>> mapStopRoute = new Dictionary<int, List<int>>();
-            for(int r = 0; r < n; r++)
+            for (int r = 0; r < n; r++)
             {
-                for(int s = 0; s < routes[r].Length; s++)
+                for (int s = 0; s < routes[r].Length; s++)
                 {
                     if (mapStopRoute.ContainsKey(routes[r][s]) == false)
                         mapStopRoute.Add(routes[r][s], new List<int>());
@@ -605,7 +605,7 @@ namespace LeetCode
             //O(m*m) n: # of routes, m: # of stops
             Queue<int[]> qStops = new Queue<int[]>();
             qStops.Enqueue(new int[] { source, 0 });
-            while(qStops.Count > 0)
+            while (qStops.Count > 0)
             {
                 int[] stop = qStops.Dequeue();
                 seenStops.Add(stop[0]);
@@ -615,23 +615,23 @@ namespace LeetCode
                     break;
                 }
                 //which route does this stop belong to
-                foreach(var route in mapStopRoute[stop[0]])
+                foreach (var route in mapStopRoute[stop[0]])
                 {
-                    if(seenRoutes.Contains(route)==false)
+                    if (seenRoutes.Contains(route) == false)
                     {
                         //Add all stops belongs to this route except the stops already visited.
                         int startIdx = -1;
-                        for(int i = 0; i < routes[route].Length; i++)
+                        for (int i = 0; i < routes[route].Length; i++)
                         {
-                            if(routes[route][i] == stop[0])
+                            if (routes[route][i] == stop[0])
                             {
                                 startIdx = i;
                                 break;
                             }
                         }
-                        for(int i = startIdx+1; i < routes[route].Length; i++)
+                        for (int i = startIdx + 1; i < routes[route].Length; i++)
                         {
-                            if( seenStops.Contains(routes[route][i]) == false)
+                            if (seenStops.Contains(routes[route][i]) == false)
                                 qStops.Enqueue(new int[] { routes[route][i], stop[1] + 1 });
                         }
                         for (int i = 0; i < startIdx; i++)

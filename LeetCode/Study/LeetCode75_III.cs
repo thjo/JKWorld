@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace LeetCode
+namespace LeetCode.Study
 {
     public class LeetCode75_III
     {
@@ -59,7 +59,7 @@ namespace LeetCode
                     continue;
                 }
 
-                if (r == n || (Math.Abs(arr[l] - x) <= Math.Abs(arr[r] - x)))
+                if (r == n || Math.Abs(arr[l] - x) <= Math.Abs(arr[r] - x))
                     l--;
                 else
                     r++;

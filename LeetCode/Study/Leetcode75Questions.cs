@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LeetCode
+namespace LeetCode.Study
 {
     public class Leetcode75Questions
     {
@@ -267,11 +267,11 @@ namespace LeetCode
             for (int i = 0; i < dp.Length; i++)
                 dp[i] = max;
             dp[0] = 0;
-            for(int i = 1; i <= amount; i++)
+            for (int i = 1; i <= amount; i++)
             {
-                for(int j = 0; j < coins.Length; j++)
+                for (int j = 0; j < coins.Length; j++)
                 {
-                    if( coins[j] <= i)
+                    if (coins[j] <= i)
                     {
                         dp[i] = Math.Min(dp[i], dp[i - coins[j]] + 1);
                     }
@@ -759,9 +759,9 @@ namespace LeetCode
                 if (matrix[i][0] == 0)
                     isCol = true;
 
-                for(int j =1; j < col; j++)
+                for (int j = 1; j < col; j++)
                 {
-                    if(matrix[i][j]==0)
+                    if (matrix[i][j] == 0)
                     {
                         matrix[0][j] = 0;
                         matrix[i][0] = 0;
@@ -986,7 +986,7 @@ namespace LeetCode
                 letterCnts[s[r] - 'A']++;
                 maxCnt = Math.Max(maxCnt, letterCnts[s[r] - 'A']);
 
-                while (l <= r && (r - l + 1) - maxCnt > k)
+                while (l <= r && r - l + 1 - maxCnt > k)
                 {
                     letterCnts[s[l] - 'A']--;
                     l++;

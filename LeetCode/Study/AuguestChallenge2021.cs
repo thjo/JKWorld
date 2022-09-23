@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LeetCode
+namespace LeetCode.Study
 {
     public class AuguestChallenge2021
     {
@@ -46,7 +46,7 @@ namespace LeetCode
             {
                 while (negativeNums.Count > 0)
                 {
-                    i = negativeNums.Count-1;
+                    i = negativeNums.Count - 1;
                     if (negativeNums.Contains(negativeNums[i] * 2))
                     {
                         int tmp = negativeNums[i] * 2;
@@ -78,7 +78,7 @@ namespace LeetCode
 
             if (strs == null)
                 return result;
-            else if(strs.Length == 1)
+            else if (strs.Length == 1)
             {
                 IList<string> buff = new List<string>();
                 buff.Add(strs[0]);
@@ -101,7 +101,7 @@ namespace LeetCode
             }
 
             int[] checkedList = new int[strs.Length];
-            for(int idx = 0; idx < words.Count; idx++)
+            for (int idx = 0; idx < words.Count; idx++)
             {
                 if (checkedList[idx] == 1)
                     continue;
@@ -111,16 +111,17 @@ namespace LeetCode
                 buff.Add(strs[idx]);
                 checkedList[idx] = 1;
 
-                if (idx + 1 == words.Count) {
+                if (idx + 1 == words.Count)
+                {
                     result.Add(buff);
                     continue;
                 }
 
-                for (int curr = idx+1; curr < words.Count; curr++)
+                for (int curr = idx + 1; curr < words.Count; curr++)
                 {
                     if (checkedList[curr] == 1)
                         continue;
-                    if ( GroupAnagramsCompareWords(word, words[curr]))
+                    if (GroupAnagramsCompareWords(word, words[curr]))
                     {
                         buff.Add(strs[curr]);
                         checkedList[curr] = 1;
@@ -139,7 +140,7 @@ namespace LeetCode
             else if (word1.Count == 0 && word2.Count == 0)
                 return true;
 
-            foreach(var c in word1)
+            foreach (var c in word1)
             {
                 if (word2.ContainsKey(c.Key) && word2[c.Key] == c.Value)
                     continue;
@@ -168,7 +169,7 @@ namespace LeetCode
 
             // Dictionary which keeps a count of all the unique characters in t.
             Dictionary<char, int> dict = new Dictionary<char, int>();
-            foreach(char c in t)
+            foreach (char c in t)
             {
                 if (dict.ContainsKey(c))
                     dict[c]++;
@@ -201,13 +202,13 @@ namespace LeetCode
             while (r < s.Length)
             {
                 if (windowsCnt.ContainsKey(s[r]))
-                    windowsCnt[s[r]]++; 
+                    windowsCnt[s[r]]++;
                 else
                     windowsCnt.Add(s[r], 1);
 
                 while (l <= r && windowsCnt.Count >= requiredMinLen && MinWindowSatisfy(dict, windowsCnt))
                 {
-                    if( (finalR - finalL) > (r - l))
+                    if (finalR - finalL > r - l)
                     {
                         finalL = l;
                         finalR = r;
@@ -226,12 +227,12 @@ namespace LeetCode
             if (finalR - finalL == int.MaxValue)
                 return "";
             else
-                return s.Substring(finalL, (finalR - finalL)+1);
+                return s.Substring(finalL, finalR - finalL + 1);
         }
         private bool MinWindowSatisfy(Dictionary<char, int> dict, Dictionary<char, int> windowsCnt)
         {
             bool isValid = true;
-            foreach(var d in dict)
+            foreach (var d in dict)
             {
                 if (windowsCnt.ContainsKey(d.Key) && windowsCnt[d.Key] >= d.Value)
                     continue;
@@ -294,7 +295,7 @@ namespace LeetCode
             //Second. check all of posibilities
             MaxProductCutSum(root, total, ref max);
 
-            return (int)(max%modulo);
+            return (int)(max % modulo);
         }
         private long MaxProductGetSum(TreeNode root)
         {
@@ -304,7 +305,7 @@ namespace LeetCode
             long leftSum = MaxProductGetSum(root.left);
             long rightSum = MaxProductGetSum(root.right);
 
-            return (root.val + leftSum + rightSum);
+            return root.val + leftSum + rightSum;
         }
         private long MaxProductCutSum(TreeNode root, long total, ref long max)
         {
@@ -314,9 +315,9 @@ namespace LeetCode
             long leftSum = MaxProductCutSum(root.left, total, ref max);
             long rightSum = MaxProductCutSum(root.right, total, ref max);
 
-            max = Math.Max(max, leftSum*(total-leftSum));
+            max = Math.Max(max, leftSum * (total - leftSum));
             max = Math.Max(max, rightSum * (total - rightSum));
-            return (root.val + leftSum + rightSum);
+            return root.val + leftSum + rightSum;
         }
 
 
@@ -399,7 +400,7 @@ namespace LeetCode
         public int MaxCount(int m, int n, int[][] ops)
         {
             int minM = m, minN = n;
-            foreach(int[] map in ops)
+            foreach (int[] map in ops)
             {
                 minM = Math.Min(minM, map[0]);
                 minN = Math.Min(minN, map[1]);
@@ -425,11 +426,12 @@ namespace LeetCode
 
             int mid = (statIdx + endIdx) / 2;
             minNum = Math.Min(minNum, nums[mid]);
-            if (mid < nums.Length - 1) {
+            if (mid < nums.Length - 1)
+            {
                 if (nums[mid] > nums[endIdx])
                     minNum = Math.Min(minNum, FindMinBSearch(nums, mid + 1, endIdx, minNum));
                 else
-                    minNum = Math.Min(minNum, FindMinBSearch(nums, statIdx, mid-1, minNum)); ;
+                    minNum = Math.Min(minNum, FindMinBSearch(nums, statIdx, mid - 1, minNum)); ;
             }
 
             return minNum;

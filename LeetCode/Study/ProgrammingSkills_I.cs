@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LeetCode
+namespace LeetCode.Study
 {
     public class ProgrammingSkills_I
     {
@@ -184,7 +184,7 @@ namespace LeetCode
                 }
             }
 
-            if (cnt == 0 || (cnt == 2 && c1.Value == c2.Value))
+            if (cnt == 0 || cnt == 2 && c1.Value == c2.Value)
                 return true;
             else
                 return false;
@@ -258,10 +258,10 @@ namespace LeetCode
                 set.Add(num);
             }
             int n = arr.Length;
-            int d = (max - min);
+            int d = max - min;
             if (d % (n - 1) != 0)
                 return false;
-            d /= (n - 1);
+            d /= n - 1;
             int i = 0;
             while (i < n)
             {
@@ -388,7 +388,7 @@ namespace LeetCode
         public int SumOddLengthSubarrays(int[] arr)
         {
             int sum = 0;
-            for(int i = 1; i < arr.Length; i +=2)
+            for (int i = 1; i < arr.Length; i += 2)
             {
 
             }
@@ -452,7 +452,7 @@ namespace LeetCode
         {
             string res = string.Empty;
             int w1 = 0, w2 = 0;
-            while(w1 < word1.Length || w2 < word2.Length)
+            while (w1 < word1.Length || w2 < word2.Length)
             {
                 if (w1 < word1.Length)
                     res += word1[w1++];
@@ -480,7 +480,7 @@ namespace LeetCode
             //122 'z'
             //90 'Z'
             string res = "";
-            for(int i = 0; i < s.Length; i++)
+            for (int i = 0; i < s.Length; i++)
             {
                 if (s[i] >= 65 && s[i] <= 90)
                     res += (char)(s[i] + 32);

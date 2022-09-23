@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LeetCode
+namespace LeetCode.Study
 {
     public class ProgrammingSkills_II
     {
@@ -148,7 +148,7 @@ namespace LeetCode
                 return "0";
             if (num1.Length > num2.Length)
             {
-                String tmp = num1;
+                string tmp = num1;
                 num1 = num2;
                 num2 = tmp;
             }
@@ -167,7 +167,7 @@ namespace LeetCode
                     res[p1] += sum / 10;
                 }
             }
-            String output = ""; int idx = -1;
+            string output = ""; int idx = -1;
             for (int i = 0; i < num1_len + num2_len && res[i] == 0; i++)
                 idx = i;
             for (int i = idx + 1; i < num1_len + num2_len; i++)
@@ -248,8 +248,8 @@ namespace LeetCode
             int tmp = 0;
             for (int i = maxLen; i >= 0; i--)
             {
-                tmp += (aIdx >= 0) ? a[aIdx--] - '0' : 0;
-                tmp += (bIdx >= 0) ? b[bIdx--] - '0' : 0;
+                tmp += aIdx >= 0 ? a[aIdx--] - '0' : 0;
+                tmp += bIdx >= 0 ? b[bIdx--] - '0' : 0;
                 sum.Insert(0, (char)(tmp % 2 + '0'));
                 tmp = tmp / 2;
             }
@@ -272,13 +272,13 @@ namespace LeetCode
             IList<int> ans = new List<int>();
             string kStr = k.ToString();
             int[] kNum = new int[kStr.Length];
-            for(int i = 0; i < kStr.Length; i++)
+            for (int i = 0; i < kStr.Length; i++)
                 kNum[i] = kStr[i] - '0';
 
             int idxN = num.Length - 1, idxK = kNum.Length - 1;
             int comp = 0;
             Stack<int> sum = new Stack<int>();
-            while(idxN >= 0 || idxK >= 0)
+            while (idxN >= 0 || idxK >= 0)
             {
                 int tmp = 0;
                 if (idxN >= 0 && idxK >= 0)
@@ -295,7 +295,7 @@ namespace LeetCode
                 sum.Push(tmp % 10);
                 comp = tmp / 10;
             }
-            if(comp != 0)
+            if (comp != 0)
                 sum.Push(comp);
 
             foreach (var n in sum)
@@ -776,10 +776,10 @@ namespace LeetCode
                 //3  3  4
                 //8  14 18
                 //9  17 21
-                for(int col = 0;  col < m; col++)
+                for (int col = 0; col < m; col++)
                 {
-                    for(int row = 1; row < n; row++)
-                        _matrix[row][col] = _matrix[row-1][col] + _matrix[row][col];
+                    for (int row = 1; row < n; row++)
+                        _matrix[row][col] = _matrix[row - 1][col] + _matrix[row][col];
                 }
             }
 
@@ -789,7 +789,7 @@ namespace LeetCode
                 if (row1 > 0)
                     sum -= _matrix[row1 - 1][col2];
                 if (col1 > 0)
-                    sum -= _matrix[row2][col1-1];
+                    sum -= _matrix[row2][col1 - 1];
                 if (row1 > 0 && col1 > 0)
                     sum += _matrix[row1 - 1][col1 - 1];
 

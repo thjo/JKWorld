@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LeetCode
+namespace LeetCode.Study
 {
     public class Algorithm_II
     {
@@ -40,7 +40,7 @@ namespace LeetCode
                 if (flag == 0)
                 {
                     //Seeking starting position
-                    while ((midIdx - 1) >= 0 && nums[midIdx - 1] == target)
+                    while (midIdx - 1 >= 0 && nums[midIdx - 1] == target)
                         midIdx--;
 
                     return midIdx;
@@ -48,7 +48,7 @@ namespace LeetCode
                 else
                 {
                     //Seeking ending position
-                    while ((midIdx + 1) < nums.Length && nums[midIdx + 1] == target)
+                    while (midIdx + 1 < nums.Length && nums[midIdx + 1] == target)
                         midIdx++;
 
                     return midIdx;
@@ -355,7 +355,7 @@ namespace LeetCode
                     else { break; }
                 }
 
-                if ((sIdx >= 0) != (tIdx >= 0))
+                if (sIdx >= 0 != tIdx >= 0)
                     return false;
                 if (sIdx >= 0 && tIdx >= 0 && s[sIdx] != t[tIdx])
                     return false;
@@ -635,7 +635,7 @@ namespace LeetCode
             directions[6] = new int[] { 1, -1 };    //Bottom & Left
             directions[7] = new int[] { 1, 1 };    //Bottom & Right
 
-            return ShortestPathBinaryMatrixBFS(grid, 0, 0, n-1, n-1, n, directions);
+            return ShortestPathBinaryMatrixBFS(grid, 0, 0, n - 1, n - 1, n, directions);
         }
         private int ShortestPathBinaryMatrixBFS(int[][] grid, int sRow, int sCol, int eRow, int eCol, int n, int[][] directions)
         {
@@ -646,7 +646,7 @@ namespace LeetCode
             Queue<int[]> q = new Queue<int[]>();
             q.Enqueue(new int[] { sRow, sCol, 1 });
 
-            while(q.Count > 0)
+            while (q.Count > 0)
             {
                 int[] currNode = q.Dequeue();
                 if (currNode[0] == eRow && currNode[1] == eCol)
@@ -693,7 +693,7 @@ namespace LeetCode
             foreach (int n in currSet)
                 tmp.Add(n);
             res.Add(tmp);
-            for(int i = start; i < nums.Length; i++)
+            for (int i = start; i < nums.Length; i++)
             {
                 currSet.Add(nums[i]);
                 SubsetsR(nums, i + 1, currSet, res);
@@ -722,13 +722,13 @@ namespace LeetCode
                 tmp.Add(n);
             result.Add(tmp);
 
-            for(int i = start; i < nums.Length; i++)
+            for (int i = start; i < nums.Length; i++)
             {
                 if (i != start && nums[i] == nums[i - 1])
                     continue;
 
                 subset.Add(nums[i]);
-                SubsetsWithDupR(nums, i+1, subset, result);
+                SubsetsWithDupR(nums, i + 1, subset, result);
                 subset.RemoveAt(subset.Count - 1);
             }
         }
@@ -744,7 +744,7 @@ namespace LeetCode
             // count the occurrence of each number
             IList<IList<int>> result = new List<IList<int>>();
             Dictionary<int, int> map = new Dictionary<int, int>();
-            foreach(int n in nums)
+            foreach (int n in nums)
             {
                 if (map.ContainsKey(n))
                     map[n]++;
@@ -758,7 +758,7 @@ namespace LeetCode
         }
         private void PermuteUniqueR(int[] nums, Dictionary<int, int> map, int len, IList<int> subset, IList<IList<int>> result)
         {
-            if( subset.Count == len)
+            if (subset.Count == len)
             {
                 IList<int> tmp = new List<int>();
                 foreach (int n in subset)
@@ -767,7 +767,7 @@ namespace LeetCode
                 return;
             }
 
-            foreach(var v in map)
+            foreach (var v in map)
             {
                 if (v.Value == 0)
                     continue;
@@ -777,7 +777,7 @@ namespace LeetCode
 
                 PermuteUniqueR(nums, map, nums.Length, subset, result);
 
-                subset.RemoveAt(subset.Count-1);
+                subset.RemoveAt(subset.Count - 1);
                 map[v.Key]++;
             }
         }
@@ -842,13 +842,13 @@ namespace LeetCode
                 return;
             else
             {
-                for(int i = startIdx; i < candidates.Length; i++)
+                for (int i = startIdx; i < candidates.Length; i++)
                 {
                     if (i > startIdx && candidates[i] == candidates[i - 1])
                         continue;
 
                     subset.Add(candidates[i]);
-                    CombinationSum2(candidates, target- candidates[i], i+1, subset, result);
+                    CombinationSum2(candidates, target - candidates[i], i + 1, subset, result);
                     subset.RemoveAt(subset.Count - 1);
                 }
             }
@@ -870,22 +870,22 @@ namespace LeetCode
         }
         private void GenerateParenthesisR(IList<string> result, int n, int usedOpened, int usedClosed, List<char> pair)
         {
-            if( usedOpened == n && usedClosed == n)
+            if (usedOpened == n && usedClosed == n)
             {
                 result.Add(new string(pair.ToArray()));
                 return;
             }
 
-            if( usedOpened < n)
+            if (usedOpened < n)
             {
                 pair.Add('(');
-                GenerateParenthesisR(result, n, usedOpened+1, usedClosed, pair);
+                GenerateParenthesisR(result, n, usedOpened + 1, usedClosed, pair);
                 pair.RemoveAt(pair.Count - 1);
             }
-            if( usedClosed < n && usedClosed < usedOpened)
+            if (usedClosed < n && usedClosed < usedOpened)
             {
                 pair.Add(')');
-                GenerateParenthesisR(result, n, usedOpened, usedClosed+1, pair);
+                GenerateParenthesisR(result, n, usedOpened, usedClosed + 1, pair);
                 pair.RemoveAt(pair.Count - 1);
             }
         }
@@ -899,9 +899,9 @@ namespace LeetCode
         /// <returns></returns>
         public bool Exist1(char[][] board, string word)
         {
-            for(int row = 0; row < board.Length; row++)
+            for (int row = 0; row < board.Length; row++)
             {
-                for(int col = 0; col < board[row].Length; col++)
+                for (int col = 0; col < board[row].Length; col++)
                 {
                     bool[][] visited = new bool[board.Length][];
                     for (int i = 0; i < board.Length; i++)
@@ -926,12 +926,13 @@ namespace LeetCode
             else if (col > board[0].Length - 1 || col < 0)
                 return false;
 
-            
+
             bool retCheckd = false;
             if (currWord.Length < word.Length)
             {
                 //left
-                if (row > 0 && !visited[row - 1][col]) {
+                if (row > 0 && !visited[row - 1][col])
+                {
                     visited[row - 1][col] = true;
                     retCheckd = Exist1(board, word, currWord + board[row - 1][col], row - 1, col, visited);
                     if (retCheckd) return retCheckd;
@@ -940,7 +941,7 @@ namespace LeetCode
                 }
 
                 //right
-                if (row < board.Length -1 && !visited[row + 1][col])
+                if (row < board.Length - 1 && !visited[row + 1][col])
                 {
                     visited[row + 1][col] = true;
                     retCheckd = Exist1(board, word, currWord + board[row + 1][col], row + 1, col, visited);
@@ -951,14 +952,14 @@ namespace LeetCode
                 //top
                 if (col > 0 && !visited[row][col - 1])
                 {
-                    visited[row][col-1] = true;
-                    retCheckd = Exist1(board, word, currWord + board[row][col-1], row, col-1, visited);
+                    visited[row][col - 1] = true;
+                    retCheckd = Exist1(board, word, currWord + board[row][col - 1], row, col - 1, visited);
                     if (retCheckd) return retCheckd;
-                    visited[row][col-1] = false;
+                    visited[row][col - 1] = false;
                 }
 
                 //bottom
-                if (col < board[0].Length-1 && !visited[row][col + 1])
+                if (col < board[0].Length - 1 && !visited[row][col + 1])
                 {
                     visited[row][col + 1] = true;
                     retCheckd = Exist1(board, word, currWord + board[row][col + 1], row, col + 1, visited);
@@ -1015,7 +1016,7 @@ namespace LeetCode
                 bool isExisted = false;
 
                 //Check Left
-                if (startCol - 1 >= 0 && !visited[startRow][startCol-1])
+                if (startCol - 1 >= 0 && !visited[startRow][startCol - 1])
                 {
                     isExisted = ExistDFS(board, word.Substring(1), visited, startRow, startCol - 1, m, n);
                     if (isExisted) return isExisted;
@@ -1029,7 +1030,7 @@ namespace LeetCode
                     visited[startRow][startCol + 1] = false;
                 }
                 //Check Top
-                if (startRow - 1 >= 0 && !visited[startRow-1][startCol])
+                if (startRow - 1 >= 0 && !visited[startRow - 1][startCol])
                 {
                     isExisted = ExistDFS(board, word.Substring(1), visited, startRow - 1, startCol, m, n);
                     if (isExisted) return isExisted;
@@ -1037,7 +1038,7 @@ namespace LeetCode
                 }
 
                 //Check Bottom
-                if (startRow + 1 < m && !visited[startRow+1][startCol])
+                if (startRow + 1 < m && !visited[startRow + 1][startCol])
                 {
                     isExisted = ExistDFS(board, word.Substring(1), visited, startRow + 1, startCol, m, n);
                     if (isExisted) return isExisted;
@@ -1128,9 +1129,9 @@ namespace LeetCode
             dp[start] = nums[start];
             dp[start + 1] = Math.Max(nums[start], nums[start + 1]);
 
-            for(int i = start + 2; i <= end; i++)
+            for (int i = start + 2; i <= end; i++)
             {
-                dp[i] = Math.Max(dp[i - 1], (dp[i - 2] + nums[i]));
+                dp[i] = Math.Max(dp[i - 1], dp[i - 2] + nums[i]);
             }
 
             return dp[end];
@@ -1153,8 +1154,8 @@ namespace LeetCode
                 return true;
 
             int goal = nums.Length - 1;
-            
-            for(int currIdx = nums.Length - 2; currIdx >= 0; currIdx--)
+
+            for (int currIdx = nums.Length - 2; currIdx >= 0; currIdx--)
             {
                 if (nums[currIdx] + currIdx >= goal)
                     goal = Math.Min(currIdx, goal);
@@ -1179,11 +1180,11 @@ namespace LeetCode
 
             int maxJumps = nums[currIdx];
             int jump = maxJumps;
-            while ( jump > 0)
+            while (jump > 0)
             {
                 if (CanJump(nums, n, currIdx + jump, dp))
                     return true;
-                
+
                 jump--;
             }
             dp.Add(currIdx + jump, false);
@@ -1275,9 +1276,9 @@ namespace LeetCode
             for (int i = 0; i < longestDP.Length; i++)
                 longestDP[i] = 1;
 
-            for(int i = 1; i < nums.Length; i++)
+            for (int i = 1; i < nums.Length; i++)
             {
-                for(int j = 0; j < i; j++)
+                for (int j = 0; j < i; j++)
                 {
                     if (nums[j] < nums[i] && longestDP[i] < longestDP[j] + 1)
                     {
@@ -1310,18 +1311,18 @@ namespace LeetCode
             int longest = 1;
             int longestCnt = 1;
             count[nums.Length - 1] = 1;
-            for (int i = nums.Length-2; i >= 0; i--)
+            for (int i = nums.Length - 2; i >= 0; i--)
             {
                 for (int j = i + 1; j < nums.Length; j++)
                 {
                     if (nums[i] < nums[j])
                     {
-                        if( dp[i] < dp[j] + 1)
+                        if (dp[i] < dp[j] + 1)
                         {
                             dp[i] = dp[j] + 1;
                             count[i] = count[j];
                         }
-                        else if( dp[i] == dp[j] + 1)
+                        else if (dp[i] == dp[j] + 1)
                         {
                             count[i] += count[j];
                         }
@@ -1337,7 +1338,7 @@ namespace LeetCode
                     longestCnt += count[i];
             }
 
-            
+
             return longest == 1 ? nums.Length : longestCnt;
         }
 
@@ -1358,9 +1359,9 @@ namespace LeetCode
             if (string.IsNullOrWhiteSpace(text1) || string.IsNullOrWhiteSpace(text2))
                 return 0;
             Dictionary<string, int> dp = new Dictionary<string, int>();
-            return LongestCommonSubsequenceR(text1, text2, text1.Length-1, text2.Length-1, dp);
+            return LongestCommonSubsequenceR(text1, text2, text1.Length - 1, text2.Length - 1, dp);
         }
-        private int LongestCommonSubsequenceR(string text1, string text2, int end1, int end2, Dictionary<string,int> dp)
+        private int LongestCommonSubsequenceR(string text1, string text2, int end1, int end2, Dictionary<string, int> dp)
         {
             if (end1 < 0 || end2 < 0)
                 return 0;
@@ -1369,11 +1370,11 @@ namespace LeetCode
 
             int longestLen = 0;
             if (text1[end1] == text2[end2])
-                longestLen = 1 + LongestCommonSubsequenceR(text1, text2, end1-1, end2-1, dp);
+                longestLen = 1 + LongestCommonSubsequenceR(text1, text2, end1 - 1, end2 - 1, dp);
             else
             {
-                longestLen = Math.Max(LongestCommonSubsequenceR(text1, text2, end1-1, end2, dp)
-                                    , LongestCommonSubsequenceR(text1, text2, end1, end2-1, dp));
+                longestLen = Math.Max(LongestCommonSubsequenceR(text1, text2, end1 - 1, end2, dp)
+                                    , LongestCommonSubsequenceR(text1, text2, end1, end2 - 1, dp));
             }
 
             dp.Add(string.Format("{0}_{1}", end1, end2), longestLen);
@@ -1398,7 +1399,7 @@ namespace LeetCode
             Dictionary<string, int> dp = new Dictionary<string, int>();
             int lcs = LongestCommonSubsequenceR(word1, word2, word1.Length - 1, word2.Length - 1, dp);
 
-            return word1.Length + word2.Length - (2 * lcs);
+            return word1.Length + word2.Length - 2 * lcs;
         }
 
 
@@ -1456,20 +1457,20 @@ namespace LeetCode
         /// <returns></returns>
         public int MinSubArrayLen(int target, int[] nums)
         {
-            int minLen = nums.Length+1;
+            int minLen = nums.Length + 1;
             int start = 0;
             int sum = 0;
-            for(int i = 0; i < nums.Length; i++)
+            for (int i = 0; i < nums.Length; i++)
             {
                 sum += nums[i];
-                while(sum >= target)
+                while (sum >= target)
                 {
                     minLen = Math.Min(minLen, i - start + 1);
                     sum -= nums[start++];
                 }
             }
 
-            return minLen == nums.Length+1 ? 0 : minLen;
+            return minLen == nums.Length + 1 ? 0 : minLen;
         }
 
         /// <summary>
@@ -1588,12 +1589,12 @@ namespace LeetCode
                 {
                     if (coins[c] <= i)
                     {
-                        min = Math.Min((1 + map[i - coins[c]]), min);
+                        min = Math.Min(1 + map[i - coins[c]], min);
                     }
                 }
                 map[i] = min;
             }
-            return map[amount] == (amount + 1) ? -1 : map[amount];
+            return map[amount] == amount + 1 ? -1 : map[amount];
         }
         public int CoinChangeTopDown(int[] coins, int amount, Dictionary<int, int> dp, int originalAmt)
         {
@@ -1661,7 +1662,7 @@ namespace LeetCode
             {
                 for (int j = 0; j < m; j++)
                 {
-                    if (board[i][j] == 'O' )
+                    if (board[i][j] == 'O')
                     {
                         //paths.Clear();
                         SolveR(board, i, j, n, m);
@@ -1675,7 +1676,7 @@ namespace LeetCode
 
 
         }
-        
+
 
 
 

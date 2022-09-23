@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace LeetCode
+namespace LeetCode.Study
 {
     public class LeetCode75_I
     {

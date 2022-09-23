@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LeetCode
+namespace LeetCode.Study
 {
     public class DynamicProgrammingI
     {
@@ -162,7 +162,7 @@ namespace LeetCode
 
             for (int i = start + 2; i <= end; i++)
             {
-                dp[i] = Math.Max(dp[i - 1], (dp[i - 2] + nums[i]));
+                dp[i] = Math.Max(dp[i - 1], dp[i - 2] + nums[i]);
             }
 
             return dp[end];
