@@ -12,21 +12,9 @@ namespace LeetCode
         static void Main(string[] args)
         {
             DataStructureII dsII = new DataStructureII();
-            dsII.ThreeSum(new int[] { -1, 0, 1, 2, -1, -4, -2, -3, 3, 0, 4 });
-
-            PhoneInterview uber = new PhoneInterview();
-            //[[0,1],[1,0]]
-            int[][] grid = new int[2][];
-            grid[0] = new int[2] { 0, 1 };
-            grid[1] = new int[2] { 1, 0 };
-            uber.Construct(grid);
+       
 
             ProgrammingSkills_II pp = new ProgrammingSkills_II();
-            pp.NextGreaterElementIII(101);
-
-            ProblemSolving pss = new ProblemSolving();
-            pss.MaxResult(new int[] { 1, -1, -2, 4, -7, 3 }, 2);
-            pss.MaxResult(new int[] { 10, -5, -2, 4, 0, 3 }, 3);
 
             Leetcode75Questions l75 = new Leetcode75Questions();
             //l75.LengthOfLIS(new int[] { 0, 1, 0, 3, 2, 3 });
@@ -34,11 +22,13 @@ namespace LeetCode
             //prerequisites[0] = new int[2] { 1, 0 };
             //l75.CanFinish(2, prerequisites);
 
-            BinarySearchI bs = new BinarySearchI();
-          
-            //int[][] grid = new int[2][];
-            //grid[0] = new int[] { 5,1,0 };
-            //grid[1] = new int[] { -5,-5,-5 };
+
+            Algorithm_II alII = new Algorithm_II();
+            char[][] grid = new char[3][];
+            grid[0] = new char[] { 'O', 'O', 'O' };
+            grid[1] = new char[] { 'O', 'O', 'O' };
+            grid[2] = new char[] { 'O', 'O', 'O' };
+            alII.Solve(grid);
             //bs.CountNegatives(grid);
             //bs.FindTheDistanceValue(new int[] { 1, 4, 2, 3 }, new int[] { -4, -3, 6, 10, 20, 30 }, 3);
             //bs.NextGreatestLetter(new char[] { 'c', 'f', 'j' }, 'd');

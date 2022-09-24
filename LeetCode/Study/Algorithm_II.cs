@@ -1653,20 +1653,45 @@ namespace LeetCode.Study
             return false;
         }
 
-
+        /// <summary>
+        /// 130. Surrounded Regions
+        /// https://leetcode.com/problems/surrounded-regions/
+        /// </summary>
+        /// <param name="board"></param>
         public void Solve(char[][] board)
         {
             int n = board.Length;
             int m = board[0].Length;
+            //Traversal all the cells on the borders
             for (int i = 0; i < n; i++)
+            {
+                if (i == 0 || i == n - 1)
+                {
+                    for (int j = 0; j < m; j++)
+                    {
+                        if (board[i][j] == 'O')
+                            SolveR(board, i, j, n, m);
+                    }
+                }
+                else
+                {
+                    if( board[i][0] == 'O')
+                        SolveR(board, i, 0, n, m);
+                    if( m > 1 && board[i][m-1]=='O')
+                        SolveR(board, i, m-1, n, m);
+                }
+            }
+
+            //'V' cell to 'O'
+            //Rest of them to 'X'
+            for (int i = 0; i < n; i ++)
             {
                 for (int j = 0; j < m; j++)
                 {
-                    if (board[i][j] == 'O')
-                    {
-                        //paths.Clear();
-                        SolveR(board, i, j, n, m);
-                    }
+                    if (board[i][j] == 'V')
+                        board[i][j] = 'O';
+                    else
+                        board[i][j] = 'X';
                 }
             }
         }
@@ -1674,8 +1699,28 @@ namespace LeetCode.Study
         {
             board[row][col] = 'V';
 
-
+            if(row > 0 && board[row - 1][col] == 'O')
+            {
+                //top
+                SolveR(board, row - 1, col, n, m);
+            }
+            if (col > 0 && board[row][col-1] == 'O')
+            {
+                //left
+                SolveR(board, row, col-1, n, m);
+            }
+            if (col < m -1 && board[row][col + 1] == 'O')
+            {
+                //right
+                SolveR(board, row, col+1, n, m);
+            }
+            if (row < n-1 && board[row + 1][col] == 'O')
+            {
+                //top
+                SolveR(board, row + 1, col, n, m);
+            }
         }
+
 
 
 
