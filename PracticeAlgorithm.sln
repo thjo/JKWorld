@@ -22,7 +22,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "asyncawait", "asyncawait\as
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{870182B9-EC5A-4197-8203-BF78DBA2A91B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp2", "ConsoleApp2\ConsoleApp2.csproj", "{57F4E8BD-88F4-4D69-B833-E3B265A7097C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp2", "ConsoleApp2\ConsoleApp2.csproj", "{57F4E8BD-88F4-4D69-B833-E3B265A7097C}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PythonApplication1", "PythonApplication1\PythonApplication1.pyproj", "{B5AA0F76-B023-4D0A-89CF-11F649BBE176}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -184,6 +186,16 @@ Global
 		{57F4E8BD-88F4-4D69-B833-E3B265A7097C}.Release|x64.Build.0 = Release|Any CPU
 		{57F4E8BD-88F4-4D69-B833-E3B265A7097C}.Release|x86.ActiveCfg = Release|Any CPU
 		{57F4E8BD-88F4-4D69-B833-E3B265A7097C}.Release|x86.Build.0 = Release|Any CPU
+		{B5AA0F76-B023-4D0A-89CF-11F649BBE176}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5AA0F76-B023-4D0A-89CF-11F649BBE176}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{B5AA0F76-B023-4D0A-89CF-11F649BBE176}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{B5AA0F76-B023-4D0A-89CF-11F649BBE176}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B5AA0F76-B023-4D0A-89CF-11F649BBE176}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B5AA0F76-B023-4D0A-89CF-11F649BBE176}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5AA0F76-B023-4D0A-89CF-11F649BBE176}.Release|ARM.ActiveCfg = Release|Any CPU
+		{B5AA0F76-B023-4D0A-89CF-11F649BBE176}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{B5AA0F76-B023-4D0A-89CF-11F649BBE176}.Release|x64.ActiveCfg = Release|Any CPU
+		{B5AA0F76-B023-4D0A-89CF-11F649BBE176}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

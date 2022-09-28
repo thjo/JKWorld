@@ -1719,10 +1719,44 @@ namespace LeetCode.Study
                 //top
                 SolveR(board, row + 1, col, n, m);
             }
+
+             
         }
 
 
+        /// <summary>
+        /// 91. Decode Ways
+        /// https://leetcode.com/problems/decode-ways/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public int NumDecodings(string s)
+        {
+            if (s == null || s.Length == 0)
+                return 0;
 
+            Dictionary<int, int> dp = new Dictionary<int, int>();
+            return NumDecodingsR(s, 0, dp);
+        }
+        private int NumDecodingsR(string s, int startIdx, Dictionary<int, int> dp)
+        {
+            if (dp.ContainsKey(startIdx))
+                return dp[startIdx];
+
+            if (s.Length == startIdx)
+                return 1;
+            if (s[startIdx] == '0')
+                return 0;
+            if (startIdx == s.Length - 1)
+                return 1;
+
+            int ans = NumDecodingsR(s, startIdx + 1, dp);
+            if (int.Parse(s.Substring(startIdx, 2)) <= 26)
+                ans += NumDecodingsR(s, startIdx + 2, dp);
+
+            dp.Add(startIdx, ans);
+            return ans;
+        }
 
 
     }
