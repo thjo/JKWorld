@@ -1759,6 +1759,17 @@ namespace LeetCode.Study
         }
 
 
+        /// <summary>
+        /// 139. Word Break
+        /// https://leetcode.com/problems/word-break/?envType=study-plan&id=algorithm-ii
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="wordDict"></param>
+        /// <returns></returns>
+        public bool WordBreak(string s, IList<string> wordDict)
+        {
+            return false;
+        }
     }
 
 }
