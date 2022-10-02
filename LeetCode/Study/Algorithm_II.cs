@@ -1618,21 +1618,6 @@ namespace LeetCode.Study
             }
         }
 
-        /// <summary>
-        /// 343. Integer Break
-        /// https://leetcode.com/problems/integer-break/
-        /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        public int IntegerBreak(int n)
-        {
-            return -1;
-        }
-
-        #endregion
-
-
-
         public bool Find(int value)
         {
             Dictionary<int, int> vals = new Dictionary<int, int>();
@@ -1768,8 +1753,113 @@ namespace LeetCode.Study
         /// <returns></returns>
         public bool WordBreak(string s, IList<string> wordDict)
         {
+            HashSet<string> wDic = new HashSet<string>();
+            foreach (string word in wordDict)
+            {
+                if (wDic.Contains(word) == false)
+                    wDic.Add(word);
+            }
+            Dictionary<int, bool> dp = new Dictionary<int, bool>();
+            return WordBreakR(s, wDic, 0, dp);
+        }
+        private bool WordBreakR(string s, HashSet<string> wDic, int startIdx, Dictionary<int, bool> dp)
+        {
+            if (dp.ContainsKey(startIdx))
+                return dp[startIdx];
+
+            if (s.Length == startIdx)
+                return true;
+
+            for (int i = startIdx; i < s.Length; i++)
+            {
+                string word = s.Substring(startIdx, i - startIdx + 1);
+                if (wDic.Contains(word) && WordBreakR(s, wDic, i + 1, dp))
+                {
+                    dp.Add(startIdx, true);
+                    return true;
+                }
+            }
+
+            dp.Add(startIdx, false);
             return false;
         }
+
+
+        /// <summary>
+        /// 343. Integer Break
+        /// https://leetcode.com/problems/integer-break/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int IntegerBreak(int n)
+        {
+            if (n == 2)
+                return 1;
+
+            int[] dp = new int[n + 1];
+            dp[1] = 1;
+            for (int num = 2; num <= n; num++)
+            {
+                dp[num] = 0;
+                if (num != n) dp[num] = num;
+                for(int i = 1; i < num; i++)
+                {
+                    dp[num] = Math.Max(dp[num - i] * dp[i], dp[num]);
+                }
+            }
+            return dp[n];
+            //Dictionary<int, int> dp = new Dictionary<int, int>();
+            //dp.Add(1, 1);
+            //return IntegerBreakR(n, n, dp);
+        }
+        private int IntegerBreakR(int orgNum, int n, Dictionary<int, int> dp)
+        {
+            //base case
+            //1,2,3
+            if ( dp.ContainsKey(n))
+                return dp[n];
+
+            int ans = 0;
+            if (orgNum != n)
+                ans = n;
+            for(int l = 1; l < n; l++)
+            {
+
+                int val = IntegerBreakR(orgNum,  l, dp) * IntegerBreakR(orgNum, n - l, dp);
+                ans = Math.Max(ans, val);
+            }
+
+            dp.Add(n, ans);
+            return ans;
+        }
+
+        /// <summary>
+        /// 201. Bitwise AND of Numbers Range
+        /// https://leetcode.com/problems/bitwise-and-of-numbers-range/
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public int RangeBitwiseAnd(int left, int right)
+        {
+            int shift = 0;
+            while (left < right)
+            {
+                left >>= 1;
+                right >>= 1;
+                shift++;
+            }
+            return left << shift;
+
+            //while (left < right)
+            //{
+            //    right = right & (right - 1);
+            //}
+            //return left & right;
+        }
+
+
+
     }
 
 }
