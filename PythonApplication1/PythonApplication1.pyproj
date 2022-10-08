@@ -4,8 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>b5aa0f76-b023-4d0a-89cf-11f649bbe176</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>
-    </StartupFile>
+    <StartupFile>module1.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -23,6 +22,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="list.py" />
+    <Compile Include="module1.py" />
+    <Compile Include="orderFood.py" />
     <Compile Include="set_if.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

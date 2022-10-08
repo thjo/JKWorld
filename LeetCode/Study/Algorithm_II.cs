@@ -1407,9 +1407,6 @@ namespace LeetCode.Study
 
 
 
-        #region | Other | 
-
-
         /// <summary>
         /// 202. Happy Number
         /// https://leetcode.com/problems/happy-number/
@@ -1660,16 +1657,16 @@ namespace LeetCode.Study
                 }
                 else
                 {
-                    if( board[i][0] == 'O')
+                    if (board[i][0] == 'O')
                         SolveR(board, i, 0, n, m);
-                    if( m > 1 && board[i][m-1]=='O')
-                        SolveR(board, i, m-1, n, m);
+                    if (m > 1 && board[i][m - 1] == 'O')
+                        SolveR(board, i, m - 1, n, m);
                 }
             }
 
             //'V' cell to 'O'
             //Rest of them to 'X'
-            for (int i = 0; i < n; i ++)
+            for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < m; j++)
                 {
@@ -1684,28 +1681,28 @@ namespace LeetCode.Study
         {
             board[row][col] = 'V';
 
-            if(row > 0 && board[row - 1][col] == 'O')
+            if (row > 0 && board[row - 1][col] == 'O')
             {
                 //top
                 SolveR(board, row - 1, col, n, m);
             }
-            if (col > 0 && board[row][col-1] == 'O')
+            if (col > 0 && board[row][col - 1] == 'O')
             {
                 //left
-                SolveR(board, row, col-1, n, m);
+                SolveR(board, row, col - 1, n, m);
             }
-            if (col < m -1 && board[row][col + 1] == 'O')
+            if (col < m - 1 && board[row][col + 1] == 'O')
             {
                 //right
-                SolveR(board, row, col+1, n, m);
+                SolveR(board, row, col + 1, n, m);
             }
-            if (row < n-1 && board[row + 1][col] == 'O')
+            if (row < n - 1 && board[row + 1][col] == 'O')
             {
                 //top
                 SolveR(board, row + 1, col, n, m);
             }
 
-             
+
         }
 
 
@@ -1802,7 +1799,7 @@ namespace LeetCode.Study
             {
                 dp[num] = 0;
                 if (num != n) dp[num] = num;
-                for(int i = 1; i < num; i++)
+                for (int i = 1; i < num; i++)
                 {
                     dp[num] = Math.Max(dp[num - i] * dp[i], dp[num]);
                 }
@@ -1816,16 +1813,16 @@ namespace LeetCode.Study
         {
             //base case
             //1,2,3
-            if ( dp.ContainsKey(n))
+            if (dp.ContainsKey(n))
                 return dp[n];
 
             int ans = 0;
             if (orgNum != n)
                 ans = n;
-            for(int l = 1; l < n; l++)
+            for (int l = 1; l < n; l++)
             {
 
-                int val = IntegerBreakR(orgNum,  l, dp) * IntegerBreakR(orgNum, n - l, dp);
+                int val = IntegerBreakR(orgNum, l, dp) * IntegerBreakR(orgNum, n - l, dp);
                 ans = Math.Max(ans, val);
             }
 
@@ -1857,8 +1854,6 @@ namespace LeetCode.Study
             //}
             //return left & right;
         }
-
-
 
     }
 

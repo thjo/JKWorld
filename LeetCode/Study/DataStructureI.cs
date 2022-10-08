@@ -712,5 +712,97 @@ namespace LeetCode.Study
                 FindTargetR(root.right, k, sets);
         }
 
+
+        /// <summary>
+        /// 113. Path Sum II
+        /// https://leetcode.com/problems/path-sum-ii/?envType=study-plan&id=data-structure-ii
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="targetSum"></param>
+        /// <returns></returns>
+        public IList<IList<int>> PathSum(TreeNode root, int targetSum)
+        {
+            IList<IList<int>> listOfPath = new List<IList<int>>();
+            IList<int> currPath = new List<int>();
+            PathSumR(root, targetSum, currPath, listOfPath);
+
+            return listOfPath;
+        }
+        private void PathSumR(TreeNode root, int targetSum, IList<int> currPath, IList<IList<int>> listOfPath)
+        {
+            if (root == null)
+                return;
+
+            currPath.Add(root.val);
+
+            // Check if the current node is a leaf and also, if it equals our remaining sum. 
+            //If it does, we add the path to our list of paths   
+            if (targetSum == root.val && root.left == null && root.right == null)
+            {
+                IList<int> newPath = new List<int>();
+                foreach (var path in currPath)
+                    newPath.Add(path);
+                listOfPath.Add(newPath);
+            }
+            else
+            {
+                PathSumR(root.left, targetSum - root.val, currPath, listOfPath);
+                PathSumR(root.right, targetSum - root.val, currPath, listOfPath);
+            }
+
+            currPath.RemoveAt(currPath.Count - 1);
+        }
+
+
+        /// <summary>
+        /// 103. Binary Tree Zigzag Level Order Traversal
+        /// https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public IList<IList<int>> ZigzagLevelOrder(TreeNode root)
+        {
+            IList<IList<int>> ans = new List<IList<int>>();
+            if (root == null)
+                return ans;
+
+            bool dirLeftToRight = true;
+            List<TreeNode> listLv = new List<TreeNode>();
+            listLv.Add(root);
+
+            while(listLv.Count > 0)
+            {
+                int numOfItem = listLv.Count;
+                List<int> list = new List<int>();
+                int i = 0; 
+                while(i < numOfItem)
+                {
+                    TreeNode node = listLv[0];
+                    list.Add(node.val);
+                    listLv.RemoveAt(0);
+
+                    if (node.left != null)
+                        listLv.Add(node.left);
+                    if (node.right != null)
+                        listLv.Add(node.right);
+
+                    i++;
+                }
+                if (dirLeftToRight)
+                    ans.Add(list);
+                else
+                {
+                    IList<int> newList = new List<int>();
+                    for (int j = list.Count - 1; j >= 0; j--)
+                        newList.Add(list[j]);
+                    ans.Add(newList);
+                }
+                dirLeftToRight = dirLeftToRight == true ? false : true;
+            }
+
+
+            return ans;
+
+        }
     }
 }
