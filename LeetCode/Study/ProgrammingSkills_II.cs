@@ -796,5 +796,64 @@ namespace LeetCode.Study
                 return sum;
             }
         }
+
+
+
+        /// <summary>
+        /// 1797. Design Authentication Manager
+        /// https://leetcode.com/problems/design-authentication-manager/
+        /// </summary>
+        public class AuthenticationManager
+        {
+            Dictionary<string, int> tokenList;
+            private int ttl;
+            public AuthenticationManager(int timeToLive)
+            {
+                ttl = timeToLive;
+                tokenList = new Dictionary<string, int>();
+            }
+
+            public void Generate(string tokenId, int currentTime)
+            {
+                if (tokenList.ContainsKey(tokenId))
+                    tokenList[tokenId] = currentTime;
+                else
+                    tokenList.Add(tokenId, currentTime);
+            }
+
+            public void Renew(string tokenId, int currentTime)
+            {
+                if (tokenList.ContainsKey(tokenId))
+                {
+                    if (tokenList[tokenId] + ttl > currentTime)
+                        tokenList[tokenId] = currentTime;
+                    else
+                        tokenList.Remove(tokenId);  //Expired
+                }
+            }
+
+            public int CountUnexpiredTokens(int currentTime)
+            {
+                int cnt = 0;
+                List<string> expiredTokens = new List<string>();
+                foreach (var tokenInfo in tokenList)
+                {
+                    if (tokenInfo.Value + ttl > currentTime)
+                        cnt++;
+                    else
+                        expiredTokens.Add(tokenInfo.Key);
+                }
+
+                //delete expired token
+                foreach (var token in expiredTokens)
+                    tokenList.Remove(token);  //Expired
+
+                return cnt;
+            }
+        }
+
+
+
+
     }
 }

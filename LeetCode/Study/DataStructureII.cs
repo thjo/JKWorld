@@ -903,5 +903,19 @@ namespace LeetCode.Study
             }
             return sbAns.ToString();
         }
+
+
+        /// <summary>
+        /// 1557. Minimum Number of Vertices to Reach All Nodes
+        /// https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <param name="edges"></param>
+        /// <returns></returns>
+        public IList<int> FindSmallestSetOfVertices(int n, IList<IList<int>> edges)
+        {
+            //find how many group of graphs exists.
+            return null;
+        }
     }
 }
