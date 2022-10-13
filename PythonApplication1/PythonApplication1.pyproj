@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>b5aa0f76-b023-4d0a-89cf-11f649bbe176</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>orderFood.py</StartupFile>
+    <StartupFile>Board.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,6 +21,8 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Board.py" />
+    <Compile Include="function.py" />
     <Compile Include="list.py" />
     <Compile Include="module1.py" />
     <Compile Include="orderFood.py" />
