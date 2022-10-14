@@ -8,6 +8,14 @@ namespace LeetCode
     {
         #region | Online Assessment Assessment - 4/22/2022 | 
 
+        /// <summary>
+        /// 1213. Intersection of Three Sorted Arrays
+        /// https://leetcode.com/problems/intersection-of-three-sorted-arrays/
+        /// </summary>
+        /// <param name="arr1"></param>
+        /// <param name="arr2"></param>
+        /// <param name="arr3"></param>
+        /// <returns></returns>
         public IList<int> ArraysIntersection(int[] arr1, int[] arr2, int[] arr3)
         {
             int i1 = 0, i2 = 0, i3 = 0;
@@ -821,7 +829,7 @@ namespace LeetCode
 
         #endregion
 
-        #region | Online Assessment Assessment - 10/12/2022 |
+        #region | Online Assessment Assessment - 10/13/2022 |
 
         #endregion
 
