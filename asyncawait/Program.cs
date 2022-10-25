@@ -34,7 +34,9 @@ namespace asyncawait
         {
             Task<int> task = Method1();
             Method2();
-            int count = await task;
+            int count = 0;
+            Method3(count);
+            count = await task;
             Method3(count);
         }
 

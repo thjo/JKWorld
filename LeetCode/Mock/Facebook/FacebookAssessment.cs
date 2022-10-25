@@ -6,7 +6,7 @@ namespace LeetCode
 {
     public class FacebookAssessment
     {
-        #region | Online Assessment Assessment - 4/22/2022 | 
+        #region | Online Assessment Assessment - 04/22/2022 | 
 
         /// <summary>
         /// 1213. Intersection of Three Sorted Arrays
@@ -102,7 +102,7 @@ namespace LeetCode
 
         #endregion
 
-        #region | Online Assessment Assessment - 4/23/2022 | 
+        #region | Online Assessment Assessment - 04/23/2022 | 
 
         /// <summary>
         /// 938. Range Sum of BST
@@ -139,7 +139,7 @@ namespace LeetCode
 
         #endregion
 
-        #region | Online Assessment Assessment - 4/24/2022 | 
+        #region | Online Assessment Assessment - 04/24/2022 | 
 
         /// <summary>
         /// 121. Best Time to Buy and Sell Stock
@@ -197,7 +197,7 @@ namespace LeetCode
         }
         #endregion
 
-        #region | Online Assessment Assessment - 4/25/2022 | 
+        #region | Online Assessment Assessment - 04/25/2022 | 
 
         public string ReverseVowels(string s)
         {
@@ -284,7 +284,7 @@ namespace LeetCode
 
         #endregion
 
-        #region | Online Assessment Assessment - 4/26/2022 | 
+        #region | Online Assessment Assessment - 04/26/2022 | 
 
         /// <summary>
         /// 71. Simplify Path
@@ -329,7 +329,6 @@ namespace LeetCode
         {
             int res = root.val;
             double minDiff = int.MaxValue;
-            Queue<TreeNode> qNodes = new Queue<TreeNode>();
             while (root != null)
             {
                 double diff = root.val - target;
@@ -351,7 +350,8 @@ namespace LeetCode
 
         #endregion
 
-        #region | Online Assessment Assessment - 4/28/2022 | 
+
+        #region | Online Assessment Assessment - 04/28/2022 | 
 
         /// <summary>
         /// 1528. Shuffle String
@@ -395,7 +395,7 @@ namespace LeetCode
         }
         #endregion
 
-        #region | Online Assessment Assessment - 4/29/2022 | 
+        #region | Online Assessment Assessment - 04/29/2022 | 
 
         /// <summary>
         /// 977. Squares of a Sorted Array
@@ -829,8 +829,81 @@ namespace LeetCode
 
         #endregion
 
-        #region | Online Assessment Assessment - 10/13/2022 |
 
+        #region | Online Assessment Assessment - 10/24/2022 |
+
+        /// <summary>
+        /// 339. Nested List Weight Sum
+        /// https://leetcode.com/problems/nested-list-weight-sum/
+        /// </summary>
+        //public class NestedIntegerNode
+        //{
+        //    public NestedInteger NestedInt = null;
+        //    public int Depth = 0;
+        //    public NestedIntegerNode(NestedInteger nestedInt, int depth)
+        //    {
+        //        NestedInt = nestedInt;
+        //        Depth = depth;
+        //    }
+        //}
+        //public int DepthSum(IList<NestedInteger> nestedList)
+        //{
+
+        //    int total = 0;
+        //    Queue<NestedIntegerNode> q = new Queue<NestedIntegerNode>();
+        //    foreach (var v in nestedList)
+        //        q.Enqueue(new NestedIntegerNode(v, 1));
+
+        //    while (q.Count > 0)
+        //    {
+        //        NestedIntegerNode nNode = q.Dequeue();
+        //        if (nNode.NestedInt.IsInteger())
+        //        {
+        //            total += (nNode.NestedInt.GetInteger() * nNode.Depth);
+        //        }
+        //        else
+        //        {
+        //            foreach (var v in nNode.NestedInt.GetList())
+        //                q.Enqueue(new NestedIntegerNode(v, nNode.Depth + 1));
+        //        }
+        //    }
+
+        //    return total;
+
+        //}
+
+        /// <summary>
+        /// 938. Range Sum of BST
+        /// https://leetcode.com/problems/range-sum-of-bst/
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="low"></param>
+        /// <param name="high"></param>
+        /// <returns></returns>
+        public int RangeSumBST(TreeNode root, int low, int high)
+        {
+            //IList<int> arr = new List<int>();
+            int total = 0;
+            InorderTraversals(root, low, high, ref total);
+            return total;
+        }
+        private void InorderTraversals(TreeNode root, int low, int high, ref int total)
+        {
+            //, IList<int> arr) {
+            if (root == null)
+                return;
+
+            if (root.val < low)
+                InorderTraversals(root.right, low, high, ref total);
+            else if (root.val > high)
+                InorderTraversals(root.left, low, high, ref total);
+            else
+            {
+                total += root.val;
+                InorderTraversals(root.left, low, high, ref total);
+                InorderTraversals(root.right, low, high, ref total);
+            }
+        }
         #endregion
 
         #region | Online Assessment Assessment - 10/12/2022 |
