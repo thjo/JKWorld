@@ -1,1 +1,1 @@
-C:\Projects\Pesonal\Sources\PracticeAlgorithm\PracticeAlgorithm\PracticeAlgorithm.csproj;x86
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\PracticeAlgorithm\PracticeAlgorithm.csproj;x86

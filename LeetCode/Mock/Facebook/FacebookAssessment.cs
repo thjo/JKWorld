@@ -880,28 +880,28 @@ namespace LeetCode
         /// <param name="low"></param>
         /// <param name="high"></param>
         /// <returns></returns>
-        public int RangeSumBST(TreeNode root, int low, int high)
+        public int RangeSumBST1(TreeNode root, int low, int high)
         {
             //IList<int> arr = new List<int>();
             int total = 0;
-            InorderTraversals(root, low, high, ref total);
+            InorderTraversals1(root, low, high, ref total);
             return total;
         }
-        private void InorderTraversals(TreeNode root, int low, int high, ref int total)
+        private void InorderTraversals1(TreeNode root, int low, int high, ref int total)
         {
             //, IList<int> arr) {
             if (root == null)
                 return;
 
             if (root.val < low)
-                InorderTraversals(root.right, low, high, ref total);
+                InorderTraversals1(root.right, low, high, ref total);
             else if (root.val > high)
-                InorderTraversals(root.left, low, high, ref total);
+                InorderTraversals1(root.left, low, high, ref total);
             else
             {
                 total += root.val;
-                InorderTraversals(root.left, low, high, ref total);
-                InorderTraversals(root.right, low, high, ref total);
+                InorderTraversals1(root.left, low, high, ref total);
+                InorderTraversals1(root.right, low, high, ref total);
             }
         }
         #endregion

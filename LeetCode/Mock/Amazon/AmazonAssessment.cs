@@ -6,39 +6,7 @@ namespace LeetCode
 {
     public class AmazonAssessment
     {
-        #region | Online Interview - 3/27/2022 | 
-
-        /// <summary>
-        /// 541. Reverse String II
-        /// https://leetcode.com/problems/reverse-string-ii/
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="k"></param>
-        /// <returns></returns>
-        public string ReverseStr(string s, int k)
-        {
-            char[] strs = s.ToCharArray();
-            for (int i = 0; i < strs.Length; i += 2*k)
-            {
-                int start = i, end = Math.Min(i + k-1, strs.Length-1);
-                while (start < end)
-                {
-                    char tmp = strs[start];
-                    strs[start] = strs[end];
-                    strs[end] = tmp;
-                    start++;
-                    end--;
-                }
-            }
-            string newStr = "";
-            foreach (char c in strs)
-                newStr += c;
-            return newStr;
-        }
-
-        #endregion
-
-        #region | Online Interview - 4/3/2022 | 
+        #region | Online Interview - 04/03/2022 | 
 
         /// <summary>
         /// 994. Rotting Oranges
@@ -151,7 +119,7 @@ namespace LeetCode
 
         #endregion
 
-        #region | Online Interview - 4/11/2022 | 
+        #region | Online Interview - 04/11/2022 | 
 
         /// <summary>
         /// 1331. Rank Transform of an Array
@@ -231,7 +199,7 @@ namespace LeetCode
 
         #endregion
 
-        #region | Online Interview - 4/13/2022 | 
+        #region | Online Interview - 04/13/2022 | 
 
         public int[] RelativeSortArray(int[] arr1, int[] arr2)
         {
@@ -303,7 +271,7 @@ namespace LeetCode
 
         #endregion
 
-        #region | Online Interview - 4/14/2022 | 
+        #region | Online Interview - 04/14/2022 | 
 
         /// <summary>
         /// 
@@ -374,7 +342,7 @@ namespace LeetCode
 
         #endregion
 
-        #region | Online Interview - 4/15/2022 | 
+        #region | Online Interview - 04/15/2022 | 
 
         public class TreeNodeEx
         {
@@ -473,7 +441,7 @@ namespace LeetCode
 
         #endregion
 
-        #region | Online Interview - 4/16/2022 | 
+        #region | Online Interview - 04/16/2022 | 
 
         public string MostCommonWord(string paragraph, string[] banned)
         {
@@ -544,7 +512,7 @@ namespace LeetCode
 
         #endregion
 
-        #region | Online - 4/18/22 | 
+        #region | Online Interview - 04/18/2022 | 
 
         /// <summary>
         /// 653. Two Sum IV - Input is a BST
@@ -625,7 +593,7 @@ namespace LeetCode
 
         #endregion
 
-        #region | Online Interview - 4/24/2022 | 
+        #region | Online Interview - 04/24/2022 | 
 
         /// <summary>
         /// 922. Sort Array By Parity II
@@ -864,10 +832,168 @@ namespace LeetCode
 
         #endregion
 
+        #region | Online Interview - ??/??/2022 | 
+
+        /// <summary>
+        /// 836. Rectangle Overlap
+        /// https://leetcode.com/problems/rectangle-overlap/
+        /// </summary>
+        /// <param name="rec1"></param>
+        /// <param name="rec2"></param>
+        /// <returns></returns>
+        public bool IsRectangleOverlap(int[] rec1, int[] rec2)
+        {
+            if (rec1[0] >= rec2[2]
+              || rec1[2] <= rec2[0]
+              || rec1[1] >= rec2[3]
+              || rec1[3] <= rec2[1])
+                return false;
+            else
+                return true;
+        }
+
+        /// <summary>
+        /// 763. Partition Labels
+        /// https://leetcode.com/problems/partition-labels/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public IList<int> PartitionLabels(string s)
+        {
+            Dictionary<char, int[]> dic = new Dictionary<char, int[]>();
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (dic.ContainsKey(s[i]) == false)
+                {
+                    dic.Add(s[i], new int[2] { i, i });
+                }
+                else
+                {
+                    dic[s[i]][1] = i;
+                }
+            }
+            // character --> startIdx, endIdx
+            //ababc bacad efegd ehijh klij
+            //a 0,  8
+            //b 1,  5
+            //c 4,  7
+            //d 9,  14
+            //e 10, 15
+            //f 11, 11
+            //g 13, 13
+            //h 16, 19
+            //i 17, 22
+            IList<int> ans = new List<int>();
+            int startP = 0;
+            int maxEndP = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                maxEndP = Math.Max(maxEndP, dic[s[i]][1]);
+                if (maxEndP == i)
+                {
+                    ans.Add(maxEndP - startP + 1);
+                    startP = i + 1;
+                    maxEndP = i + 1;
+                }
+            }
+
+            return ans;
+        }
+
+        #endregion
+
+        #region | Online Interview - 10/25/2022 | 
+
+        /// <summary>
+        /// 541. Reverse String II
+        /// https://leetcode.com/problems/reverse-string-ii/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public string ReverseStr(string s, int k)
+        {
+            char[] strs = s.ToCharArray();
+            for (int i = 0; i < strs.Length; i += 2 * k)
+            {
+                int start = i, end = Math.Min(i + k - 1, strs.Length - 1);
+                while (start < end)
+                {
+                    char tmp = strs[start];
+                    strs[start] = strs[end];
+                    strs[end] = tmp;
+                    start++;
+                    end--;
+                }
+            }
+            string newStr = "";
+            foreach (char c in strs)
+                newStr += c;
+            return newStr;
+        }
+
+        /// <summary>
+        /// 1192. Critical Connections in a Network
+        /// https://leetcode.com/problems/critical-connections-in-a-network/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <param name="connections"></param>
+        /// <returns></returns>
+        public IList<IList<int>> CriticalConnections(int n, IList<IList<int>> connections)
+        {
+            //brute force ##
+            //  - remove one edge and DFS to make sure all nodes visited
+            //  - ime complaxity DFS(V+E) * E
+            IList<IList<int>> ans = new List<IList<int>>();
+            List<int>[] g = new List<int>[n];
+            for (int i = 0; i < n; i++)
+                g[i] = new List<int>();
+            for (int i = 0; i < connections.Count; i++)
+            {
+                //clear the graph
+                for (int nd = 0; nd < n; nd++)
+                    g[nd].Clear();
+
+                //build a new graph
+                for (int c = 0; c < connections.Count; c++)
+                {
+                    if (c == i)
+                        continue;
+                    var pair = connections[c];
+                    g[pair[0]].Add(pair[1]);
+                    g[pair[1]].Add(pair[0]);
+                }
+                int source = 0;
+                HashSet<int> visited = new HashSet<int>();
+                HasPathDFS(g, source, visited);
+                if (visited.Count != n)
+                    ans.Add(connections[i]);
+            }
+
+            return ans;
+
+            //ideal ##
+            //  - tarjan algorithm (directed
+            //    1) SCC: Strngly Connected component
+            //    2) DFS
+
+
+        }
+        private void HasPathDFS(List<int>[] g, int source, HashSet<int> visited)
+        {
+            if (visited.Contains(source))
+                return;
+
+            visited.Add(source);
+            foreach(int child in g[source])
+                HasPathDFS(g, child, visited);
+        }
+
+        #endregion
 
 
 
-        #region | Phone Interview - 5/8/2022 | 
+        #region | Phone Interview - 05/08/2022 | 
 
 
         /// <summary>
@@ -969,7 +1095,7 @@ namespace LeetCode
 
 
 
-        #region | Onsite - 4/17/2022 | 
+        #region | Onsite Interview - 04/17/2022 | 
 
         /// <summary>
         /// 1539. Kth Missing Positive Number
@@ -1047,7 +1173,7 @@ namespace LeetCode
 
         #endregion
 
-        #region | Onsite Interview - 3/24/2022 | 
+        #region | Onsite Interview - 03/24/2022 | 
 
         /// <summary>
         /// 13. Roman to Integer
@@ -1191,74 +1317,6 @@ namespace LeetCode
 
 
 
-        #region | Online Interview 1 | 
-
-        /// <summary>
-        /// 836. Rectangle Overlap
-        /// https://leetcode.com/problems/rectangle-overlap/
-        /// </summary>
-        /// <param name="rec1"></param>
-        /// <param name="rec2"></param>
-        /// <returns></returns>
-        public bool IsRectangleOverlap(int[] rec1, int[] rec2)
-        {
-            if (rec1[0] >= rec2[2]
-              || rec1[2] <= rec2[0]
-              || rec1[1] >= rec2[3]
-              || rec1[3] <= rec2[1])
-                return false;
-            else
-                return true;
-        }
-
-        /// <summary>
-        /// 763. Partition Labels
-        /// https://leetcode.com/problems/partition-labels/
-        /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        public IList<int> PartitionLabels(string s)
-        {
-            Dictionary<char, int[]> dic = new Dictionary<char, int[]>();
-            for (int i = 0; i < s.Length; i++)
-            {
-                if (dic.ContainsKey(s[i]) == false)
-                {
-                    dic.Add(s[i], new int[2] { i, i });
-                }
-                else
-                {
-                    dic[s[i]][1] = i;
-                }
-            }
-            // character --> startIdx, endIdx
-            //ababc bacad efegd ehijh klij
-            //a 0,  8
-            //b 1,  5
-            //c 4,  7
-            //d 9,  14
-            //e 10, 15
-            //f 11, 11
-            //g 13, 13
-            //h 16, 19
-            //i 17, 22
-            IList<int> ans = new List<int>();
-            int startP = 0;
-            int maxEndP = 0;
-            for (int i = 0; i < s.Length; i++)
-            {
-                maxEndP = Math.Max(maxEndP, dic[s[i]][1]);
-                if (maxEndP == i)
-                {
-                    ans.Add(maxEndP - startP + 1);
-                    startP = i + 1;
-                    maxEndP = i + 1;
-                }
-            }
-
-            return ans;
-        }
-
-        #endregion
+        
     }
 }

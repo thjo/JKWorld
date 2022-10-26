@@ -14,4 +14,6 @@ from bs4 import BeautifulSoup
 
 url = "https://google.com"
 resp = requests.get(url)
-print(BeautifulSoup(resp.text, 'html.parser'))
+#print(BeautifulSoup(resp.text, 'html.parser'))
+print(type(resp.text))
+print(type(BeautifulSoup(resp.text, 'html.parser')))
