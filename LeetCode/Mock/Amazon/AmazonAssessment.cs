@@ -971,13 +971,6 @@ namespace LeetCode
             }
 
             return ans;
-
-            //ideal ##
-            //  - tarjan algorithm (directed
-            //    1) SCC: Strngly Connected component
-            //    2) DFS
-
-
         }
         private void HasPathDFS(List<int>[] g, int source, HashSet<int> visited)
         {
@@ -988,7 +981,69 @@ namespace LeetCode
             foreach(int child in g[source])
                 HasPathDFS(g, child, visited);
         }
+        public IList<IList<int>> CriticalConnections1(int n, IList<IList<int>> connections)
+        {
+            //ideal ##
+            //  - tarjan algorithm (directed
+            //    1) SCC: Strngly Connected component
+            //    2) DFS:
+            //            discovered => id
+            //            low => lowest id reachable
+            IList<IList<int>> ans = new List<IList<int>>();
 
+            //Create a graph
+            Dictionary<int, List<int>> g = CreateGraph(n, connections);
+            //node #, unique id
+            Dictionary<int, int> mapId = new Dictionary<int, int>();
+            dfsCriticalConn(0, 0, g, mapId, ans);
+
+            return ans;
+        }
+        private Dictionary<int, List<int>> CreateGraph(int n, IList<IList<int>> connections)
+        {
+            Dictionary<int, List<int>> g = new Dictionary<int, List<int>>();
+            for (int i = 0; i < n; i++)
+            {
+                g.Add(i, new List<int>());
+            }
+
+            foreach(var edge in connections)
+            {
+                g[edge[0]].Add(edge[1]);
+                g[edge[1]].Add(edge[0]);
+            }
+
+            return g;
+        }
+        private int dfsCriticalConn(int node, int currRank
+                    , Dictionary<int, List<int>> g
+                    , Dictionary<int, int> mapId
+                    , IList<IList<int>> ans)
+        {
+            if (mapId.ContainsKey(node))
+                return mapId[node];
+
+            mapId.Add(node, currRank);
+
+            int minRank = currRank + 1; //so far uniqueId is the maximum so + 1 should be the biggest.
+            //check neighbors
+            foreach(int neighbor in g[node])
+            {
+                //if the neighbor is right before node which we've just been then skip it
+                if (mapId.ContainsKey(neighbor) && mapId[neighbor] == currRank - 1)
+                    continue;
+
+                //Recurse 
+                int neighborRank = dfsCriticalConn(neighbor, currRank+1, g, mapId, ans);
+
+                //Step 1.  
+
+                //Step 2. 
+                minRank = Math.Min(minRank, neighborRank);
+            }
+
+            return minRank;
+        }
         #endregion
 
 
