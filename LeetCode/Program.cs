@@ -12,7 +12,7 @@ namespace LeetCode
         static void Main(string[] args)
         {
             DataStructureII dsII = new DataStructureII();
-       
+            dsII.FindTheWinner(5, 2);
 
             ProgrammingSkills_II pp = new ProgrammingSkills_II();
 

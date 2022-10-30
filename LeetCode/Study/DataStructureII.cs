@@ -917,5 +917,96 @@ namespace LeetCode.Study
             //find how many group of graphs exists.
             return null;
         }
+
+
+        /// <summary>
+        /// 1823. Find the Winner of the Circular Game
+        /// https://leetcode.com/problems/find-the-winner-of-the-circular-game/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public int FindTheWinner(int n, int k)
+        {
+            Queue<int> list = new Queue<int>();
+            for (int i = 1; i <= n; i++)
+                list.Enqueue(i);
+
+            while(list.Count != 1)
+            {
+                for(int c = 1; c < k; c++)
+                    list.Enqueue(list.Dequeue());
+                list.Dequeue();
+            }
+
+            return list.Peek();
+        }
+        public int FindTheWinner2(int n, int k)
+        {
+            if (n == 1)
+                return 1;
+
+            //Build Linked List
+            LinkedNode head = new LinkedNode(1, null, null);
+            LinkedNode curr = head;
+            int player = 2;
+            while(player <= n)
+            {
+                LinkedNode newNode = new LinkedNode(player++, curr, null);
+                curr.Next = newNode;
+                curr = newNode;
+            }
+
+            //Play the game until one # leaves
+            curr = head;
+            while (head.Next != null)
+            {
+                for(int c = 2; c <= k; c++)
+                {
+                    curr = curr.Next;
+                    if (curr == null)
+                        curr = head;
+                }
+
+                //delete the current node
+                if( curr.Prev == null)
+                {
+                    //If it's the head
+                    head = head.Next;
+                    head.Prev = null;
+                    curr = head;
+                }
+                else
+                {
+                    LinkedNode prevNd = curr.Prev;
+                    LinkedNode nextNd = curr.Next;
+                    if (nextNd != null) {
+                        prevNd.Next = nextNd;
+                        nextNd.Prev = prevNd;
+                        curr = nextNd;
+                    }
+                    else
+                    {
+                        //end node
+                        prevNd.Next = null;
+                        curr = head;
+                    }
+                }
+            }
+
+            return head.Val;
+        }
+        private class LinkedNode
+        {
+            public int Val;
+            public LinkedNode Next = null;
+            public LinkedNode Prev = null;
+            public LinkedNode(int x = 0, LinkedNode prev = null, LinkedNode next = null) { 
+                this.Val = x;
+                this.Prev = prev;
+                this.Next = next; 
+            }
+
+        }
     }
 }
