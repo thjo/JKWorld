@@ -10,6 +10,78 @@ namespace LeetCode.Study
     {
 
         /// <summary>
+        /// 191. Number of 1 Bits
+        /// https://leetcode.com/problems/number-of-1-bits/?envType=study-plan&id=level-3
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int HammingWeight(uint n)
+        {
+            int retVal = 0;
+
+            while (n != 0)
+            {
+                if ((n & 1) == 1)
+                    retVal++;
+                n = n >> 1;
+            }
+
+            return retVal;
+        }
+
+
+        /// <summary>
+        /// 136. Single Number
+        /// https://leetcode.com/problems/single-number/?envType=study-plan&id=level-3
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int SingleNumber(int[] nums)
+        {
+            int retVal = nums[0];
+
+            for (int i = 1; i < nums.Length; i++)
+                retVal ^= nums[i];
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// 90. Subsets II
+        /// https://leetcode.com/problems/subsets-ii/?envType=study-plan&id=level-3
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public IList<IList<int>> SubsetsWithDup(int[] nums)
+        {
+            IList<IList<int>> result = new List<IList<int>>();
+
+            Array.Sort(nums);
+            SubsetsWithDupR(nums, 0, new List<int>(), result);
+            return result;
+        }
+        private void SubsetsWithDupR(int[] nums, int start, IList<int> subset, IList<IList<int>> result)
+        {
+            IList<int> tmp = new List<int>();
+            foreach (int n in subset)
+                tmp.Add(n);
+            result.Add(tmp);
+
+            for (int i = start; i < nums.Length; i++)
+            {
+                if (i != start && nums[i] == nums[i - 1])
+                    continue;
+
+                subset.Add(nums[i]);
+                SubsetsWithDupR(nums, i + 1, subset, result);
+                subset.RemoveAt(subset.Count - 1);
+            }
+        }
+
+
+
+
+        /// <summary>
         /// /658. Find K Closest Elements
         /// https://leetcode.com/problems/find-k-closest-elements/
         /// </summary>

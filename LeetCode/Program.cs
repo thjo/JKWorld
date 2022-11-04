@@ -1,4 +1,5 @@
 ﻿using LeetCode.Mock;
+using LeetCode.Mock.Google;
 using LeetCode.Mock.Uber;
 using LeetCode.Study;
 using System;
@@ -11,6 +12,9 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
+            Google_OnlineInterview_Mock gOn = new Google_OnlineInterview_Mock();
+            gOn.RemoveOuterParentheses("(()())(())(()(()))");
+
             DataStructureII dsII = new DataStructureII();
             dsII.FindTheWinner(5, 2);
 
