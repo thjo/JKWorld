@@ -78,7 +78,107 @@ namespace LeetCode.Study
             }
         }
 
+        /// <summary>
+        /// 5. Longest Palindromic Substring
+        /// https://leetcode.com/problems/longest-palindromic-substring/?envType=study-plan&id=level-3
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public string LongestPalindrome(string s)
+        {
+            if (s.Length == 1)
+                return s;
 
+            int start = 0, end = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                int len1 = ExpandAroundCenter(s, i, i);
+                int len2 = ExpandAroundCenter(s, i, i + 1);
+                int len = Math.Max(len1, len2);
+                if (len > end - start)
+                {
+                    if (len % 2 == 0)
+                        start = i - (len - 1) / 2;
+                    else
+                        start = i - len / 2;
+                    end = i + len / 2;
+                }
+            }
+
+            return s.Substring(start, end - start + 1);
+        }
+        private int ExpandAroundCenter(string s, int left, int right)
+        {
+            while (left >= 0 && right < s.Length && s[left] == s[right])
+            {
+                left--; right++;
+            }
+            return right - left - 1;
+        }
+
+        /// <summary>
+        /// 49. Group Anagrams
+        /// https://leetcode.com/problems/group-anagrams/?envType=study-plan&id=level-3
+        /// </summary>
+        /// <param name="strs"></param>
+        /// <returns></returns>
+        public IList<IList<string>> GroupAnagrams(string[] strs)
+        {
+            if( strs.Length == 0)
+                return new List<IList<string>>();
+
+            Dictionary<string, List<string>> g = new Dictionary<string, List<string>>();
+            int[] count = new int[26];
+            foreach(string s in strs)
+            {
+                Array.Fill(count, 0);
+                foreach (char c in s.ToCharArray())
+                    count[c - 'a']++;
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < count.Length; i++)
+                {
+                    sb.Append("#");
+                    sb.Append(count[i].ToString());
+                }
+                if (g.ContainsKey(sb.ToString()) == false)
+                    g.Add(sb.ToString(), new List<string>());
+                g[sb.ToString()].Add(s);                
+            }
+
+            IList<IList<string>> ans = new List<IList<string>>();
+            foreach(var item in g)
+                ans.Add(item.Value);
+
+            return ans;
+        }
+
+        /// <summary>
+        /// 28. Find the Index of the First Occurrence in a String
+        /// https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/?envType=study-plan&id=level-3
+        /// </summary>
+        /// <param name="haystack"></param>
+        /// <param name="needle"></param>
+        /// <returns></returns>
+        public int StrStr(string haystack, string needle)
+        {
+            if (string.IsNullOrWhiteSpace(needle))
+                return 0;
+            else if (string.IsNullOrWhiteSpace(haystack))
+                return -1;
+
+            int n = haystack.Length;
+            int m = needle.Length;
+            for (int i = 0; i <= n - m; i++)
+            {
+                int j = 0;
+                while (j < m && haystack[i + j] == needle[j])
+                    j++;
+
+                if (j == m)
+                    return i;
+            }
+            return -1;
+        }
 
 
         /// <summary>
