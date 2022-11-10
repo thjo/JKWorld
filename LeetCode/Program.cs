@@ -12,6 +12,9 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
+            Daily ddd = new Daily();
+            ddd.RemoveDuplicates("abbaca");
+
             Google_OnlineInterview_Mock gOn = new Google_OnlineInterview_Mock();
             gOn.RemoveOuterParentheses("(()())(())(()(()))");
 
