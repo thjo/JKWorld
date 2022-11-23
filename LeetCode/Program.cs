@@ -13,10 +13,10 @@ namespace LeetCode
         static void Main(string[] args)
         {
             Daily ddd = new Daily();
-            ddd.TwoSumLessThanK(new int[] { 34, 23, 1, 24, 75, 33, 54, 8}, 60);
+            
 
             Google_OnlineInterview_Mock gOn = new Google_OnlineInterview_Mock();
-            gOn.RemoveOuterParentheses("(()())(())(()(()))");
+            gOn.LengthLongestPath("a\n\tb\n\t\tc.txt\n\taaaa.txt");
 
             DataStructureII dsII = new DataStructureII();
             dsII.FindTheWinner(5, 2);
