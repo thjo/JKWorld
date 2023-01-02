@@ -15,8 +15,7 @@ namespace LeetCode
             Daily ddd = new Daily();
             ddd.SumSubarrayMins(new int[] { 3, 1, 2, 4 });
 
-            Google_OnlineInterview_Mock gOn = new Google_OnlineInterview_Mock();
-            gOn.LengthLongestPath("a\n\tb\n\t\tc.txt\n\taaaa.txt");
+            Google_Interview_Mock gOn = new Google_Interview_Mock();
 
             DataStructureII dsII = new DataStructureII();
             dsII.FindTheWinner(5, 2);
