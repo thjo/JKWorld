@@ -13,7 +13,15 @@ namespace LeetCode
         static void Main(string[] args)
         {
             Daily ddd = new Daily();
-            ddd.SumSubarrayMins(new int[] { 3, 1, 2, 4 });
+            int[][] points = new int[7][];
+            points[0] = new int[] { 9, 12};
+            points[1] = new int[] { 1, 10};
+            points[2] = new int[] { 4, 11};
+            points[3] = new int[] { 8, 12};
+            points[4] = new int[] { 3, 9 };
+            points[5] = new int[] { 6, 9 };
+            points[6] = new int[] { 6, 7 };
+            ddd.FindMinArrowShots(points);
 
             Google_Interview_Mock gOn = new Google_Interview_Mock();
 
