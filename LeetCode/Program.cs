@@ -13,15 +13,13 @@ namespace LeetCode
         static void Main(string[] args)
         {
             Daily ddd = new Daily();
-            int[][] points = new int[7][];
-            points[0] = new int[] { 9, 12};
-            points[1] = new int[] { 1, 10};
-            points[2] = new int[] { 4, 11};
-            points[3] = new int[] { 8, 12};
-            points[4] = new int[] { 3, 9 };
-            points[5] = new int[] { 6, 9 };
-            points[6] = new int[] { 6, 7 };
-            ddd.FindMinArrowShots(points);
+            int[][] points = new int[5][];
+            points[0] = new int[] { 0, 1 };
+            points[1] = new int[] { 1, 2 };
+            points[2] = new int[] { 2, 3 };
+            points[3] = new int[] { 3, 4 };
+            points[4] = new int[] { 1, 5 };
+            ddd.CountSubTrees(6, points, "abbacc");
 
             Google_Interview_Mock gOn = new Google_Interview_Mock();
 
