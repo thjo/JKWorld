@@ -609,5 +609,64 @@ namespace LeetCode.Study
             return ans;
         }
 
+
+        /// <summary>
+        /// 926. Flip String to Monotone Increasing
+        /// https://leetcode.com/problems/flip-string-to-monotone-increasing/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public int MinFlipsMonoIncr(string s)
+        {
+            //Base
+            //  step 01.  from left to right, flip 1 to 0 and count
+            //  step 02.  from right to left, flip 0 to 1 and count
+
+            //Solution #1 Dynamic Windows
+
+
+            //Solution #2 Dynamic Programming
+            int n = s.Length;
+
+            //int[] dp = new int[n];
+            //dp[0] = 0;
+            //int numOfOne = 0;
+            //for(int i = 0; i < n; i++)
+            //{
+            //    if (s[i] == '1')
+            //    {
+            //        //맨 끝이 1인 경우 flip 없음
+            //        numOfOne++;
+            //        if (i > 0)
+            //            dp[i] = dp[i - 1];
+            //    }
+            //    else if (i > 0)
+            //    {
+            //        //0을 그대로 두고, 앞의 나온 모든 1을 0으로 바꾸는 횟수 "numOfOne"  0을 두고
+            //        //0을 1로 flip, 바로 앞전에 답에 1만 더하면 됨
+            //        if (i > 0)
+            //            dp[i] = Math.Min(numOfOne, dp[i - 1] + 1);
+            //    }
+            //}
+            //return dp[n - 1];
+
+            int ans = 0, num = 0;
+            for (int i = 0; i < n; i++)
+            {
+                if (s[i] == '1')
+                {
+                    //맨 끝이 1인 경우 flip 없음
+                    num++;
+                }
+                else
+                {
+                    //0을 그대로 두고, 앞의 나온 모든 1을 0으로 바꾸는 횟수 "numOfOne"  0을 두고
+                    //0을 1로 flip, 바로 앞전에 답에 1만 더하면 됨
+                    ans = Math.Min(num, ans + 1);
+                }
+            }
+            return ans;
+        }
+
     }
 }
