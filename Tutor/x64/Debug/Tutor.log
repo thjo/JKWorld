@@ -1,0 +1,8 @@
+﻿  Basics.cpp
+  Leetcode_easy.cpp
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\Tutor\Leetcode_easy.cpp(9,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\Tutor\Leetcode_easy.cpp(21,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\Tutor\Leetcode_easy.cpp(66,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\Tutor\Leetcode_easy.cpp(87,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
+  Tutor.vcxproj -> C:\Projects\Pesonal\Sources\JKWorld\PracticeAlgorithm\x64\Debug\Tutor.exe

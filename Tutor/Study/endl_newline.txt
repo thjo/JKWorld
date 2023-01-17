@@ -1,0 +1,6 @@
+
+cout << endl inserts a new line and flushes the stream(output buffer), 
+whereas cout << “\n” just inserts a new line.
+Therefore, cout << endl; can be said equivalent to cout << ‘\n’ << flush; 
+Though in some use cases like competitive programming, 
+it is better to use “\n” when the problem is not interactive, as it saves time by not flushing the entire line and thus improves the time complexity of the program.
