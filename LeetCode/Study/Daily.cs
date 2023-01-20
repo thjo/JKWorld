@@ -668,5 +668,50 @@ namespace LeetCode.Study
             return ans;
         }
 
+
+
+        /// <summary>
+        /// 491. Non-decreasing Subsequences
+        /// https://leetcode.com/problems/non-decreasing-subsequences/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public IList<IList<int>> FindSubsequences(int[] nums)
+        {
+            HashSet<IList<int>> dp = new HashSet<IList<int>>();
+            IList<int> result = new List<int>();
+            FindSubsequencesBT(nums, 0, result, dp);
+
+            IList<IList<int>> ans = new List<IList<int>>();
+            foreach (IList<int> item in dp)
+                ans.Add(item);
+
+            return ans;
+        }
+        public void FindSubsequencesBT(int[] nums, int startIdx, IList<int> result, HashSet<IList<int>> dp)
+        {
+            int n = nums.Length;
+            if (startIdx == n)
+            {
+                if (result.Count >= 2)
+                {
+                    IList<int> tmp = new List<int>();
+                    foreach (int i in result)
+                        tmp.Add(i);
+
+                    if(dp.Contains(tmp)==false)
+                        dp.Add(tmp);
+                }
+                return;
+            }
+
+            if (result.Count == 0 || result[result.Count-1] <= nums[startIdx])
+            {
+                result.Add(nums[startIdx]);
+                FindSubsequencesBT(nums, startIdx+1, result, dp);
+                result.RemoveAt(result.Count - 1);
+            }
+            FindSubsequencesBT(nums, startIdx + 1, result, dp);
+        }
     }
 }
