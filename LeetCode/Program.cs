@@ -19,7 +19,7 @@ namespace LeetCode
             //points[2] = new int[] { 2, 3 };
             //points[3] = new int[] { 3, 4 };
             //points[4] = new int[] { 1, 5 };
-            ddd.FindSubsequences(new int[] { 4, 6, 7, 7 });
+            ddd.ThreeSum(new int[] { -1, 0, 1, 2, -1, -4 });
 
             Google_Interview_Mock gOn = new Google_Interview_Mock();
 

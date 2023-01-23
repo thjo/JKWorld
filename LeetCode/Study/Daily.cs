@@ -713,5 +713,186 @@ namespace LeetCode.Study
             }
             FindSubsequencesBT(nums, startIdx + 1, result, dp);
         }
+
+
+        /// <summary>
+        /// 997. Find the Town Judge
+        /// https://leetcode.com/problems/find-the-town-judge/
+        /// </summary>
+        /// <param name="n"></param>
+        /// <param name="trust"></param>
+        /// <returns></returns>
+        public int FindJudge(int n, int[][] trust)
+        {
+            if (trust.Length < n - 1)
+                return -1;
+
+            int[] trustScores = new int[n + 1];
+
+            foreach (int[] relation in trust)
+            {
+                trustScores[relation[0]]--;
+                trustScores[relation[1]]++;
+            }
+
+            for (int i = 1; i <= n; i++)
+            {
+                if (trustScores[i] == n - 1)
+                    return i;
+            }
+            return -1;
+        }
+
+
+        /// <summary>
+        /// 844. Backspace String Compare
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public bool BackspaceCompare1(string s, string t)
+        {
+            int sIdx = s.Length - 1, tIdx = t.Length - 1;
+            int sBS = 0, tBS = 0;
+            while (sIdx >= 0 || tIdx >= 0)
+            {
+                sBS = 0;
+                tBS = 0;
+                while (sIdx >= 0)
+                {
+                    if (s[sIdx] == '#') { sIdx--; sBS++; }
+                    else if (sBS > 0) { sIdx--; sBS--; }
+                    else { break; }
+                }
+
+                while (tIdx >= 0)
+                {
+                    if (t[tIdx] == '#') { tIdx--; tBS++; }
+                    else if (tBS > 0) { tIdx--; tBS--; }
+                    else { break; }
+                }
+
+                if ((sIdx >= 0) != (tIdx >= 0))
+                    return false;
+                if (sIdx >= 0 && tIdx >= 0 && s[sIdx] != t[tIdx])
+                    return false;
+
+                sIdx--; tIdx--;
+            }
+
+            return true;
+        }
+        public bool BackspaceCompare(string s, string t)
+        {
+            Stack<char> sS = BackspaceCompareC(s);
+            Stack<char> sT = BackspaceCompareC(t);
+
+            if (sS.Count == sT.Count)
+            {
+                while (sS.Count > 0)
+                {
+                    if (sS.Pop() == sT.Pop())
+                        continue;
+                    else
+                        return false;
+                }
+                return true;
+            }
+            else
+                return false;
+        }
+        private Stack<char> BackspaceCompareC(string str)
+        {
+            Stack<char> sStr = new Stack<char>();
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (str[i] == '#')
+                {
+                    if (sStr.Count > 0)
+                        sStr.Pop();
+                }
+                else
+                    sStr.Push(str[i]);
+            }
+
+            return sStr;
+        }
+
+
+        /// <summary>
+        /// 15. 3Sum
+        /// https://leetcode.com/problems/3sum/?envType=study-plan&id=algorithm-ii
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public IList<IList<int>> ThreeSum(int[] nums)
+        {
+            IList<IList<int>> groups = new List<IList<int>>();
+            int n = nums.Length;
+            Array.Sort(nums);
+
+            for (int i = 0; i < n - 1; i++)
+            {
+                if (i > 0 && nums[i - 1] == nums[i])
+                    continue;
+
+                int l = i + 1, r = n - 1;
+                while (l < r)
+                {
+                    int sum = nums[i] + nums[l] + nums[r];
+                    if (sum == 0)
+                    {
+                        List<int> tmp = new List<int>();
+                        tmp.Add(nums[i]); tmp.Add(nums[l]); tmp.Add(nums[r]);
+                        groups.Add(tmp);
+                    }
+                    if (sum <= 0)
+                    {
+                        l++;
+                        while (l < n && nums[l - 1] == nums[l])
+                            l++;
+                    }
+                    else
+                    {
+                        r--;
+                    }
+                }
+            }
+
+            return groups;
+        }
+
+        /// <summary>
+        /// 82. Remove Duplicates from Sorted List II
+        /// https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/?envType=study-plan&id=algorithm-ii
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public ListNode DeleteDuplicates(ListNode head)
+        {
+            if (head == null || head.next == null)
+                return head;
+
+            ListNode newHead = new ListNode(-1, head);
+            ListNode currNew = newHead;
+
+            while (head != null)
+            {
+                if (head.next != null && head.val == head.next.val)
+                {
+                    while (head.next != null && head.val == head.next.val)
+                        head = head.next;
+                    currNew.next = head.next;
+                }
+                else
+                    currNew = currNew.next;
+
+                head = head.next;
+            }
+
+            return newHead.next;
+        }
+
+
     }
 }
